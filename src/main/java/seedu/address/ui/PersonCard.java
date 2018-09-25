@@ -5,7 +5,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.model.person.Person;
+import seedu.address.model.expense.Person;
 
 /**
  * An UI component that displays information of a {@code Person}.
@@ -13,8 +13,8 @@ import seedu.address.model.person.Person;
 public class PersonCard extends UiPart<Region> {
 
     private static final String FXML = "PersonListCard.fxml";
-    private static final String[] TAG_COLORS = { "teal", "red", "yellow", "blue", "orange", "brown", "green",
-            "pink", "black", "grey" }; 
+    private static final String[] TAG_COLORS = {"teal", "red", "yellow", "blue", "orange", "brown", "green",
+        "pink", "black", "grey"};
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
      * As a consequence, UI elements' variable names cannot be set to such keywords
@@ -24,7 +24,6 @@ public class PersonCard extends UiPart<Region> {
      */
 
     public final Person person;
-    
     @FXML
     private HBox cardPane;
     @FXML
@@ -44,12 +43,11 @@ public class PersonCard extends UiPart<Region> {
         super(FXML);
         this.person = person;
         id.setText(displayedIndex + ". ");
-        name.setText(person.getName().fullName);
+        name.setText(person.getName().expenseName);
         phone.setText(person.getPhone().value);
         address.setText(person.getAddress().value);
         email.setText(person.getEmail().value);
-        person.getTags().forEach(tag ->
-        {
+        person.getTags().forEach(tag -> {
             Label tempLabel = new Label(tag.tagName);
             tempLabel.setStyle("-fx-background-color: " + getColorStyleOfTag(tag.tagName));
             tags.getChildren().add(tempLabel);
@@ -74,13 +72,11 @@ public class PersonCard extends UiPart<Region> {
         return id.getText().equals(card.id.getText())
                 && person.equals(card.person);
     }
-    
-    /** 
+
+    /**
      * Returns color style for a specific tag
      */
     public static String getColorStyleOfTag(String tagName) {
         return TAG_COLORS[Math.abs(tagName.hashCode() % TAG_COLORS.length)];
     }
-    
-    
 }

@@ -8,6 +8,10 @@ IFS='
 '
 
 for filename in $(git grep --cached -I -l -e '' -- ':/'); do
+    if [ $filename = "pullFromOrg" ]; then
+        continue
+    fi
+
     if [ "$(tail -c 1 "./$filename")" != '' ]; then
         line="$(wc -l "./$filename" | cut -d' ' -f1)"
         echo "ERROR:$filename:$line: no newline at EOF."

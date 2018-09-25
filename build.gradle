@@ -243,5 +243,6 @@ task copyDummySearchPage(type: Copy) {
 
 deployOfflineDocs.dependsOn asciidoctor
 processResources.dependsOn deployOfflineDocs
+checkstyleMain.exclude '**/pullFromOrg'
 
 defaultTasks 'clean', 'headless', 'allTests', 'coverage', 'asciidoctor'
