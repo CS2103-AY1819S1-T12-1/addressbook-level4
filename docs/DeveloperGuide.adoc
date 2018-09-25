@@ -833,15 +833,29 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|`* * *` |user who wants to track their spending |add a new expense |have the app keep track of my expenses
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |clumsy user |delete inaccurately added expenditure |have an accurate recording of my expenditures and budget
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |clumsy user |edit inaccurately added expenditure |have an accurate recording of my expenditures and budget
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |user |have my expenditures saved after closing the app |keep track of my expenditures without having to key in my information again
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |forgetful user |receive a notification about my budget when the application boots up |be reminded of how much I have spent and can spend.
+
+|`* * *` |user |exit the application with a keyboard command | exit the application conveniently without reaching for my mouse/touchpad
+
+|`* * *` |impulsive spender |set my maximum budget over a certain period of time |know when I am or about to spend over my budget
+
+|`* * *` |user who has a limited budget |view my expenses over a certain period of time |learn from my past endeavours and better manage my budget
+
+|`* * *` |user who wants to save money |separate my expenses into different categories| ee where am I spending more money on and where my expenses go and cut them accordingly
+
+|`* *`| user who shares a computer |add new account/log in to own account |use the application on the same computer as someone else
+
+|`* *` |user who has a monthly allowance |set my budget based on my monthly allowance |
+
+|`* *` |user who spends on the same things frequently |add recurring expenses |do not need to key in the same type of expenditure every month
 |=======================================================================
 
 _{More to be added}_
@@ -849,33 +863,199 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `Expense Tracker` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Add expenditure
+
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+
+1. User adds expenditure record
+2. Once validated, ExpenseTracker shows success message and details of the expenditure
+3. If expenditure causes budget to be below a certain threshold, show a warning message to the user
 +
 Use case ends.
+
+*Exceptions*
+
+[none]
+* 2a. Invalid data given
++
+[none]
+** 2a1.Error message shown
++
+Use case ends.
+
+[discrete]
+=== Use case: Delete expenditure
+
+*MSS*
+
+1. User keys in command to delete a given expenditure.
+2. Once deleted successfully, expense tracker shows a success message.
+3. The deleted expenditure is deleted from the UI
+4. The delete expenditure is deleted from the text file database.
++
+Use case ends
+
+
+*Exceptions*
+[none]
+* 2a. Expenditure does not exist.
+[none]
+** 2a1. Error message shown to the user.
++
+Use case ends
+
+[discrete]
+=== Use case: Set budget
+
+*MSS*
+
+1. User requests to set budget
+2. Expense tracker prompts user to key in budget
+3. User keys in budget value
+4. Expense tracker prompts and updates budgets
++
+Use case ends
+[none]
+*Extensions*
+[none]
+* 2a. Budget is already set
+[none]
+** 2a1. Expense tracker prompts user the previously set budget and asks if user wants to continue
+** 2a2. User confirmed that he/she wants to continue
++
+Use case resumes step 2
+
+[discrete]
+=== Use case: View monthly expenditure
+
+*MSS*
+
+1. User requests to view monthly expenditure
+2. Expense tracker prompts user to key in month
+3. User keys in month
+4. Expense tracker prompts and shows the expenditure for the month
++
+Use case ends
+
+[discrete]
+=== Use case: Log in
+
+*MSS*
+
+1. User requests to log in to expense tracker
+2. Expense tracker prompts user to enter username
+3. User enters username
+4. Expense tracker prompts user to enter password
+5. User enters password
+6. User is successfully logged in
++
+Use case ends
+
+*Exceptions*
+[none]
+* 2a. User was previously logged in
+[none]
+** 2a1. Expense tracker prompts user that he has already logged in
++
+Use case ends
+[none]
+* 4a. The username keyed in by the user does not exist
+[none]
+** 4a1. Expense tracker prompts the user that the username does not exist
++
+Use case ends
+[none]
+* 6a. The password keyed in by the user is incorrect
+[none]
+** 6a1. Expense tracker prompts the user that the password is incorrect.
+*
+Use case ends
+[discrete]
+=== Use case: Logout
+
+*MSS*
+
+1. User requests to logout of the expense tracker
+2. Expense trackers shows success message and logs user out of account
+3. Use case ends
 
 *Extensions*
-
 [none]
-* 2a. The list is empty.
-+
-Use case ends.
-
-* 3a. The given index is invalid.
-+
+* 2a. User is not logged in
 [none]
-** 3a1. AddressBook shows an error message.
+** 2a1. Expense tracker prompts user that they are not yet logged in
 +
-Use case resumes at step 2.
+Use case ends
+[discrete]
+=== Use case: Clear
+
+*MSS*
+
+1. User requests to clear his recorded expenses and budget
+2. Expense trackers shows a confirmation message
+3. Expense tracker deletes all information about the current user’s budget and expenses
++
+Use case ends
+
+[discrete]
+=== Use Case: Filter
+
+*MSS*
+
+1. Expense tracker has already shown the lists of expenditures
+2. User requests to filter by some predefined field
+3. Expense tracker filters out expenditures not applicable to the filter
++
+Use case ends
+
+[discrete]
+=== Use case: Notification On
+
+*MSS*
+
+1. User keys in the command to turn on notifications
+2. Expense tracker already has a budget set.
+3. Add expenses until the budget has been exceeded
+4. Expense tracker will detect that the budget has been exceeded
+5. Expense tracker will show a visible notification to alert the user that the budget has been exceeded
++
+Use case ends
+
+[discrete]
+=== Use case: Notification Off
+
+*MSS*
+1. User keys in command to turn off notifications
+2. Notifications no longer show whenever the set budget has been exceeded.
+3. Any notification that is currently showing will be hidden from the user.
++
+Use case ends
+
+[discrete]
+=== Use case: Set recurring expenditure
+
+*MSS*
+1. User key in command to set recurring expenses for an expense that was already keyed in
+2. Expense tracker prompts the user to key in which expense and the frequency of recurrence.
+3. User keys in the index of the expenditure to set as recurring expense and the frequency
+4. Expense tracker adds the expense automatically every time the set amount of time passes.
++
+Use case ends
+
+[discrete]
+=== Use case: View statistics
+
+*MSS*
+
+1. User keys in command to view the information and statistics of his weekly/monthly/yearly budget
+2. Programs loads page consisting of visual information displaying the relevant information
++
+Use case ends
 
 _{More to be added}_
 
