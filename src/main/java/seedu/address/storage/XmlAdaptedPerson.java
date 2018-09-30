@@ -10,10 +10,10 @@ import java.util.stream.Collectors;
 import javax.xml.bind.annotation.XmlElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.expense.Category;
 import seedu.address.model.expense.Cost;
 import seedu.address.model.expense.Name;
 import seedu.address.model.expense.Person;
-import seedu.address.model.expense.Phone;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -26,7 +26,7 @@ public class XmlAdaptedPerson {
     @XmlElement(required = true)
     private String name;
     @XmlElement(required = true)
-    private String phone;
+    private String category;
     @XmlElement(required = true)
     private String cost;
 
@@ -42,9 +42,9 @@ public class XmlAdaptedPerson {
     /**
      * Constructs an {@code XmlAdaptedPerson} with the given person details.
      */
-    public XmlAdaptedPerson(String name, String phone, String cost, List<XmlAdaptedTag> tagged) {
+    public XmlAdaptedPerson(String name, String category, String cost, List<XmlAdaptedTag> tagged) {
         this.name = name;
-        this.phone = phone;
+        this.category = category;
         this.cost = cost;
         if (tagged != null) {
             this.tagged = new ArrayList<>(tagged);
@@ -58,7 +58,7 @@ public class XmlAdaptedPerson {
      */
     public XmlAdaptedPerson(Person source) {
         name = source.getName().expenseName;
-        phone = source.getPhone().value;
+        category = source.getCategory().getName();
         cost = source.getCost().value;
         tagged = source.getTags().stream()
                 .map(XmlAdaptedTag::new)
@@ -84,13 +84,14 @@ public class XmlAdaptedPerson {
         }
         final Name modelName = new Name(name);
 
-        if (phone == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName()));
+        if (category == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Category.class.getSimpleName()));
         }
-        if (!Phone.isValidPhone(phone)) {
-            throw new IllegalValueException(Phone.MESSAGE_PHONE_CONSTRAINTS);
+        if (!Category.isValidCategory(category)) {
+            throw new IllegalValueException(Category.MESSAGE_PHONE_CONSTRAINTS);
         }
-        final Phone modelPhone = new Phone(phone);
+        final Category modelCategory = new Category(category);
 
         if (cost == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Cost.class.getSimpleName()));
@@ -102,7 +103,7 @@ public class XmlAdaptedPerson {
         final Cost modelCost = new Cost(cost);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Person(modelName, modelPhone, modelCost, modelTags);
+        return new Person(modelName, modelCategory, modelCost, modelTags);
     }
 
     @Override
@@ -117,7 +118,7 @@ public class XmlAdaptedPerson {
 
         XmlAdaptedPerson otherPerson = (XmlAdaptedPerson) other;
         return Objects.equals(name, otherPerson.name)
-                && Objects.equals(phone, otherPerson.phone)
+                && Objects.equals(category, otherPerson.category)
                 && Objects.equals(cost, otherPerson.cost)
                 && tagged.equals(otherPerson.tagged);
     }

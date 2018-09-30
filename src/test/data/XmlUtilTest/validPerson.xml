@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<expense>
+<expenseTemp>
     <name>Hans Muster</name>
-    <phone>9482424</phone>
+    <category>9482424</category>
     <cost>1.00</cost>
     <tagged>friends</tagged>
-</expense>
+</expenseTemp>

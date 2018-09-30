@@ -3,7 +3,7 @@
     <!-- Person with invalid name field -->
     <persons>
         <name>Ha!ns Mu@ster</name>
-        <phone isPrivate="false">9482424</phone>
+        <category isPrivate="false">9482424</category>
         <cost isPrivate="false">1.00</cost>
     </persons>
     <username>invalidPersonAddressBook</username>

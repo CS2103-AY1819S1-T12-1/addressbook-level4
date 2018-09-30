@@ -25,34 +25,34 @@ public class TypicalPersons {
 
     public static final Person ALICE = new PersonBuilder().withName("Alice Pauline")
             .withCost("3.00")
-            .withPhone("94351253")
+            .withCategory("School")
             .withTags("friends").build();
     public static final Person BENSON = new PersonBuilder().withName("Benson Meier")
             .withCost("2.00")
-            .withPhone("98765432")
+            .withCategory("Food")
             .withTags("owesMoney", "friends").build();
-    public static final Person CARL = new PersonBuilder().withName("Carl Kurz").withPhone("95352563")
+    public static final Person CARL = new PersonBuilder().withName("Carl Kurz").withCategory("Entertainment")
             .withCost("1.00").build();
-    public static final Person DANIEL = new PersonBuilder().withName("Daniel Meier").withPhone("87652533")
+    public static final Person DANIEL = new PersonBuilder().withName("Daniel Meier").withCategory("Shopping")
             .withCost("2.00").withTags("friends").build();
-    public static final Person ELLE = new PersonBuilder().withName("Elle Meyer").withPhone("9482224")
+    public static final Person ELLE = new PersonBuilder().withName("Elle Meyer").withCategory("Tax")
             .withCost("5.00").build();
-    public static final Person FIONA = new PersonBuilder().withName("Fiona Kunz").withPhone("9482427")
+    public static final Person FIONA = new PersonBuilder().withName("Fiona Kunz").withCategory("Book")
             .withCost("6.00").build();
-    public static final Person GEORGE = new PersonBuilder().withName("George Best").withPhone("9482442")
+    public static final Person GEORGE = new PersonBuilder().withName("George Best").withCategory("Fine")
             .withCost("7.00").build();
 
     // Manually added
-    public static final Person HOON = new PersonBuilder().withName("Hoon Meier").withPhone("8482424")
+    public static final Person HOON = new PersonBuilder().withName("Hoon Meier").withCategory("Stock")
             .withCost("1.00").build();
-    public static final Person IDA = new PersonBuilder().withName("Ida Mueller").withPhone("8482131")
+    public static final Person IDA = new PersonBuilder().withName("Ida Mueller").withCategory("Gamble")
             .withCost("2.00").build();
 
     // Manually added - Person's details found in {@code CommandTestUtil}
-    public static final Person AMY = new PersonBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
+    public static final Person AMY = new PersonBuilder().withName(VALID_NAME_AMY).withCategory(VALID_PHONE_AMY)
         .withCost(VALID_ADDRESS_AMY)
         .withTags(VALID_TAG_FRIEND).build();
-    public static final Person BOB = new PersonBuilder().withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
+    public static final Person BOB = new PersonBuilder().withName(VALID_NAME_BOB).withCategory(VALID_PHONE_BOB)
         .withCost(VALID_ADDRESS_BOB)
         .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
         .build();

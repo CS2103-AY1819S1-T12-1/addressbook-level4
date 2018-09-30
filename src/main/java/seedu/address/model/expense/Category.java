@@ -5,48 +5,45 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.util.ArrayList;
 
-//@@author Jiang Chen
 /**
- * Represent a category of expenses.
- * Guarantee: details are present and not null, filed values are validated, immutable.
+ * Represents a Person's phone number in the address book.
+ * Guarantees: immutable; is valid as declared in {@link #isValidCategory(String)}
  */
 public class Category {
-    public static final String MESSAGE_CATEGORY_CONSTRAINTS =
-            "Category can take any values, and it should not be blank";
 
+
+    public static final String MESSAGE_PHONE_CONSTRAINTS =
+            "Category numbers should only contain numbers, and it should be at least 3 digits long";
     public static final String CATEGORY_VALIDATION_REGEX = "\\p{Alnum}+";
-
-
     private final String categoryName;
-
-    private final ArrayList<Expense> expenseList = new ArrayList<>();
+    private final ArrayList<ExpenseTemp> expenseList = new ArrayList<>();
 
     /**
-     * Constructs an {@code Category}.
+     * Constructs a {@code Category}.
      *
-     * @param category A valid category.
+     * @param category A valid category number.
      */
     public Category(String category) {
         requireNonNull(category);
-        checkArgument(isValidCategory(category), MESSAGE_CATEGORY_CONSTRAINTS);
-        this.categoryName = category;
+        checkArgument(isValidCategory(category), MESSAGE_PHONE_CONSTRAINTS);
+        categoryName = category;
     }
 
     /**
-     * Returns true if a given string is a valid category.
+     * Returns true if a given string is a valid phone number.
      */
     public static boolean isValidCategory(String test) {
         return test.matches(CATEGORY_VALIDATION_REGEX);
     }
 
     /**
-     * Add an Expense into the {@code expenseList} in Category.
+     * Add an ExpenseTemp into the {@code expenseList} in Category.
      * */
-    public void addIntoCategory(Expense expense) {
+    public void addIntoCategory(ExpenseTemp expense) {
         this.expenseList.add(expense);
     }
 
-    public ArrayList<Expense> getExpenseList() {
+    public ArrayList<ExpenseTemp> getExpenseList() {
         return this.expenseList;
     }
 
@@ -56,19 +53,19 @@ public class Category {
 
     @Override
     public String toString() {
-        return this.categoryName;
+        return categoryName;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Category // instanceof handles nulls
-                && this.categoryName.equals(((Category) other).categoryName)); // state check
+                && categoryName.equals(((Category) other).categoryName)); // state check
     }
 
     @Override
     public int hashCode() {
-        return this.categoryName.hashCode();
+        return categoryName.hashCode();
     }
 
 }

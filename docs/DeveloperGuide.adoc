@@ -833,7 +833,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user who wants to track their spending |add a new expense |have the app keep track of my expenses
+|`* * *` |user who wants to track their spending |add a new expenseTemp |have the app keep track of my expenses
 
 |`* * *` |clumsy user |delete inaccurately added expenditure |have an accurate recording of my expenditures and budget
 
@@ -894,7 +894,7 @@ Use case ends.
 *MSS*
 
 1. User keys in command to delete a given expenditure.
-2. Once deleted successfully, expense tracker shows a success message.
+2. Once deleted successfully, expenseTemp tracker shows a success message.
 3. The deleted expenditure is deleted from the UI
 4. The delete expenditure is deleted from the text file database.
 +
@@ -947,7 +947,7 @@ Use case ends
 
 *MSS*
 
-1. User requests to log in to expense tracker
+1. User requests to log in to expenseTemp tracker
 2. Expense tracker prompts user to enter username
 3. User enters username
 4. Expense tracker prompts user to enter password
@@ -980,7 +980,7 @@ Use case ends
 
 *MSS*
 
-1. User requests to logout of the expense tracker
+1. User requests to logout of the expenseTemp tracker
 2. Expense trackers shows success message and logs user out of account
 3. Use case ends
 
@@ -1040,10 +1040,10 @@ Use case ends
 === Use case: Set recurring expenditure
 
 *MSS*
-1. User key in command to set recurring expenses for an expense that was already keyed in
-2. Expense tracker prompts the user to key in which expense and the frequency of recurrence.
-3. User keys in the index of the expenditure to set as recurring expense and the frequency
-4. Expense tracker adds the expense automatically every time the set amount of time passes.
+1. User key in command to set recurring expenses for an expenseTemp that was already keyed in
+2. Expense tracker prompts the user to key in which expenseTemp and the frequency of recurrence.
+3. User keys in the index of the expenditure to set as recurring expenseTemp and the frequency
+4. Expense tracker adds the expenseTemp automatically every time the set amount of time passes.
 +
 Use case ends
 

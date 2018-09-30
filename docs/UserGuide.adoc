@@ -52,8 +52,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 Format: `help`
 
-=== Adding an expense: `add`
-Adds an expense to the tracker
+=== Adding an expenseTemp: `add`
+Adds an expenseTemp to the tracker
 
 Format: add n/EXPENSE_NAME e/EXPENSE [c/CATEGORY]
 
@@ -64,16 +64,16 @@ Examples:
 
 === Listing all expenses : `list`
 
-Shows a list of all expenses in the expense tracker. +
+Shows a list of all expenses in the expenseTemp tracker. +
 Format: `list`
 
-=== Editing an expense : `edit`
+=== Editing an expenseTemp : `edit`
 
-Edits an existing expense in the expense tracker. +
+Edits an existing expenseTemp in the expenseTemp tracker. +
 Format: `edit INDEX n/EXPENSE_NAME e/EXPENSE [c/CATEGORY]
 
 ****
-* Edits the expense at the specified `INDEX`. The index refers to the index number shown in the displayed expense list. The index *must be a positive integer* 1, 2, 3, ...
+* Edits the expenseTemp at the specified `INDEX`. The index refers to the index number shown in the displayed expenseTemp list. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 ****
@@ -81,11 +81,11 @@ Format: `edit INDEX n/EXPENSE_NAME e/EXPENSE [c/CATEGORY]
 Examples:
 
 * `edit 1 n/Stationary e/1.8 c/School` +
-Edits the name of the 1st expense to be `Stationary` and `school` respectively.
+Edits the name of the 1st expenseTemp to be `Stationary` and `school` respectively.
 
 === Locating expenses by name: `find`
 
-Finds expense whose names contain any of the given keywords. +
+Finds expenseTemp whose names contain any of the given keywords. +
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
 ****
@@ -97,14 +97,14 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 ****
 
 
-=== Deleting a expense : `delete`
+=== Deleting a expenseTemp : `delete`
 
-Deletes the specified expense from the expense tracker. +
+Deletes the specified expenseTemp from the expenseTemp tracker. +
 Format: `delete INDEX`
 
 ****
 * Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed expense list.
+* The index refers to the index number shown in the displayed expenseTemp list.
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
@@ -112,19 +112,19 @@ Examples:
 
 * `list` +
 `delete 2` +
-Deletes the 2nd expense from the expense tracker.
+Deletes the 2nd expenseTemp from the expenseTemp tracker.
 * `find Betsy` +
 `delete 1` +
-Deletes the 1st expense from the expense tracker.
+Deletes the 1st expenseTemp from the expenseTemp tracker.
 
-=== Selecting a expense : `select`
+=== Selecting a expenseTemp : `select`
 
-Selects the expense identified by the index number used in the displayed expense list. +
+Selects the expenseTemp identified by the index number used in the displayed expenseTemp list. +
 Format: `select INDEX`
 
 ****
-* Selects the expense and loads the Google search page the expense at the specified `INDEX`.
-* The index refers to the index number shown in the displayed expense list.
+* Selects the expenseTemp and loads the Google search page the expenseTemp at the specified `INDEX`.
+* The index refers to the index number shown in the displayed expenseTemp list.
 * The index *must be a positive integer* `1, 2, 3, ...`
 ****
 
@@ -132,10 +132,10 @@ Examples:
 
 * `list` +
 `select 2` +
-Selects the 2nd expense in the address book.
+Selects the 2nd expenseTemp in the address book.
 * `find Betsy` +
 `select 1` +
-Selects the 1st expense in the results of the `find` command.
+Selects the 1st expenseTemp in the results of the `find` command.
 
 === Listing entered commands : `history`
 
@@ -150,7 +150,7 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 // tag::undoredo[]
 === Undoing previous command : `undo`
 
-Restores the expense tracker to the state before the previous _undoable_ command was executed. +
+Restores the expenseTemp tracker to the state before the previous _undoable_ command was executed. +
 Format: `undo`
 
 [NOTE]
@@ -199,7 +199,7 @@ The `redo` command fails as there are no `undo` commands executed previously.
 
 === Clearing all entries : `clear`
 
-Clears all entries from the expense tracker. +
+Clears all entries from the expenseTemp tracker. +
 Format: `clear`
 
 === Exiting the program : `exit`

@@ -20,10 +20,10 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.exceptions.NoUserSelectedException;
+import seedu.address.model.expense.Category;
 import seedu.address.model.expense.Cost;
 import seedu.address.model.expense.Name;
 import seedu.address.model.expense.Person;
-import seedu.address.model.expense.Phone;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -94,11 +94,11 @@ public class EditCommand extends Command {
         assert personToEdit != null;
 
         Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
-        Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
+        Category updatedCategory = editPersonDescriptor.getCategory().orElse(personToEdit.getCategory());
         Cost updatedCost = editPersonDescriptor.getCost().orElse(personToEdit.getCost());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
 
-        return new Person(updatedName, updatedPhone, updatedCost, updatedTags);
+        return new Person(updatedName, updatedCategory, updatedCost, updatedTags);
     }
 
     @Override
@@ -125,7 +125,7 @@ public class EditCommand extends Command {
      */
     public static class EditPersonDescriptor {
         private Name name;
-        private Phone phone;
+        private Category category;
         private Cost cost;
         private Set<Tag> tags;
 
@@ -137,7 +137,7 @@ public class EditCommand extends Command {
          */
         public EditPersonDescriptor(EditPersonDescriptor toCopy) {
             setName(toCopy.name);
-            setPhone(toCopy.phone);
+            setCategory(toCopy.category);
             setCost(toCopy.cost);
             setTags(toCopy.tags);
         }
@@ -146,7 +146,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, phone, cost, tags);
+            return CollectionUtil.isAnyNonNull(name, category, cost, tags);
         }
 
         public void setName(Name name) {
@@ -157,12 +157,12 @@ public class EditCommand extends Command {
             return Optional.ofNullable(name);
         }
 
-        public void setPhone(Phone phone) {
-            this.phone = phone;
+        public void setCategory(Category category) {
+            this.category = category;
         }
 
-        public Optional<Phone> getPhone() {
-            return Optional.ofNullable(phone);
+        public Optional<Category> getCategory() {
+            return Optional.ofNullable(category);
         }
 
         public void setCost(Cost cost) {
@@ -206,7 +206,7 @@ public class EditCommand extends Command {
             EditPersonDescriptor e = (EditPersonDescriptor) other;
 
             return getName().equals(e.getName())
-                    && getPhone().equals(e.getPhone())
+                    && getCategory().equals(e.getCategory())
                     && getCost().equals(e.getCost())
                     && getTags().equals(e.getTags());
         }

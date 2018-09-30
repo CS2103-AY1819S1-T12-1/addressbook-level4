@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<!-- Person with an invalid phone field -->
-<expense>
+<!-- Person with an invalid category field -->
+<expenseTemp>
     <name>Hans Muster</name>
-    <phone>9482asf424</phone>
+    <category>9482asf424</category>
     <cost>1.00</cost>
     <tagged>friends</tagged>
-</expense>
+</expenseTemp>

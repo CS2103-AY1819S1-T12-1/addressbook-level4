@@ -3,7 +3,7 @@
     <!-- Person with invalid cost field -->
     <persons>
         <name>Hans Muster</name>
-        <phone isPrivate="false">9482424</phone>
+        <category isPrivate="false">9482424</category>
         <cost isPrivate="false">a</cost>
     </persons>
     <username>invalidPersonAddressBook</username>

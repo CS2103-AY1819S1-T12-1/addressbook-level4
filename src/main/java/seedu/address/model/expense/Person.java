@@ -17,7 +17,7 @@ public class Person {
 
     // Identity fields
     private final Name name;
-    private final Phone phone;
+    private final Category category;
 
     // Data fields
     private final Cost cost;
@@ -26,10 +26,10 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Cost cost, Set<Tag> tags) {
-        requireAllNonNull(name, phone, cost, tags);
+    public Person(Name name, Category category, Cost cost, Set<Tag> tags) {
+        requireAllNonNull(name, category, cost, tags);
         this.name = name;
-        this.phone = phone;
+        this.category = category;
         this.cost = cost;
         this.tags.addAll(tags);
     }
@@ -38,8 +38,8 @@ public class Person {
         return name;
     }
 
-    public Phone getPhone() {
-        return phone;
+    public Category getCategory() {
+        return category;
     }
 
     public Cost getCost() {
@@ -66,7 +66,8 @@ public class Person {
 
         return otherPerson != null
                 && otherPerson.getName().equals(this.getName())
-                && (otherPerson.getPhone().equals(this.getPhone()) || otherPerson.getCost().equals(this.getCost()));
+                && (otherPerson.getCategory().equals(this.getCategory())
+                || otherPerson.getCost().equals(this.getCost()));
     }
 
     /**
@@ -85,7 +86,7 @@ public class Person {
 
         Person otherPerson = (Person) other;
         return otherPerson.getName().equals(getName())
-                && otherPerson.getPhone().equals(getPhone())
+                && otherPerson.getCategory().equals(getCategory())
                 && otherPerson.getCost().equals(getCost())
                 && otherPerson.getTags().equals(getTags());
     }
@@ -93,15 +94,15 @@ public class Person {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, cost, tags);
+        return Objects.hash(name, category, cost, tags);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Phone: ")
-                .append(getPhone())
+                .append(" Category: ")
+                .append(getCategory())
                 .append(" Cost: ")
                 .append(getCost())
                 .append(" Tags: ");
