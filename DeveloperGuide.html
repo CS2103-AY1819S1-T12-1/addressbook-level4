@@ -1,6 +1,6 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]--><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="Asciidoctor 1.5.6.1"><title>AddressBook Level 4 - Developer Guide</title><link rel="stylesheet" href="stylesheets/gh-pages.css">
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]--><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="Asciidoctor 1.5.6.1"><title>Expense Tracker- Developer Guide</title><link rel="stylesheet" href="stylesheets/gh-pages.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="stylesheets/coderay-asciidoctor.css"></head><body class="article"><div id="seedu-header"><nav class="navbar navbar-lg navbar-light bg-lighter"><div class="container"><a class="navbar-brand" href="https://se-edu.github.io/"><img src="images/SeEduLogo.png" alt="SE-EDU"></a><ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/addressbook-level1">AB-1</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/addressbook-level2">AB-2</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/addressbook-level3">AB-3</a></li><li class="nav-item"><a class="nav-link active" href="index.html">AB-4</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/collate">Collate</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/se-book">Book</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/learningresources">Resources</a></li></ul></div></nav></div><div id="site-header"><nav class="navbar navbar-light bg-light"><div class="container"><a class="navbar-brand" href="index.html">AddressBook-Level4</a><ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="UserGuide.html">User Guide</a></li><li class="nav-item"><a class="nav-link active" href="DeveloperGuide.html">Developer Guide</a></li><li class="nav-item"><a class="nav-link" href="LearningOutcomes.html">LOs</a></li><li class="nav-item"><a class="nav-link" href="AboutUs.html">About Us</a></li><li class="nav-item"><a class="nav-link" href="ContactUs.html">Contact Us</a></li><li class="navitem"><a class="nav-link" href="https://github.com/se-edu/addressbook-level4"><span class="fa fa-github fa-lg" aria-hidden="true"></span>&nbsp;View on GitHub</a></li></ul></div></nav></div><div id="header"><h1>AddressBook Level 4 - Developer Guide</h1></div><div id="content"><div id="preamble">
+<link rel="stylesheet" href="stylesheets/coderay-asciidoctor.css"></head><body class="article"><div id="seedu-header"><nav class="navbar navbar-lg navbar-light bg-lighter"><div class="container"><a class="navbar-brand" href="https://se-edu.github.io/"><img src="images/SeEduLogo.png" alt="SE-EDU"></a><ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/addressbook-level1">AB-1</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/addressbook-level2">AB-2</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/addressbook-level3">AB-3</a></li><li class="nav-item"><a class="nav-link active" href="index.html">AB-4</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/collate">Collate</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/se-book">Book</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/learningresources">Resources</a></li></ul></div></nav></div><div id="site-header"><nav class="navbar navbar-light bg-light"><div class="container"><a class="navbar-brand" href="index.html">AddressBook-Level4</a><ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="UserGuide.html">User Guide</a></li><li class="nav-item"><a class="nav-link active" href="DeveloperGuide.html">Developer Guide</a></li><li class="nav-item"><a class="nav-link" href="LearningOutcomes.html">LOs</a></li><li class="nav-item"><a class="nav-link" href="AboutUs.html">About Us</a></li><li class="nav-item"><a class="nav-link" href="ContactUs.html">Contact Us</a></li><li class="navitem"><a class="nav-link" href="https://github.com/se-edu/addressbook-level4"><span class="fa fa-github fa-lg" aria-hidden="true"></span>&nbsp;View on GitHub</a></li></ul></div></nav></div><div id="header"><h1>Expense Tracker- Developer Guide</h1></div><div id="content"><div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
 <p>By: <code>Team SE-EDU</code>      Since: <code>Jun 2016</code>      Licence: <code>MIT</code></p>
@@ -70,7 +70,11 @@
 </li>
 <li><a href="#product-scope">Appendix B: Product Scope</a></li>
 <li><a href="#user-stories">Appendix C: User Stories</a></li>
-<li><a href="#use-cases">Appendix D: Use Cases</a></li>
+<li><a href="#use-cases">Appendix D: Use Cases</a>
+<ul class="sectlevel2">
+<li><a href="#use-case-clear">D.1. Use case: Clear</a></li>
+</ul>
+</li>
 <li><a href="#non-functional-requirements">Appendix E: Non Functional Requirements</a></li>
 <li><a href="#glossary">Appendix F: Glossary</a></li>
 <li><a href="#product-survey">Appendix G: Product Survey</a></li>
@@ -399,7 +403,7 @@ The <code>.pptx</code> files used to create diagrams in this document can be fou
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-Note how the <code>Model</code> simply raises a <code>AddressBookChangedEvent</code> when the Address Book data are changed, instead of asking the <code>Storage</code> to save the updates to the hard disk.
+Note how the <code>Model</code> simply raises a <code>AddressBookChangedEvent</code> when the Expense Tracker data are changed, instead of asking the <code>Storage</code> to save the updates to the hard disk.
 </td>
 </tr>
 </table>
@@ -521,7 +525,7 @@ Note how the event is propagated through the <code>EventsCenter</code> to the <c
 <p>stores a <code>UserPref</code> object that represents the user&#8217;s preferences.</p>
 </li>
 <li>
-<p>stores the Address Book data.</p>
+<p>stores the Expense Tracker data.</p>
 </li>
 <li>
 <p>exposes an unmodifiable <code>ObservableList&lt;Person&gt;</code> that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.</p>
@@ -538,7 +542,7 @@ Note how the event is propagated through the <code>EventsCenter</code> to the <c
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-As a more OOP model, we can store a <code>Tag</code> list in <code>Address Book</code>, which <code>Person</code> can reference. This would allow <code>Address Book</code> to only require one <code>Tag</code> object per unique <code>Tag</code>, instead of each <code>Person</code> needing their own <code>Tag</code> object. An example of how such a model may look like is given below.<br>
+As a more OOP model, we can store a <code>Tag</code> list in <code>Expense Tracker</code>, which <code>Person</code> can reference. This would allow <code>Expense Tracker</code> to only require one <code>Tag</code> object per unique <code>Tag</code>, instead of each <code>Person</code> needing their own <code>Tag</code> object. An example of how such a model may look like is given below.<br>
 <br>
 <span class="image"><img src="images/ModelClassBetterOopDiagram.png" alt="ModelClassBetterOopDiagram" width="800"></span>
 </td>
@@ -566,7 +570,7 @@ As a more OOP model, we can store a <code>Tag</code> list in <code>Address Book<
 <p>can save <code>UserPref</code> objects in json format and read it back.</p>
 </li>
 <li>
-<p>can save the Address Book data in xml format and read it back.</p>
+<p>can save the Expense Tracker data in xml format and read it back.</p>
 </li>
 </ul>
 </div>
@@ -597,13 +601,13 @@ Additionally, it implements the following operations:</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>VersionedAddressBook#commit()</code>&#8201;&#8212;&#8201;Saves the current address book state in its history.</p>
+<p><code>VersionedAddressBook#commit()</code>&#8201;&#8212;&#8201;Saves the current expense tracker state in its history.</p>
 </li>
 <li>
-<p><code>VersionedAddressBook#undo()</code>&#8201;&#8212;&#8201;Restores the previous address book state from its history.</p>
+<p><code>VersionedAddressBook#undo()</code>&#8201;&#8212;&#8201;Restores the previous expense tracker state from its history.</p>
 </li>
 <li>
-<p><code>VersionedAddressBook#redo()</code>&#8201;&#8212;&#8201;Restores a previously undone address book state from its history.</p>
+<p><code>VersionedAddressBook#redo()</code>&#8201;&#8212;&#8201;Restores a previously undone expense tracker state from its history.</p>
 </li>
 </ul>
 </div>
@@ -614,7 +618,7 @@ Additionally, it implements the following operations:</p>
 <p>Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.</p>
 </div>
 <div class="paragraph">
-<p>Step 1. The user launches the application for the first time. The <code>VersionedAddressBook</code> will be initialized with the initial address book state, and the <code>currentStatePointer</code> pointing to that single address book state.</p>
+<p>Step 1. The user launches the application for the first time. The <code>VersionedAddressBook</code> will be initialized with the initial expense tracker state, and the <code>currentStatePointer</code> pointing to that single expense tracker state.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -622,7 +626,7 @@ Additionally, it implements the following operations:</p>
 </div>
 </div>
 <div class="paragraph">
-<p>Step 2. The user executes <code>delete 5</code> command to delete the 5th person in the address book. The <code>delete</code> command calls <code>Model#commitAddressBook()</code>, causing the modified state of the address book after the <code>delete 5</code> command executes to be saved in the <code>addressBookStateList</code>, and the <code>currentStatePointer</code> is shifted to the newly inserted address book state.</p>
+<p>Step 2. The user executes <code>delete 5</code> command to delete the 5th person in the expense tracker. The <code>delete</code> command calls <code>Model#commitAddressBook()</code>, causing the modified state of the expense tracker after the <code>delete 5</code> command executes to be saved in the <code>addressBookStateList</code>, and the <code>currentStatePointer</code> is shifted to the newly inserted expense tracker state.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -630,7 +634,7 @@ Additionally, it implements the following operations:</p>
 </div>
 </div>
 <div class="paragraph">
-<p>Step 3. The user executes <code>add n/David &#8230;&#8203;</code> to add a new person. The <code>add</code> command also calls <code>Model#commitAddressBook()</code>, causing another modified address book state to be saved into the <code>addressBookStateList</code>.</p>
+<p>Step 3. The user executes <code>add n/David &#8230;&#8203;</code> to add a new person. The <code>add</code> command also calls <code>Model#commitAddressBook()</code>, causing another modified expense tracker state to be saved into the <code>addressBookStateList</code>.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -644,13 +648,13 @@ Additionally, it implements the following operations:</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-If a command fails its execution, it will not call <code>Model#commitAddressBook()</code>, so the address book state will not be saved into the <code>addressBookStateList</code>.
+If a command fails its execution, it will not call <code>Model#commitAddressBook()</code>, so the expense tracker state will not be saved into the <code>addressBookStateList</code>.
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the <code>undo</code> command. The <code>undo</code> command will call <code>Model#undoAddressBook()</code>, which will shift the <code>currentStatePointer</code> once to the left, pointing it to the previous address book state, and restores the address book to that state.</p>
+<p>Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the <code>undo</code> command. The <code>undo</code> command will call <code>Model#undoAddressBook()</code>, which will shift the <code>currentStatePointer</code> once to the left, pointing it to the previous expense tracker state, and restores the expense tracker to that state.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -664,7 +668,7 @@ If a command fails its execution, it will not call <code>Model#commitAddressBook
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-If the <code>currentStatePointer</code> is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The <code>undo</code> command uses <code>Model#canUndoAddressBook()</code> to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+If the <code>currentStatePointer</code> is at index 0, pointing to the initial expense tracker state, then there are no previous expense tracker states to restore. The <code>undo</code> command uses <code>Model#canUndoAddressBook()</code> to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 </td>
 </tr>
 </table>
@@ -678,7 +682,7 @@ If the <code>currentStatePointer</code> is at index 0, pointing to the initial a
 </div>
 </div>
 <div class="paragraph">
-<p>The <code>redo</code> command does the opposite&#8201;&#8212;&#8201;it calls <code>Model#redoAddressBook()</code>, which shifts the <code>currentStatePointer</code> once to the right, pointing to the previously undone state, and restores the address book to that state.</p>
+<p>The <code>redo</code> command does the opposite&#8201;&#8212;&#8201;it calls <code>Model#redoAddressBook()</code>, which shifts the <code>currentStatePointer</code> once to the right, pointing to the previously undone state, and restores the expense tracker to that state.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -687,13 +691,13 @@ If the <code>currentStatePointer</code> is at index 0, pointing to the initial a
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-If the <code>currentStatePointer</code> is at index <code>addressBookStateList.size() - 1</code>, pointing to the latest address book state, then there are no undone address book states to restore. The <code>redo</code> command uses <code>Model#canRedoAddressBook()</code> to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+If the <code>currentStatePointer</code> is at index <code>addressBookStateList.size() - 1</code>, pointing to the latest expense tracker state, then there are no undone expense tracker states to restore. The <code>redo</code> command uses <code>Model#canRedoAddressBook()</code> to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>Step 5. The user then decides to execute the command <code>list</code>. Commands that do not modify the address book, such as <code>list</code>, will usually not call <code>Model#commitAddressBook()</code>, <code>Model#undoAddressBook()</code> or <code>Model#redoAddressBook()</code>. Thus, the <code>addressBookStateList</code> remains unchanged.</p>
+<p>Step 5. The user then decides to execute the command <code>list</code>. Commands that do not modify the expense tracker, such as <code>list</code>, will usually not call <code>Model#commitAddressBook()</code>, <code>Model#undoAddressBook()</code> or <code>Model#redoAddressBook()</code>. Thus, the <code>addressBookStateList</code> remains unchanged.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -701,7 +705,7 @@ If the <code>currentStatePointer</code> is at index <code>addressBookStateList.s
 </div>
 </div>
 <div class="paragraph">
-<p>Step 6. The user executes <code>clear</code>, which calls <code>Model#commitAddressBook()</code>. Since the <code>currentStatePointer</code> is not pointing at the end of the <code>addressBookStateList</code>, all address book states after the <code>currentStatePointer</code> will be purged. We designed it this way because it no longer makes sense to redo the <code>add n/David &#8230;&#8203;</code> command. This is the behavior that most modern desktop applications follow.</p>
+<p>Step 6. The user executes <code>clear</code>, which calls <code>Model#commitAddressBook()</code>. Since the <code>currentStatePointer</code> is not pointing at the end of the <code>addressBookStateList</code>, all expense tracker states after the <code>currentStatePointer</code> will be purged. We designed it this way because it no longer makes sense to redo the <code>add n/David &#8230;&#8203;</code> command. This is the behavior that most modern desktop applications follow.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -724,7 +728,7 @@ If the <code>currentStatePointer</code> is at index <code>addressBookStateList.s
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Alternative 1 (current choice):</strong> Saves the entire address book.</p>
+<p><strong>Alternative 1 (current choice):</strong> Saves the entire expense tracker.</p>
 <div class="ulist">
 <ul>
 <li>
@@ -757,7 +761,7 @@ If the <code>currentStatePointer</code> is at index <code>addressBookStateList.s
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Alternative 1 (current choice):</strong> Use a list to store the history of address book states.</p>
+<p><strong>Alternative 1 (current choice):</strong> Use a list to store the history of expense tracker states.</p>
 <div class="ulist">
 <ul>
 <li>
@@ -1223,7 +1227,7 @@ e.g. <code>seedu.address.logic.LogicManagerTest</code></p>
 <div class="sect2">
 <h3 id="managing-dependencies"><a class="link" href="#managing-dependencies">6.6. Managing Dependencies</a></h3>
 <div class="paragraph">
-<p>A project often depends on third-party libraries. For example, Address Book depends on the <a href="http://wiki.fasterxml.com/JacksonHome">Jackson library</a> for XML parsing. Managing these <em>dependencies</em> can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives.<br>
+<p>A project often depends on third-party libraries. For example, Expense Tracker depends on the <a href="http://wiki.fasterxml.com/JacksonHome">Jackson library</a> for XML parsing. Managing these <em>dependencies</em> can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives.<br>
 a. Include those libraries in the repo (this bloats the repo size)<br>
 b. Require developers to download those libraries manually (this creates extra work for developers)</p>
 </div>
@@ -1316,7 +1320,7 @@ Do take a look at <a href="#Design-Logic">Section 2.3, &#8220;Logic component&#8
 </div>
 <h4 id="code-model-code-component" class="discrete"><code>Model</code> component</h4>
 <div class="paragraph">
-<p><strong>Scenario:</strong> You are in charge of <code>model</code>. One day, the <code>logic</code>-in-charge approaches you for help. He wants to implement a command such that the user is able to remove a particular tag from everyone in the address book, but the model API does not support such a functionality at the moment. Your job is to implement an API method, so that your teammate can use your API to implement his command.</p>
+<p><strong>Scenario:</strong> You are in charge of <code>model</code>. One day, the <code>logic</code>-in-charge approaches you for help. He wants to implement a command such that the user is able to remove a particular tag from everyone in the expense tracker, but the model API does not support such a functionality at the moment. Your job is to implement an API method, so that your teammate can use your API to implement his command.</p>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -1333,7 +1337,7 @@ Do take a look at <a href="#Design-Model">Section 2.4, &#8220;Model component&#8
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Add a <code>removeTag(Tag)</code> method. The specified tag will be removed from everyone in the address book.</p>
+<p>Add a <code>removeTag(Tag)</code> method. The specified tag will be removed from everyone in the expense tracker.</p>
 <div class="sidebarblock">
 <div class="content">
 <div class="ulist">
@@ -1382,7 +1386,7 @@ Do take a look at <a href="#Design-Model">Section 2.4, &#8220;Model component&#8
 </div>
 <h4 id="code-ui-code-component" class="discrete"><code>Ui</code> component</h4>
 <div class="paragraph">
-<p><strong>Scenario:</strong> You are in charge of <code>ui</code>. During a beta testing session, your team is observing how the users use your address book application. You realize that one of the users occasionally tries to delete non-existent tags from a contact, because the tags all look the same visually, and the user got confused. Another user made a typing mistake in his command, but did not realize he had done so because the error message wasn&#8217;t prominent enough. A third user keeps scrolling down the list, because he keeps forgetting the index of the last person in the list. Your job is to implement improvements to the UI to solve all these problems.</p>
+<p><strong>Scenario:</strong> You are in charge of <code>ui</code>. During a beta testing session, your team is observing how the users use your expense tracker application. You realize that one of the users occasionally tries to delete non-existent tags from a contact, because the tags all look the same visually, and the user got confused. Another user made a typing mistake in his command, but did not realize he had done so because the error message wasn&#8217;t prominent enough. A third user keeps scrolling down the list, because he keeps forgetting the index of the last person in the list. Your job is to implement improvements to the UI to solve all these problems.</p>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -1538,7 +1542,7 @@ Do take a look at <a href="#Design-Ui">Section 2.2, &#8220;UI component&#8221;</
 </div>
 </li>
 <li>
-<p>Modify the <a href="https://github.com/se-edu/addressbook-level4/tree/master/src/main/java/seedu/address/ui/StatusBarFooter.java"><code>StatusBarFooter</code></a> to show the total number of people in the address book.</p>
+<p>Modify the <a href="https://github.com/se-edu/addressbook-level4/tree/master/src/main/java/seedu/address/ui/StatusBarFooter.java"><code>StatusBarFooter</code></a> to show the total number of people in the expense tracker.</p>
 <div class="paragraph">
 <p><strong>Before</strong></p>
 </div>
@@ -1567,7 +1571,7 @@ Do take a look at <a href="#Design-Ui">Section 2.2, &#8220;UI component&#8221;</
 <p><a href="https://github.com/se-edu/addressbook-level4/tree/master/src/main/resources/view/StatusBarFooter.fxml"><code>StatusBarFooter.fxml</code></a> will need a new <code>StatusBar</code>. Be sure to set the <code>GridPane.columnIndex</code> properly for each <code>StatusBar</code> to avoid misalignment!</p>
 </li>
 <li>
-<p><a href="https://github.com/se-edu/addressbook-level4/tree/master/src/main/java/seedu/address/ui/StatusBarFooter.java"><code>StatusBarFooter</code></a> needs to initialize the status bar on application start, and to update it accordingly whenever the address book is updated.</p>
+<p><a href="https://github.com/se-edu/addressbook-level4/tree/master/src/main/java/seedu/address/ui/StatusBarFooter.java"><code>StatusBarFooter</code></a> needs to initialize the status bar on application start, and to update it accordingly whenever the expense tracker is updated.</p>
 </li>
 </ul>
 </div>
@@ -1603,7 +1607,7 @@ Do take a look at <a href="#Design-Ui">Section 2.2, &#8220;UI component&#8221;</
 </div>
 <h4 id="code-storage-code-component" class="discrete"><code>Storage</code> component</h4>
 <div class="paragraph">
-<p><strong>Scenario:</strong> You are in charge of <code>storage</code>. For your next project milestone, your team plans to implement a new feature of saving the address book to the cloud. However, the current implementation of the application constantly saves the address book after the execution of each command, which is not ideal if the user is working on limited internet connection. Your team decided that the application should instead save the changes to a temporary local backup file first, and only upload to the cloud after the user closes the application. Your job is to implement a backup API for the address book storage.</p>
+<p><strong>Scenario:</strong> You are in charge of <code>storage</code>. For your next project milestone, your team plans to implement a new feature of saving the expense tracker to the cloud. However, the current implementation of the application constantly saves the expense tracker after the execution of each command, which is not ideal if the user is working on limited internet connection. Your team decided that the application should instead save the changes to a temporary local backup file first, and only upload to the cloud after the user closes the application. Your job is to implement a backup API for the expense tracker storage.</p>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -1620,7 +1624,7 @@ Do take a look at <a href="#Design-Storage">Section 2.5, &#8220;Storage componen
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Add a new method <code>backupAddressBook(ReadOnlyAddressBook)</code>, so that the address book can be saved in a fixed temporary location.</p>
+<p>Add a new method <code>backupAddressBook(ReadOnlyAddressBook)</code>, so that the expense tracker can be saved in a fixed temporary location.</p>
 <div class="sidebarblock">
 <div class="content">
 <div class="ulist">
@@ -2276,19 +2280,6 @@ for <code>RemarkCommandParser</code>.</p>
 <div class="ulist none">
 <ul class="none">
 <li>
-<p>2a. User was previously logged in</p>
-<div class="ulist none">
-<ul class="none">
-<li>
-<p>2a1. Expense tracker prompts user that he has already logged in</p>
-<div class="paragraph">
-<p>Use case ends</p>
-</div>
-</li>
-</ul>
-</div>
-</li>
-<li>
 <p>4a. The username keyed in by the user does not exist</p>
 <div class="ulist none">
 <ul class="none">
@@ -2309,13 +2300,13 @@ for <code>RemarkCommandParser</code>.</p>
 <p>6a1. Expense tracker prompts the user that the password is incorrect.
 *
 Use case ends</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
 <h3 id="use-case-logout" class="discrete">Use case: Logout</h3>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
 <div class="paragraph">
 <p><strong>MSS</strong></p>
 </div>
@@ -2346,13 +2337,14 @@ Use case ends</p>
 <div class="paragraph">
 <p>Use case ends</p>
 </div>
-<h3 id="use-case-clear" class="discrete">Use case: Clear</h3>
 </li>
 </ul>
 </div>
 </li>
 </ul>
 </div>
+<div class="sect2">
+<h3 id="use-case-clear"><a class="link" href="#use-case-clear">D.1. Use case: Clear</a></h3>
 <div class="paragraph">
 <p><strong>MSS</strong></p>
 </div>
@@ -2420,26 +2412,46 @@ Use case ends</p>
 </div>
 <h3 id="use-case-notification-off" class="discrete">Use case: Notification Off</h3>
 <div class="paragraph">
-<p><strong>MSS</strong>
-1. User keys in command to turn off notifications
-2. Notifications no longer show whenever the set budget has been exceeded.
-3. Any notification that is currently showing will be hidden from the user.</p>
+<p><strong>MSS</strong></p>
 </div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>User keys in command to turn off notifications</p>
+</li>
+<li>
+<p>Notifications no longer show whenever the set budget has been exceeded.</p>
+</li>
+<li>
+<p>Any notification that is currently showing will be hidden from the user.</p>
 <div class="paragraph">
-<p>+
-Use case ends</p>
+<p>Use case ends</p>
+</div>
+</li>
+</ol>
 </div>
 <h3 id="use-case-set-recurring-expenditure" class="discrete">Use case: Set recurring expenditure</h3>
 <div class="paragraph">
-<p><strong>MSS</strong>
-1. User key in command to set recurring expenses for an expense that was already keyed in
-2. Expense tracker prompts the user to key in which expense and the frequency of recurrence.
-3. User keys in the index of the expenditure to set as recurring expense and the frequency
-4. Expense tracker adds the expense automatically every time the set amount of time passes.</p>
+<p><strong>MSS</strong></p>
 </div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>User key in command to set recurring expenses for an expense that was already keyed in</p>
+</li>
+<li>
+<p>Expense tracker prompts the user to key in which expense and the frequency of recurrence.</p>
+</li>
+<li>
+<p>User keys in the index of the expenditure to set as recurring expense and the frequency</p>
+</li>
+<li>
+<p>Expense tracker adds the expense automatically every time the set amount of time passes.</p>
 <div class="paragraph">
-<p>+
-Use case ends</p>
+<p>Use case ends</p>
+</div>
+</li>
+</ol>
 </div>
 <h3 id="use-case-view-statistics" class="discrete">Use case: View statistics</h3>
 <div class="paragraph">
@@ -2460,6 +2472,7 @@ Use case ends</p>
 </div>
 <div class="paragraph">
 <p><em>{More to be added}</em></p>
+</div>
 </div>
 </div>
 </div>
@@ -2647,4 +2660,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-01 19:53:19 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-02 06:23:19 UTC</div></div></div></body></html>
