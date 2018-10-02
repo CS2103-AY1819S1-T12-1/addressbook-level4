@@ -4,7 +4,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 
 import org.junit.Test;
 
@@ -26,18 +25,16 @@ public class DateTest {
 
     @Test
     public void constructor_validDate() {
-        Calendar test = new GregorianCalendar();
-        test.set(2018, 1, 15);
+        Date test = new Date();
+        test.fullDate.set(2018, 1, 15);
         Date testDate = new Date("15-02-2018");
-        assertTrue(test.get(Calendar.DATE) == testDate.fullDate.get(Calendar.DATE));
-        assertTrue(test.get(Calendar.MONTH) == testDate.fullDate.get(Calendar.MONTH));
-        assertTrue(test.get(Calendar.YEAR) == testDate.fullDate.get(Calendar.YEAR));
+        assertTrue(testDate.equals(test));
 
-        test = Calendar.getInstance();
+        Calendar now = Calendar.getInstance();
         testDate = new Date();
-        assertTrue(test.get(Calendar.DATE) == testDate.fullDate.get(Calendar.DATE));
-        assertTrue(test.get(Calendar.MONTH) == testDate.fullDate.get(Calendar.MONTH));
-        assertTrue(test.get(Calendar.YEAR) == testDate.fullDate.get(Calendar.YEAR));
+        assertTrue(now.get(Calendar.DATE) == testDate.fullDate.get(Calendar.DATE));
+        assertTrue(now.get(Calendar.MONTH) == testDate.fullDate.get(Calendar.MONTH));
+        assertTrue(now.get(Calendar.YEAR) == testDate.fullDate.get(Calendar.YEAR));
 
     }
 
@@ -75,5 +72,15 @@ public class DateTest {
     public void validToString() {
         Date test = new Date("15-02-2018");
         assertTrue("15-02-2018".equals("" + test));
+    }
+
+    @Test
+    public void equals() {
+        Date testDate = new Date("02-10-2018");
+        assertFalse(testDate.equals(null));
+        assertFalse(testDate.equals(" "));
+
+        assertTrue(testDate.equals(testDate));
+        assertTrue(testDate.equals(new Date("02-10-2018")));
     }
 }

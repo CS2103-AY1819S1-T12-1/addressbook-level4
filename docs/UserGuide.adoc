@@ -48,6 +48,31 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/CATEGORY`, `p/CATEGORY n/NAME` is also acceptable.
 ====
 
+====
+*Constraints*
+
+* Before any user is logged in, only `login`, `signup` and `help` are useable.
+====
+
+=== Signing up a User : `signup`
+Signs up a new user to the Expense Tracker
+
+Format: `signup USERNAME`
+
+****
+* USERNAME must not contain any of the following characters :  > < : \ / | ?
+****
+
+=== Logging in as an existing User : `login`
+Logs in to the Expense Tracker as an existing user and expands the UI to show the existing expenses if it is not already expanded.
+
+Format: `login USERNAME`
+
+****
+* USERNAME is case insensitive
+* The expense tracker contains a sample user with USERNAME `sample`
+****
+
 === Viewing help : `help`
 
 Format: `help`
@@ -55,11 +80,12 @@ Format: `help`
 === Adding an expense: `add`
 Adds an expense to the tracker
 
-Format: add n/EXPENSE_NAME e/EXPENSE [c/CATEGORY]
+Format: add n/EXPENSE_NAME $/COST c/CATEGORY [d/DATE] [t/TAG]...
 
 Examples:
-*  add n/Lunch e/4 c/Food
-*  add n/Stationary e/1.8 c/School
+*  add n/Lunch $/4.00 c/Food
+*  add n/Stationary $/1.80 c/School t/bookhaven
+*  add n/Project $/2.08 c/School d/01-01-2018
 
 
 === Listing all expenses : `list`
@@ -70,7 +96,7 @@ Format: `list`
 === Editing an expense : `edit`
 
 Edits an existing expense in the expense tracker. +
-Format: `edit INDEX n/EXPENSE_NAME e/EXPENSE [c/CATEGORY]
+Format: `edit INDEX n/EXPENSE_NAME $/COST c/CATEGORY d/DATE t/TAG...`
 
 ****
 * Edits the expense at the specified `INDEX`. The index refers to the index number shown in the displayed expense list. The index *must be a positive integer* 1, 2, 3, ...
@@ -80,8 +106,10 @@ Format: `edit INDEX n/EXPENSE_NAME e/EXPENSE [c/CATEGORY]
 
 Examples:
 
-* `edit 1 n/Stationary e/1.8 c/School` +
+* `edit 1 n/Stationary $/1.80 c/School` +
 Edits the name of the 1st expense to be `Stationary` and `school` respectively.
+* `edit 1 d/01-01-2018` +
+Edits the date of the 1st expense to be the 1st of October, 2018.
 
 === Locating expenses by name: `find`
 
@@ -144,7 +172,7 @@ Examples:
 
 * `list` +
 `select 2` +
-Selects the 2nd expense in the address book.
+Selects the 2nd expense in the expense tracker.
 * `find Betsy` +
 `select 1` +
 Selects the 1st expense in the results of the `find` command.
@@ -167,7 +195,7 @@ Format: `undo`
 
 [NOTE]
 ====
-Undoable commands: those commands that modify the address book's content (`add`, `delete`, `edit` and `clear`).
+Undoable commands: those commands that modify the expense tracker's content (`add`, `delete`, `edit` and `clear`).
 ====
 
 Examples:
@@ -221,17 +249,19 @@ Format: `exit`
 
 === Saving the data
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+Expense tracker data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
 
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*:  Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Expense Tracker folder.
+*A*:  Install the app in the other computer and copy the `data` folder in your previous Expense Tracker folder over to the new Expense Tracker folder on your other Computer.
 
 == Command Summary
 
+* *Login* : `login USERNAME`
+* *SignUp* : `signup USERNAME`
 * *Add* `add n/EXPENSE_NAME e/EXPENSE [c/CATEGORY]` +
 e.g. `add n/Lunch e/4 c/Food`
 * *Clear* : `clear`

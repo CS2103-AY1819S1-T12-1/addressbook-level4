@@ -131,6 +131,16 @@ public class AddCommandTest {
         }
 
         @Override
+        public ObservableList<Person> getExpenseStats() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateExpenseStats(Predicate<Person> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean canUndoAddressBook() {
             throw new AssertionError("This method should not be called.");
         }

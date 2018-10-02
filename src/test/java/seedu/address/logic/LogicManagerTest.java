@@ -1,6 +1,7 @@
 package seedu.address.logic;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
@@ -56,6 +57,12 @@ public class LogicManagerTest {
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() throws NoUserSelectedException {
         thrown.expect(UnsupportedOperationException.class);
         logic.getFilteredPersonList().remove(0);
+    }
+
+
+    @Test
+    public void getExpenseStats_returnsEmptyMapWhenNoEntries() throws NoUserSelectedException {
+        assertTrue(logic.getExpenseStats().size() == 0);
     }
 
     /**

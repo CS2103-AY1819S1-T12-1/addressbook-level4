@@ -2,8 +2,9 @@ package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COST;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -35,6 +36,7 @@ public class CommandTestUtil {
     public static final String VALID_NAME_BOB = "Bob Choo";
     public static final String VALID_CATEGORY_AMY = "School";
     public static final String VALID_CATEGORY_BOB = "Food";
+
     public static final String VALID_COST_AMY = "123.00";
     public static final String VALID_COST_BOB = "22.00";
     public static final String VALID_TAG_HUSBAND = "husband";
@@ -46,8 +48,8 @@ public class CommandTestUtil {
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
     public static final String CATEGORY_DESC_AMY = " " + PREFIX_CATEGORY + VALID_CATEGORY_AMY;
     public static final String CATEGORY_DESC_BOB = " " + PREFIX_CATEGORY + VALID_CATEGORY_BOB;
-    public static final String COST_DESC_AMY = " " + PREFIX_ADDRESS + VALID_COST_AMY;
-    public static final String COST_DESC_BOB = " " + PREFIX_ADDRESS + VALID_COST_BOB;
+    public static final String COST_DESC_AMY = " " + PREFIX_COST + VALID_COST_AMY;
+    public static final String COST_DESC_BOB = " " + PREFIX_COST + VALID_COST_BOB;
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
     public static final String DATE_DESC_1990 = " " + PREFIX_DATE + VALID_DATE_1990;
@@ -55,7 +57,7 @@ public class CommandTestUtil {
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_CATEGORY_DESC = " " + PREFIX_CATEGORY + " "; // empty entry is not allowed
-    public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
+    public static final String INVALID_ADDRESS_DESC = " " + PREFIX_COST; // empty string not allowed for addresses
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
     public static final String INVALID_DATE_DESC = " " + PREFIX_DATE + "-01-1990"; // no day
 

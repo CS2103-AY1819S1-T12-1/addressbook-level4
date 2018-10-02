@@ -82,6 +82,7 @@ public class Date {
 
         Date otherDate = (Date) other;
         return fullDate.get(Calendar.DAY_OF_YEAR) == otherDate.fullDate.get(Calendar.DAY_OF_YEAR)
+                && fullDate.get(Calendar.MONTH) == otherDate.fullDate.get(Calendar.MONTH)
                 && fullDate.get(Calendar.YEAR) == otherDate.fullDate.get(Calendar.YEAR);
     }
 }

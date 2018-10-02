@@ -1,4 +1,4 @@
-= AddressBook Level 4 - Developer Guide
+= Expense Tracker- Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -147,7 +147,7 @@ The _Sequence Diagram_ below shows how the components interact for the scenario 
 image::SDforDeletePerson.png[width="800"]
 
 [NOTE]
-Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address Book data are changed, instead of asking the `Storage` to save the updates to the hard disk.
+Note how the `Model` simply raises a `AddressBookChangedEvent` when the Expense Tracker data are changed, instead of asking the `Storage` to save the updates to the hard disk.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time.
 
@@ -208,12 +208,12 @@ image::ModelClassDiagram.png[width="800"]
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
+* stores the Expense Tracker data.
 * exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 [NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
+As a more OOP model, we can store a `Tag` list in `Expense Tracker`, which `Person` can reference. This would allow `Expense Tracker` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
  +
 image:ModelClassBetterOopDiagram.png[width="800"]
 
@@ -228,7 +228,7 @@ image::StorageClassDiagram.png[width="800"]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in xml format and read it back.
+* can save the Expense Tracker data in xml format and read it back.
 
 [[Design-Commons]]
 === Common classes
@@ -247,50 +247,50 @@ The undo/redo mechanism is facilitated by `VersionedAddressBook`.
 It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
 Additionally, it implements the following operations:
 
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
+* `VersionedAddressBook#commit()` -- Saves the current expense tracker state in its history.
+* `VersionedAddressBook#undo()` -- Restores the previous expense tracker state from its history.
+* `VersionedAddressBook#redo()` -- Restores a previously undone expense tracker state from its history.
 
 These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial expense tracker state, and the `currentStatePointer` pointing to that single expense tracker state.
 
 image::UndoRedoStartingStateListDiagram.png[width="800"]
 
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes `delete 5` command to delete the 5th person in the expense tracker. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the expense tracker after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted expense tracker state.
 
 image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
 
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified expense tracker state to be saved into the `addressBookStateList`.
 
 image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
 
 [NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+If a command fails its execution, it will not call `Model#commitAddressBook()`, so the expense tracker state will not be saved into the `addressBookStateList`.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous expense tracker state, and restores the expense tracker to that state.
 
 image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
 
 [NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+If the `currentStatePointer` is at index 0, pointing to the initial expense tracker state, then there are no previous expense tracker states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
 
 image::UndoRedoSequenceDiagram.png[width="800"]
 
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the expense tracker to that state.
 
 [NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest expense tracker state, then there are no undone expense tracker states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+Step 5. The user then decides to execute the command `list`. Commands that do not modify the expense tracker, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
 
 image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all expense tracker states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
 
 image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
 
@@ -302,7 +302,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 ===== Aspect: How undo & redo executes
 
-* **Alternative 1 (current choice):** Saves the entire address book.
+* **Alternative 1 (current choice):** Saves the entire expense tracker.
 ** Pros: Easy to implement.
 ** Cons: May have performance issues in terms of memory usage.
 * **Alternative 2:** Individual command knows how to undo/redo by itself.
@@ -311,7 +311,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 ===== Aspect: Data structure to support the undo/redo commands
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
+* **Alternative 1 (current choice):** Use a list to store the history of expense tracker states.
 ** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
 ** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
 * **Alternative 2:** Use `HistoryManager` for undo/redo
@@ -528,7 +528,7 @@ Here are the steps to create a new release.
 
 === Managing Dependencies
 
-A project often depends on third-party libraries. For example, Address Book depends on the http://wiki.fasterxml.com/JacksonHome[Jackson library] for XML parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives. +
+A project often depends on third-party libraries. For example, Expense Tracker depends on the http://wiki.fasterxml.com/JacksonHome[Jackson library] for XML parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives. +
 a. Include those libraries in the repo (this bloats the repo size) +
 b. Require developers to download those libraries manually (this creates extra work for developers)
 
@@ -571,12 +571,12 @@ Do take a look at <<Design-Logic>> before attempting to modify the `Logic` compo
 [discrete]
 ==== `Model` component
 
-*Scenario:* You are in charge of `model`. One day, the `logic`-in-charge approaches you for help. He wants to implement a command such that the user is able to remove a particular tag from everyone in the address book, but the model API does not support such a functionality at the moment. Your job is to implement an API method, so that your teammate can use your API to implement his command.
+*Scenario:* You are in charge of `model`. One day, the `logic`-in-charge approaches you for help. He wants to implement a command such that the user is able to remove a particular tag from everyone in the expense tracker, but the model API does not support such a functionality at the moment. Your job is to implement an API method, so that your teammate can use your API to implement his command.
 
 [TIP]
 Do take a look at <<Design-Model>> before attempting to modify the `Model` component.
 
-. Add a `removeTag(Tag)` method. The specified tag will be removed from everyone in the address book.
+. Add a `removeTag(Tag)` method. The specified tag will be removed from everyone in the expense tracker.
 +
 ****
 * Hints
@@ -593,7 +593,7 @@ Do take a look at <<Design-Model>> before attempting to modify the `Model` compo
 [discrete]
 ==== `Ui` component
 
-*Scenario:* You are in charge of `ui`. During a beta testing session, your team is observing how the users use your address book application. You realize that one of the users occasionally tries to delete non-existent tags from a contact, because the tags all look the same visually, and the user got confused. Another user made a typing mistake in his command, but did not realize he had done so because the error message wasn't prominent enough. A third user keeps scrolling down the list, because he keeps forgetting the index of the last person in the list. Your job is to implement improvements to the UI to solve all these problems.
+*Scenario:* You are in charge of `ui`. During a beta testing session, your team is observing how the users use your expense tracker application. You realize that one of the users occasionally tries to delete non-existent tags from a contact, because the tags all look the same visually, and the user got confused. Another user made a typing mistake in his command, but did not realize he had done so because the error message wasn't prominent enough. A third user keeps scrolling down the list, because he keeps forgetting the index of the last person in the list. Your job is to implement improvements to the UI to solve all these problems.
 
 [TIP]
 Do take a look at <<Design-Ui>> before attempting to modify the `UI` component.
@@ -643,7 +643,7 @@ image::getting-started-ui-result-after.png[width="200"]
 *** Do read the commits one at a time if you feel overwhelmed.
 ****
 
-. Modify the link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to show the total number of people in the address book.
+. Modify the link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to show the total number of people in the expense tracker.
 +
 **Before**
 +
@@ -656,7 +656,7 @@ image::getting-started-ui-status-after.png[width="500"]
 ****
 * Hints
 ** link:{repoURL}/src/main/resources/view/StatusBarFooter.fxml[`StatusBarFooter.fxml`] will need a new `StatusBar`. Be sure to set the `GridPane.columnIndex` properly for each `StatusBar` to avoid misalignment!
-** link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] needs to initialize the status bar on application start, and to update it accordingly whenever the address book is updated.
+** link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] needs to initialize the status bar on application start, and to update it accordingly whenever the expense tracker is updated.
 * Solution
 ** Modify the constructor of link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to take in the number of persons when the application just started.
 ** Use link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter#handleAddressBookChangedEvent(AddressBookChangedEvent)`] to update the number of persons whenever there are new changes to the addressbook.
@@ -668,12 +668,12 @@ image::getting-started-ui-status-after.png[width="500"]
 [discrete]
 ==== `Storage` component
 
-*Scenario:* You are in charge of `storage`. For your next project milestone, your team plans to implement a new feature of saving the address book to the cloud. However, the current implementation of the application constantly saves the address book after the execution of each command, which is not ideal if the user is working on limited internet connection. Your team decided that the application should instead save the changes to a temporary local backup file first, and only upload to the cloud after the user closes the application. Your job is to implement a backup API for the address book storage.
+*Scenario:* You are in charge of `storage`. For your next project milestone, your team plans to implement a new feature of saving the expense tracker to the cloud. However, the current implementation of the application constantly saves the expense tracker after the execution of each command, which is not ideal if the user is working on limited internet connection. Your team decided that the application should instead save the changes to a temporary local backup file first, and only upload to the cloud after the user closes the application. Your job is to implement a backup API for the expense tracker storage.
 
 [TIP]
 Do take a look at <<Design-Storage>> before attempting to modify the `Storage` component.
 
-. Add a new method `backupAddressBook(ReadOnlyAddressBook)`, so that the address book can be saved in a fixed temporary location.
+. Add a new method `backupAddressBook(ReadOnlyAddressBook)`, so that the expense tracker can be saved in a fixed temporary location.
 +
 ****
 * Hint
@@ -958,12 +958,6 @@ Use case ends
 
 *Exceptions*
 [none]
-* 2a. User was previously logged in
-[none]
-** 2a1. Expense tracker prompts user that he has already logged in
-+
-Use case ends
-[none]
 * 4a. The username keyed in by the user does not exist
 [none]
 ** 4a1. Expense tracker prompts the user that the username does not exist
@@ -975,6 +969,7 @@ Use case ends
 ** 6a1. Expense tracker prompts the user that the password is incorrect.
 *
 Use case ends
+
 [discrete]
 === Use case: Logout
 
@@ -992,6 +987,7 @@ Use case ends
 +
 Use case ends
 [discrete]
+
 === Use case: Clear
 
 *MSS*
@@ -1030,6 +1026,7 @@ Use case ends
 === Use case: Notification Off
 
 *MSS*
+
 1. User keys in command to turn off notifications
 2. Notifications no longer show whenever the set budget has been exceeded.
 3. Any notification that is currently showing will be hidden from the user.
@@ -1040,6 +1037,7 @@ Use case ends
 === Use case: Set recurring expenditure
 
 *MSS*
+
 1. User key in command to set recurring expenses for an expense that was already keyed in
 2. Expense tracker prompts the user to key in which expense and the frequency of recurrence.
 3. User keys in the index of the expenditure to set as recurring expense and the frequency

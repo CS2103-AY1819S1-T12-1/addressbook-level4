@@ -20,6 +20,7 @@ import seedu.address.logic.commands.LoginCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.SignUpCommand;
+import seedu.address.logic.commands.StatsCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -104,6 +105,10 @@ public class AddressBookParser {
         case SignUpCommand.COMMAND_WORD:
         case SignUpCommand.COMMAND_ALIAS:
             return new SignUpCommandParser().parse(arguments);
+
+        case StatsCommand.COMMAND_WORD:
+        case StatsCommand.COMMAND_ALIAS:
+            return new StatsCommand();
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

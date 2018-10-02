@@ -19,6 +19,7 @@ public class PersonBuilder {
     public static final String DEFAULT_NAME = "Alice Pauline";
     public static final String DEFAULT_CATEGORY = "Default";
     public static final String DEFAULT_COST = "321.00";
+    public static final String DEFAULT_DATE = "01-10-2018";
 
     private Name name;
     private Category category;
@@ -84,7 +85,6 @@ public class PersonBuilder {
         this.date = new Date(date);
         return this;
     }
-
 
     public Person build() {
         return new Person(name, category, cost, date, tags);

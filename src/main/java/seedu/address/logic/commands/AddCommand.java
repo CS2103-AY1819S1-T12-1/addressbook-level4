@@ -1,8 +1,8 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COST;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -21,19 +21,19 @@ public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
     public static final String COMMAND_ALIAS = "a";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the address book. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds an expense to the expense tracker. "
             + "Parameters: "
             + PREFIX_NAME + "NAME "
             + PREFIX_CATEGORY + "CATEGORY "
-            + PREFIX_ADDRESS + "ADDRESS "
+            + PREFIX_COST + "ADDRESS "
             + "[" + PREFIX_DATE + "DATE]"
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " "
-            + PREFIX_NAME + "John Doe "
+            + PREFIX_NAME + "Stationery "
             + PREFIX_CATEGORY + "School "
-            + PREFIX_ADDRESS + "311, Clementi Ave 2, #02-25 "
-            + PREFIX_TAG + "friends "
-            + PREFIX_TAG + "owesMoney";
+            + PREFIX_COST + "1.00 "
+            + PREFIX_TAG + "bookhaven "
+            + PREFIX_TAG + "nus";
 
     public static final String MESSAGE_SUCCESS = "New person added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";

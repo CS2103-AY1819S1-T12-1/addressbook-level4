@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Scene?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.web.WebView?>
+<?import javafx.scene.layout.Pane?>
+
+<!-- TODO: set a more appropriate initial size -->
+<fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+         title="Stats" maximized="false">
+  <scene>
+    <Scene>
+      <Pane fx:id="chartArea" />
+    </Scene>
+  </scene>
+</fx:root>

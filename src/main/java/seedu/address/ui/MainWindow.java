@@ -20,6 +20,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.UserLoggedInEvent;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
+import seedu.address.commons.events.ui.ShowStatsRequestEvent;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.exceptions.NoUserSelectedException;
@@ -43,6 +44,7 @@ public class MainWindow extends UiPart<Stage> {
     private Config config;
     private UserPrefs prefs;
     private HelpWindow helpWindow;
+    private StatsWindow statsWindow;
 
     @FXML
     private StackPane browserPlaceholder;
@@ -204,6 +206,17 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
+    /**
+     * Opens the stats window or focuses on it if it's already opened.
+     */
+    @FXML
+    public void handleStats() {
+        if (statsWindow.isShowing()) {
+            statsWindow.close();
+        }
+        statsWindow.show();
+    }
+
     void show() {
         primaryStage.show();
     }
@@ -228,6 +241,17 @@ public class MainWindow extends UiPart<Stage> {
     private void handleShowHelpEvent(ShowHelpRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         handleHelp();
+    }
+
+    @Subscribe
+    private void handleShowStatsEvent(ShowStatsRequestEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        try {
+            statsWindow = new StatsWindow(logic.getExpenseStats());
+        } catch (NoUserSelectedException e) {
+            throw new IllegalStateException(e.getMessage());
+        }
+        handleStats();
     }
 
     @Subscribe

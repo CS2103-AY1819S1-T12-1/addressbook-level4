@@ -1,5 +1,6 @@
 package seedu.address.logic;
 
+import java.util.LinkedHashMap;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -49,6 +50,24 @@ public class LogicManager extends ComponentManager implements Logic {
         return model.getFilteredPersonList();
     }
 
+    //@@author jonathantjm
+    public LinkedHashMap<String, Double> getExpenseStats() throws NoUserSelectedException {
+        ObservableList<Person> expenseList = model.getExpenseStats();
+        LinkedHashMap<String, Double> stats = new LinkedHashMap<>();
+        for (Person e : expenseList) {
+            if (stats.containsKey(e.getDate().toString())) {
+                stats.put(
+                    e.getDate().toString(),
+                    stats.get(e.getDate().toString()) + Double.parseDouble(e.getCost().value)
+                );
+            } else {
+                stats.put(e.getDate().toString(), Double.parseDouble(e.getCost().value));
+            }
+        }
+        return stats;
+    }
+
+    //@@author
     @Override
     public ListElementPointer getHistorySnapshot() {
         return new ListElementPointer(history.getHistory());

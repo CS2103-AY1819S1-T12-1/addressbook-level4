@@ -54,7 +54,7 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void getAddessBook_noUserSelected_throwsNoUserSelectedException() throws Exception {
+    public void getAddressBook_noUserSelected_throwsNoUserSelectedException() throws Exception {
         thrown.expect(NoUserSelectedException.class);
         modelManagerLoggedOut.getAddressBook();
     }
@@ -93,6 +93,18 @@ public class ModelManagerTest {
     public void commitAddressBook_noUserSelected_throwsNoUserSelectedException() throws Exception {
         thrown.expect(NoUserSelectedException.class);
         modelManagerLoggedOut.commitAddressBook();
+    }
+
+    @Test
+    public void getExpenseStats_noUserSelected_throwsNoUserSelectedException() throws Exception {
+        thrown.expect(NoUserSelectedException.class);
+        modelManagerLoggedOut.getExpenseStats();
+    }
+
+    @Test
+    public void updateExpenseStats_noUserSelected_throwsNoUserSelectedException() throws Exception {
+        thrown.expect(NoUserSelectedException.class);
+        modelManagerLoggedOut.updateExpenseStats(unused -> true);
     }
 
     @Test
