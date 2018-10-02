@@ -35,6 +35,8 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label cost;
     @FXML
+    private Label date;
+    @FXML
     private FlowPane tags;
 
     public PersonCard(Person person, int displayedIndex) {
@@ -44,6 +46,7 @@ public class PersonCard extends UiPart<Region> {
         name.setText(person.getName().expenseName);
         category.setText(person.getCategory().getName());
         cost.setText(person.getCost().value);
+        date.setText(person.getDate().toString());
         person.getTags().forEach(tag -> {
             Label tempLabel = new Label(tag.tagName);
             tempLabel.setStyle("-fx-background-color: " + getColorStyleOfTag(tag.tagName));

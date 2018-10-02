@@ -40,6 +40,7 @@ public class XmlUtilTest {
     private static final String VALID_NAME = "Hans Muster";
     private static final String VALID_CATEGORY = "School";
     private static final String VALID_ADDRESS = "1.00";
+    private static final String VALID_DATE = "01-10-2018";
     private static final List<XmlAdaptedTag> VALID_TAGS = Collections.singletonList(new XmlAdaptedTag("friends"));
 
     @Rule
@@ -80,7 +81,7 @@ public class XmlUtilTest {
         XmlAdaptedPerson actualPerson = XmlUtil.getDataFromFile(
                 MISSING_PERSON_FIELD_FILE, XmlAdaptedPersonWithRootElement.class);
         XmlAdaptedPerson expectedPerson = new XmlAdaptedPerson(
-                null, VALID_CATEGORY, VALID_ADDRESS, VALID_TAGS);
+                null, VALID_CATEGORY, VALID_ADDRESS, VALID_DATE, VALID_TAGS);
         assertEquals(expectedPerson, actualPerson);
     }
 
@@ -89,7 +90,7 @@ public class XmlUtilTest {
         XmlAdaptedPerson actualPerson = XmlUtil.getDataFromFile(
                 INVALID_PERSON_FIELD_FILE, XmlAdaptedPersonWithRootElement.class);
         XmlAdaptedPerson expectedPerson = new XmlAdaptedPerson(
-                VALID_NAME, INVALID_CATEGORY, VALID_ADDRESS, VALID_TAGS);
+                VALID_NAME, INVALID_CATEGORY, VALID_ADDRESS, VALID_DATE, VALID_TAGS);
         assertEquals(expectedPerson, actualPerson);
     }
 
@@ -98,7 +99,7 @@ public class XmlUtilTest {
         XmlAdaptedPerson actualPerson = XmlUtil.getDataFromFile(
                 VALID_PERSON_FILE, XmlAdaptedPersonWithRootElement.class);
         XmlAdaptedPerson expectedPerson = new XmlAdaptedPerson(
-                VALID_NAME, VALID_CATEGORY, VALID_ADDRESS, VALID_TAGS);
+                VALID_NAME, VALID_CATEGORY, VALID_ADDRESS, VALID_DATE, VALID_TAGS);
         assertEquals(expectedPerson, actualPerson);
     }
 

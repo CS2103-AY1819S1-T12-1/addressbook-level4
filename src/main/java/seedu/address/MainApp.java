@@ -81,15 +81,16 @@ public class MainApp extends Application {
 
     /**
      * Returns a {@code ModelManager} with the data from {@code storage}'s address book and {@code userPrefs}. <br>
-     * A user "default" with a sample AddressBook will be added if the folder does not exist or is empty,
+     * A user "sample" with a sample AddressBook will be added if the username does not exist.
      * or no users will be used instead if errors occur when reading {@code storage}'s address book.
      */
     protected Model initModelManager(Storage storage, UserPrefs userPrefs) {
         Map<Username, ReadOnlyAddressBook> addressBooks;
         try {
             addressBooks = storage.readAllExpenses(userPrefs.getAddressBookDirPath());
-            if (addressBooks.isEmpty()) {
-                addressBooks.put(new Username("default"), SampleDataUtil.getSampleAddressBook());
+            ReadOnlyAddressBook sampleAddressBook = SampleDataUtil.getSampleAddressBook();
+            if (!addressBooks.containsKey(sampleAddressBook.getUsername())) {
+                addressBooks.put(sampleAddressBook.getUsername(), sampleAddressBook);
             }
         } catch (DataConversionException e) {
             logger.warning("Data files are not in the correct format. Will be starting with no accounts.");

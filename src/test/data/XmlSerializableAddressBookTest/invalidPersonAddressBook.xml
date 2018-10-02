@@ -5,6 +5,7 @@
         <name>Hans Muster</name>
         <category isPrivate="false">School</category>
         <cost isPrivate="false">a</cost>
+		<date isPrivate="false">01-10-2018</date>
     </persons>
     <username>invalidPersonAddressBook</username>
 </addressbook>

@@ -5,6 +5,7 @@ import java.util.Set;
 
 import seedu.address.model.expense.Category;
 import seedu.address.model.expense.Cost;
+import seedu.address.model.expense.Date;
 import seedu.address.model.expense.Name;
 import seedu.address.model.expense.Person;
 import seedu.address.model.tag.Tag;
@@ -22,12 +23,14 @@ public class PersonBuilder {
     private Name name;
     private Category category;
     private Cost cost;
+    private Date date;
     private Set<Tag> tags;
 
     public PersonBuilder() {
         name = new Name(DEFAULT_NAME);
         category = new Category(DEFAULT_CATEGORY);
         cost = new Cost(DEFAULT_COST);
+        date = new Date();
         tags = new HashSet<>();
     }
 
@@ -38,6 +41,7 @@ public class PersonBuilder {
         name = personToCopy.getName();
         category = personToCopy.getCategory();
         cost = personToCopy.getCost();
+        date = personToCopy.getDate();
         tags = new HashSet<>(personToCopy.getTags());
     }
 
@@ -73,9 +77,17 @@ public class PersonBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code Date} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withDate(String date) {
+        this.date = new Date(date);
+        return this;
+    }
+
 
     public Person build() {
-        return new Person(name, category, cost, tags);
+        return new Person(name, category, cost, date, tags);
     }
 
 }

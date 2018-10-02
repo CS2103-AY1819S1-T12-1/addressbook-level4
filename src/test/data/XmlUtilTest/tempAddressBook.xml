@@ -8,6 +8,7 @@
         <street></street>
         <postalCode></postalCode>
         <city></city>
+		<date>01-10-2018</date>
     </persons>
     <persons>tempAddressBook</persons>
 </addressbook>

@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_CATEGORY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
@@ -22,6 +23,7 @@ import seedu.address.model.Model;
 import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.expense.Category;
 import seedu.address.model.expense.Cost;
+import seedu.address.model.expense.Date;
 import seedu.address.model.expense.Name;
 import seedu.address.model.expense.Person;
 import seedu.address.model.tag.Tag;
@@ -41,6 +43,7 @@ public class EditCommand extends Command {
             + "[" + PREFIX_NAME + "NAME] "
             + "[" + PREFIX_CATEGORY + "CATEGORY] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
+            + "[" + PREFIX_DATE + "DATE] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_CATEGORY + "91234567 ";
@@ -97,8 +100,9 @@ public class EditCommand extends Command {
         Category updatedCategory = editPersonDescriptor.getCategory().orElse(personToEdit.getCategory());
         Cost updatedCost = editPersonDescriptor.getCost().orElse(personToEdit.getCost());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
+        Date updatedDate = editPersonDescriptor.getDate().orElse(personToEdit.getDate());
 
-        return new Person(updatedName, updatedCategory, updatedCost, updatedTags);
+        return new Person(updatedName, updatedCategory, updatedCost, updatedDate, updatedTags);
     }
 
     @Override
@@ -128,6 +132,7 @@ public class EditCommand extends Command {
         private Category category;
         private Cost cost;
         private Set<Tag> tags;
+        private Date date;
 
         public EditPersonDescriptor() {}
 
@@ -140,6 +145,7 @@ public class EditCommand extends Command {
             setCategory(toCopy.category);
             setCost(toCopy.cost);
             setTags(toCopy.tags);
+            setDate(toCopy.date);
         }
 
         /**
@@ -155,6 +161,14 @@ public class EditCommand extends Command {
 
         public Optional<Name> getName() {
             return Optional.ofNullable(name);
+        }
+
+        public void setDate(Date date) {
+            this.date = date;
+        }
+
+        public Optional<Date> getDate() {
+            return Optional.ofNullable(date);
         }
 
         public void setCategory(Category category) {
@@ -208,7 +222,8 @@ public class EditCommand extends Command {
             return getName().equals(e.getName())
                     && getCategory().equals(e.getCategory())
                     && getCost().equals(e.getCost())
-                    && getTags().equals(e.getTags());
+                    && getTags().equals(e.getTags())
+                    && getDate().equals(e.getDate());
         }
     }
 }

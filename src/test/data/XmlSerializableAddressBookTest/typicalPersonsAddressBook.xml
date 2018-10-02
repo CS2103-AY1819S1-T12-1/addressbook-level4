@@ -5,12 +5,14 @@
         <name>Alice Pauline</name>
         <category>School</category>
         <cost>3.00</cost>
+		<date>01-10-2018</date>
         <tagged>friends</tagged>
     </persons>
     <persons>
         <name>Benson Meier</name>
         <category>Food</category>
         <cost>2.00</cost>
+		<date>01-10-2018</date>
         <tagged>owesMoney</tagged>
         <tagged>friends</tagged>
     </persons>
@@ -18,27 +20,32 @@
         <name>Carl Kurz</name>
         <category>Entertainment</category>
         <cost>1.00</cost>
+		<date>01-10-2018</date>
     </persons>
     <persons>
         <name>Daniel Meier</name>
         <category>Shopping</category>
         <cost>2.00</cost>
+		<date>01-10-2018</date>
         <tagged>friends</tagged>
     </persons>
     <persons>
         <name>Elle Meyer</name>
         <category>Tax</category>
         <cost>5.00</cost>
+		<date>01-10-2018</date>
     </persons>
     <persons>
         <name>Fiona Kunz</name>
         <category>Book</category>
         <cost>6.00</cost>
+		<date>01-10-2018</date>
     </persons>
     <persons>
         <name>George Best</name>
         <category>Fine</category>
         <cost>7.00</cost>
+		<date>01-10-2018</date>
     </persons>
     <username>typicalPersonsAddressBook</username>
 </addressbook>

@@ -13,8 +13,8 @@ import java.util.GregorianCalendar;
  * Guarantees: immutable; is valid as declared in {@link #isValidDate(String)}
  */
 public class Date {
-    public static final String MESSAGE_FORMAT_CONSTRAINTS =
-            "Date should be valid, only contain numbers and slashes, and it should not be blank";
+    public static final String DATE_FORMAT_CONSTRAINTS =
+            "Date should be valid. Format dd-MM-yyyy";
 
     public static final String DATE_VALIDATION_REGEX = "(\\d{1,2})(\\-)(\\d{1,2})(\\-)(\\d{4})";
     public final Calendar fullDate = Calendar.getInstance();
@@ -27,7 +27,7 @@ public class Date {
      */
     public Date(String date) {
         requireNonNull(date);
-        checkArgument(isValidDate(date), MESSAGE_FORMAT_CONSTRAINTS);
+        checkArgument(isValidDate(date), DATE_FORMAT_CONSTRAINTS);
         String [] parsedDate = date.split("-");
         fullDate.set(Integer.parseInt(parsedDate[2]),
                 Integer.parseInt(parsedDate[1]) - 1,
@@ -58,7 +58,6 @@ public class Date {
                 return false;
             }
         }
-
         return false;
     }
 
@@ -66,5 +65,23 @@ public class Date {
     public String toString() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         return dateFormat.format(fullDate.getTime());
+    }
+
+    /**
+     * Returns true if both Dates represent the same calendar date.
+     */
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof Date)) {
+            return false;
+        }
+
+        Date otherDate = (Date) other;
+        return fullDate.get(Calendar.DAY_OF_YEAR) == otherDate.fullDate.get(Calendar.DAY_OF_YEAR)
+                && fullDate.get(Calendar.YEAR) == otherDate.fullDate.get(Calendar.YEAR);
     }
 }
