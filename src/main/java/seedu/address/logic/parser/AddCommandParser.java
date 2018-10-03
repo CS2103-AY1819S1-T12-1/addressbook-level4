@@ -15,8 +15,8 @@ import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.expense.Category;
 import seedu.address.model.expense.Cost;
+import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.Name;
-import seedu.address.model.expense.Person;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -43,14 +43,14 @@ public class AddCommandParser implements Parser<AddCommand> {
         Cost cost = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_COST).get());
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
         Optional<String> dateString = argMultimap.getValue(PREFIX_DATE);
-        Person person;
+        Expense expense;
         if (!dateString.isPresent()) {
-            person = new Person(name, category, cost, tagList);
+            expense = new Expense(name, category, cost, tagList);
         } else {
-            person = new Person(name, category, cost, ParserUtil.parseDate(dateString.get()), tagList);
+            expense = new Expense(name, category, cost, ParserUtil.parseDate(dateString.get()), tagList);
         }
 
-        return new AddCommand(person);
+        return new AddCommand(expense);
     }
 
     /**

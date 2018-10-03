@@ -20,7 +20,7 @@ import seedu.address.model.exceptions.NonExistentUserException;
 import seedu.address.storage.UserPrefsStorage;
 import seedu.address.storage.XmlSerializableAddressBook;
 import seedu.address.testutil.TestUtil;
-import seedu.address.testutil.TypicalPersons;
+import seedu.address.testutil.TypicalExpenses;
 import systemtests.ModelHelper;
 
 /**
@@ -77,7 +77,7 @@ public class TestApp extends MainApp {
     public AddressBook readStorageAddressBook() {
         try {
             return new AddressBook(storage.readAllExpenses(userPrefs.getAddressBookDirPath()).get(
-                    TypicalPersons.SAMPLE_USERNAME));
+                    TypicalExpenses.SAMPLE_USERNAME));
         } catch (DataConversionException dce) {
             throw new AssertionError("Data is not in the AddressBook format.", dce);
         } catch (IOException ioe) {
@@ -98,7 +98,7 @@ public class TestApp extends MainApp {
     public Model getModel() {
         try {
             Model copy = model.copy(userPrefs);
-            ModelHelper.setFilteredList(copy, model.getFilteredPersonList());
+            ModelHelper.setFilteredList(copy, model.getFilteredExpenseList());
             return copy;
         } catch (NonExistentUserException | NoUserSelectedException e) {
             throw new AssertionError(e.getMessage());

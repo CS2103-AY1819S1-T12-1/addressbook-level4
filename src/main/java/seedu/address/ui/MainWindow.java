@@ -40,7 +40,7 @@ public class MainWindow extends UiPart<Stage> {
 
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
-    private PersonListPanel personListPanel;
+    private ExpenseListPanel expenseListPanel;
     private Config config;
     private UserPrefs prefs;
     private HelpWindow helpWindow;
@@ -56,7 +56,7 @@ public class MainWindow extends UiPart<Stage> {
     private MenuItem helpMenuItem;
 
     @FXML
-    private StackPane personListPanelPlaceholder;
+    private StackPane expenseListPanelPlaceholder;
 
     @FXML
     private StackPane resultDisplayPlaceholder;
@@ -229,8 +229,8 @@ public class MainWindow extends UiPart<Stage> {
         raise(new ExitAppRequestEvent());
     }
 
-    public PersonListPanel getPersonListPanel() {
-        return personListPanel;
+    public ExpenseListPanel getExpenseListPanel() {
+        return expenseListPanel;
     }
 
     void releaseResources() {
@@ -257,11 +257,11 @@ public class MainWindow extends UiPart<Stage> {
     @Subscribe
     public void handleLoggedInEvent(UserLoggedInEvent event) {
         try {
-            personListPanel = new PersonListPanel(logic.getFilteredPersonList());
+            expenseListPanel = new ExpenseListPanel(logic.getFilteredExpenseList());
         } catch (NoUserSelectedException e) {
             throw new IllegalStateException(e.getMessage());
         }
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+        expenseListPanelPlaceholder.getChildren().add(expenseListPanel.getRoot());
         StatusBarFooter statusBarFooter = new StatusBarFooter(prefs.getAddressBookDirPath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
         showLoggedInUi();

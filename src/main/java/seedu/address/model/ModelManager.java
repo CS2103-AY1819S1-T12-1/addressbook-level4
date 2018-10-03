@@ -19,7 +19,7 @@ import seedu.address.commons.events.model.UserLoggedInEvent;
 import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.exceptions.NonExistentUserException;
 import seedu.address.model.exceptions.UserAlreadyExistsException;
-import seedu.address.model.expense.Person;
+import seedu.address.model.expense.Expense;
 import seedu.address.model.user.Username;
 
 /**
@@ -28,9 +28,9 @@ import seedu.address.model.user.Username;
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private Predicate<Person> expenseStatPredicate;
+    private Predicate<Expense> expenseStatPredicate;
     private VersionedAddressBook versionedAddressBook;
-    private FilteredList<Person> filteredPersons;
+    private FilteredList<Expense> filteredExpenses;
     private Username username;
     private final Map<Username, ReadOnlyAddressBook> addressBooks;
 
@@ -44,7 +44,7 @@ public class ModelManager extends ComponentManager implements Model {
         logger.fine("Initializing with address book: " + addressBooks + " and user prefs " + userPrefs);
         this.username = null;
         this.versionedAddressBook = null;
-        this.filteredPersons = null;
+        this.filteredExpenses = null;
     }
 
     public ModelManager(ReadOnlyAddressBook addressBook, UserPrefs userPrefs) {
@@ -56,7 +56,7 @@ public class ModelManager extends ComponentManager implements Model {
         this.addressBooks.put(addressBook.getUsername(), addressBook);
         this.username = addressBook.getUsername();
         this.versionedAddressBook = null;
-        this.filteredPersons = null;
+        this.filteredExpenses = null;
         try {
             loadUserData(addressBook.getUsername());
         } catch (NonExistentUserException e) {
@@ -92,56 +92,56 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public boolean hasPerson(Person person) throws NoUserSelectedException {
-        requireNonNull(person);
+    public boolean hasExpense(Expense expense) throws NoUserSelectedException {
+        requireNonNull(expense);
         if (versionedAddressBook == null) {
             throw new NoUserSelectedException();
         }
-        return versionedAddressBook.hasPerson(person);
+        return versionedAddressBook.hasExpense(expense);
     }
 
     @Override
-    public void deletePerson(Person target) throws NoUserSelectedException {
-        versionedAddressBook.removePerson(target);
+    public void deleteExpense(Expense target) throws NoUserSelectedException {
+        versionedAddressBook.removeExpense(target);
         indicateAddressBookChanged();
     }
 
     @Override
-    public void addPerson(Person person) throws NoUserSelectedException {
-        versionedAddressBook.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+    public void addExpense(Expense expense) throws NoUserSelectedException {
+        versionedAddressBook.addExpense(expense);
+        updateFilteredExpenseList(PREDICATE_SHOW_ALL_EXPENSES);
         indicateAddressBookChanged();
     }
 
     @Override
-    public void updatePerson(Person target, Person editedPerson) throws NoUserSelectedException {
-        requireAllNonNull(target, editedPerson);
+    public void updateExpense(Expense target, Expense editedExpense) throws NoUserSelectedException {
+        requireAllNonNull(target, editedExpense);
 
-        versionedAddressBook.updatePerson(target, editedPerson);
+        versionedAddressBook.updateExpense(target, editedExpense);
         indicateAddressBookChanged();
     }
 
-    //=========== Filtered Person List Accessors =============================================================
+    //=========== Filtered Expense List Accessors =============================================================
 
     /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
+     * Returns an unmodifiable view of the list of {@code Expense} backed by the internal list of
      * {@code versionedAddressBook}
      */
     @Override
-    public ObservableList<Person> getFilteredPersonList() throws NoUserSelectedException {
-        if (filteredPersons == null) {
+    public ObservableList<Expense> getFilteredExpenseList() throws NoUserSelectedException {
+        if (filteredExpenses == null) {
             throw new NoUserSelectedException();
         }
-        return FXCollections.unmodifiableObservableList(filteredPersons);
+        return FXCollections.unmodifiableObservableList(filteredExpenses);
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) throws NoUserSelectedException {
+    public void updateFilteredExpenseList(Predicate<Expense> predicate) throws NoUserSelectedException {
         requireNonNull(predicate);
-        if (filteredPersons == null) {
+        if (filteredExpenses == null) {
             throw new NoUserSelectedException();
         }
-        filteredPersons.setPredicate(predicate);
+        filteredExpenses.setPredicate(predicate);
     }
 
     //=========== Undo/Redo =================================================================================
@@ -182,22 +182,22 @@ public class ModelManager extends ComponentManager implements Model {
     //@@author jonathantjm
     //=========== Stats =================================================================================
     /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
+     * Returns an unmodifiable view of the list of {@code Expense} backed by the internal list of
      * {@code versionedAddressBook}
      */
     @Override
-    public ObservableList<Person> getExpenseStats() throws NoUserSelectedException {
-        if (filteredPersons == null) {
+    public ObservableList<Expense> getExpenseStats() throws NoUserSelectedException {
+        if (filteredExpenses == null) {
             throw new NoUserSelectedException();
         }
-        FilteredList<Person> temp = new FilteredList<>(versionedAddressBook.getPersonList());
+        FilteredList<Expense> temp = new FilteredList<>(versionedAddressBook.getExpenseList());
         temp.setPredicate(expenseStatPredicate);
         return FXCollections.unmodifiableObservableList(temp);
     }
 
     @Override
-    public void updateExpenseStats(Predicate<Person> predicate) throws NoUserSelectedException {
-        if (filteredPersons == null) {
+    public void updateExpenseStats(Predicate<Expense> predicate) throws NoUserSelectedException {
+        if (filteredExpenses == null) {
             throw new NoUserSelectedException();
         }
         expenseStatPredicate = predicate;
@@ -211,7 +211,7 @@ public class ModelManager extends ComponentManager implements Model {
             throw new NonExistentUserException(username, addressBooks.size());
         }
         this.versionedAddressBook = new VersionedAddressBook(addressBooks.get(username));
-        this.filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
+        this.filteredExpenses = new FilteredList<>(versionedAddressBook.getExpenseList());
         this.username = username;
         addressBooks.replace(this.username, this.versionedAddressBook);
         try {
@@ -225,7 +225,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void unloadUserData() {
         this.versionedAddressBook = null;
-        this.filteredPersons = null;
+        this.filteredExpenses = null;
         this.username = null;
     }
 
@@ -246,7 +246,7 @@ public class ModelManager extends ComponentManager implements Model {
     public Model copy(UserPrefs userPrefs) throws NoUserSelectedException {
         ModelManager copy = new ModelManager(addressBooks, userPrefs);
         copy.versionedAddressBook = new VersionedAddressBook(this.getAddressBook());
-        copy.filteredPersons = new FilteredList<>(copy.versionedAddressBook.getPersonList());
+        copy.filteredExpenses = new FilteredList<>(copy.versionedAddressBook.getExpenseList());
         copy.username = this.username;
         return copy;
     }
@@ -260,7 +260,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public boolean hasSelectedUser() {
-        return versionedAddressBook != null && filteredPersons != null && username != null;
+        return versionedAddressBook != null && filteredExpenses != null && username != null;
     }
 
     @Override
@@ -278,7 +278,7 @@ public class ModelManager extends ComponentManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return versionedAddressBook.equals(other.versionedAddressBook)
-                && filteredPersons.equals(other.filteredPersons);
+                && filteredExpenses.equals(other.filteredExpenses);
     }
 
 }

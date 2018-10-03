@@ -26,8 +26,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
-import static seedu.address.testutil.TypicalPersons.AMY;
-import static seedu.address.testutil.TypicalPersons.BOB;
+import static seedu.address.testutil.TypicalExpenses.AMY;
+import static seedu.address.testutil.TypicalExpenses.BOB;
 
 import org.junit.Test;
 
@@ -36,54 +36,54 @@ import seedu.address.model.expense.Category;
 import seedu.address.model.expense.Cost;
 import seedu.address.model.expense.Date;
 import seedu.address.model.expense.Name;
-import seedu.address.model.expense.Person;
+import seedu.address.model.expense.Expense;
 import seedu.address.model.tag.Tag;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.ExpenseBuilder;
 
 public class AddCommandParserTest {
     private AddCommandParser parser = new AddCommandParser();
 
     @Test
     public void parse_allFieldsPresent_success() {
-        Person expectedPerson = new PersonBuilder(BOB).withTags(VALID_TAG_FRIEND).build();
-        Person expectedPersonWithDate = new PersonBuilder(BOB)
+        Expense expectedExpense = new ExpenseBuilder(BOB).withTags(VALID_TAG_FRIEND).build();
+        Expense expectedExpenseWithDate = new ExpenseBuilder(BOB)
                 .withTags(VALID_TAG_FRIEND)
                 .withDate(VALID_DATE_1990).build();
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB + CATEGORY_DESC_BOB + DATE_DESC_2018
-                + COST_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedPerson));
+                + COST_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedExpense));
 
         // multiple names - last name accepted
         assertParseSuccess(parser, NAME_DESC_AMY + NAME_DESC_BOB + CATEGORY_DESC_BOB + DATE_DESC_2018
-                + COST_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedPerson));
+                + COST_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedExpense));
 
         // multiple category - last category accepted
         assertParseSuccess(parser, NAME_DESC_BOB + CATEGORY_DESC_AMY + CATEGORY_DESC_BOB + DATE_DESC_2018
-                + COST_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedPerson));
+                + COST_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedExpense));
 
         // multiple addresses - last address accepted
         assertParseSuccess(parser, NAME_DESC_BOB + CATEGORY_DESC_BOB + COST_DESC_AMY + DATE_DESC_2018
-                + COST_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedPerson));
+                + COST_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedExpense));
 
         // add date
         assertParseSuccess(parser, NAME_DESC_BOB + CATEGORY_DESC_BOB + COST_DESC_AMY
-                + COST_DESC_BOB + TAG_DESC_FRIEND + DATE_DESC_1990, new AddCommand(expectedPersonWithDate));
+                + COST_DESC_BOB + TAG_DESC_FRIEND + DATE_DESC_1990, new AddCommand(expectedExpenseWithDate));
 
         // multiple tags - all accepted
-        Person expectedPersonMultipleTags = new PersonBuilder(BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
+        Expense expectedExpenseMultipleTags = new ExpenseBuilder(BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
                 .build();
         assertParseSuccess(parser, NAME_DESC_BOB + CATEGORY_DESC_BOB + COST_DESC_BOB
-                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND + DATE_DESC_2018, new AddCommand(expectedPersonMultipleTags));
+                + TAG_DESC_HUSBAND + TAG_DESC_FRIEND + DATE_DESC_2018, new AddCommand(expectedExpenseMultipleTags));
     }
 
     @Test
     public void parse_optionalFieldsMissing_success() {
         // zero tags
-        Person expectedPerson = new PersonBuilder(AMY).withTags().build();
+        Expense expectedExpense = new ExpenseBuilder(AMY).withTags().build();
 
         assertParseSuccess(parser, NAME_DESC_AMY + CATEGORY_DESC_AMY + COST_DESC_AMY + DATE_DESC_1990,
-                new AddCommand(expectedPerson));
+                new AddCommand(expectedExpense));
     }
 
     @Test

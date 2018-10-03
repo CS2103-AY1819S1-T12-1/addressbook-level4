@@ -1,51 +1,51 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<!-- AddressBook save file which contains the same Person values as in TypicalPersons#getTypicalAddressBook() -->
+<!-- AddressBook save file which contains the same Expense values as in TypicalExpenses#getTypicalAddressBook() -->
 <addressbook>
-    <persons>
+    <expenses>
         <name>Alice Pauline</name>
         <category>School</category>
         <cost>3.00</cost>
 		<date>01-10-2018</date>
         <tagged>friends</tagged>
-    </persons>
-    <persons>
+    </expenses>
+    <expenses>
         <name>Benson Meier</name>
         <category>Food</category>
         <cost>2.00</cost>
 		<date>01-10-2018</date>
         <tagged>owesMoney</tagged>
         <tagged>friends</tagged>
-    </persons>
-    <persons>
+    </expenses>
+    <expenses>
         <name>Carl Kurz</name>
         <category>Entertainment</category>
         <cost>1.00</cost>
 		<date>01-10-2018</date>
-    </persons>
-    <persons>
+    </expenses>
+    <expenses>
         <name>Daniel Meier</name>
         <category>Shopping</category>
         <cost>2.00</cost>
 		<date>01-10-2018</date>
         <tagged>friends</tagged>
-    </persons>
-    <persons>
+    </expenses>
+    <expenses>
         <name>Elle Meyer</name>
         <category>Tax</category>
         <cost>5.00</cost>
 		<date>01-10-2018</date>
-    </persons>
-    <persons>
+    </expenses>
+    <expenses>
         <name>Fiona Kunz</name>
         <category>Book</category>
         <cost>6.00</cost>
 		<date>01-10-2018</date>
-    </persons>
-    <persons>
+    </expenses>
+    <expenses>
         <name>George Best</name>
         <category>Fine</category>
         <cost>7.00</cost>
 		<date>01-10-2018</date>
-    </persons>
-    <username>typicalPersonsAddressBook</username>
+    </expenses>
+    <username>typicalExpensesAddressBook</username>
 </addressbook>

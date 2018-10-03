@@ -23,9 +23,9 @@ import seedu.address.model.Model;
 import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.exceptions.NonExistentUserException;
 import seedu.address.model.exceptions.UserAlreadyExistsException;
+import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.NameContainsKeywordsPredicate;
-import seedu.address.model.expense.Person;
-import seedu.address.testutil.EditPersonDescriptorBuilder;
+import seedu.address.testutil.EditExpenseDescriptorBuilder;
 
 /**
  * Contains helper methods for testing commands.
@@ -64,14 +64,14 @@ public class CommandTestUtil {
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    public static final EditCommand.EditPersonDescriptor DESC_AMY;
-    public static final EditCommand.EditPersonDescriptor DESC_BOB;
+    public static final EditCommand.EditExpenseDescriptor DESC_AMY;
+    public static final EditCommand.EditExpenseDescriptor DESC_BOB;
 
     static {
-        DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
+        DESC_AMY = new EditExpenseDescriptorBuilder().withName(VALID_NAME_AMY)
                 .withCategory(VALID_CATEGORY_AMY).withCost(VALID_COST_AMY)
                 .withTags(VALID_TAG_FRIEND).build();
-        DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
+        DESC_BOB = new EditExpenseDescriptorBuilder().withName(VALID_NAME_BOB)
                 .withCategory(VALID_CATEGORY_BOB).withCost(VALID_COST_BOB)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
     }
@@ -99,7 +99,7 @@ public class CommandTestUtil {
      * Executes the given {@code command}, confirms that <br>
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>
-     * - the address book and the filtered person list in the {@code actualModel} remain unchanged <br>
+     * - the address book and the filtered expense list in the {@code actualModel} remain unchanged <br>
      * - {@code actualCommandHistory} remains unchanged.
      */
     public static void assertCommandFailure(Command command, Model actualModel, CommandHistory actualCommandHistory,
@@ -108,7 +108,7 @@ public class CommandTestUtil {
         // only do so by copying its components.
         try {
             AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
-            List<Person> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPersonList());
+            List<Expense> expectedFilteredList = new ArrayList<>(actualModel.getFilteredExpenseList());
 
             CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
 
@@ -118,7 +118,7 @@ public class CommandTestUtil {
             } catch (CommandException e) {
                 assertEquals(expectedMessage, e.getMessage());
                 assertEquals(expectedAddressBook, actualModel.getAddressBook());
-                assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
+                assertEquals(expectedFilteredList, actualModel.getFilteredExpenseList());
                 assertEquals(expectedCommandHistory, actualCommandHistory);
             }
         } catch (NoUserSelectedException | NonExistentUserException | UserAlreadyExistsException e) {
@@ -127,25 +127,25 @@ public class CommandTestUtil {
     }
 
     /**
-     * Updates {@code model}'s filtered list to show only the person at the given {@code targetIndex} in the
+     * Updates {@code model}'s filtered list to show only the expense at the given {@code targetIndex} in the
      * {@code model}'s address book.
      */
-    public static void showPersonAtIndex(Model model, Index targetIndex) throws NoUserSelectedException {
-        assertTrue(targetIndex.getZeroBased() < model.getFilteredPersonList().size());
+    public static void showExpenseAtIndex(Model model, Index targetIndex) throws NoUserSelectedException {
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredExpenseList().size());
 
-        Person person = model.getFilteredPersonList().get(targetIndex.getZeroBased());
-        final String[] splitName = person.getName().expenseName.split("\\s+");
-        model.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+        Expense expense = model.getFilteredExpenseList().get(targetIndex.getZeroBased());
+        final String[] splitName = expense.getName().expenseName.split("\\s+");
+        model.updateFilteredExpenseList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
-        assertEquals(1, model.getFilteredPersonList().size());
+        assertEquals(1, model.getFilteredExpenseList().size());
     }
 
     /**
-     * Deletes the first person in {@code model}'s filtered list from {@code model}'s address book.
+     * Deletes the first expense in {@code model}'s filtered list from {@code model}'s address book.
      */
-    public static void deleteFirstPerson(Model model) throws NoUserSelectedException {
-        Person firstPerson = model.getFilteredPersonList().get(0);
-        model.deletePerson(firstPerson);
+    public static void deleteFirstExpense(Model model) throws NoUserSelectedException {
+        Expense firstExpense = model.getFilteredExpenseList().get(0);
+        model.deleteExpense(firstExpense);
         model.commitAddressBook();
     }
 

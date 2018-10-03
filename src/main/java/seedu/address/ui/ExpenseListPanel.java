@@ -12,48 +12,48 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
-import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
-import seedu.address.model.expense.Person;
+import seedu.address.commons.events.ui.ExpensePanelSelectionChangedEvent;
+import seedu.address.model.expense.Expense;
 
 /**
- * Panel containing the list of persons.
+ * Panel containing the list of expenses.
  */
-public class PersonListPanel extends UiPart<Region> {
+public class ExpenseListPanel extends UiPart<Region> {
     private static final String FXML = "PersonListPanel.fxml";
-    private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
+    private final Logger logger = LogsCenter.getLogger(ExpenseListPanel.class);
 
     @FXML
-    private ListView<Person> personListView;
+    private ListView<Expense> expenseListView;
 
-    public PersonListPanel(ObservableList<Person> personList) {
+    public ExpenseListPanel(ObservableList<Expense> expenseList) {
         super(FXML);
-        setConnections(personList);
+        setConnections(expenseList);
         registerAsAnEventHandler(this);
     }
 
-    private void setConnections(ObservableList<Person> personList) {
-        personListView.setItems(personList);
-        personListView.setCellFactory(listView -> new PersonListViewCell());
+    private void setConnections(ObservableList<Expense> expenseList) {
+        expenseListView.setItems(expenseList);
+        expenseListView.setCellFactory(listView -> new ExpenseListViewCell());
         setEventHandlerForSelectionChangeEvent();
     }
 
     private void setEventHandlerForSelectionChangeEvent() {
-        personListView.getSelectionModel().selectedItemProperty()
+        expenseListView.getSelectionModel().selectedItemProperty()
                 .addListener((observable, oldValue, newValue) -> {
                     if (newValue != null) {
                         logger.fine("Selection in expense list panel changed to : '" + newValue + "'");
-                        raise(new PersonPanelSelectionChangedEvent(newValue));
+                        raise(new ExpensePanelSelectionChangedEvent(newValue));
                     }
                 });
     }
 
     /**
-     * Scrolls to the {@code PersonCard} at the {@code index} and selects it.
+     * Scrolls to the {@code ExpenseCard} at the {@code index} and selects it.
      */
     private void scrollTo(int index) {
         Platform.runLater(() -> {
-            personListView.scrollTo(index);
-            personListView.getSelectionModel().clearAndSelect(index);
+            expenseListView.scrollTo(index);
+            expenseListView.getSelectionModel().clearAndSelect(index);
         });
     }
 
@@ -64,18 +64,18 @@ public class PersonListPanel extends UiPart<Region> {
     }
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code Expense} using a {@code ExpenseCard}.
      */
-    class PersonListViewCell extends ListCell<Person> {
+    class ExpenseListViewCell extends ListCell<Expense> {
         @Override
-        protected void updateItem(Person person, boolean empty) {
-            super.updateItem(person, empty);
+        protected void updateItem(Expense expense, boolean empty) {
+            super.updateItem(expense, empty);
 
-            if (empty || person == null) {
+            if (empty || expense == null) {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new PersonCard(person, getIndex() + 1).getRoot());
+                setGraphic(new ExpenseCard(expense, getIndex() + 1).getRoot());
             }
         }
     }
