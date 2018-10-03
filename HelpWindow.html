@@ -17,17 +17,18 @@
 <li><a href="#logging-in-as-an-existing-user-code-login-code">3.2. Logging in as an existing User : <code>login</code></a></li>
 <li><a href="#viewing-help-code-help-code">3.3. Viewing help : <code>help</code></a></li>
 <li><a href="#adding-an-expense-code-add-code">3.4. Adding an expense: <code>add</code></a></li>
-<li><a href="#listing-all-expenses-code-list-code">3.5. Listing all expenses : <code>list</code></a></li>
-<li><a href="#editing-an-expense-code-edit-code">3.6. Editing an expense : <code>edit</code></a></li>
-<li><a href="#locating-expenses-by-name-code-find-code">3.7. Locating expenses by name: <code>find</code></a></li>
-<li><a href="#deleting-a-expense-code-delete-code">3.8. Deleting a expense : <code>delete</code></a></li>
-<li><a href="#selecting-a-expense-code-select-code">3.9. Selecting a expense : <code>select</code></a></li>
-<li><a href="#listing-entered-commands-code-history-code">3.10. Listing entered commands : <code>history</code></a></li>
-<li><a href="#undoing-previous-command-code-undo-code">3.11. Undoing previous command : <code>undo</code></a></li>
-<li><a href="#redoing-the-previously-undone-command-code-redo-code">3.12. Redoing the previously undone command : <code>redo</code></a></li>
-<li><a href="#clearing-all-entries-code-clear-code">3.13. Clearing all entries : <code>clear</code></a></li>
-<li><a href="#exiting-the-program-code-exit-code">3.14. Exiting the program : <code>exit</code></a></li>
-<li><a href="#saving-the-data">3.15. Saving the data</a></li>
+<li><a href="#setting-a-budget-code-setbudget-code">3.5. Setting a budget: <code>setBudget</code></a></li>
+<li><a href="#listing-all-expenses-code-list-code">3.6. Listing all expenses : <code>list</code></a></li>
+<li><a href="#editing-an-expense-code-edit-code">3.7. Editing an expense : <code>edit</code></a></li>
+<li><a href="#locating-expenses-by-name-code-find-code">3.8. Locating expenses by name: <code>find</code></a></li>
+<li><a href="#deleting-a-expense-code-delete-code">3.9. Deleting a expense : <code>delete</code></a></li>
+<li><a href="#selecting-a-expense-code-select-code">3.10. Selecting a expense : <code>select</code></a></li>
+<li><a href="#listing-entered-commands-code-history-code">3.11. Listing entered commands : <code>history</code></a></li>
+<li><a href="#undoing-previous-command-code-undo-code">3.12. Undoing previous command : <code>undo</code></a></li>
+<li><a href="#redoing-the-previously-undone-command-code-redo-code">3.13. Redoing the previously undone command : <code>redo</code></a></li>
+<li><a href="#clearing-all-entries-code-clear-code">3.14. Clearing all entries : <code>clear</code></a></li>
+<li><a href="#exiting-the-program-code-exit-code">3.15. Exiting the program : <code>exit</code></a></li>
+<li><a href="#saving-the-data">3.16. Saving the data</a></li>
 </ul>
 </li>
 <li><a href="#faq">4. FAQ</a></li>
@@ -178,21 +179,62 @@ e.g. typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> wil
 <p>Format: add n/EXPENSE_NAME $/COST c/CATEGORY [d/DATE] [t/TAG]&#8230;&#8203;</p>
 </div>
 <div class="paragraph">
-<p>Examples:
-*  add n/Lunch $/4.00 c/Food
-*  add n/Stationary $/1.80 c/School t/bookhaven
-*  add n/Project $/2.08 c/School d/01-01-2018</p>
+<p>Examples:</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>add n/Lunch $/4.00 c/Food</p>
+</li>
+<li>
+<p>add n/Stationary $/1.80 c/School t/bookhaven</p>
+</li>
+<li>
+<p>add n/Project $/2.08 c/School d/01-01-2018</p>
+</li>
+</ul>
+</div>
+</div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="listing-all-expenses-code-list-code"><a class="link" href="#listing-all-expenses-code-list-code">3.5. Listing all expenses : <code>list</code></a></h3>
+<h3 id="setting-a-budget-code-setbudget-code"><a class="link" href="#setting-a-budget-code-setbudget-code">3.5. Setting a budget: <code>setBudget</code></a></h3>
+<div class="paragraph">
+<p>Sets a cap on the expense tracker. Will warn you if you try
+to add an expense that will exceed your budget</p>
+</div>
+<div class="paragraph">
+<p>Format: setBudget MONEY_WITH_TWO_DECIMAL_PLACES</p>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>setBudget 2.00</p>
+</li>
+<li>
+<p>setBudget 20.00</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="listing-all-expenses-code-list-code"><a class="link" href="#listing-all-expenses-code-list-code">3.6. Listing all expenses : <code>list</code></a></h3>
 <div class="paragraph">
 <p>Shows a list of all expenses in the expense tracker.<br>
 Format: <code>list</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="editing-an-expense-code-edit-code"><a class="link" href="#editing-an-expense-code-edit-code">3.6. Editing an expense : <code>edit</code></a></h3>
+<h3 id="editing-an-expense-code-edit-code"><a class="link" href="#editing-an-expense-code-edit-code">3.7. Editing an expense : <code>edit</code></a></h3>
 <div class="paragraph">
 <p>Edits an existing expense in the expense tracker.<br>
 Format: <code>edit INDEX n/EXPENSE_NAME $/COST c/CATEGORY d/DATE t/TAG&#8230;&#8203;</code></p>
@@ -231,7 +273,7 @@ Edits the date of the 1st expense to be the 1st of October, 2018.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="locating-expenses-by-name-code-find-code"><a class="link" href="#locating-expenses-by-name-code-find-code">3.7. Locating expenses by name: <code>find</code></a></h3>
+<h3 id="locating-expenses-by-name-code-find-code"><a class="link" href="#locating-expenses-by-name-code-find-code">3.8. Locating expenses by name: <code>find</code></a></h3>
 <div class="paragraph">
 <p>Finds expense whose names contain any of the given keywords.<br>
 Format: <code>find KEYWORD [MORE_KEYWORDS]</code></p>
@@ -261,7 +303,7 @@ Format: <code>find KEYWORD [MORE_KEYWORDS]</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="deleting-a-expense-code-delete-code"><a class="link" href="#deleting-a-expense-code-delete-code">3.8. Deleting a expense : <code>delete</code></a></h3>
+<h3 id="deleting-a-expense-code-delete-code"><a class="link" href="#deleting-a-expense-code-delete-code">3.9. Deleting a expense : <code>delete</code></a></h3>
 <div class="paragraph">
 <p>Deletes the specified expense from the expense tracker.<br>
 Format: <code>delete INDEX</code></p>
@@ -302,7 +344,7 @@ Deletes the 1st expense from the expense tracker.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="selecting-a-expense-code-select-code"><a class="link" href="#selecting-a-expense-code-select-code">3.9. Selecting a expense : <code>select</code></a></h3>
+<h3 id="selecting-a-expense-code-select-code"><a class="link" href="#selecting-a-expense-code-select-code">3.10. Selecting a expense : <code>select</code></a></h3>
 <div class="paragraph">
 <p>Selects the expense identified by the index number used in the displayed expense list.<br>
 Format: <code>select INDEX</code></p>
@@ -343,7 +385,7 @@ Selects the 1st expense in the results of the <code>find</code> command.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="listing-entered-commands-code-history-code"><a class="link" href="#listing-entered-commands-code-history-code">3.10. Listing entered commands : <code>history</code></a></h3>
+<h3 id="listing-entered-commands-code-history-code"><a class="link" href="#listing-entered-commands-code-history-code">3.11. Listing entered commands : <code>history</code></a></h3>
 <div class="paragraph">
 <p>Lists all the commands that you have entered in reverse chronological order.<br>
 Format: <code>history</code></p>
@@ -364,7 +406,7 @@ Format: <code>history</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="undoing-previous-command-code-undo-code"><a class="link" href="#undoing-previous-command-code-undo-code">3.11. Undoing previous command : <code>undo</code></a></h3>
+<h3 id="undoing-previous-command-code-undo-code"><a class="link" href="#undoing-previous-command-code-undo-code">3.12. Undoing previous command : <code>undo</code></a></h3>
 <div class="paragraph">
 <p>Restores the expense tracker to the state before the previous <em>undoable</em> command was executed.<br>
 Format: <code>undo</code></p>
@@ -409,7 +451,7 @@ The <code>undo</code> command fails as there are no undoable commands executed p
 </div>
 </div>
 <div class="sect2">
-<h3 id="redoing-the-previously-undone-command-code-redo-code"><a class="link" href="#redoing-the-previously-undone-command-code-redo-code">3.12. Redoing the previously undone command : <code>redo</code></a></h3>
+<h3 id="redoing-the-previously-undone-command-code-redo-code"><a class="link" href="#redoing-the-previously-undone-command-code-redo-code">3.13. Redoing the previously undone command : <code>redo</code></a></h3>
 <div class="paragraph">
 <p>Reverses the most recent <code>undo</code> command.<br>
 Format: <code>redo</code></p>
@@ -441,21 +483,21 @@ The <code>redo</code> command fails as there are no <code>undo</code> commands e
 </div>
 </div>
 <div class="sect2">
-<h3 id="clearing-all-entries-code-clear-code"><a class="link" href="#clearing-all-entries-code-clear-code">3.13. Clearing all entries : <code>clear</code></a></h3>
+<h3 id="clearing-all-entries-code-clear-code"><a class="link" href="#clearing-all-entries-code-clear-code">3.14. Clearing all entries : <code>clear</code></a></h3>
 <div class="paragraph">
 <p>Clears all entries from the expense tracker.<br>
 Format: <code>clear</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="exiting-the-program-code-exit-code"><a class="link" href="#exiting-the-program-code-exit-code">3.14. Exiting the program : <code>exit</code></a></h3>
+<h3 id="exiting-the-program-code-exit-code"><a class="link" href="#exiting-the-program-code-exit-code">3.15. Exiting the program : <code>exit</code></a></h3>
 <div class="paragraph">
 <p>Exits the program.<br>
 Format: <code>exit</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="saving-the-data"><a class="link" href="#saving-the-data">3.15. Saving the data</a></h3>
+<h3 id="saving-the-data"><a class="link" href="#saving-the-data">3.16. Saving the data</a></h3>
 <div class="paragraph">
 <p>Expense tracker data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.</p>
@@ -524,4 +566,4 @@ e.g.<code>select 2</code></p>
 </ul>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-02 13:43:38 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-03 09:30:52 UTC</div></div></div></body></html>
