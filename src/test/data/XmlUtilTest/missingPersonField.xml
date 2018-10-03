@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<!-- Person with missing name field -->
+<!-- Expense with missing name field -->
 <expense>
     <category>School</category>
     <cost>1.00</cost>

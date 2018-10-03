@@ -17,11 +17,11 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.user.Username;
-import seedu.address.storage.XmlAdaptedPerson;
+import seedu.address.storage.XmlAdaptedExpense;
 import seedu.address.storage.XmlAdaptedTag;
 import seedu.address.storage.XmlSerializableAddressBook;
 import seedu.address.testutil.AddressBookBuilder;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.ExpenseBuilder;
 import seedu.address.testutil.TestUtil;
 
 public class XmlUtilTest {
@@ -30,9 +30,9 @@ public class XmlUtilTest {
     private static final Path EMPTY_FILE = TEST_DATA_FOLDER.resolve("empty.xml");
     private static final Path MISSING_FILE = TEST_DATA_FOLDER.resolve("missing.xml");
     private static final Path VALID_FILE = TEST_DATA_FOLDER.resolve("validAddressBook.xml");
-    private static final Path MISSING_PERSON_FIELD_FILE = TEST_DATA_FOLDER.resolve("missingPersonField.xml");
-    private static final Path INVALID_PERSON_FIELD_FILE = TEST_DATA_FOLDER.resolve("invalidPersonField.xml");
-    private static final Path VALID_PERSON_FILE = TEST_DATA_FOLDER.resolve("validPerson.xml");
+    private static final Path MISSING_EXPENSE_FIELD_FILE = TEST_DATA_FOLDER.resolve("missingPersonField.xml");
+    private static final Path INVALID_EXPENSE_FIELD_FILE = TEST_DATA_FOLDER.resolve("invalidPersonField.xml");
+    private static final Path VALID_EXPENSE_FILE = TEST_DATA_FOLDER.resolve("validPerson.xml");
     private static final Path TEMP_FILE = TestUtil.getFilePathInSandboxFolder("tempAddressBook.xml");
 
     private static final String INVALID_CATEGORY = " ";
@@ -73,34 +73,34 @@ public class XmlUtilTest {
     @Test
     public void getDataFromFile_validFile_validResult() throws Exception {
         AddressBook dataFromFile = XmlUtil.getDataFromFile(VALID_FILE, XmlSerializableAddressBook.class).toModelType();
-        assertEquals(9, dataFromFile.getPersonList().size());
+        assertEquals(9, dataFromFile.getExpenseList().size());
     }
 
     @Test
-    public void xmlAdaptedPersonFromFile_fileWithMissingPersonField_validResult() throws Exception {
-        XmlAdaptedPerson actualPerson = XmlUtil.getDataFromFile(
-                MISSING_PERSON_FIELD_FILE, XmlAdaptedPersonWithRootElement.class);
-        XmlAdaptedPerson expectedPerson = new XmlAdaptedPerson(
+    public void xmlAdaptedExpenseFromFile_fileWithMissingExpenseField_validResult() throws Exception {
+        XmlAdaptedExpense actualExpense = XmlUtil.getDataFromFile(
+                MISSING_EXPENSE_FIELD_FILE, XmlAdaptedExpenseWithRootElement.class);
+        XmlAdaptedExpense expectedExpense = new XmlAdaptedExpense(
                 null, VALID_CATEGORY, VALID_ADDRESS, VALID_DATE, VALID_TAGS);
-        assertEquals(expectedPerson, actualPerson);
+        assertEquals(expectedExpense, actualExpense);
     }
 
     @Test
-    public void xmlAdaptedPersonFromFile_fileWithInvalidPersonField_validResult() throws Exception {
-        XmlAdaptedPerson actualPerson = XmlUtil.getDataFromFile(
-                INVALID_PERSON_FIELD_FILE, XmlAdaptedPersonWithRootElement.class);
-        XmlAdaptedPerson expectedPerson = new XmlAdaptedPerson(
+    public void xmlAdaptedExpenseFromFile_fileWithInvalidExpenseField_validResult() throws Exception {
+        XmlAdaptedExpense actualExpense = XmlUtil.getDataFromFile(
+                INVALID_EXPENSE_FIELD_FILE, XmlAdaptedExpenseWithRootElement.class);
+        XmlAdaptedExpense expectedExpense = new XmlAdaptedExpense(
                 VALID_NAME, INVALID_CATEGORY, VALID_ADDRESS, VALID_DATE, VALID_TAGS);
-        assertEquals(expectedPerson, actualPerson);
+        assertEquals(expectedExpense, actualExpense);
     }
 
     @Test
-    public void xmlAdaptedPersonFromFile_fileWithValidPerson_validResult() throws Exception {
-        XmlAdaptedPerson actualPerson = XmlUtil.getDataFromFile(
-                VALID_PERSON_FILE, XmlAdaptedPersonWithRootElement.class);
-        XmlAdaptedPerson expectedPerson = new XmlAdaptedPerson(
+    public void xmlAdaptedExpenseFromFile_fileWithValidExpense_validResult() throws Exception {
+        XmlAdaptedExpense actualExpense = XmlUtil.getDataFromFile(
+                VALID_EXPENSE_FILE, XmlAdaptedExpenseWithRootElement.class);
+        XmlAdaptedExpense expectedExpense = new XmlAdaptedExpense(
                 VALID_NAME, VALID_CATEGORY, VALID_ADDRESS, VALID_DATE, VALID_TAGS);
-        assertEquals(expectedPerson, actualPerson);
+        assertEquals(expectedExpense, actualExpense);
     }
 
     @Test
@@ -131,7 +131,7 @@ public class XmlUtilTest {
 
         AddressBookBuilder builder = new AddressBookBuilder(new AddressBook(new Username("AAA")));
         dataToWrite = new XmlSerializableAddressBook(
-                builder.withPerson(new PersonBuilder().build()).build());
+                builder.withExpense(new ExpenseBuilder().build()).build());
 
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
         dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableAddressBook.class);
@@ -139,9 +139,9 @@ public class XmlUtilTest {
     }
 
     /**
-     * Test class annotated with {@code XmlRootElement} to allow unmarshalling of .xml data to {@code XmlAdaptedPerson}
+     * Test class annotated with {@code XmlRootElement} to allow unmarshalling of .xml data to {@code XmlAdaptedExpense}
      * objects.
      */
     @XmlRootElement(name = "expense")
-    private static class XmlAdaptedPersonWithRootElement extends XmlAdaptedPerson {}
+    private static class XmlAdaptedExpenseWithRootElement extends XmlAdaptedExpense {}
 }

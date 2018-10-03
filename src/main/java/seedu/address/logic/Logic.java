@@ -10,7 +10,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.exceptions.NonExistentUserException;
 import seedu.address.model.exceptions.UserAlreadyExistsException;
-import seedu.address.model.expense.Person;
+import seedu.address.model.expense.Expense;
 
 /**
  * API of the Logic component
@@ -26,8 +26,8 @@ public interface Logic {
     CommandResult execute(String commandText) throws CommandException, ParseException, NoUserSelectedException,
             UserAlreadyExistsException, NonExistentUserException;
 
-    /** Returns an unmodifiable view of the filtered list of persons */
-    ObservableList<Person> getFilteredPersonList() throws NoUserSelectedException;
+    /** Returns an unmodifiable view of the filtered list of expenses */
+    ObservableList<Expense> getFilteredExpenseList() throws NoUserSelectedException;
 
     LinkedHashMap<String, Double> getExpenseStats() throws NoUserSelectedException;
 

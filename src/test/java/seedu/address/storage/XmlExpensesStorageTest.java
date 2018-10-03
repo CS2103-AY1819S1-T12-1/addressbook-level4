@@ -2,10 +2,10 @@ package seedu.address.storage;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.HOON;
-import static seedu.address.testutil.TypicalPersons.IDA;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalExpenses.ALICE;
+import static seedu.address.testutil.TypicalExpenses.HOON;
+import static seedu.address.testutil.TypicalExpenses.IDA;
+import static seedu.address.testutil.TypicalExpenses.getTypicalAddressBook;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -63,13 +63,13 @@ public class XmlExpensesStorageTest {
     }
 
     @Test
-    public void readAddressBook_invalidPersonAddressBook_throwDataConversionException() throws Exception {
+    public void readAddressBook_invalidExpenseAddressBook_throwDataConversionException() throws Exception {
         thrown.expect(DataConversionException.class);
         readAddressBook("invalidPersonAddressBook.xml");
     }
 
     @Test
-    public void readAddressBook_invalidAndValidPersonAddressBook_throwDataConversionException() throws Exception {
+    public void readAddressBook_invalidAndValidExpenseAddressBook_throwDataConversionException() throws Exception {
         thrown.expect(DataConversionException.class);
         readAddressBook("invalidAndValidPersonAddressBook.xml");
     }
@@ -86,14 +86,14 @@ public class XmlExpensesStorageTest {
         assertEquals(original, new AddressBook(readBack));
 
         //Modify data, overwrite exiting file, and read back
-        original.addPerson(HOON);
-        original.removePerson(ALICE);
+        original.addExpense(HOON);
+        original.removeExpense(ALICE);
         xmlAddressBookStorage.saveExpenses(original, filePath);
         readBack = xmlAddressBookStorage.readExpenses(filePath).get();
         assertEquals(original, new AddressBook(readBack));
 
         //Save and read without specifying file path
-        original.addPerson(IDA);
+        original.addExpense(IDA);
         xmlAddressBookStorage.saveExpenses(original); //file path not specified
         readBack = xmlAddressBookStorage.readExpenses().get(); //file path not specified
         assertEquals(original, new AddressBook(readBack));

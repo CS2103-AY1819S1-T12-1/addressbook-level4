@@ -2,9 +2,9 @@ package seedu.address.model;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.BENSON;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EXPENSES;
+import static seedu.address.testutil.TypicalExpenses.ALICE;
+import static seedu.address.testutil.TypicalExpenses.BENSON;
 
 import java.nio.file.Paths;
 import java.util.Arrays;
@@ -31,26 +31,26 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void hasPerson_nullPerson_throwsNullPointerException() throws NoUserSelectedException {
+    public void hasExpense_nullExpense_throwsNullPointerException() throws NoUserSelectedException {
         thrown.expect(NullPointerException.class);
-        modelManager.hasPerson(null);
+        modelManager.hasExpense(null);
     }
 
     @Test
-    public void hasPerson_personNotInAddressBook_returnsFalse() throws NoUserSelectedException {
-        assertFalse(modelManager.hasPerson(ALICE));
+    public void hasExpense_expenseNotInAddressBook_returnsFalse() throws NoUserSelectedException {
+        assertFalse(modelManager.hasExpense(ALICE));
     }
 
     @Test
-    public void hasPerson_personInAddressBook_returnsTrue() throws NoUserSelectedException {
-        modelManager.addPerson(ALICE);
-        assertTrue(modelManager.hasPerson(ALICE));
+    public void hasExpense_expenseInAddressBook_returnsTrue() throws NoUserSelectedException {
+        modelManager.addExpense(ALICE);
+        assertTrue(modelManager.hasExpense(ALICE));
     }
 
     @Test
-    public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() throws NoUserSelectedException {
+    public void getFilteredExpenseList_modifyList_throwsUnsupportedOperationException() throws NoUserSelectedException {
         thrown.expect(UnsupportedOperationException.class);
-        modelManager.getFilteredPersonList().remove(0);
+        modelManager.getFilteredExpenseList().remove(0);
     }
 
     @Test
@@ -66,21 +66,21 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void hasPerson_noUserSelected_throwsNoUserSelectedException() throws Exception {
+    public void hasExpense_noUserSelected_throwsNoUserSelectedException() throws Exception {
         thrown.expect(NoUserSelectedException.class);
-        modelManagerLoggedOut.hasPerson(ALICE);
+        modelManagerLoggedOut.hasExpense(ALICE);
     }
 
     @Test
-    public void getFilteredPersonList_noUserSelected_throwsNoUserSelectedException() throws Exception {
+    public void getFilteredExpenseList_noUserSelected_throwsNoUserSelectedException() throws Exception {
         thrown.expect(NoUserSelectedException.class);
-        modelManagerLoggedOut.getFilteredPersonList();
+        modelManagerLoggedOut.getFilteredExpenseList();
     }
 
     @Test
-    public void updateFilteredPersonList_noUserSelected_throwsNoUserSelectedException() throws Exception {
+    public void updateFilteredExpenseList_noUserSelected_throwsNoUserSelectedException() throws Exception {
         thrown.expect(NoUserSelectedException.class);
-        modelManagerLoggedOut.updateFilteredPersonList(unused -> true);
+        modelManagerLoggedOut.updateFilteredExpenseList(unused -> true);
     }
 
     @Test
@@ -115,7 +115,7 @@ public class ModelManagerTest {
 
     @Test
     public void equals() throws NoUserSelectedException {
-        AddressBook addressBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
+        AddressBook addressBook = new AddressBookBuilder().withExpense(ALICE).withExpense(BENSON).build();
         AddressBook differentAddressBook = new AddressBook(ModelUtil.TEST_USERNAME);
         UserPrefs userPrefs = new UserPrefs();
 
@@ -138,11 +138,11 @@ public class ModelManagerTest {
 
         // different filteredList -> returns false
         String[] keywords = ALICE.getName().expenseName.split("\\s+");
-        modelManager.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
+        modelManager.updateFilteredExpenseList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));
 
         // resets modelManager to initial state for upcoming tests
-        modelManager.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        modelManager.updateFilteredExpenseList(PREDICATE_SHOW_ALL_EXPENSES);
 
         // different userPrefs -> returns true
         UserPrefs differentUserPrefs = new UserPrefs();

@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 import seedu.address.TestApp;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.exceptions.NonExistentUserException;
-import seedu.address.testutil.TypicalPersons;
+import seedu.address.testutil.TypicalExpenses;
 
 /**
  * Contains helper methods that system tests require.
@@ -54,7 +54,7 @@ public class SystemTestSetupHelper {
         try {
             FxToolkit.setupFixture(() -> {
                 try {
-                    testApp.getActualModel().loadUserData(TypicalPersons.SAMPLE_USERNAME);
+                    testApp.getActualModel().loadUserData(TypicalExpenses.SAMPLE_USERNAME);
                 } catch (NonExistentUserException e) {
                     Assert.fail(e.getMessage());
                 }

@@ -114,13 +114,25 @@ Edits the date of the 1st expense to be the 1st of October, 2018.
 === Locating expenses by name: `find`
 
 Finds expense whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Format: `find [n/NAME] AND[OR] [c/CATEGORY] AND[OR] [c/COST] AND[OR] [t/TAG] AND[OR] [d/DATE:DATE]`
+
+Examples:
+
+* find c/School
+Find all the expenses under `School` category.
+* find c/Food AND t/Lunch
+Find all the expenses with tag `Lunch` under `Food` category.
+* find c/Food OR t/Lunch
+Find all the expenses with tag `Lunch` plus the expenses under `Food` category.
+* find d/1-10-2018:7-10-2018
+Find all the expenses from 1-10-2018 to 7-10-2018.
+* find c/>10.00
+Find all the expenses with cost larger than 10.00.
 
 ****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
+* The search is case insensitive. e.g `school` will match `School`
+* The order of the keywords does not matter. e.g. `c/Food t/Lunch` will match `t/Lunch c/Food`
+* Only full words will be matched e.g. `sc` will not match `school`
 * Expense matching at least one keyword will be returned (i.e. `OR` search).
 ****
 
@@ -131,7 +143,7 @@ Deletes the specified expense from the expense tracker. +
 Format: `delete INDEX`
 
 ****
-* Deletes the person at the specified `INDEX`.
+* Deletes the expense at the specified `INDEX`.
 * The index refers to the index number shown in the displayed expense list.
 * The index *must be a positive integer* 1, 2, 3, ...
 ****

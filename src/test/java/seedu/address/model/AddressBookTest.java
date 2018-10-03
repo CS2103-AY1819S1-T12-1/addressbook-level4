@@ -5,8 +5,8 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_COST_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalExpenses.ALICE;
+import static seedu.address.testutil.TypicalExpenses.getTypicalAddressBook;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -19,14 +19,11 @@ import org.junit.rules.ExpectedException;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.expense.Category;
 import seedu.address.model.expense.Expense;
-import seedu.address.model.expense.Name;
-import seedu.address.model.expense.Person;
-import seedu.address.model.expense.exceptions.DuplicatePersonException;
+import seedu.address.model.expense.exceptions.DuplicateExpenseException;
 import seedu.address.model.user.Username;
+import seedu.address.testutil.ExpenseBuilder;
 import seedu.address.testutil.ModelUtil;
-import seedu.address.testutil.PersonBuilder;
 
 public class AddressBookTest {
 
@@ -37,7 +34,7 @@ public class AddressBookTest {
 
     @Test
     public void constructor() {
-        assertEquals(Collections.emptyList(), addressBook.getPersonList());
+        assertEquals(Collections.emptyList(), addressBook.getExpenseList());
     }
 
     @Test
@@ -54,97 +51,61 @@ public class AddressBookTest {
     }
 
     @Test
-    public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
-        // Two persons with the same identity fields
-        Person editedAlice = new PersonBuilder(ALICE).withCost(VALID_COST_BOB).withTags(VALID_TAG_HUSBAND)
+    public void resetData_withDuplicateExpenses_throwsDuplicateExpenseException() {
+        // Two expenses with the same identity fields
+        Expense editedAlice = new ExpenseBuilder(ALICE).withCost(VALID_COST_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
-        List<Person> newPersons = Arrays.asList(ALICE, editedAlice);
-        AddressBookStub newData = new AddressBookStub(newPersons);
+        List<Expense> newExpenses = Arrays.asList(ALICE, editedAlice);
+        AddressBookStub newData = new AddressBookStub(newExpenses);
 
-        thrown.expect(DuplicatePersonException.class);
+        thrown.expect(DuplicateExpenseException.class);
         addressBook.resetData(newData);
     }
 
     @Test
-    public void hasPerson_nullPerson_throwsNullPointerException() {
+    public void hasExpense_nullExpense_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        addressBook.hasPerson(null);
+        addressBook.hasExpense(null);
     }
 
     @Test
-    public void hasPerson_personNotInAddressBook_returnsFalse() {
-        assertFalse(addressBook.hasPerson(ALICE));
+    public void hasExpense_expenseNotInAddressBook_returnsFalse() {
+        assertFalse(addressBook.hasExpense(ALICE));
     }
 
     @Test
-    public void hasPerson_personInAddressBook_returnsTrue() {
-        addressBook.addPerson(ALICE);
-        assertTrue(addressBook.hasPerson(ALICE));
+    public void haExpense_expenseInAddressBook_returnsTrue() {
+        addressBook.addExpense(ALICE);
+        assertTrue(addressBook.hasExpense(ALICE));
     }
 
     @Test
-    public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
-        addressBook.addPerson(ALICE);
-        Person editedAlice = new PersonBuilder(ALICE).withCost(VALID_COST_BOB).withTags(VALID_TAG_HUSBAND)
+    public void hasExpense_expenseWithSameIdentityFieldsInAddressBook_returnsTrue() {
+        addressBook.addExpense(ALICE);
+        Expense editedAlice = new ExpenseBuilder(ALICE).withCost(VALID_COST_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
-        assertTrue(addressBook.hasPerson(editedAlice));
+        assertTrue(addressBook.hasExpense(editedAlice));
     }
 
     @Test
-    public void getPersonList_modifyList_throwsUnsupportedOperationException() {
+    public void getExpenseList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
-        addressBook.getPersonList().remove(0);
+        addressBook.getExpenseList().remove(0);
     }
 
     /**
-     * @return the string which consists of category and expense under the category.
-     * The order is unexpected as the string is converted from HashMap.
-     * */
-    public String testAddExpense(Expense e) {
-        addressBook.addExpense(e);
-        String result = addressBook.getCategoryList().toString();
-        return result;
-    }
-
-    /**
-     * @return the string of a expense list under a particular category.
-     * */
-    public String getTargetExpenseList(String name, String category) {
-        Expense e = new Expense(new Name(name), new Category(category));
-        addressBook.addExpense(e);
-        return addressBook.getCategoryList().getCategory(category).getExpenseList().toString();
-    }
-
-    @Test
-    public void addExpense_categoryNotExist() {
-        Expense e = new Expense(new Name("firstExpense"), new Category("Test"));
-        assertEquals("Test firstExpense ", testAddExpense(e));
-
-        assertEquals("[secondExpense]", getTargetExpenseList("secondExpense", "secondTest"));
-        assertEquals("[thirdExpense]", getTargetExpenseList("thirdExpense", "thirdTest"));
-    }
-
-    @Test
-    public void addExpense_categoryExit() {
-        assertEquals("[first]", getTargetExpenseList("first", "Test1"));
-        assertEquals("[first, second]", getTargetExpenseList("second", "Test1"));
-        assertEquals("[first, second, third]", getTargetExpenseList("third", "Test1"));
-    }
-
-
-    /**
-     * A stub ReadOnlyAddressBook whose persons list can violate interface constraints.
+     * A stub ReadOnlyAddressBook whose expenses list can violate interface constraints.
      */
     private static class AddressBookStub implements ReadOnlyAddressBook {
-        private final ObservableList<Person> persons = FXCollections.observableArrayList();
+        private final ObservableList<Expense> expenses = FXCollections.observableArrayList();
 
-        AddressBookStub(Collection<Person> persons) {
-            this.persons.setAll(persons);
+        AddressBookStub(Collection<Expense> expenses) {
+            this.expenses.setAll(expenses);
         }
 
         @Override
-        public ObservableList<Person> getPersonList() {
-            return persons;
+        public ObservableList<Expense> getExpenseList() {
+            return expenses;
         }
 
         @Override

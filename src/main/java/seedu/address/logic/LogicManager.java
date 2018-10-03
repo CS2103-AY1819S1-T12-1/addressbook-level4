@@ -15,7 +15,7 @@ import seedu.address.model.Model;
 import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.exceptions.NonExistentUserException;
 import seedu.address.model.exceptions.UserAlreadyExistsException;
-import seedu.address.model.expense.Person;
+import seedu.address.model.expense.Expense;
 
 /**
  * The main LogicManager of the app.
@@ -46,15 +46,15 @@ public class LogicManager extends ComponentManager implements Logic {
     }
 
     @Override
-    public ObservableList<Person> getFilteredPersonList() throws NoUserSelectedException {
-        return model.getFilteredPersonList();
+    public ObservableList<Expense> getFilteredExpenseList() throws NoUserSelectedException {
+        return model.getFilteredExpenseList();
     }
 
     //@@author jonathantjm
     public LinkedHashMap<String, Double> getExpenseStats() throws NoUserSelectedException {
-        ObservableList<Person> expenseList = model.getExpenseStats();
+        ObservableList<Expense> expenseList = model.getExpenseStats();
         LinkedHashMap<String, Double> stats = new LinkedHashMap<>();
-        for (Person e : expenseList) {
+        for (Expense e : expenseList) {
             if (stats.containsKey(e.getDate().toString())) {
                 stats.put(
                     e.getDate().toString(),

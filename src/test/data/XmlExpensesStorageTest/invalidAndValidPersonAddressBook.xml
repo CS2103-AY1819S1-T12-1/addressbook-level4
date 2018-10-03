@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addressbook>
-    <!-- Valid Person -->
-    <persons>
+    <!-- Valid Expense -->
+    <expenses>
         <name>Hans Muster</name>
         <category isPrivate="false">School</category>
         <cost isPrivate="false">1.00</cost>
-    </persons>
-    <!-- Person with invalid category field -->
-    <persons>
+    </expenses>
+    <!-- Expense with invalid category field -->
+    <expenses>
         <name>Hans Muster</name>
         <category isPrivate="false"> </category>
         <cost isPrivate="false">1.00</cost>
-    </persons>
-    <username>invalidAndValidPersonAddressBook</username>
+    </expenses>
+    <username>invalidAndValidExpenseAddressBook</username>
 </addressbook>

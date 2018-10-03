@@ -6,7 +6,7 @@ import javafx.collections.ObservableList;
 import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.exceptions.NonExistentUserException;
 import seedu.address.model.exceptions.UserAlreadyExistsException;
-import seedu.address.model.expense.Person;
+import seedu.address.model.expense.Expense;
 import seedu.address.model.user.Username;
 
 /**
@@ -14,7 +14,7 @@ import seedu.address.model.user.Username;
  */
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
-    Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Expense> PREDICATE_SHOW_ALL_EXPENSES = unused -> true;
 
     /** Clears existing backing model and replaces with the provided new data. */
     void resetData(ReadOnlyAddressBook newData) throws NoUserSelectedException;
@@ -23,37 +23,38 @@ public interface Model {
     ReadOnlyAddressBook getAddressBook() throws NoUserSelectedException;
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a expense with the same identity as {@code expense} exists in the address book.
      */
-    boolean hasPerson(Person person) throws NoUserSelectedException;
+    boolean hasExpense(Expense expense) throws NoUserSelectedException;
 
     /**
-     * Deletes the given person.
-     * The person must exist in the address book.
+     * Deletes the given expense.
+     * The expense must exist in the address book.
      */
-    void deletePerson(Person target) throws NoUserSelectedException;
+    void deleteExpense(Expense target) throws NoUserSelectedException;
 
     /**
-     * Adds the given person.
-     * {@code person} must not already exist in the address book.
+     * Adds the given expense.
+     * {@code expense} must not already exist in the address book.
      */
-    void addPerson(Person person) throws NoUserSelectedException;
+    void addExpense(Expense expense) throws NoUserSelectedException;
 
     /**
-     * Replaces the given person {@code target} with {@code editedPerson}.
+     * Replaces the given expense {@code target} with {@code editedExpense}.
      * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * The expense identity of {@code editedExpense}
+     * must not be the same as another existing expense in the address book.
      */
-    void updatePerson(Person target, Person editedPerson) throws NoUserSelectedException;
+    void updateExpense(Expense target, Expense editedExpense) throws NoUserSelectedException;
 
-    /** Returns an unmodifiable view of the filtered person list */
-    ObservableList<Person> getFilteredPersonList() throws NoUserSelectedException;
+    /** Returns an unmodifiable view of the filtered expense list */
+    ObservableList<Expense> getFilteredExpenseList() throws NoUserSelectedException;
 
     /**
-     * Updates the filter of the filtered person list to filter by the given {@code predicate}.
+     * Updates the filter of the filtered expense list to filter by the given {@code predicate}.
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateFilteredPersonList(Predicate<Person> predicate) throws NoUserSelectedException;
+    void updateFilteredExpenseList(Predicate<Expense> predicate) throws NoUserSelectedException;
 
     /**
      * Returns true if the model has previous address book states to restore.
@@ -107,13 +108,13 @@ public interface Model {
     boolean hasSelectedUser();
 
     /** Returns an unmodifiable view of the expense stats*/
-    ObservableList<Person> getExpenseStats() throws NoUserSelectedException;
+    ObservableList<Expense> getExpenseStats() throws NoUserSelectedException;
 
     /**
      * Updates the expense stats
      * @throws NullPointerException if {@code predicate} is null.
      */
-    void updateExpenseStats(Predicate<Person> predicate) throws NoUserSelectedException;
+    void updateExpenseStats(Predicate<Expense> predicate) throws NoUserSelectedException;
 
     /**
      * Returns a copy of this model.

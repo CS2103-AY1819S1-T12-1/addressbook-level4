@@ -1,7 +1,7 @@
 package seedu.address.model;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.expense.Person;
+import seedu.address.model.expense.Expense;
 import seedu.address.model.user.Username;
 
 /**
@@ -10,10 +10,10 @@ import seedu.address.model.user.Username;
 public interface ReadOnlyAddressBook {
 
     /**
-     * Returns an unmodifiable view of the persons list.
-     * This list will not contain any duplicate persons.
+     * Returns an unmodifiable view of the expenses list.
+     * This list will not contain any duplicate expenses.
      */
-    ObservableList<Person> getPersonList();
+    ObservableList<Expense> getExpenseList();
 
     Username getUsername();
 }
