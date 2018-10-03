@@ -4,18 +4,18 @@ import static java.time.Duration.ofMillis;
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 import static seedu.address.testutil.EventsUtil.postNow;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_EXPENSE;
 import static seedu.address.testutil.TypicalExpenses.getTypicalExpenses;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_EXPENSE;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysExpense;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardEquals;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-import guitests.guihandles.ExpenseCardHandle;
-import guitests.guihandles.ExpenseListPanelHandle;
 import org.junit.Test;
 
+import guitests.guihandles.ExpenseCardHandle;
+import guitests.guihandles.ExpenseListPanelHandle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
@@ -56,7 +56,8 @@ public class ExpenseListPanelTest extends GuiUnitTest {
         postNow(JUMP_TO_SECOND_EVENT);
         guiRobot.pauseForHuman();
 
-        ExpenseCardHandle expectedExpense = expenseListPanelHandle.getExpenseCardHandle(INDEX_SECOND_EXPENSE.getZeroBased());
+        ExpenseCardHandle expectedExpense =
+                expenseListPanelHandle.getExpenseCardHandle(INDEX_SECOND_EXPENSE.getZeroBased());
         ExpenseCardHandle selectedExpense = expenseListPanelHandle.getHandleToSelectedCard();
         assertCardEquals(expectedExpense, selectedExpense);
     }

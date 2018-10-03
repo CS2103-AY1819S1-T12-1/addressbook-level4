@@ -5,9 +5,9 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysExpense;
 
-import guitests.guihandles.ExpenseCardHandle;
 import org.junit.Test;
 
+import guitests.guihandles.ExpenseCardHandle;
 import seedu.address.model.expense.Expense;
 import seedu.address.testutil.ExpenseBuilder;
 

@@ -11,9 +11,9 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showExpenseAtIndex;
+import static seedu.address.testutil.TypicalExpenses.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EXPENSE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_EXPENSE;
-import static seedu.address.testutil.TypicalExpenses.getTypicalAddressBook;
 
 import org.junit.Test;
 
@@ -128,7 +128,8 @@ public class EditCommandTest {
     @Test
     public void execute_invalidExpenseIndexUnfilteredList_failure() throws NoUserSelectedException {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredExpenseList().size() + 1);
-        EditCommand.EditExpenseDescriptor descriptor = new EditExpenseDescriptorBuilder().withName(VALID_NAME_BOB).build();
+        EditCommand.EditExpenseDescriptor descriptor =
+                new EditExpenseDescriptorBuilder().withName(VALID_NAME_BOB).build();
         EditCommand editCommand = new EditCommand(outOfBoundIndex, descriptor);
 
         assertCommandFailure(editCommand, model, commandHistory, Messages.MESSAGE_INVALID_EXPENSE_DISPLAYED_INDEX);

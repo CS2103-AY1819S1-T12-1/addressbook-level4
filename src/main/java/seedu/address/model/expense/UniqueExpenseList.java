@@ -13,10 +13,11 @@ import seedu.address.model.expense.exceptions.ExpenseNotFoundException;
 
 /**
  * A list of expenses that enforces uniqueness between its elements and does not allow nulls.
- * A expense is considered unique by comparing using {@code Expense#isSameExpense(Expense)}. As such, adding and updating of
- * expense uses Expense#isSameExpense(Expense) for equality so as to ensure that the expense being added or updated is
- * unique in terms of identity in the UniqueExpenseList. However, the removal of a expense uses Expense#equals(Object) so
- * as to ensure that the expense with exactly the same fields will be removed.
+ * A expense is considered unique by comparing using {@code Expense#isSameExpense(Expense)}.
+ * As such, adding and updating of expense uses Expense#isSameExpense(Expense) for equality
+ * so as to ensure that the expense being added or updated is
+ * unique in terms of identity in the UniqueExpenseList. However, the removal of a expense uses Expense#equals(Object)
+ * so as to ensure that the expense with exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.
  *

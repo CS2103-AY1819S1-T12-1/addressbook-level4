@@ -24,11 +24,11 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EXPENSES;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EXPENSE;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_EXPENSE;
 import static seedu.address.testutil.TypicalExpenses.AMY;
 import static seedu.address.testutil.TypicalExpenses.BOB;
 import static seedu.address.testutil.TypicalExpenses.KEYWORD_MATCHING_MEIER;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EXPENSE;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_EXPENSE;
 
 import org.junit.Test;
 
@@ -170,7 +170,8 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
                 + COST_DESC_BOB + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_EXPENSES);
 
-        /* Case: edit a expense with new values same as another expense's values but with different address -> rejected */
+        /* Case: edit a expense with new values same as another expense's values but with different address
+        -> rejected */
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + CATEGORY_DESC_BOB
                 + COST_DESC_AMY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_EXPENSES);

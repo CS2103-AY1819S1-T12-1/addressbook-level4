@@ -77,7 +77,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Replaces the given expense {@code target} in the list with {@code editedExpense}.
      * {@code target} must exist in the address book.
-     * The expense identity of {@code editedExpense} must not be the same as another existing expense in the address book.
+     * The expense identity of {@code editedExpense}
+     * must not be the same as another existing expense in the address book.
      */
     public void updateExpense(Expense target, Expense editedExpense) {
         requireNonNull(editedExpense);

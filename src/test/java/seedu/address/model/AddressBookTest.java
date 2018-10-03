@@ -19,9 +19,7 @@ import org.junit.rules.ExpectedException;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.expense.Category;
 import seedu.address.model.expense.Expense;
-import seedu.address.model.expense.Name;
 import seedu.address.model.expense.exceptions.DuplicateExpenseException;
 import seedu.address.model.user.Username;
 import seedu.address.testutil.ExpenseBuilder;

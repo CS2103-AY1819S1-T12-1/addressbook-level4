@@ -35,8 +35,8 @@ import seedu.address.logic.commands.AddCommand;
 import seedu.address.model.expense.Category;
 import seedu.address.model.expense.Cost;
 import seedu.address.model.expense.Date;
-import seedu.address.model.expense.Name;
 import seedu.address.model.expense.Expense;
+import seedu.address.model.expense.Name;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.ExpenseBuilder;
 

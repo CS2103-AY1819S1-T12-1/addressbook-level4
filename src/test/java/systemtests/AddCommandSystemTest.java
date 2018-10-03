@@ -105,7 +105,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         showExpenseWithName(KEYWORD_MATCHING_MEIER);
         assertCommandSuccess(IDA);
 
-        /* ------------------------ Perform add operation while a expense card is selected --------------------------- */
+        /* ------------------------ Perform add operation while a expense card is selected -------------------------- */
 
         /* Case: selects first card in the expense list, add a expense -> added, card selection remains unchanged */
         selectExpense(Index.fromOneBased(1));

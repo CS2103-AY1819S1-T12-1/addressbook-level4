@@ -120,7 +120,8 @@ public class EditCommandParserTest {
         Index targetIndex = INDEX_FIRST_EXPENSE;
         String userInput = targetIndex.getOneBased() + CATEGORY_DESC_BOB;
 
-        EditCommand.EditExpenseDescriptor descriptor = new EditExpenseDescriptorBuilder().withCategory(VALID_CATEGORY_BOB)
+        EditCommand.EditExpenseDescriptor descriptor =
+                new EditExpenseDescriptorBuilder().withCategory(VALID_CATEGORY_BOB)
                 .build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
@@ -162,7 +163,8 @@ public class EditCommandParserTest {
                 + TAG_DESC_FRIEND + CATEGORY_DESC_AMY + COST_DESC_AMY + TAG_DESC_FRIEND
                 + CATEGORY_DESC_BOB + COST_DESC_BOB + TAG_DESC_HUSBAND;
 
-        EditCommand.EditExpenseDescriptor descriptor = new EditExpenseDescriptorBuilder().withCategory(VALID_CATEGORY_BOB)
+        EditCommand.EditExpenseDescriptor descriptor =
+                new EditExpenseDescriptorBuilder().withCategory(VALID_CATEGORY_BOB)
                 .withCost(VALID_COST_BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
                 .build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
@@ -175,7 +177,8 @@ public class EditCommandParserTest {
         // no other valid values specified
         Index targetIndex = INDEX_FIRST_EXPENSE;
         String userInput = targetIndex.getOneBased() + INVALID_CATEGORY_DESC + CATEGORY_DESC_BOB;
-        EditCommand.EditExpenseDescriptor descriptor = new EditExpenseDescriptorBuilder().withCategory(VALID_CATEGORY_BOB).build();
+        EditCommand.EditExpenseDescriptor descriptor =
+                new EditExpenseDescriptorBuilder().withCategory(VALID_CATEGORY_BOB).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
