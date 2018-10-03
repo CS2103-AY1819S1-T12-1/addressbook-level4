@@ -3,8 +3,10 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.CATEGORY_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.CATEGORY_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.CATEGORY_DESC_KFC;
 import static seedu.address.logic.commands.CommandTestUtil.COST_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.COST_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.COST_DESC_KFC;
 import static seedu.address.logic.commands.CommandTestUtil.DATE_DESC_1990;
 import static seedu.address.logic.commands.CommandTestUtil.DATE_DESC_2018;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
@@ -14,8 +16,10 @@ import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_KFC;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
+import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FOOD;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_BOB;
@@ -28,6 +32,7 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailur
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalExpenses.AMY;
 import static seedu.address.testutil.TypicalExpenses.BOB;
+import static seedu.address.testutil.TypicalExpenses.KFC;
 
 import org.junit.Test;
 
@@ -84,6 +89,12 @@ public class AddCommandParserTest {
 
         assertParseSuccess(parser, NAME_DESC_AMY + CATEGORY_DESC_AMY + COST_DESC_AMY + DATE_DESC_1990,
                 new AddCommand(expectedExpense));
+
+        // no date
+        Expense expectedExpense2 = new ExpenseBuilder(KFC).withDate(new Date().toString()).build();
+
+        assertParseSuccess(parser, NAME_DESC_KFC + CATEGORY_DESC_KFC + COST_DESC_KFC + TAG_DESC_FOOD,
+                new AddCommand(expectedExpense2));
     }
 
     @Test

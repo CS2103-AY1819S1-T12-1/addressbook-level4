@@ -2,12 +2,16 @@ package seedu.address.testutil;
 
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_KFC;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_COST_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_COST_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_COST_KFC;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_1990;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_2018;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_KFC;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FOOD;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 
@@ -18,6 +22,8 @@ import java.util.List;
 import seedu.address.model.AddressBook;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.user.Username;
+
+
 
 /**
  * A utility class containing a list of {@code Expense} objects to be used in tests.
@@ -83,6 +89,10 @@ public class TypicalExpenses {
             .withDate(VALID_DATE_2018)
             .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
             .build();
+    public static final Expense KFC = new ExpenseBuilder().withName(VALID_NAME_KFC).withCategory(VALID_CATEGORY_KFC)
+            .withCost(VALID_COST_KFC)
+            .withCategory(VALID_CATEGORY_KFC)
+            .withTags(VALID_TAG_FOOD).build();
 
     public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
 

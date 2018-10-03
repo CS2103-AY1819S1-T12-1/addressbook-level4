@@ -34,24 +34,32 @@ public class CommandTestUtil {
 
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_NAME_BOB = "Bob Choo";
+    public static final String VALID_NAME_KFC = "Have KFC";
     public static final String VALID_CATEGORY_AMY = "School";
     public static final String VALID_CATEGORY_BOB = "Food";
+    public static final String VALID_CATEGORY_KFC = "Food";
 
     public static final String VALID_COST_AMY = "123.00";
     public static final String VALID_COST_BOB = "22.00";
+    public static final String VALID_COST_KFC = "10.00";
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
+    public static final String VALID_TAG_FOOD = "Lunch";
     public static final String VALID_DATE_1990 = "01-01-1990";
     public static final String VALID_DATE_2018 = "01-10-2018";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
+    public static final String NAME_DESC_KFC = " " + PREFIX_NAME + VALID_NAME_KFC;
     public static final String CATEGORY_DESC_AMY = " " + PREFIX_CATEGORY + VALID_CATEGORY_AMY;
     public static final String CATEGORY_DESC_BOB = " " + PREFIX_CATEGORY + VALID_CATEGORY_BOB;
+    public static final String CATEGORY_DESC_KFC = " " + PREFIX_CATEGORY + VALID_CATEGORY_KFC;
     public static final String COST_DESC_AMY = " " + PREFIX_COST + VALID_COST_AMY;
     public static final String COST_DESC_BOB = " " + PREFIX_COST + VALID_COST_BOB;
+    public static final String COST_DESC_KFC = " " + PREFIX_COST + VALID_COST_KFC;
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
+    public static final String TAG_DESC_FOOD = " " + PREFIX_TAG + VALID_TAG_FOOD;
     public static final String DATE_DESC_1990 = " " + PREFIX_DATE + VALID_DATE_1990;
     public static final String DATE_DESC_2018 = " " + PREFIX_DATE + VALID_DATE_2018;
 
