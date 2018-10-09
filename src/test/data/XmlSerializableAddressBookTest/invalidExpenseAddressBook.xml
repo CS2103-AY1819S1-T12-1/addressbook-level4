@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addressbook>
-    <!-- Person with invalid cost field -->
-    <persons>
+    <!-- Expense with invalid cost field -->
+    <expenses>
         <name>Hans Muster</name>
         <category isPrivate="false">School</category>
         <cost isPrivate="false">a</cost>
 		<date isPrivate="false">01-10-2018</date>
-    </persons>
-    <username>invalidPersonAddressBook</username>
+    </expenses>
+    <username>invalidExpenseAddressBook</username>
 </addressbook>

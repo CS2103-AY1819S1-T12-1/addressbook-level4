@@ -11,10 +11,10 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.exceptions.NoUserSelectedException;
-import seedu.address.model.expense.Person;
+import seedu.address.model.expense.Expense;
 
 /**
- * Adds a person to the address book.
+ * Adds a expense to the address book.
  */
 public class AddCommand extends Command {
 
@@ -35,30 +35,30 @@ public class AddCommand extends Command {
             + PREFIX_TAG + "bookhaven "
             + PREFIX_TAG + "nus";
 
-    public static final String MESSAGE_SUCCESS = "New person added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
+    public static final String MESSAGE_SUCCESS = "New expense added: %1$s";
+    public static final String MESSAGE_DUPLICATE_EXPENSE = "This expense already exists in the address book";
     public static final String MESSAGE_BUDGET_EXCEED_WARNING = "WARNING: "
         + "Adding this expense will cause your budget to exceed.";
 
-    private final Person toAdd;
+    private final Expense toAdd;
 
     /**
-     * Creates an AddCommand to add the specified {@code Person}
+     * Creates an AddCommand to add the specified {@code Expense}
      */
-    public AddCommand(Person person) {
-        requireNonNull(person);
-        toAdd = person;
+    public AddCommand(Expense expense) {
+        requireNonNull(expense);
+        toAdd = expense;
     }
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException, NoUserSelectedException {
         requireNonNull(model);
 
-        if (model.hasPerson(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+        if (model.hasExpense(toAdd)) {
+            throw new CommandException(MESSAGE_DUPLICATE_EXPENSE);
         }
 
-        boolean withinBudget = model.addPerson(toAdd);
+        boolean withinBudget = model.addExpense(toAdd);
         model.commitAddressBook();
         if (withinBudget) {
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));

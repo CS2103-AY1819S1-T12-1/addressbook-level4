@@ -9,45 +9,45 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import java.util.Set;
 
 import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
-import seedu.address.model.expense.Person;
+import seedu.address.logic.commands.EditCommand.EditExpenseDescriptor;
+import seedu.address.model.expense.Expense;
 import seedu.address.model.tag.Tag;
 
 /**
- * A utility class for Person.
+ * A utility class for Expense.
  */
-public class PersonUtil {
+public class ExpenseUtil {
 
     /**
-     * Returns an add command string for adding the {@code person}.
+     * Returns an add command string for adding the {@code expense}.
      */
-    public static String getAddCommand(Person person) {
-        return AddCommand.COMMAND_WORD + " " + getPersonDetails(person);
+    public static String getAddCommand(Expense expense) {
+        return AddCommand.COMMAND_WORD + " " + getExpenseDetails(expense);
     }
 
-    public static String getAddCommandAlias(Person person) {
-        return AddCommand.COMMAND_ALIAS + " " + getPersonDetails(person);
+    public static String getAddCommandAlias(Expense expense) {
+        return AddCommand.COMMAND_ALIAS + " " + getExpenseDetails(expense);
     }
 
     /**
-     * Returns the part of command string for the given {@code person}'s details.
+     * Returns the part of command string for the given {@code expense}'s details.
      */
-    public static String getPersonDetails(Person person) {
+    public static String getExpenseDetails(Expense expense) {
         StringBuilder sb = new StringBuilder();
-        sb.append(PREFIX_NAME + person.getName().expenseName + " ");
-        sb.append(PREFIX_CATEGORY + person.getCategory().getName() + " ");
-        sb.append(PREFIX_COST + person.getCost().value + " ");
-        sb.append(PREFIX_DATE + person.getDate().toString() + " ");
-        person.getTags().stream().forEach(
+        sb.append(PREFIX_NAME + expense.getName().expenseName + " ");
+        sb.append(PREFIX_CATEGORY + expense.getCategory().getName() + " ");
+        sb.append(PREFIX_COST + expense.getCost().value + " ");
+        sb.append(PREFIX_DATE + expense.getDate().toString() + " ");
+        expense.getTags().stream().forEach(
             s -> sb.append(PREFIX_TAG + s.tagName + " ")
         );
         return sb.toString();
     }
 
     /**
-     * Returns the part of command string for the given {@code EditPersonDescriptor}'s details.
+     * Returns the part of command string for the given {@code EditExpenseDescriptor}'s details.
      */
-    public static String getEditPersonDescriptorDetails(EditPersonDescriptor descriptor) {
+    public static String getEditExpenseDescriptorDetails(EditExpenseDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_NAME).append(name.expenseName).append(" "));
         descriptor.getCategory().ifPresent(category ->

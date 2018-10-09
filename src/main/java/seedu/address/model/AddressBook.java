@@ -7,21 +7,18 @@ import java.util.List;
 import javafx.collections.ObservableList;
 
 import seedu.address.model.budget.Budget;
-import seedu.address.model.expense.Category;
 import seedu.address.model.expense.Expense;
-import seedu.address.model.expense.Person;
-import seedu.address.model.expense.UniquePersonList;
+import seedu.address.model.expense.UniqueExpenseList;
 import seedu.address.model.user.Username;
 
 /**
  * Wraps all data at the address-book level
- * Duplicates are not allowed (by .isSamePerson comparison)
+ * Duplicates are not allowed (by .isSameExpense comparison)
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
     protected Username username;
-    private final UniquePersonList persons;
-    private final CategoryList categoryList;
+    private final UniqueExpenseList expenses;
     private Budget maximumBudget;
 
     /**
@@ -30,13 +27,12 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public AddressBook(Username username) {
         this.username = username;
-        this.persons = new UniquePersonList();
-        this.categoryList = new CategoryList();
+        this.expenses = new UniqueExpenseList();
         this.maximumBudget = new Budget("28.00");
     }
 
     /**
-     * Creates an AddressBook using the Persons in the {@code toBeCopied}
+     * Creates an AddressBook using the Expenses in the {@code toBeCopied}
      */
     public AddressBook(ReadOnlyAddressBook toBeCopied) {
         this(toBeCopied.getUsername());
@@ -62,12 +58,12 @@ public class AddressBook implements ReadOnlyAddressBook {
     //// list overwrite operaticons
 
     /**
-     * Replaces the contents of the person list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
+     * Replaces the contents of the expense list with {@code expenses}.
+     * {@code expenses} must not contain duplicate expenses.
      */
-    public void setPersons(List<Person> persons) {
-        this.persons.setPersons(persons);
-        persons.forEach(person -> this.maximumBudget.addExpense(person.getCost().getCostValue()));
+    public void setExpenses(List<Expense> expenses) {
+        this.expenses.setExpenses(expenses);
+        expenses.forEach(expense -> this.maximumBudget.addExpense(expense.getCost().getCostValue()));
     }
 
     /**
@@ -76,55 +72,40 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
 
-        this.setPersons(newData.getPersonList());
+        this.setExpenses(newData.getExpenseList());
         this.maximumBudget = newData.getMaximumBudget();
     }
 
-    //// person-level operations
+    //// expense-level operations
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a expense with the same identity as {@code expense} exists in the address book.
      */
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return this.persons.contains(person);
+    public boolean hasExpense(Expense expense) {
+        requireNonNull(expense);
+        return this.expenses.contains(expense);
     }
 
     /**
-     * Adds a person into the address book
+     * Adds a expense into the address book
      * @return true if expense is successfully added withouot exceeding budget, else false
      */
-    public boolean addPerson(Person p) {
-        this.persons.add(p);
+    public boolean addExpense(Expense p) {
+        this.expenses.add(p);
         return this.maximumBudget.addExpense(p.getCost().getCostValue());
     }
 
     /**
-     * Add an expense to the expense tracker.
-     * If the category of the expense doesn't exist, the category will be created.
-     * */
-    public void addExpense(Expense e) { //TODO: Refine this once other attributes are ready
-        Category category = e.getCategory();
-        if (!this.categoryList.hasCategory(category)) {
-            this.categoryList.addCategory(category);
-        }
-        this.categoryList.addExpense(category, e);
-    }
-
-    public CategoryList getCategoryList() {
-        return this.categoryList;
-    }
-
-    /**
-     * Replaces the given expense {@code target} in the list with {@code editedPerson}.
+     * Replaces the given expense {@code target} in the list with {@code editedExpense}.
      * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * The expense identity of {@code editedExpense}
+     * must not be the same as another existing expense in the address book.
      */
-    public void updatePerson(Person target, Person editedPerson) {
-        requireNonNull(editedPerson);
+    public void updateExpense(Expense target, Expense editedExpense) {
+        requireNonNull(editedExpense);
 
-        this.persons.setPerson(target, editedPerson);
-        this.maximumBudget.alterSpending(target, editedPerson);
+        this.expenses.setExpense(target, editedExpense);
+        this.maximumBudget.alterSpending(target, editedExpense);
 
     }
 
@@ -132,8 +113,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Removes {@code key} from this {@code AddressBook}.
      * {@code key} must exist in the address book.
      */
-    public void removePerson(Person key) {
-        persons.remove(key);
+    public void removeExpense(Expense key) {
+        expenses.remove(key);
         this.maximumBudget.removeExpense(key);
     }
 
@@ -152,25 +133,25 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     @Override
     public String toString() {
-        return persons.asUnmodifiableObservableList().size() + " persons";
+        return expenses.asUnmodifiableObservableList().size() + " expenses";
         // TODO: refine later
     }
 
     @Override
-    public ObservableList<Person> getPersonList() {
-        return persons.asUnmodifiableObservableList();
+    public ObservableList<Expense> getExpenseList() {
+        return expenses.asUnmodifiableObservableList();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
-                && persons.equals(((AddressBook) other).persons))
+                && expenses.equals(((AddressBook) other).expenses))
                 && this.maximumBudget.equals(((AddressBook) other).maximumBudget);
     }
 
     @Override
     public int hashCode() {
-        return persons.hashCode();
+        return expenses.hashCode();
     }
 }

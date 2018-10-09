@@ -13,16 +13,16 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.expense.Category;
 import seedu.address.model.expense.Cost;
 import seedu.address.model.expense.Date;
+import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.Name;
-import seedu.address.model.expense.Person;
 import seedu.address.model.tag.Tag;
 
 /**
- * JAXB-friendly version of the Person.
+ * JAXB-friendly version of the Expense.
  */
-public class XmlAdaptedPerson {
+public class XmlAdaptedExpense {
 
-    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Person's %s field is missing!";
+    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Expense's %s field is missing!";
 
     @XmlElement(required = true)
     private String name;
@@ -37,15 +37,15 @@ public class XmlAdaptedPerson {
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
 
     /**
-     * Constructs an XmlAdaptedPerson.
+     * Constructs an XmlAdaptedExpense.
      * This is the no-arg constructor that is required by JAXB.
      */
-    public XmlAdaptedPerson() {}
+    public XmlAdaptedExpense() {}
 
     /**
-     * Constructs an {@code XmlAdaptedPerson} with the given person details.
+     * Constructs an {@code XmlAdaptedExpense} with the given expense details.
      */
-    public XmlAdaptedPerson(String name, String category, String cost, String date, List<XmlAdaptedTag> tagged) {
+    public XmlAdaptedExpense(String name, String category, String cost, String date, List<XmlAdaptedTag> tagged) {
         this.name = name;
         this.category = category;
         this.cost = cost;
@@ -56,11 +56,11 @@ public class XmlAdaptedPerson {
     }
 
     /**
-     * Converts a given Person into this class for JAXB use.
+     * Converts a given Expense into this class for JAXB use.
      *
-     * @param source future changes to this will not affect the created XmlAdaptedPerson
+     * @param source future changes to this will not affect the created XmlAdaptedExpense
      */
-    public XmlAdaptedPerson(Person source) {
+    public XmlAdaptedExpense(Expense source) {
         name = source.getName().expenseName;
         category = source.getCategory().getName();
         cost = source.getCost().value;
@@ -71,14 +71,14 @@ public class XmlAdaptedPerson {
     }
 
     /**
-     * Converts this jaxb-friendly adapted person object into the model's Person object.
+     * Converts this jaxb-friendly adapted expense object into the model's Expense object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted person
+     * @throws IllegalValueException if there were any data constraints violated in the adapted expense
      */
-    public Person toModelType() throws IllegalValueException {
-        final List<Tag> personTags = new ArrayList<>();
+    public Expense toModelType() throws IllegalValueException {
+        final List<Tag> expenseTags = new ArrayList<>();
         for (XmlAdaptedTag tag : tagged) {
-            personTags.add(tag.toModelType());
+            expenseTags.add(tag.toModelType());
         }
 
         if (name == null) {
@@ -114,9 +114,9 @@ public class XmlAdaptedPerson {
         }
         final Date modelDate = new Date(date);
 
-        final Set<Tag> modelTags = new HashSet<>(personTags);
+        final Set<Tag> modelTags = new HashSet<>(expenseTags);
 
-        return new Person(modelName, modelCategory, modelCost, modelDate, modelTags);
+        return new Expense(modelName, modelCategory, modelCost, modelDate, modelTags);
     }
 
     @Override
@@ -125,15 +125,15 @@ public class XmlAdaptedPerson {
             return true;
         }
 
-        if (!(other instanceof XmlAdaptedPerson)) {
+        if (!(other instanceof XmlAdaptedExpense)) {
             return false;
         }
 
-        XmlAdaptedPerson otherPerson = (XmlAdaptedPerson) other;
-        return Objects.equals(name, otherPerson.name)
-                && Objects.equals(category, otherPerson.category)
-                && Objects.equals(cost, otherPerson.cost)
-                && Objects.equals(date, otherPerson.date)
-                && tagged.equals(otherPerson.tagged);
+        XmlAdaptedExpense otherExpense = (XmlAdaptedExpense) other;
+        return Objects.equals(name, otherExpense.name)
+                && Objects.equals(category, otherExpense.category)
+                && Objects.equals(cost, otherExpense.cost)
+                && Objects.equals(date, otherExpense.date)
+                && tagged.equals(otherExpense.tagged);
     }
 }

@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Person's cost in the address book.
+ * Represents a Expense's cost in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidCost(String)}
  */
 public class Cost {

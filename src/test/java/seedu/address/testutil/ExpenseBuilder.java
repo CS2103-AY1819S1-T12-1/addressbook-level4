@@ -6,15 +6,15 @@ import java.util.Set;
 import seedu.address.model.expense.Category;
 import seedu.address.model.expense.Cost;
 import seedu.address.model.expense.Date;
+import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.Name;
-import seedu.address.model.expense.Person;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
 /**
- * A utility class to help with building Person objects.
+ * A utility class to help with building Expense objects.
  */
-public class PersonBuilder {
+public class ExpenseBuilder {
 
     public static final String DEFAULT_NAME = "Alice Pauline";
     public static final String DEFAULT_CATEGORY = "Default";
@@ -27,7 +27,7 @@ public class PersonBuilder {
     private Date date;
     private Set<Tag> tags;
 
-    public PersonBuilder() {
+    public ExpenseBuilder() {
         name = new Name(DEFAULT_NAME);
         category = new Category(DEFAULT_CATEGORY);
         cost = new Cost(DEFAULT_COST);
@@ -36,58 +36,58 @@ public class PersonBuilder {
     }
 
     /**
-     * Initializes the PersonBuilder with the data of {@code personToCopy}.
+     * Initializes the ExpenseBuilder with the data of {@code expenseToCopy}.
      */
-    public PersonBuilder(Person personToCopy) {
-        name = personToCopy.getName();
-        category = personToCopy.getCategory();
-        cost = personToCopy.getCost();
-        date = personToCopy.getDate();
-        tags = new HashSet<>(personToCopy.getTags());
+    public ExpenseBuilder(Expense expenseToCopy) {
+        name = expenseToCopy.getName();
+        category = expenseToCopy.getCategory();
+        cost = expenseToCopy.getCost();
+        date = expenseToCopy.getDate();
+        tags = new HashSet<>(expenseToCopy.getTags());
     }
 
     /**
-     * Sets the {@code Name} of the {@code Person} that we are building.
+     * Sets the {@code Name} of the {@code Expense} that we are building.
      */
-    public PersonBuilder withName(String name) {
+    public ExpenseBuilder withName(String name) {
         this.name = new Name(name);
         return this;
     }
 
     /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Person} that we are building.
+     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Expense} that we are building.
      */
-    public PersonBuilder withTags(String ... tags) {
+    public ExpenseBuilder withTags(String ... tags) {
         this.tags = SampleDataUtil.getTagSet(tags);
         return this;
     }
 
     /**
-     * Sets the {@code Cost} of the {@code Person} that we are building.
+     * Sets the {@code Cost} of the {@code Expense} that we are building.
      */
-    public PersonBuilder withCost(String cost) {
+    public ExpenseBuilder withCost(String cost) {
         this.cost = new Cost(cost);
         return this;
     }
 
     /**
-     * Sets the {@code Category} of the {@code Person} that we are building.
+     * Sets the {@code Category} of the {@code Expense} that we are building.
      */
-    public PersonBuilder withCategory(String category) {
+    public ExpenseBuilder withCategory(String category) {
         this.category = new Category(category);
         return this;
     }
 
     /**
-     * Sets the {@code Date} of the {@code Person} that we are building.
+     * Sets the {@code Date} of the {@code Expense} that we are building.
      */
-    public PersonBuilder withDate(String date) {
+    public ExpenseBuilder withDate(String date) {
         this.date = new Date(date);
         return this;
     }
 
-    public Person build() {
-        return new Person(name, category, cost, date, tags);
+    public Expense build() {
+        return new Expense(name, category, cost, date, tags);
     }
 
 }

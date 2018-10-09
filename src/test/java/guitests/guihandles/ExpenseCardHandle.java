@@ -8,7 +8,7 @@ import com.google.common.collect.ImmutableMultiset;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
-import seedu.address.model.expense.Person;
+import seedu.address.model.expense.Expense;
 
 /**
  * Provides a handle to a expense card in the expense list panel.
@@ -69,11 +69,11 @@ public class ExpenseCardHandle extends NodeHandle<Node> {
     /**
      * Returns true if this handle contains {@code expense}.
      */
-    public boolean equals(Person person) {
-        return getName().equals(person.getName().expenseName)
-                && getCost().equals(person.getCost().value)
-                && getCategory().equals(person.getCategory().getName())
-                && ImmutableMultiset.copyOf(getTags()).equals(ImmutableMultiset.copyOf(person.getTags().stream()
+    public boolean equals(Expense expense) {
+        return getName().equals(expense.getName().expenseName)
+                && getCost().equals(expense.getCost().value)
+                && getCategory().equals(expense.getCategory().getName())
+                && ImmutableMultiset.copyOf(getTags()).equals(ImmutableMultiset.copyOf(expense.getTags().stream()
                         .map(tag -> tag.tagName)
                         .collect(Collectors.toList())));
     }

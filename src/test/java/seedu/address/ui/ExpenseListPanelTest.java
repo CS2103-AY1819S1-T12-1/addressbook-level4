@@ -4,9 +4,9 @@ import static java.time.Duration.ofMillis;
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 import static seedu.address.testutil.EventsUtil.postNow;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.address.testutil.TypicalPersons.getTypicalPersons;
-import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysPerson;
+import static seedu.address.testutil.TypicalExpenses.getTypicalExpenses;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_EXPENSE;
+import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysExpense;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardEquals;
 
 import java.nio.file.Path;
@@ -21,14 +21,14 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.XmlUtil;
-import seedu.address.model.expense.Person;
+import seedu.address.model.expense.Expense;
 import seedu.address.storage.XmlSerializableAddressBook;
 
 public class ExpenseListPanelTest extends GuiUnitTest {
-    private static final ObservableList<Person> TYPICAL_PERSONS =
-            FXCollections.observableList(getTypicalPersons());
+    private static final ObservableList<Expense> TYPICAL_EXPENSES =
+            FXCollections.observableList(getTypicalExpenses());
 
-    private static final JumpToListRequestEvent JUMP_TO_SECOND_EVENT = new JumpToListRequestEvent(INDEX_SECOND_PERSON);
+    private static final JumpToListRequestEvent JUMP_TO_SECOND_EVENT = new JumpToListRequestEvent(INDEX_SECOND_EXPENSE);
 
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "sandbox");
 
@@ -38,93 +38,93 @@ public class ExpenseListPanelTest extends GuiUnitTest {
 
     @Test
     public void display() {
-        initUi(TYPICAL_PERSONS);
+        initUi(TYPICAL_EXPENSES);
 
-        for (int i = 0; i < TYPICAL_PERSONS.size(); i++) {
-            expenseListPanelHandle.navigateToCard(TYPICAL_PERSONS.get(i));
-            Person expectedPerson = TYPICAL_PERSONS.get(i);
-            ExpenseCardHandle actualCard = expenseListPanelHandle.getPersonCardHandle(i);
+        for (int i = 0; i < TYPICAL_EXPENSES.size(); i++) {
+            expenseListPanelHandle.navigateToCard(TYPICAL_EXPENSES.get(i));
+            Expense expectedExpense = TYPICAL_EXPENSES.get(i);
+            ExpenseCardHandle actualCard = expenseListPanelHandle.getExpenseCardHandle(i);
 
-            assertCardDisplaysPerson(expectedPerson, actualCard);
+            assertCardDisplaysExpense(expectedExpense, actualCard);
             assertEquals(Integer.toString(i + 1) + ". ", actualCard.getId());
         }
     }
 
     @Test
     public void handleJumpToListRequestEvent() {
-        initUi(TYPICAL_PERSONS);
+        initUi(TYPICAL_EXPENSES);
         postNow(JUMP_TO_SECOND_EVENT);
         guiRobot.pauseForHuman();
 
-        ExpenseCardHandle expectedPerson = expenseListPanelHandle.getPersonCardHandle(
-                INDEX_SECOND_PERSON.getZeroBased());
-        ExpenseCardHandle selectedPerson = expenseListPanelHandle.getHandleToSelectedCard();
-        assertCardEquals(expectedPerson, selectedPerson);
+        ExpenseCardHandle expectedExpense = expenseListPanelHandle.getExpenseCardHandle(
+                INDEX_SECOND_EXPENSE.getZeroBased());
+        ExpenseCardHandle selectedExpense = expenseListPanelHandle.getHandleToSelectedCard();
+        assertCardEquals(expectedExpense, selectedExpense);
     }
 
     /**
-     * Verifies that creating and deleting large number of persons in {@code ExpenseListPanel} requires lesser than
+     * Verifies that creating and deleting large number of expenses in {@code ExpenseListPanel} requires lesser than
      * {@code CARD_CREATION_AND_DELETION_TIMEOUT} milliseconds to execute.
      */
     @Test
     public void performanceTest() throws Exception {
-        ObservableList<Person> backingList = createBackingList(10000);
+        ObservableList<Expense> backingList = createBackingList(10000);
 
         assertTimeoutPreemptively(ofMillis(CARD_CREATION_AND_DELETION_TIMEOUT), () -> {
             initUi(backingList);
             guiRobot.interact(backingList::clear);
-        }, "Creation and deletion of person cards exceeded time limit");
+        }, "Creation and deletion of expense cards exceeded time limit");
     }
 
     /**
-     * Returns a list of persons containing {@code personCount} persons that is used to populate the
+     * Returns a list of expenses containing {@code expenseCount} expenses that is used to populate the
      * {@code ExpenseListPanel}.
      */
-    private ObservableList<Person> createBackingList(int personCount) throws Exception {
-        Path xmlFile = createXmlFileWithPersons(personCount);
+    private ObservableList<Expense> createBackingList(int expenseCount) throws Exception {
+        Path xmlFile = createXmlFileWithExpenses(expenseCount);
         XmlSerializableAddressBook xmlAddressBook =
                 XmlUtil.getDataFromFile(xmlFile, XmlSerializableAddressBook.class);
-        return FXCollections.observableArrayList(xmlAddressBook.toModelType().getPersonList());
+        return FXCollections.observableArrayList(xmlAddressBook.toModelType().getExpenseList());
     }
 
     /**
-     * Returns a .xml file containing {@code personCount} persons. This file will be deleted when the JVM terminates.
+     * Returns a .xml file containing {@code expenseCount} expenses. This file will be deleted when the JVM terminates.
      */
-    private Path createXmlFileWithPersons(int personCount) throws Exception {
+    private Path createXmlFileWithExpenses(int expenseCount) throws Exception {
         StringBuilder builder = new StringBuilder();
         builder.append("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n");
         builder.append("<addressbook>\n");
-        for (int i = 0; i < personCount; i++) {
-            builder.append("<persons>\n");
+        for (int i = 0; i < expenseCount; i++) {
+            builder.append("<expenses>\n");
             builder.append("<name>").append(i).append("a</name>\n");
             builder.append("<category>000</category>\n");
             builder.append("<cost>1.00</cost>\n");
             builder.append("<date>01-10-2018</date>\n");
-            builder.append("</persons>\n");
+            builder.append("</expenses>\n");
         }
-        builder.append("<username>manyPersons</username>\n");
+        builder.append("<username>manyExpenses</username>\n");
         builder.append("<budget>\n");
-        builder.append("<budgetCap>").append((double) personCount).append("</budgetCap>\n");
-        builder.append("<currentExpenses>").append((double) personCount).append("</currentExpenses>\n");
+        builder.append("<budgetCap>").append((double) expenseCount).append("</budgetCap>\n");
+        builder.append("<currentExpenses>").append((double) expenseCount).append("</currentExpenses>\n");
         builder.append("</budget>\n");
         builder.append("</addressbook>\n");
 
-        Path manyPersonsFile = Paths.get(TEST_DATA_FOLDER + "manyPersons.xml");
-        FileUtil.createFile(manyPersonsFile);
-        FileUtil.writeToFile(manyPersonsFile, builder.toString());
-        manyPersonsFile.toFile().deleteOnExit();
-        return manyPersonsFile;
+        Path manyExpensesFile = Paths.get(TEST_DATA_FOLDER + "manyExpenses.xml");
+        FileUtil.createFile(manyExpensesFile);
+        FileUtil.writeToFile(manyExpensesFile, builder.toString());
+        manyExpensesFile.toFile().deleteOnExit();
+        return manyExpensesFile;
     }
 
     /**
      * Initializes {@code expenseListPanelHandle} with a {@code ExpenseListPanel} backed by {@code backingList}.
      * Also shows the {@code Stage} that displays only {@code ExpenseListPanel}.
      */
-    private void initUi(ObservableList<Person> backingList) {
+    private void initUi(ObservableList<Expense> backingList) {
         ExpenseListPanel expenseListPanel = new ExpenseListPanel(backingList);
         uiPartRule.setUiPart(expenseListPanel);
 
         expenseListPanelHandle = new ExpenseListPanelHandle(getChildNode(expenseListPanel.getRoot(),
-                ExpenseListPanelHandle.PERSON_LIST_VIEW_ID));
+                ExpenseListPanelHandle.EXPENSE_LIST_VIEW_ID));
     }
 }

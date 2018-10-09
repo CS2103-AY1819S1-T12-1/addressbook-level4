@@ -171,7 +171,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     private void initializeAfterLogin() {
         try {
-            expenseListPanel = new ExpenseListPanel(logic.getFilteredPersonList());
+            expenseListPanel = new ExpenseListPanel(logic.getFilteredExpenseList());
         } catch (NoUserSelectedException e) {
             throw new IllegalStateException(e.getMessage());
         }

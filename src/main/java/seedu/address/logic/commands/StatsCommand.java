@@ -10,11 +10,11 @@ import seedu.address.commons.events.ui.ShowStatsRequestEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.exceptions.NoUserSelectedException;
-import seedu.address.model.expense.Person;
+import seedu.address.model.expense.Expense;
 
 //@@author jonathantjm
 /**
- * Lists all persons in the address book to the user.
+ * Lists all expenses in the address book to the user.
  */
 public class StatsCommand extends Command {
 
@@ -32,7 +32,7 @@ public class StatsCommand extends Command {
         return new CommandResult(MESSAGE_SUCCESS);
     }
 
-    private Predicate<Person> isPastSevenDays() {
+    private Predicate<Expense> isPastSevenDays() {
         Calendar now = Calendar.getInstance();
         now.add(Calendar.DAY_OF_MONTH, -7);
         return e -> e.getDate().fullDate.after(now);

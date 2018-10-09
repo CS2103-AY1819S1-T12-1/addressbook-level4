@@ -1,0 +1,30 @@
+{
+  "authors":
+  [
+    {
+      "githubId": "JasonChong96",
+      "displayName": "Jason Chong Yi Sheng",
+      "authorNames": ["JasonChong96", "Jason Chong"]
+    },
+    {
+      "githubId": "Snookerballs",
+      "displayName": "Jamie Chow Wen Juan",
+      "authorNames": ["Snookerballs", "Jaime Chow"]
+    },
+	{
+      "githubId": "jonathantjm",
+      "displayName": "Jonathan Tan Jit Ming",
+      "authorNames": ["jonathantjm", "Jonathan Tan"]
+    },
+	{
+      "githubId": "jcjxwy",
+      "displayName": "Jiang Chen",
+      "authorNames": ["DESKTOP-GJ61B8F\\xiangyu", "jcjxwy"]
+    },
+	{
+      "githubId": "winsonhys",
+      "displayName": "Winson Heng Yong Seng",
+      "authorNames": ["winsonhys", "winson", "Winson Heng Yong Seng"]
+    }
+  ]
+}

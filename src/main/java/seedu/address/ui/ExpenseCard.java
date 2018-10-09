@@ -5,10 +5,10 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.model.expense.Person;
+import seedu.address.model.expense.Expense;
 
 /**
- * An UI component that displays information of a {@code Person}.
+ * An UI component that displays information of a {@code Expense}.
  */
 public class ExpenseCard extends UiPart<Region> {
 
@@ -23,7 +23,7 @@ public class ExpenseCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
 
-    public final Person person;
+    public final Expense expense;
     @FXML
     private HBox cardPane;
     @FXML
@@ -39,15 +39,15 @@ public class ExpenseCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
 
-    public ExpenseCard(Person person, int displayedIndex) {
+    public ExpenseCard(Expense expense, int displayedIndex) {
         super(FXML);
-        this.person = person;
+        this.expense = expense;
         id.setText(displayedIndex + ". ");
-        name.setText(person.getName().expenseName);
-        category.setText(person.getCategory().getName());
-        cost.setText(person.getCost().value);
-        date.setText(person.getDate().toString());
-        person.getTags().forEach(tag -> {
+        name.setText(expense.getName().expenseName);
+        category.setText(expense.getCategory().getName());
+        cost.setText(expense.getCost().value);
+        date.setText(expense.getDate().toString());
+        expense.getTags().forEach(tag -> {
             Label tempLabel = new Label(tag.tagName);
             tempLabel.setStyle("-fx-background-color: " + getColorStyleOfTag(tag.tagName));
             tags.getChildren().add(tempLabel);
@@ -70,7 +70,7 @@ public class ExpenseCard extends UiPart<Region> {
         // state check
         ExpenseCard card = (ExpenseCard) other;
         return id.getText().equals(card.id.getText())
-                && person.equals(card.person);
+                && expense.equals(card.expense);
     }
 
     /**

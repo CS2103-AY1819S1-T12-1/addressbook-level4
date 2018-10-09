@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 import guitests.guihandles.ExpenseCardHandle;
 import guitests.guihandles.ExpenseListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
-import seedu.address.model.expense.Person;
+import seedu.address.model.expense.Expense;
 
 /**
  * A set of assertion methods useful for writing GUI tests.
@@ -26,33 +26,33 @@ public class GuiTestAssert {
     }
 
     /**
-     * Asserts that {@code actualCard} displays the details of {@code expectedPerson}.
+     * Asserts that {@code actualCard} displays the details of {@code expectedExpense}.
      */
-    public static void assertCardDisplaysPerson(Person expectedPerson, ExpenseCardHandle actualCard) {
-        assertEquals(expectedPerson.getName().expenseName, actualCard.getName());
-        assertEquals(expectedPerson.getCategory().getName(), actualCard.getCategory());
-        assertEquals(expectedPerson.getCost().value, actualCard.getCost());
-        assertEquals(expectedPerson.getTags().stream().map(tag -> tag.tagName).collect(Collectors.toList()),
+    public static void assertCardDisplaysExpense(Expense expectedExpense, ExpenseCardHandle actualCard) {
+        assertEquals(expectedExpense.getName().expenseName, actualCard.getName());
+        assertEquals(expectedExpense.getCategory().getName(), actualCard.getCategory());
+        assertEquals(expectedExpense.getCost().value, actualCard.getCost());
+        assertEquals(expectedExpense.getTags().stream().map(tag -> tag.tagName).collect(Collectors.toList()),
                 actualCard.getTags());
     }
 
     /**
-     * Asserts that the list in {@code expenseListPanelHandle} displays the details of {@code persons} correctly and
+     * Asserts that the list in {@code expenseListPanelHandle} displays the details of {@code expenses} correctly and
      * in the correct order.
      */
-    public static void assertListMatching(ExpenseListPanelHandle expenseListPanelHandle, Person... persons) {
-        for (int i = 0; i < persons.length; i++) {
+    public static void assertListMatching(ExpenseListPanelHandle expenseListPanelHandle, Expense... expenses) {
+        for (int i = 0; i < expenses.length; i++) {
             expenseListPanelHandle.navigateToCard(i);
-            assertCardDisplaysPerson(persons[i], expenseListPanelHandle.getPersonCardHandle(i));
+            assertCardDisplaysExpense(expenses[i], expenseListPanelHandle.getExpenseCardHandle(i));
         }
     }
 
     /**
-     * Asserts that the list in {@code expenseListPanelHandle} displays the details of {@code persons} correctly and
+     * Asserts that the list in {@code expenseListPanelHandle} displays the details of {@code expenses} correctly and
      * in the correct order.
      */
-    public static void assertListMatching(ExpenseListPanelHandle expenseListPanelHandle, List<Person> persons) {
-        assertListMatching(expenseListPanelHandle, persons.toArray(new Person[0]));
+    public static void assertListMatching(ExpenseListPanelHandle expenseListPanelHandle, List<Expense> expenses) {
+        assertListMatching(expenseListPanelHandle, expenses.toArray(new Expense[0]));
     }
 
     /**

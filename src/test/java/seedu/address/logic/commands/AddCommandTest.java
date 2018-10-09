@@ -21,9 +21,9 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.budget.Budget;
-import seedu.address.model.expense.Person;
+import seedu.address.model.expense.Expense;
 import seedu.address.model.user.Username;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.ExpenseBuilder;
 
 public class AddCommandTest {
 
@@ -35,58 +35,58 @@ public class AddCommandTest {
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
-    public void constructor_nullPerson_throwsNullPointerException() {
+    public void constructor_nullExpense_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         new AddCommand(null);
     }
 
     @Test
-    public void execute_personAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        Person validPerson = new PersonBuilder().build();
+    public void execute_expenseAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingExpenseAdded modelStub = new ModelStubAcceptingExpenseAdded();
+        Expense validExpense = new ExpenseBuilder().build();
 
-        CommandResult commandResult = new AddCommand(validPerson).execute(modelStub, commandHistory);
+        CommandResult commandResult = new AddCommand(validExpense).execute(modelStub, commandHistory);
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validPerson), commandResult.feedbackToUser);
-        assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
+        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validExpense), commandResult.feedbackToUser);
+        assertEquals(Arrays.asList(validExpense), modelStub.expensesAdded);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
 
     @Test
-    public void execute_personAcceptedByModel_budgetExceed() throws Exception {
+    public void execute_expenseAcceptedByModel_budgetExceed() throws Exception {
         ModelStubBudget modelStub = new ModelStubBudget(false);
-        Person validPerson = new PersonBuilder().build();
-        CommandResult commandResult = new AddCommand(validPerson).execute(modelStub, commandHistory);
+        Expense validExpense = new ExpenseBuilder().build();
+        CommandResult commandResult = new AddCommand(validExpense).execute(modelStub, commandHistory);
 
         assertEquals(AddCommand.MESSAGE_BUDGET_EXCEED_WARNING, commandResult.feedbackToUser);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
 
     @Test
-    public void execute_personAcceptedByModel_withinBudget() throws Exception {
+    public void execute_expenseAcceptedByModel_withinBudget() throws Exception {
         ModelStubBudget modelStub = new ModelStubBudget(true);
-        Person validPerson = new PersonBuilder().build();
-        CommandResult commandResult = new AddCommand(validPerson).execute(modelStub, commandHistory);
+        Expense validExpense = new ExpenseBuilder().build();
+        CommandResult commandResult = new AddCommand(validExpense).execute(modelStub, commandHistory);
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validPerson), commandResult.feedbackToUser);
+        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validExpense), commandResult.feedbackToUser);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() throws Exception {
-        Person validPerson = new PersonBuilder().build();
-        AddCommand addCommand = new AddCommand(validPerson);
-        ModelStub modelStub = new ModelStubWithPerson(validPerson);
+    public void execute_duplicateExpense_throwsCommandException() throws Exception {
+        Expense validExpense = new ExpenseBuilder().build();
+        AddCommand addCommand = new AddCommand(validExpense);
+        ModelStub modelStub = new ModelStubWithExpense(validExpense);
 
         thrown.expect(CommandException.class);
-        thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_PERSON);
+        thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_EXPENSE);
         addCommand.execute(modelStub, commandHistory);
     }
 
     @Test
     public void equals() {
-        Person alice = new PersonBuilder().withName("Alice").build();
-        Person bob = new PersonBuilder().withName("Bob").build();
+        Expense alice = new ExpenseBuilder().withName("Alice").build();
+        Expense bob = new ExpenseBuilder().withName("Bob").build();
         AddCommand addAliceCommand = new AddCommand(alice);
         AddCommand addBobCommand = new AddCommand(bob);
 
@@ -103,7 +103,7 @@ public class AddCommandTest {
         // null -> returns false
         assertFalse(addAliceCommand.equals(null));
 
-        // different person -> returns false
+        // different expense -> returns false
         assertFalse(addAliceCommand.equals(addBobCommand));
     }
 
@@ -112,8 +112,8 @@ public class AddCommandTest {
      */
     private class ModelStub implements Model {
         @Override
-        public boolean addPerson(Person person) {
-            throw new AssertionError("addPerson method should not be called.");
+        public boolean addExpense(Expense expense) {
+            throw new AssertionError("addExpense method should not be called.");
         }
 
         @Override
@@ -132,37 +132,37 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean hasPerson(Person person) {
-            throw new AssertionError("hasPerson method should not be called.");
+        public boolean hasExpense(Expense expense) {
+            throw new AssertionError("hasExpense method should not be called.");
         }
 
         @Override
-        public void deletePerson(Person target) {
-            throw new AssertionError("deletePerson method should not be called.");
+        public void deleteExpense(Expense target) {
+            throw new AssertionError("deleteExpense method should not be called.");
         }
 
         @Override
-        public void updatePerson(Person target, Person editedPerson) {
-            throw new AssertionError("updatePerson method should not be called.");
+        public void updateExpense(Expense target, Expense editedExpense) {
+            throw new AssertionError("updateExpense method should not be called.");
         }
 
         @Override
-        public ObservableList<Person> getFilteredPersonList() {
-            throw new AssertionError("getFilteredPersonList method should not be called.");
+        public ObservableList<Expense> getFilteredExpenseList() {
+            throw new AssertionError("getFilteredExpenseList method should not be called.");
         }
 
         @Override
-        public void updateFilteredPersonList(Predicate<Person> predicate) {
-            throw new AssertionError("updateFilteredPersonList method should not be called.");
+        public void updateFilteredExpenseList(Predicate<Expense> predicate) {
+            throw new AssertionError("updateFilteredExpenseList method should not be called.");
         }
 
         @Override
-        public ObservableList<Person> getExpenseStats() {
+        public ObservableList<Expense> getExpenseStats() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void updateExpenseStats(Predicate<Person> predicate) {
+        public void updateExpenseStats(Predicate<Expense> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -229,40 +229,40 @@ public class AddCommandTest {
     }
 
     /**
-     * A Model stub that contains a single person.
+     * A Model stub that contains a single expense.
      */
-    private class ModelStubWithPerson extends ModelStub {
-        private final Person person;
+    private class ModelStubWithExpense extends ModelStub {
+        private final Expense expense;
 
-        ModelStubWithPerson(Person person) {
-            requireNonNull(person);
-            this.person = person;
+        ModelStubWithExpense(Expense expense) {
+            requireNonNull(expense);
+            this.expense = expense;
         }
 
         @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return this.person.isSamePerson(person);
+        public boolean hasExpense(Expense expense) {
+            requireNonNull(expense);
+            return this.expense.isSameExpense(expense);
         }
     }
 
     /**
-     * A Model stub that always accept the person being added.
+     * A Model stub that always accept the expense being added.
      */
-    private class ModelStubAcceptingPersonAdded extends ModelStub {
-        final ArrayList<Person> personsAdded = new ArrayList<>();
+    private class ModelStubAcceptingExpenseAdded extends ModelStub {
+        final ArrayList<Expense> expensesAdded = new ArrayList<>();
 
 
         @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return personsAdded.stream().anyMatch(person::isSamePerson);
+        public boolean hasExpense(Expense expense) {
+            requireNonNull(expense);
+            return expensesAdded.stream().anyMatch(expense::isSameExpense);
         }
 
         @Override
-        public boolean addPerson(Person person) {
-            requireNonNull(person);
-            personsAdded.add(person);
+        public boolean addExpense(Expense expense) {
+            requireNonNull(expense);
+            expensesAdded.add(expense);
             return true;
         }
 
@@ -287,7 +287,7 @@ public class AddCommandTest {
             this.withinBudget = withinBudget;
         }
         @Override
-        public boolean hasPerson(Person person) {
+        public boolean hasExpense(Expense expense) {
             return false;
         }
         @Override
@@ -295,7 +295,7 @@ public class AddCommandTest {
             // called by {@code AddCommand#execute()}
         }
         @Override
-        public boolean addPerson(Person person) {
+        public boolean addExpense(Expense expense) {
             return this.withinBudget;
         }
         @Override

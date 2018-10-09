@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import static seedu.address.model.user.UsernameTest.VALID_USERNAME_STRING;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalExpenses.getTypicalAddressBook;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -16,7 +16,7 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.exceptions.UserAlreadyExistsException;
 import seedu.address.model.user.Username;
-import seedu.address.testutil.TypicalPersons;
+import seedu.address.testutil.TypicalExpenses;
 
 //@@author JasonChong96
 public class SignUpCommandTest {
@@ -46,8 +46,8 @@ public class SignUpCommandTest {
 
     @Test
     public void execute_duplicateRejectedByModel_signUpFailed() throws Exception {
-        assertTrue(model.isUserExists(TypicalPersons.SAMPLE_USERNAME));
+        assertTrue(model.isUserExists(TypicalExpenses.SAMPLE_USERNAME));
         thrown.expect(UserAlreadyExistsException.class);
-        new SignUpCommand(TypicalPersons.SAMPLE_USERNAME).execute(model, commandHistory);
+        new SignUpCommand(TypicalExpenses.SAMPLE_USERNAME).execute(model, commandHistory);
     }
 }

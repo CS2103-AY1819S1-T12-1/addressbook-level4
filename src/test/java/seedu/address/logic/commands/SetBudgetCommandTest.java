@@ -2,7 +2,7 @@ package seedu.address.logic.commands;
 //author winsonhys
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalExpenses.getTypicalAddressBook;
 
 import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;

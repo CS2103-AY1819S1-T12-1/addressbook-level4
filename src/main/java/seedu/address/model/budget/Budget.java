@@ -4,7 +4,7 @@ package seedu.address.model.budget;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
-import seedu.address.model.expense.Person;
+import seedu.address.model.expense.Expense;
 
 
 /**
@@ -79,7 +79,7 @@ public class Budget {
         return this.currentExpenses <= this.budgetCap;
     }
 
-    public void removeExpense(Person expense) {
+    public void removeExpense(Expense expense) {
         this.currentExpenses -= expense.getCost().getCostValue();
     }
 
@@ -95,7 +95,7 @@ public class Budget {
      * @param target valid expense in spending to be removed
      * @param editedExpense new expense to be added
      */
-    public void alterSpending(Person target, Person editedExpense) {
+    public void alterSpending(Expense target, Expense editedExpense) {
         this.currentExpenses -= target.getCost().getCostValue();
         this.currentExpenses += editedExpense.getCost().getCostValue();
     }

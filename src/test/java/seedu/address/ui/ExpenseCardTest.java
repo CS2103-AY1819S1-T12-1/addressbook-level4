@@ -3,38 +3,38 @@ package seedu.address.ui;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysPerson;
+import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysExpense;
 
 import org.junit.Test;
 
 import guitests.guihandles.ExpenseCardHandle;
-import seedu.address.model.expense.Person;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.model.expense.Expense;
+import seedu.address.testutil.ExpenseBuilder;
 
 public class ExpenseCardTest extends GuiUnitTest {
 
     @Test
     public void display() {
         // no tags
-        Person personWithNoTags = new PersonBuilder().withTags(new String[0]).build();
-        ExpenseCard expenseCard = new ExpenseCard(personWithNoTags, 1);
+        Expense expenseWithNoTags = new ExpenseBuilder().withTags(new String[0]).build();
+        ExpenseCard expenseCard = new ExpenseCard(expenseWithNoTags, 1);
         uiPartRule.setUiPart(expenseCard);
-        assertCardDisplay(expenseCard, personWithNoTags, 1);
+        assertCardDisplay(expenseCard, expenseWithNoTags, 1);
 
         // with tags
-        Person personWithTags = new PersonBuilder().build();
-        expenseCard = new ExpenseCard(personWithTags, 2);
+        Expense expenseWithTags = new ExpenseBuilder().build();
+        expenseCard = new ExpenseCard(expenseWithTags, 2);
         uiPartRule.setUiPart(expenseCard);
-        assertCardDisplay(expenseCard, personWithTags, 2);
+        assertCardDisplay(expenseCard, expenseWithTags, 2);
     }
 
     @Test
     public void equals() {
-        Person person = new PersonBuilder().build();
-        ExpenseCard expenseCard = new ExpenseCard(person, 0);
+        Expense expense = new ExpenseBuilder().build();
+        ExpenseCard expenseCard = new ExpenseCard(expense, 0);
 
         // same expense, same index -> returns true
-        ExpenseCard copy = new ExpenseCard(person, 0);
+        ExpenseCard copy = new ExpenseCard(expense, 0);
         assertTrue(expenseCard.equals(copy));
 
         // same object -> returns true
@@ -47,18 +47,18 @@ public class ExpenseCardTest extends GuiUnitTest {
         assertFalse(expenseCard.equals(0));
 
         // different expense, same index -> returns false
-        Person differentPerson = new PersonBuilder().withName("differentName").build();
-        assertFalse(expenseCard.equals(new ExpenseCard(differentPerson, 0)));
+        Expense differentExpense = new ExpenseBuilder().withName("differentName").build();
+        assertFalse(expenseCard.equals(new ExpenseCard(differentExpense, 0)));
 
         // same expense, different index -> returns false
-        assertFalse(expenseCard.equals(new ExpenseCard(person, 1)));
+        assertFalse(expenseCard.equals(new ExpenseCard(expense, 1)));
     }
 
     /**
-     * Asserts that {@code expenseCard} displays the details of {@code expectedPerson} correctly and matches
+     * Asserts that {@code expenseCard} displays the details of {@code expectedExpense} correctly and matches
      * {@code expectedId}.
      */
-    private void assertCardDisplay(ExpenseCard expenseCard, Person expectedPerson, int expectedId) {
+    private void assertCardDisplay(ExpenseCard expenseCard, Expense expectedExpense, int expectedId) {
         guiRobot.pauseForHuman();
 
         ExpenseCardHandle expenseCardHandle = new ExpenseCardHandle(expenseCard.getRoot());
@@ -67,6 +67,6 @@ public class ExpenseCardTest extends GuiUnitTest {
         assertEquals(Integer.toString(expectedId) + ". ", expenseCardHandle.getId());
 
         // verify expense details are displayed correctly
-        assertCardDisplaysPerson(expectedPerson, expenseCardHandle);
+        assertCardDisplaysExpense(expectedExpense, expenseCardHandle);
     }
 }
