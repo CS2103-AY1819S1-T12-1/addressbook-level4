@@ -17,19 +17,17 @@
 <li><a href="#logging-in-as-an-existing-user-code-login-code">3.2. Logging in as an existing User : <code>login</code></a></li>
 <li><a href="#viewing-help-code-help-code">3.3. Viewing help : <code>help</code></a></li>
 <li><a href="#adding-an-expense-code-add-code">3.4. Adding an expense: <code>add</code></a></li>
-<li><a href="#setting-a-budget-code-setbudget-code">3.5. Setting a budget: <code>setBudget</code></a></li>
-<li><a href="#listing-all-expenses-code-list-code">3.6. Listing all expenses : <code>list</code></a></li>
-<li><a href="#editing-an-expense-code-edit-code">3.7. Editing an expense : <code>edit</code></a></li>
-<li><a href="#locating-expenses-by-name-code-find-code">3.8. Locating expenses by name: <code>find</code></a></li>
-<li><a href="#deleting-a-expense-code-delete-code">3.9. Deleting a expense : <code>delete</code></a></li>
-<li><a href="#selecting-a-expense-code-select-code">3.10. Selecting a expense : <code>select</code></a></li>
-<li><a href="#listing-entered-commands-code-history-code">3.11. Listing entered commands : <code>history</code></a></li>
-<li><a href="#undoing-previous-command-code-undo-code">3.12. Undoing previous command : <code>undo</code></a></li>
-<li><a href="#redoing-the-previously-undone-command-code-redo-code">3.13. Redoing the previously undone command : <code>redo</code></a></li>
-<li><a href="#show-expense-statistics-code-stats-code">3.14. Show expense statistics: <code>stats</code></a></li>
-<li><a href="#clearing-all-entries-code-clear-code">3.15. Clearing all entries : <code>clear</code></a></li>
-<li><a href="#exiting-the-program-code-exit-code">3.16. Exiting the program : <code>exit</code></a></li>
-<li><a href="#saving-the-data">3.17. Saving the data</a></li>
+<li><a href="#editing-an-expense-code-edit-code">3.5. Editing an expense : <code>edit</code></a></li>
+<li><a href="#deleting-a-expense-code-delete-code">3.6. Deleting a expense : <code>delete</code></a></li>
+<li><a href="#locating-expenses-by-name-code-find-code">3.7. Locating expenses by name: <code>find</code></a></li>
+<li><a href="#listing-all-expenses-code-list-code">3.8. Listing all expenses : <code>list</code></a></li>
+<li><a href="#setting-a-budget-code-setbudget-code">3.9. Setting a budget: <code>setBudget</code></a></li>
+<li><a href="#listing-entered-commands-code-history-code">3.10. Listing entered commands : <code>history</code></a></li>
+<li><a href="#undoing-previous-command-code-undo-code">3.11. Undoing previous command : <code>undo</code></a></li>
+<li><a href="#redoing-the-previously-undone-command-code-redo-code">3.12. Redoing the previously undone command : <code>redo</code></a></li>
+<li><a href="#show-expense-statistics-code-stats-code">3.13. Show expense statistics: <code>stats</code></a></li>
+<li><a href="#clearing-all-entries-code-clear-code">3.14. Clearing all entries : <code>clear</code></a></li>
+<li><a href="#exiting-the-program-code-exit-code">3.15. Exiting the program : <code>exit</code></a></li>
 </ul>
 </li>
 <li><a href="#faq">4. FAQ</a></li>
@@ -41,7 +39,10 @@
 <h2 id="introduction"><a class="link" href="#introduction">1. Introduction</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Expense Tracker (ET) is for those who prefer to use a desktop app for tracking their expenses. More importantly, EP is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, EP can get your expenses managed more efficiently than traditional GUI apps. Interested? Jump to the Section 2, “Quick Start” to get started. Enjoy!</p>
+<p>The Expense Tracker (ET) application is a desktop application which enables users to track their expenses. ET features both a Command Line Interface (CLI) and a Graphical User Interface (GUI) which provides users with the efficency of the CLI while still having the benefits of a GUI.</p>
+</div>
+<div class="paragraph">
+<p>Interested? Jump to <a href="#quick-start">Section 2, &#8220;Quick Start&#8221;</a> to get started!</p>
 </div>
 </div>
 </div>
@@ -51,7 +52,16 @@
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Ensure you have Java version <code>9</code> or later installed in your Computer.</p>
+<p>Install Java version <code>9</code> (or later) on your computer.</p>
+</li>
+<li>
+<p>Download the latest <code>expensetracker.jar</code> file from <a href="https://github.com/CS2103-AY1819S1-T12-1/main">here</a></p>
+</li>
+<li>
+<p>Copy the file to the folder which you want to use as the home folder for your Expense Tracker.</p>
+</li>
+<li>
+<p>Double-click the <code>expensetracker.jar</code> file to start the app. The GUI should appear in a few seconds and look like this:</p>
 <div class="imageblock">
 <div class="content">
 <img src="images/Ui.png" alt="Ui" width="790">
@@ -59,24 +69,18 @@
 </div>
 </li>
 <li>
-<p>Type the command in the command box and press <kbd>Enter</kbd> to execute it.<br>
+<p>Type the command <code>singup USERNAME</code> in the command box (the box where it says "Enter command here&#8230;&#8203;") and press <kbd>Enter</kbd> to execute it, where USERNAME is the username of your choice. E.g. <code>signup username123</code></p>
+</li>
+<li>
+<p>Type the command <code>login USERNAME</code> in the command box and press <kbd>Enter</kbd> to execute it, where USERNAME is the username you signed up with in the previous step. e.g. <code>login username123</code><br>
+You are now able to use all the commands of the app.<br></p>
+</li>
+<li>
+<p>Type commands in the command box, as highlighted in the figure below, and press <kbd>Enter</kbd> to execute it.<br>
 e.g. typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> will open the help window.</p>
 </li>
 <li>
-<p>Some example commands you can try:</p>
-<div class="ulist">
-<ul>
-<li>
-<p><strong><code>delete</code></strong><code>3</code> : deletes the 3rd contact shown in the current list</p>
-</li>
-<li>
-<p><strong><code>exit</code></strong> : exits the app</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>Refer to <a href="#Features">Section 3, &#8220;Features&#8221;</a> for details of each command.</p>
+<p>Refer to <a href="#Features">Section 3, &#8220;Features&#8221;</a> for details of all available commands.</p>
 </li>
 </ol>
 </div>
@@ -93,45 +97,96 @@ e.g. typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> wil
 <div class="ulist">
 <ul>
 <li>
-<p>Words in <code>UPPER_CASE</code> are the parameters to be supplied by the user e.g. in <code>add n/NAME</code>, <code>NAME</code> is a parameter which can be used as <code>add n/John Doe</code>.</p>
+<p>All commands begin with the command word. The command word may be followed by parameters.</p>
 </li>
 <li>
-<p>Items in square brackets are optional e.g <code>n/NAME [t/TAG]</code> can be used as <code>n/John Doe t/friend</code> or as <code>n/John Doe</code>.</p>
-</li>
-<li>
-<p>Items with <code>…</code>​ after them can be used multiple times including zero times e.g. <code>[t/TAG]&#8230;&#8203;</code> can be used as <code>&#160;</code> (i.e. 0 times), <code>t/friend</code>, <code>t/friend t/family</code> etc.</p>
-</li>
-<li>
-<p>Parameters can be in any order e.g. if the command specifies <code>n/NAME p/CATEGORY</code>, <code>p/CATEGORY n/NAME</code> is also acceptable.</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="exampleblock">
-<div class="content">
-<div class="paragraph">
-<p><strong>Constraints</strong></p>
-</div>
+<p>According to the format of each command, words in <code>UPPER_CASE</code> are the parameters which can be specified by the user</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Before any user is logged in, only <code>login</code>, <code>signup</code> and <code>help</code> are useable.</p>
+<p>E.g. the <code>login</code> command has the format of <code>login USERNAME</code> where <code>USERNAME</code> is a parameter which can be replaced by a user specified value. In order to log in to an account with the username "username123", the user will enter the command <code>login username123</code>.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Parameters in square brackets are optional</p>
+<div class="ulist">
+<ul>
+<li>
+<p>E.g if a command has a parameter format of <code>n/EXPENSE_NAME [t/TAG]</code>, the parameters can be used as <code>n/Birthday Present t/Girlfriend</code>, which includes the "Girlfriend" tag, or as <code>n/Birthday Present</code>, which does not include a tag.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Parameters with <code>…</code>​ after them can be used multiple times including zero times</p>
+<div class="ulist">
+<ul>
+<li>
+<p>E.g. if a command format contains the parameter <code>[t/TAG]&#8230;&#8203;</code>, the parameter can be replaced with <code>t/friend</code>, <code>t/friend t/family</code> etc.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Parameters can be in any order e.g. if the command format specifies <code>n/NAME p/CATEGORY</code>, using the parameters <code>p/CATEGORY n/NAME</code> is also acceptable.</p>
 </li>
 </ul>
 </div>
 </div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Before a user is logged in, only <code>login</code>, <code>signup</code> and <code>help</code> commands are useable.</p>
+</li>
+<li>
+<p>After a user is logged in, the rest of the commands will become useable.</p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
 </div>
 <div class="sect2">
 <h3 id="signing-up-a-user-code-signup-code"><a class="link" href="#signing-up-a-user-code-signup-code">3.1. Signing up a User : <code>signup</code></a></h3>
 <div class="paragraph">
-<p>Signs up a new user to the Expense Tracker</p>
+<p>Signs up a new user to the Expense Tracker.</p>
 </div>
 <div class="paragraph">
 <p>Format: <code>signup USERNAME</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
+<div class="paragraph">
+<p><strong>Examples:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>signup username123</code><br>
+Signs up a user with the username "username123".</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
 <div class="ulist">
 <ul>
 <li>
@@ -139,7 +194,9 @@ e.g. typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> wil
 </li>
 </ul>
 </div>
-</div>
+</td>
+</tr>
+</table>
 </div>
 </div>
 <div class="sect2">
@@ -152,6 +209,26 @@ e.g. typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> wil
 </div>
 <div class="sidebarblock">
 <div class="content">
+<div class="paragraph">
+<p><strong>Examples:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>login username123</code><br>
+Logs in a user with the username "username123".</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
 <div class="ulist">
 <ul>
 <li>
@@ -162,11 +239,16 @@ e.g. typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> wil
 </li>
 </ul>
 </div>
-</div>
+</td>
+</tr>
+</table>
 </div>
 </div>
 <div class="sect2">
 <h3 id="viewing-help-code-help-code"><a class="link" href="#viewing-help-code-help-code">3.3. Viewing help : <code>help</code></a></h3>
+<div class="paragraph">
+<p>Opens up a new window with the User Guide.</p>
+</div>
 <div class="paragraph">
 <p>Format: <code>help</code></p>
 </div>
@@ -174,222 +256,281 @@ e.g. typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> wil
 <div class="sect2">
 <h3 id="adding-an-expense-code-add-code"><a class="link" href="#adding-an-expense-code-add-code">3.4. Adding an expense: <code>add</code></a></h3>
 <div class="paragraph">
-<p>Adds an expense to the tracker</p>
+<p>Adds an expense to the tracker.</p>
 </div>
 <div class="paragraph">
-<p>Format: add n/EXPENSE_NAME $/COST c/CATEGORY [d/DATE] [t/TAG]&#8230;&#8203;</p>
-</div>
-<div class="paragraph">
-<p>Examples:</p>
+<p>Format: <code>add n/EXPENSE_NAME $/COST c/CATEGORY [d/DATE] [t/TAG]&#8230;&#8203;</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
+<div class="paragraph">
+<p><strong>Examples:</strong></p>
+</div>
 <div class="ulist">
 <ul>
 <li>
-<p>add n/Lunch $/4.00 c/Food</p>
+<p><code>add n/Lunch $/4.00 c/Food</code><br>
+Adds an expense with its name as "Lunch", cost as "4.00" and category as "Food".</p>
 </li>
 <li>
-<p>add n/Stationary $/1.80 c/School t/bookhaven</p>
+<p><code>add n/Stationery $/1.80 c/School t/bookhaven</code><br>
+Adds an expense with its name as "Stationery", cost as "1.80", category as "School" and Tag as "bookhaven".</p>
 </li>
 <li>
-<p>add n/Project $/2.08 c/School d/01-01-2018</p>
+<p><code>add n/Project $/2.08 c/School d/01-01-2018</code><br>
+Adds an expense with its name as "Project", cost as "2.08", category as "School" and date as "01-01-2018".</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
-</div>
-<div class="sect2">
-<h3 id="setting-a-budget-code-setbudget-code"><a class="link" href="#setting-a-budget-code-setbudget-code">3.5. Setting a budget: <code>setBudget</code></a></h3>
-<div class="paragraph">
-<p>Sets a cap on the expense tracker. Will warn you if you try
-to add an expense that will exceed your budget</p>
-</div>
-<div class="paragraph">
-<p>Format: setBudget MONEY_WITH_TWO_DECIMAL_PLACES</p>
-</div>
-<div class="paragraph">
-<p>Examples:</p>
-</div>
-<div class="sidebarblock">
-<div class="content">
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
 <div class="ulist">
 <ul>
 <li>
-<p>setBudget 2.00</p>
+<p>COST should be a non-zero positive number with two decimal places</p>
 </li>
 <li>
-<p>setBudget 20.00</p>
+<p>If the user does not in put a DATE parameter, the expense  date will default to the current day.</p>
+</li>
+<li>
+<p>DATE should be in the format of "dd-mm-yyyy".</p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="editing-an-expense-code-edit-code"><a class="link" href="#editing-an-expense-code-edit-code">3.5. Editing an expense : <code>edit</code></a></h3>
+<div class="paragraph">
+<p>Edits the expense at the specified <code>INDEX</code>. The <code>INDEX</code> refers to the index number shown in the displayed expense list
+next to the name of the expense.<br>
+Existing values of the expense will be edited according to the value of the parameters<br></p>
+</div>
+<div class="paragraph">
+<p>Format: <code>edit INDEX [n/EXPENSE_NAME] [$/COST] [c/CATEGORY] [d/DATE] [t/TAG&#8230;&#8203;]</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Examples:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>edit 1 n/Stationery $/1.80 c/School</code><br>
+Edits the name and category of the 1st expense in the expense list to be <code>Stationery</code> and <code>school</code> respectively.</p>
+</li>
+<li>
+<p><code>edit 2 d/01-01-2018</code><br>
+Edits the date of the 2nd expense in the expense list to be the 1st of October, 2018.</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
-</div>
-<div class="sect2">
-<h3 id="listing-all-expenses-code-list-code"><a class="link" href="#listing-all-expenses-code-list-code">3.6. Listing all expenses : <code>list</code></a></h3>
-<div class="paragraph">
-<p>Shows a list of all expenses in the expense tracker.<br>
-Format: <code>list</code></p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="editing-an-expense-code-edit-code"><a class="link" href="#editing-an-expense-code-edit-code">3.7. Editing an expense : <code>edit</code></a></h3>
-<div class="paragraph">
-<p>Edits an existing expense in the expense tracker.<br>
-Format: <code>edit INDEX n/EXPENSE_NAME $/COST c/CATEGORY d/DATE t/TAG&#8230;&#8203;</code></p>
-</div>
-<div class="sidebarblock">
-<div class="content">
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
 <div class="ulist">
 <ul>
-<li>
-<p>Edits the expense at the specified <code>INDEX</code>. The index refers to the index number shown in the displayed expense list. The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
-</li>
 <li>
 <p>At least one of the optional fields must be provided.</p>
 </li>
 <li>
-<p>Existing values will be updated to the input values.</p>
+<p>The index <strong>must be a non-zero positive integer</strong> and must correspond to an expense in the expense list.</p>
+</li>
+<li>
+<p>COST should be a non-zero positive number with two decimal places</p>
+</li>
+<li>
+<p>DATE should be in the format of "dd-mm-yyyy".</p>
 </li>
 </ul>
 </div>
-</div>
-</div>
-<div class="paragraph">
-<p>Examples:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>edit 1 n/Stationary $/1.80 c/School</code><br>
-Edits the name of the 1st expense to be <code>Stationary</code> and <code>school</code> respectively.</p>
-</li>
-<li>
-<p><code>edit 1 d/01-01-2018</code><br>
-Edits the date of the 1st expense to be the 1st of October, 2018.</p>
-</li>
-</ul>
+</td>
+</tr>
+</table>
 </div>
 </div>
 <div class="sect2">
-<h3 id="locating-expenses-by-name-code-find-code"><a class="link" href="#locating-expenses-by-name-code-find-code">3.8. Locating expenses by name: <code>find</code></a></h3>
+<h3 id="deleting-a-expense-code-delete-code"><a class="link" href="#deleting-a-expense-code-delete-code">3.6. Deleting a expense : <code>delete</code></a></h3>
 <div class="paragraph">
-<p>Finds expense whose names contain any of the given keywords.<br>
-Format: <code>find KEYWORD [MORE_KEYWORDS]</code></p>
+<p>Deletes the expense at the specified <code>INDEX</code>. The <code>INDEX</code> refers to the index number shown in the displayed expense list
+next to the name of the expense.<br></p>
+</div>
+<div class="paragraph">
+<p>Format: <code>delete INDEX</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
+<div class="paragraph">
+<p><strong>Examples:</strong></p>
+</div>
 <div class="ulist">
 <ul>
 <li>
-<p>The search is case insensitive. e.g <code>hans</code> will match <code>Hans</code></p>
-</li>
-<li>
-<p>The order of the keywords does not matter. e.g. <code>Hans Bo</code> will match <code>Bo Hans</code></p>
-</li>
-<li>
-<p>Only the name is searched.</p>
-</li>
-<li>
-<p>Only full words will be matched e.g. <code>Han</code> will not match <code>Hans</code></p>
-</li>
-<li>
-<p>Expense matching at least one keyword will be returned (i.e. <code>OR</code> search).</p>
+<p><code>delete 1</code><br>
+Deletes the 1st expense in the expense list from the expense tracker.</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>The index <strong>must be a non-zero positive integer</strong> and must correspond to an expense in the expense list.</p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
 </div>
 <div class="sect2">
-<h3 id="deleting-a-expense-code-delete-code"><a class="link" href="#deleting-a-expense-code-delete-code">3.9. Deleting a expense : <code>delete</code></a></h3>
+<h3 id="locating-expenses-by-name-code-find-code"><a class="link" href="#locating-expenses-by-name-code-find-code">3.7. Locating expenses by name: <code>find</code></a></h3>
 <div class="paragraph">
-<p>Deletes the specified expense from the expense tracker.<br>
-Format: <code>delete INDEX</code></p>
+<p>Finds all expenses which has a name containing any of the given keywords and displays them in the expense list.<br></p>
+</div>
+<div class="paragraph">
+<p>Format: <code>find KEYWORD [MORE_KEYWORDS]</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="ulist">
-<ul>
-<li>
-<p>Deletes the expense at the specified <code>INDEX</code>.</p>
-</li>
-<li>
-<p>The index refers to the index number shown in the displayed expense list.</p>
-</li>
-<li>
-<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
 <div class="paragraph">
-<p>Examples:</p>
+<p><strong>Examples:</strong></p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><code>list</code><br>
-<code>delete 2</code><br>
-Deletes the 2nd expense from the expense tracker.</p>
-</li>
-<li>
-<p><code>find Betsy</code><br>
-<code>delete 1</code><br>
-Deletes the 1st expense from the expense tracker.</p>
+<p><code>find lunch</code><br>
+Finds all expenses with name containing the word "lunch".</p>
 </li>
 </ul>
+</div>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>The search is case insensitive, i.e. the KEYWORD <code>hans</code> is equivalent to the KEYWORD <code>Hans</code></p>
+</li>
+<li>
+<p>The order of the keywords does not matter, i.e. the KEYWORD <code>hans bo</code> is equivalent to the KEYWORD <code>bo hans</code></p>
+</li>
+<li>
+<p>Only the expense name will be searched.</p>
+</li>
+<li>
+<p>Only full words will be matched, i.e. the KEYWORD <code>Han</code> will not match the expense name <code>Hans</code></p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
 </div>
 </div>
 <div class="sect2">
-<h3 id="selecting-a-expense-code-select-code"><a class="link" href="#selecting-a-expense-code-select-code">3.10. Selecting a expense : <code>select</code></a></h3>
+<h3 id="listing-all-expenses-code-list-code"><a class="link" href="#listing-all-expenses-code-list-code">3.8. Listing all expenses : <code>list</code></a></h3>
 <div class="paragraph">
-<p>Selects the expense identified by the index number used in the displayed expense list.<br>
-Format: <code>select INDEX</code></p>
+<p>Updates the expense list to show all expenses in the expense tracker.</p>
+</div>
+<div class="paragraph">
+<p>For example, this command can be used after the <code>find</code> command is used, as the <code>find</code> command will apply a filter to the expense list.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>list</code></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="setting-a-budget-code-setbudget-code"><a class="link" href="#setting-a-budget-code-setbudget-code">3.9. Setting a budget: <code>setBudget</code></a></h3>
+<div class="paragraph">
+<p>Sets the budget for the expense tracker.<br></p>
+</div>
+<div class="paragraph">
+<p>The Expense Tracker will warn you when your total expenditure exceeds the budget that is set.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>setBudget MONEY_WITH_TWO_DECIMAL_PLACES</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="ulist">
-<ul>
-<li>
-<p>Selects the expense and loads the Google search page the expense at the specified <code>INDEX</code>.</p>
-</li>
-<li>
-<p>The index refers to the index number shown in the displayed expense list.</p>
-</li>
-<li>
-<p>The index <strong>must be a positive integer</strong> <code>1, 2, 3, &#8230;&#8203;</code></p>
-</li>
-</ul>
-</div>
-</div>
-</div>
 <div class="paragraph">
-<p>Examples:</p>
+<p><strong>Examples:</strong></p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><code>list</code><br>
-<code>select 2</code><br>
-Selects the 2nd expense in the expense tracker.</p>
+<p><code>setBudget 2.00</code><br>
+Sets a budget of $2.00.</p>
 </li>
 <li>
-<p><code>find Betsy</code><br>
-<code>select 1</code><br>
-Selects the 1st expense in the results of the <code>find</code> command.</p>
+<p><code>setBudget 20.00</code><br>
+Sets a budget of $20.00.</p>
 </li>
 </ul>
+</div>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>The <code>setBudget</code> command is case sensitive.</p>
+</li>
+<li>
+<p>MONEY_WITH_TWO_DECIMAL_PLACES must be a positive number with two decimal places.</p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
 </div>
 </div>
 <div class="sect2">
-<h3 id="listing-entered-commands-code-history-code"><a class="link" href="#listing-entered-commands-code-history-code">3.11. Listing entered commands : <code>history</code></a></h3>
+<h3 id="listing-entered-commands-code-history-code"><a class="link" href="#listing-entered-commands-code-history-code">3.10. Listing entered commands : <code>history</code></a></h3>
 <div class="paragraph">
-<p>Lists all the commands that you have entered in reverse chronological order.<br>
-Format: <code>history</code></p>
+<p>Lists all the commands that you have previously entered in reverse chronological order.<br></p>
+</div>
+<div class="paragraph">
+<p>Format: <code>history</code></p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -399,7 +540,7 @@ Format: <code>history</code></p>
 </td>
 <td class="content">
 <div class="paragraph">
-<p>Pressing the <kbd>&uarr;</kbd> and <kbd>&darr;</kbd> arrows will display the previous and next input respectively in the command box.</p>
+<p>Press the <kbd>&uarr;</kbd> and <kbd>&darr;</kbd> arrows to display the previous and next commands respectively in the command box.</p>
 </div>
 </td>
 </tr>
@@ -407,108 +548,113 @@ Format: <code>history</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="undoing-previous-command-code-undo-code"><a class="link" href="#undoing-previous-command-code-undo-code">3.12. Undoing previous command : <code>undo</code></a></h3>
+<h3 id="undoing-previous-command-code-undo-code"><a class="link" href="#undoing-previous-command-code-undo-code">3.11. Undoing previous command : <code>undo</code></a></h3>
 <div class="paragraph">
 <p>Restores the expense tracker to the state before the previous <em>undoable</em> command was executed.<br>
-Format: <code>undo</code></p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>Undoable commands: those commands that modify the expense tracker&#8217;s content (<code>add</code>, <code>delete</code>, <code>edit</code> and <code>clear</code>).</p>
-</div>
-</td>
-</tr>
-</table>
+<em>Undoable</em> commands are commands that modify expenses in the expense tracker (<code>add</code>, <code>delete</code>, <code>edit</code> and <code>clear</code>).<br></p>
 </div>
 <div class="paragraph">
-<p>Examples:</p>
+<p>Format: <code>undo</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Examples:</strong></p>
 </div>
 <div class="ulist">
 <ul>
 <li>
 <p><code>delete 1</code><br>
 <code>list</code><br>
-<code>undo</code> (reverses the <code>delete 1</code> command)<br></p>
+<code>undo</code><br>
+Reverses the <code>delete 1</code> command.</p>
 </li>
 <li>
-<p><code>select 1</code><br>
-<code>list</code><br>
+<p><code>list</code><br>
 <code>undo</code><br>
 The <code>undo</code> command fails as there are no undoable commands executed previously.</p>
 </li>
 <li>
 <p><code>delete 1</code><br>
 <code>clear</code><br>
-<code>undo</code> (reverses the <code>clear</code> command)<br>
-<code>undo</code> (reverses the <code>delete 1</code> command)<br></p>
+<code>undo</code><br>
+<code>undo</code><br>
+The first <code>undo</code> reverses the <code>clear</code> command. The second <code>undo</code> reverses the <code>delete 1</code> command.</p>
 </li>
 </ul>
 </div>
 </div>
+</div>
+</div>
 <div class="sect2">
-<h3 id="redoing-the-previously-undone-command-code-redo-code"><a class="link" href="#redoing-the-previously-undone-command-code-redo-code">3.13. Redoing the previously undone command : <code>redo</code></a></h3>
+<h3 id="redoing-the-previously-undone-command-code-redo-code"><a class="link" href="#redoing-the-previously-undone-command-code-redo-code">3.12. Redoing the previously undone command : <code>redo</code></a></h3>
 <div class="paragraph">
-<p>Reverses the most recent <code>undo</code> command.<br>
-Format: <code>redo</code></p>
+<p>Restores the expense tracker to the state before the most recent <code>undo</code> command.<br></p>
 </div>
 <div class="paragraph">
-<p>Examples:</p>
+<p>Format: <code>redo</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Examples:</strong></p>
 </div>
 <div class="ulist">
 <ul>
 <li>
 <p><code>delete 1</code><br>
-<code>undo</code> (reverses the <code>delete 1</code> command)<br>
-<code>redo</code> (reapplies the <code>delete 1</code> command)<br></p>
+<code>undo</code><br>
+<code>redo</code><br>
+The <code>undo</code> command reverses the <code>delete 1</code> command.<br>
+The <code>redo</code> command reverses the <code>undo</code> command.</p>
 </li>
 <li>
 <p><code>delete 1</code><br>
 <code>redo</code><br>
-The <code>redo</code> command fails as there are no <code>undo</code> commands executed previously.</p>
+The <code>redo</code> command fails as there was no <code>undo</code> command executed previously.</p>
 </li>
 <li>
 <p><code>delete 1</code><br>
 <code>clear</code><br>
-<code>undo</code> (reverses the <code>clear</code> command)<br>
-<code>undo</code> (reverses the <code>delete 1</code> command)<br>
+<code>undo</code>
+<code>undo</code>
 <code>redo</code> (reapplies the <code>delete 1</code> command)<br>
-<code>redo</code> (reapplies the <code>clear</code> command)<br></p>
+<code>redo</code> (reapplies the <code>clear</code> command)<br>
+The first <code>undo</code> reverses the <code>clear</code> command.<br>
+The second <code>undo</code> reverses the <code>delete 1</code> command.<br>
+The first <code>redo</code> reverses the second <code>undo</code> command, reapplying <code>delete 1</code>.
+The second`redo` reverses the first <code>undo</code> command, reapplying <code>clear</code>.</p>
 </li>
 </ul>
 </div>
 </div>
-<div class="sect2">
-<h3 id="show-expense-statistics-code-stats-code"><a class="link" href="#show-expense-statistics-code-stats-code">3.14. Show expense statistics: <code>stats</code></a></h3>
-<div class="paragraph">
-<p>Opens up a new window showing a bar chart of the expenditure of the past week.<br>
-Format: <code>stats</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="clearing-all-entries-code-clear-code"><a class="link" href="#clearing-all-entries-code-clear-code">3.15. Clearing all entries : <code>clear</code></a></h3>
+<h3 id="show-expense-statistics-code-stats-code"><a class="link" href="#show-expense-statistics-code-stats-code">3.13. Show expense statistics: <code>stats</code></a></h3>
 <div class="paragraph">
-<p>Clears all entries from the expense tracker.<br>
-Format: <code>clear</code></p>
+<p>Opens up a new window showing a bar chart of the expenditure of the past 7 days.<br></p>
+</div>
+<div class="paragraph">
+<p>Format: <code>stats</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="exiting-the-program-code-exit-code"><a class="link" href="#exiting-the-program-code-exit-code">3.16. Exiting the program : <code>exit</code></a></h3>
+<h3 id="clearing-all-entries-code-clear-code"><a class="link" href="#clearing-all-entries-code-clear-code">3.14. Clearing all entries : <code>clear</code></a></h3>
 <div class="paragraph">
-<p>Exits the program.<br>
-Format: <code>exit</code></p>
+<p>Deletes all expense entries from the expense tracker.<br></p>
+</div>
+<div class="paragraph">
+<p>Format: <code>clear</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="saving-the-data"><a class="link" href="#saving-the-data">3.17. Saving the data</a></h3>
+<h3 id="exiting-the-program-code-exit-code"><a class="link" href="#exiting-the-program-code-exit-code">3.15. Exiting the program : <code>exit</code></a></h3>
 <div class="paragraph">
-<p>Expense tracker data are saved in the hard disk automatically after any command that changes the data.<br>
-There is no need to save manually.</p>
+<p>Exits the program.<br></p>
+</div>
+<div class="paragraph">
+<p>Format: <code>exit</code></p>
 </div>
 </div>
 </div>
@@ -516,6 +662,10 @@ There is no need to save manually.</p>
 <div class="sect1">
 <h2 id="faq"><a class="link" href="#faq">4. FAQ</a></h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p><strong>Q</strong>: Do I need to manually save my data?<br>
+<strong>A</strong>: There is no need to save your manually. All the data in the Expense Tracker is automatically saved in the hard disk after any command that changes the data.<br></p>
+</div>
 <div class="paragraph">
 <p><strong>Q</strong>: How do I transfer my data to another Computer?<br>
 <strong>A</strong>:  Install the app in the other computer and copy the <code>data</code> folder in your previous Expense Tracker folder over to the new Expense Tracker folder on your other Computer.</p>
@@ -528,39 +678,38 @@ There is no need to save manually.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Login</strong> : <code>login USERNAME</code></p>
+<p><strong>SignUp</strong> : <code>signup USERNAME</code><br>
+e.g. <code>signup username123</code></p>
 </li>
 <li>
-<p><strong>SignUp</strong> : <code>signup USERNAME</code></p>
+<p><strong>Login</strong> : <code>login USERNAME</code><br>
+e.g. <code>login username123</code></p>
+</li>
+<li>
+<p><strong>Help</strong> : <code>help</code></p>
 </li>
 <li>
 <p><strong>Add</strong> <code>add n/EXPENSE_NAME e/EXPENSE [c/CATEGORY]</code><br>
 e.g. <code>add n/Lunch e/4 c/Food</code></p>
 </li>
 <li>
-<p><strong>Clear</strong> : <code>clear</code></p>
+<p><strong>Edit</strong> : <code>edit INDEX n/EXPENSE_NAME e/EXPENSE [c/CATEGORY]</code><br>
+e.g. <code>edit 2 n/Lunch e/4 c/Food</code></p>
 </li>
 <li>
 <p><strong>Delete</strong> : <code>delete INDEX</code><br>
 e.g. <code>delete 3</code></p>
 </li>
 <li>
-<p><strong>Edit</strong> : <code>edit INDEX n/EXPENSE_NAME e/EXPENSE [c/CATEGORY]</code><br>
-e.g. <code>edit 2 n/Lunch e/4 c/Food</code></p>
+<p><strong>Find</strong> : <code>find KEYWORD [MORE_KEYWORDS]</code><br></p>
 </li>
 <li>
-<p><strong>Find</strong> : <code>find KEYWORD [MORE_KEYWORDS]</code><br>
+<p><strong>List</strong> : <code>list</code>
 e.g. <code>find school</code></p>
 </li>
 <li>
-<p><strong>List</strong> : <code>list</code></p>
-</li>
-<li>
-<p><strong>Help</strong> : <code>help</code></p>
-</li>
-<li>
-<p><strong>Select</strong> : <code>select INDEX</code><br>
-e.g.<code>select 2</code></p>
+<p><strong>Set Budget</strong> : <code>setBudget</code><br>
+e.g. <code>setBudget 20.00</code></p>
 </li>
 <li>
 <p><strong>History</strong> : <code>history</code></p>
@@ -574,7 +723,13 @@ e.g.<code>select 2</code></p>
 <li>
 <p><strong>Statistics</strong> : <code>stats</code></p>
 </li>
+<li>
+<p><strong>Clear</strong> : <code>clear</code></p>
+</li>
+<li>
+<p><strong>Exit</strong> : <code>exit</code></p>
+</li>
 </ul>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-09 12:51:08 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-10 07:47:37 UTC</div></div></div></body></html>
