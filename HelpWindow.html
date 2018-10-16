@@ -645,10 +645,57 @@ The second`redo` reverses the first <code>undo</code> command, reapplying <code>
 <div class="sect2">
 <h3 id="show-expense-statistics-code-stats-code"><a class="link" href="#show-expense-statistics-code-stats-code">3.13. Show expense statistics: <code>stats</code></a></h3>
 <div class="paragraph">
-<p>Opens up a new window showing a bar chart of the expenditure of the past 7 days.<br></p>
+<p>Opens up a new window showing a bar chart of the expenditure over a specified time period, in a given <code>MODE</code>.<br></p>
 </div>
 <div class="paragraph">
-<p>Format: <code>stats</code></p>
+<p>The available modes are <code>d</code> and <code>m</code>, which represents day and month respectively. E.g. if NUMBER_OF_DAYS_OR_MONTHS is 7
+and MODE is 'd', the statistics will include data from the past 7 days, current day included.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>stats n/NUMBER_OF_DAYS_OR_MONTHS m/MODE</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Examples:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>stats n/14 m/d</code><br>
+Shows the expense statistics for the past 14 days, current day included<br></p>
+</li>
+<li>
+<p><code>stats n/3 m/m</code><br>
+Shows the expense statistics for the past 3 months, current day included<br></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>NUMBER_OF_DAYS_OR_MONTHS must be a positive number greater than 0</p>
+</li>
+<li>
+<p>MODE can only be 'd' or 'm'.</p>
+</li>
+<li>
+<p>If no parameters are provided, the command defaults to show statistics for the past 7 days, current day included.</p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
 </div>
 </div>
 <div class="sect2">
@@ -736,7 +783,7 @@ e.g. <code>setBudget 20.00</code></p>
 <p><strong>Redo</strong> : <code>redo</code></p>
 </li>
 <li>
-<p><strong>Statistics</strong> : <code>stats</code></p>
+<p><strong>Statistics</strong> : <code>stats n/NUMBER_OF_DAYS_OR_MONTHS m/MODE</code></p>
 </li>
 <li>
 <p><strong>Clear</strong> : <code>clear</code></p>
@@ -747,4 +794,4 @@ e.g. <code>setBudget 20.00</code></p>
 </ul>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-14 23:31:05 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-16 09:32:07 UTC</div></div></div></body></html>
