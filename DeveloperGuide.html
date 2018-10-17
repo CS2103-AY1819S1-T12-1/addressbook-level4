@@ -30,10 +30,11 @@
 <li><a href="#implementation">3. Implementation</a>
 <ul class="sectlevel2">
 <li><a href="#undo-redo-feature">3.1. Undo/Redo feature</a></li>
-<li><a href="#proposed-data-encryption">3.2. [Proposed] Data Encryption</a></li>
-<li><a href="#statistics">3.3. Statistics</a></li>
-<li><a href="#logging">3.4. Logging</a></li>
-<li><a href="#Implementation-Configuration">3.5. Configuration</a></li>
+<li><a href="#user-accounts-system">3.2. User Accounts System</a></li>
+<li><a href="#proposed-data-encryption">3.3. [Proposed] Data Encryption</a></li>
+<li><a href="#statistics">3.4. Statistics</a></li>
+<li><a href="#logging">3.5. Logging</a></li>
+<li><a href="#Implementation-Configuration">3.6. Configuration</a></li>
 </ul>
 </li>
 <li><a href="#documentation">4. Documentation</a>
@@ -560,6 +561,9 @@ As a more OOP model, we can store a <code>Tag</code> list in <code>Expense Track
 <div class="title">Figure 9. Structure of the Storage Component</div>
 </div>
 <div class="paragraph">
+<p>The <strong><em>Structure of the Storage Component</em></strong> given above shows the relationships between classes in the storage component.</p>
+</div>
+<div class="paragraph">
 <p><strong>API</strong> : <a href="https://github.com/se-edu/addressbook-level4/tree/master/src/main/java/seedu/address/storage/Storage.java"><code>Storage.java</code></a></p>
 </div>
 <div class="paragraph">
@@ -572,6 +576,12 @@ As a more OOP model, we can store a <code>Tag</code> list in <code>Expense Track
 </li>
 <li>
 <p>can save the Expense Tracker data in xml format and read it back.</p>
+</li>
+<li>
+<p>can read multiple xml format files with separate Expense Tracker data from a folder.</p>
+</li>
+<li>
+<p>XmlAdaptedPassword is stored as a SHA-256 hash of the original password.</p>
 </li>
 </ul>
 </div>
@@ -793,13 +803,203 @@ If the <code>currentStatePointer</code> is at index <code>addressBookStateList.s
 </div>
 </div>
 <div class="sect2">
-<h3 id="proposed-data-encryption"><a class="link" href="#proposed-data-encryption">3.2. [Proposed] Data Encryption</a></h3>
+<h3 id="user-accounts-system"><a class="link" href="#user-accounts-system">3.2. User Accounts System</a></h3>
+<div class="paragraph">
+<p>The user accounts system allows multiple users to use the Expense Tracker on the same computer without interfering with each other&#8217;s data. It also includes an optional password system that allows users to protect their expense tracker information from being viewed or altered by others.</p>
+</div>
+<div class="sect3">
+<h4 id="current-implementation-2"><a class="link" href="#current-implementation-2">3.2.1. Current Implementation</a></h4>
+<div class="paragraph">
+<p>On initialization, the <code>MainApp</code> class loads all xml files within the data folder according to the path in <code>UserPrefs</code>. The data is loaded by <code>MainApp#initModelManager(Storage, UserPref)</code>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>An xml data file not be loaded if the username value is not the same as the filename (ignoring file extension).</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This system is facilitated by methods in the Model interface which now supports the following operations:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>Model#loadUserData(Username, Password)</code>&#8201;&#8212;&#8201;Logs in to the user with the input Username and Password and loads the associated data. Returns true if the password matches the user&#8217;s password, else the user is not logged into and false is returned</p>
+</li>
+<li>
+<p><code>Model#unloadUserData()</code>&#8201;&#8212;&#8201;Unselects the user in the Model</p>
+</li>
+<li>
+<p><code>Model#isUserExists(Username)</code>&#8201;&#8212;&#8201;Checks if a user with the input Username exists in the model</p>
+</li>
+<li>
+<p><code>Model#addUser(Username)</code>&#8201;&#8212;&#8201;Adds a new user with the given Username to the model</p>
+</li>
+<li>
+<p><code>Model#hasSelectedUser()</code>&#8201;&#8212;&#8201;Checks if a user is currently logged in in the model</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The classes <code>Username</code> and <code>Password</code> have also been implemented and have the following noteworthy characteristics:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Two <code>Username</code> classes are equivalent if and only if the internal username String are equivalent (case-insensitive).</p>
+</li>
+<li>
+<p><code>Username</code> cannot be constructed with a String containing any of the following characters: <em>" &gt; &lt; : \ / | ? *</em></p>
+</li>
+<li>
+<p>When a <code>Password</code> class is constructed with plain text, the password is hashed before being stored as an internal String in the <code>Password</code> object</p>
+</li>
+<li>
+<p><code>Password</code> is only valid if the plain text form is at least 6 characters long</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Given below is an example usage scenario and how the User Account System behaves at each step when the application is launched.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The user launches the application and the directory path in the UserPref points at the <em>data</em> folder</p>
+</li>
+<li>
+<p>The method <code>Storage#readAllExpenses(Path)</code> is called by the MainApp and the method loads all the xml data files in the <em>data</em> folder and returns the loaded data as a <code>Map&lt;Username, ReadOnlyAddressBook&gt;</code> with the <code>Username</code> of the user data as the key and the user data as a <code>ReadOnlyAddressBook</code> as the value to the MainApp class</p>
+</li>
+<li>
+<p>A <code>Model</code> instance will then be initialized using the previously mentioned <code>Map</code> of user data.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Given below is an example usage scenario and how the Sign Up and Login system behaves at each step after the application is launched.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The user executes the command <code>signup john</code> to create a user with the <code>Username</code> john</p>
+</li>
+<li>
+<p>The <code>signup</code> command calls <code>Model#addUser(Username)</code> which adds the user <code>john</code> to the <code>Model</code>. The operation is successful as <code>john</code> does not break any of the <code>Username</code> constraints and does not already exist in the Model.</p>
+</li>
+<li>
+<p>The user then executes the command <code>login u/john</code> to log in to his user account</p>
+</li>
+<li>
+<p>The <code>login</code> command calls <code>loadUserData(Username, Password)</code> with a null password as a password was not provided. The method is executed successfully as the user <code>john</code> has no password set.</p>
+</li>
+<li>
+<p>The selected data in the <code>Model</code> is switched to <code>john&#8217;s and an `UserLoggedInEvent</code> is raised for the <code>UI</code> to show `john&#8217;s Expense Tracker data</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Given below is an example usage scenario and how the Password system behaves at each step after the he/she is logged in.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The user is already logged in to the account <code>john</code> with an existing password <code>password1</code> and executes the command <code>setpassword o/password1 n/password2</code> to change his password to <code>password2</code></p>
+</li>
+<li>
+<p>The <code>setpassword</code> command calls the <code>Model#setPassword(Password)</code> method since the given old password matches his existing password and <code>password2</code> does not violate any password constraints</p>
+</li>
+<li>
+<p>The <code>Model#setPassword(Password)</code> changes <code>john&#8217;s account password to `password2</code></p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations-2"><a class="link" href="#design-considerations-2">3.2.2. Design Considerations</a></h4>
+<div class="sect4">
+<h5 id="aspect-storage-of-separate-user-data"><a class="link" href="#aspect-storage-of-separate-user-data">Aspect: Storage of Separate User Data</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: More work needed to implement as the data loading has to be changed to read from multiple xml files</p>
+</li>
+<li>
+<p>Cons: Users can transfer their own data between computers easily by just copying their own account&#8217;s xml file</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> Save all the separated user data in a single xml data file</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Relatively easier to implement. Addressbook-level4 already loads data from a single xml data file so less work has to be done to change the storage structure</p>
+</li>
+<li>
+<p>Cons: Users will be unable to easily transfer their individual data to another computer</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="aspect-loading-of-user-data"><a class="link" href="#aspect-loading-of-user-data">Aspect: Loading of User Data</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> Loading of User data is only done on initialization of the Expense Tracker</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Ability to switch user accounts quickly after the Expense Tracker is loaded as all users are already loaded into memory</p>
+</li>
+<li>
+<p>Cons: External changes to the data files after initialization will not be reflected may be overwritten</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> User data is loaded only when the user attempts to log in</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Unnecessary data is not kept in memory so memory space is not wasted</p>
+</li>
+<li>
+<p>Cons: Increase degree of coupling between the Logic, Model and Storage components as the login command will require the Storage to load and return the user&#8217;s data.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="proposed-data-encryption"><a class="link" href="#proposed-data-encryption">3.3. [Proposed] Data Encryption</a></h3>
 <div class="paragraph">
 <p><em>{Explain here how the data encryption feature will be implemented}</em></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="statistics"><a class="link" href="#statistics">3.3. Statistics</a></h3>
+<h3 id="statistics"><a class="link" href="#statistics">3.4. Statistics</a></h3>
 <div class="paragraph">
 <p>Given below is an example usage scenario and of how the statistics mechanism behaves at each step.</p>
 </div>
@@ -838,14 +1038,14 @@ the total cost for that day</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="logging"><a class="link" href="#logging">3.4. Logging</a></h3>
+<h3 id="logging"><a class="link" href="#logging">3.5. Logging</a></h3>
 <div class="paragraph">
 <p>We are using <code>java.util.logging</code> package for logging. The <code>LogsCenter</code> class is used to manage the logging levels and logging destinations.</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 3.5, &#8220;Configuration&#8221;</a>)</p>
+<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 3.6, &#8220;Configuration&#8221;</a>)</p>
 </li>
 <li>
 <p>The <code>Logger</code> for a class can be obtained using <code>LogsCenter.getLogger(Class)</code> which will log messages according to the specified logging level</p>
@@ -876,7 +1076,7 @@ the total cost for that day</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">3.5. Configuration</a></h3>
+<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">3.6. Configuration</a></h3>
 <div class="paragraph">
 <p>Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: <code>config.json</code>).</p>
 </div>
@@ -1116,10 +1316,30 @@ The most reliable way to run tests is the 3rd one. The first two methods might f
 <div class="ulist">
 <ul>
 <li>
-<p>To run all tests, right-click on the <code>src/test/java</code> folder and choose <code>Run 'All Tests'</code></p>
+<p>To run all tests, carry out the following steps:</p>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Right-click on the <code>src/test/java</code> folder</p>
 </li>
 <li>
-<p>To run a subset of tests, you can right-click on a test package, test class, or a test and choose <code>Run 'ABC'</code></p>
+<p>Click on <code>Run 'All Tests'</code> on the menu that appears</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>To run a subset of tests, carry out the following steps:</p>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Right-click on a test package, test class, or a test</p>
+</li>
+<li>
+<p>Click on <code>Run 'TEST'</code>, where TEST is the name of the test package, class or method you are intending to test</p>
+</li>
+</ol>
+</div>
 </li>
 </ul>
 </div>
@@ -1129,7 +1349,17 @@ The most reliable way to run tests is the 3rd one. The first two methods might f
 <div class="ulist">
 <ul>
 <li>
-<p>Open a console and run the command <code>gradlew clean allTests</code> (Mac/Linux: <code>./gradlew clean allTests</code>)</p>
+<p>To use Gradle to run tests, carry out the following steps:</p>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Open a console</p>
+</li>
+<li>
+<p>If you are on windows, enter the command <code>gradlew clean allTests</code>, otherwise enter <code>./gradlew clean allTests</code> instead</p>
+</li>
+</ol>
+</div>
 </li>
 </ul>
 </div>
@@ -1149,36 +1379,51 @@ See <a href="UsingGradle.html">UsingGradle.adoc</a> for more info on how to run 
 <p><strong>Method 3: Using Gradle (headless)</strong></p>
 </div>
 <div class="paragraph">
-<p>Thanks to the <a href="https://github.com/TestFX/TestFX">TestFX</a> library we use, our GUI tests can be run in the <em>headless</em> mode. In the headless mode, GUI tests do not show up on the screen. That means the developer can do other things on the Computer while the tests are running.</p>
+<p>Using the <a href="https://github.com/TestFX/TestFX">TestFX</a> library, our GUI tests can be run in the <em>headless</em> mode.
+In the headless mode, GUI tests do not show up on the screen. That means the developer can do other things on the Computer while the tests are running.</p>
 </div>
-<div class="paragraph">
-<p>To run tests in headless mode, open a console and run the command <code>gradlew clean headless allTests</code> (Mac/Linux: <code>./gradlew clean headless allTests</code>)</p>
+<div class="ulist">
+<ul>
+<li>
+<p>To run tests in headless mode, carry out the following steps:</p>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Open a console</p>
+</li>
+<li>
+<p>If you are on windows, enter the command <code>gradlew clean headless allTests</code>, otherwise enter <code>./gradlew clean headless allTests</code> instead</p>
+</li>
+</ol>
+</div>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect2">
 <h3 id="types-of-tests"><a class="link" href="#types-of-tests">5.2. Types of tests</a></h3>
 <div class="paragraph">
-<p>We have two types of tests:</p>
+<p>We have two main types of tests:</p>
 </div>
-<div class="olist arabic">
-<ol class="arabic">
+<div class="ulist">
+<ul>
 <li>
 <p><strong>GUI Tests</strong> - These are tests involving the GUI. They include,</p>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
+<div class="ulist">
+<ul>
 <li>
 <p><em>System Tests</em> that test the entire App by simulating user actions on the GUI. These are in the <code>systemtests</code> package.</p>
 </li>
 <li>
 <p><em>Unit tests</em> that test the individual components. These are in <code>seedu.address.ui</code> package.</p>
 </li>
-</ol>
+</ul>
 </div>
 </li>
 <li>
 <p><strong>Non-GUI Tests</strong> - These are tests not involving the GUI. They include,</p>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
+<div class="ulist">
+<ul>
 <li>
 <p><em>Unit tests</em> targeting the lowest level methods/classes.<br>
 e.g. <code>seedu.address.commons.StringUtilTest</code></p>
@@ -1191,17 +1436,21 @@ e.g. <code>seedu.address.storage.StorageManagerTest</code></p>
 <p>Hybrids of unit and integration tests. These test are checking multiple code units as well as how the are connected together.<br>
 e.g. <code>seedu.address.logic.LogicManagerTest</code></p>
 </li>
-</ol>
+</ul>
 </div>
 </li>
-</ol>
+</ul>
 </div>
 </div>
 <div class="sect2">
 <h3 id="troubleshooting-testing"><a class="link" href="#troubleshooting-testing">5.3. Troubleshooting Testing</a></h3>
 <div class="paragraph">
-<p><strong>Problem: <code>HelpWindowTest</code> fails with a <code>NullPointerException</code>.</strong></p>
+<p>This section includes common issues that arise during testing.</p>
 </div>
+<div class="ulist">
+<ul>
+<li>
+<p>Problem: <code>HelpWindowTest</code> fails with a <code>NullPointerException</code>.</p>
 <div class="ulist">
 <ul>
 <li>
@@ -1209,6 +1458,9 @@ e.g. <code>seedu.address.logic.LogicManagerTest</code></p>
 </li>
 <li>
 <p>Solution: Execute Gradle task <code>processResources</code>.</p>
+</li>
+</ul>
+</div>
 </li>
 </ul>
 </div>
@@ -2700,4 +2952,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-17 07:33:39 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-17 12:15:40 UTC</div></div></div></body></html>
