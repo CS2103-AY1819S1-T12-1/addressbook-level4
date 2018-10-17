@@ -14,7 +14,8 @@
 <li><a href="#prerequisites">1.1. Prerequisites</a></li>
 <li><a href="#setting-up-the-project-in-your-computer">1.2. Setting up the project in your computer</a></li>
 <li><a href="#verifying-the-setup">1.3. Verifying the setup</a></li>
-<li><a href="#configurations-to-do-before-writing-code">1.4. Configurations to do before writing code</a></li>
+<li><a href="#configurations-to-apply-before-writing-code">1.4. Configurations to apply before writing code</a></li>
+<li><a href="#before-coding">1.5. Before coding</a></li>
 </ul>
 </li>
 <li><a href="#design">2. Design</a>
@@ -95,12 +96,17 @@
 <div class="sect1">
 <h2 id="setting-up"><a class="link" href="#setting-up">1. Setting up</a></h2>
 <div class="sectionbody">
+<hr>
+<div class="paragraph">
+<p>Follow the guide in this section below to start development on ExpenseTracker</p>
+</div>
+<hr>
 <div class="sect2">
 <h3 id="prerequisites"><a class="link" href="#prerequisites">1.1. Prerequisites</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p><strong>JDK <code>9</code></strong> or later</p>
+<p><strong><a href="https://www.oracle.com/technetwork/java/javase/downloads/java-archive-javase9-3934878.html">JDK <code>9</code></a></strong> or later</p>
 <div class="admonitionblock warning">
 <table>
 <tr>
@@ -136,26 +142,25 @@ Do not disable them. If you have disabled them, go to <code>File</code> &gt; <co
 </div>
 <div class="sect2">
 <h3 id="setting-up-the-project-in-your-computer"><a class="link" href="#setting-up-the-project-in-your-computer">1.2. Setting up the project in your computer</a></h3>
+<div class="paragraph">
+<p><strong>To set up the project:</strong></p>
+</div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Fork this repo, and clone the fork to your computer</p>
+<p>Fork this repo and clone the fork to your computer</p>
 </li>
 <li>
-<p>Open IntelliJ (if you are not in the welcome screen, click <code>File</code> &gt; <code>Close Project</code> to close the existing project dialog first)</p>
+<p>Open IntelliJ (if you are not in the <a href="https://i.stack.imgur.com/cQnLl.png">welcome screen</a>, click <code>File</code> &gt; <code>Close
+Project</code> to close
+ the
+existing project dialog first)</p>
 </li>
-<li>
-<p>Set up the correct JDK version for Gradle</p>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
 <li>
 <p>Click <code>Configure</code> &gt; <code>Project Defaults</code> &gt; <code>Project Structure</code></p>
 </li>
 <li>
 <p>Click <code>New&#8230;&#8203;</code> and find the directory of the JDK</p>
-</li>
-</ol>
-</div>
 </li>
 <li>
 <p>Click <code>Import Project</code></p>
@@ -178,23 +183,30 @@ This will generate all resources required by the application and tests.</p>
 </div>
 <div class="sect2">
 <h3 id="verifying-the-setup"><a class="link" href="#verifying-the-setup">1.3. Verifying the setup</a></h3>
+<div class="paragraph">
+<p><strong>To verify that you have successfully set up the project:</strong></p>
+</div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
 <p>Run the <code>seedu.address.MainApp</code> and try a few commands</p>
 </li>
 <li>
-<p><a href="#Testing">Run the tests</a> to ensure they all pass.</p>
+<p><a href="#Testing">Run the tests</a> and ensure that they all pass.</p>
 </li>
 </ol>
 </div>
 </div>
 <div class="sect2">
-<h3 id="configurations-to-do-before-writing-code"><a class="link" href="#configurations-to-do-before-writing-code">1.4. Configurations to do before writing code</a></h3>
+<h3 id="configurations-to-apply-before-writing-code"><a class="link" href="#configurations-to-apply-before-writing-code">1.4. Configurations to apply before writing code</a></h3>
+<div class="paragraph">
+<p><strong>The following lists configurations that should be applied before writing code:</strong></p>
+</div>
 <div class="sect3">
 <h4 id="configuring-the-coding-style"><a class="link" href="#configuring-the-coding-style">1.4.1. Configuring the coding style</a></h4>
 <div class="paragraph">
-<p>This project follows <a href="https://github.com/oss-generic/process/blob/master/docs/CodingStandards.adoc">oss-generic coding standards</a>. IntelliJ&#8217;s default style is mostly compliant with ours but it uses a different import order from ours. To rectify,</p>
+<p>This project follows <a href="https://github.com/oss-generic/process/blob/master/docs/CodingStandards.adoc">oss-generic coding
+standards</a>. IntelliJ&#8217;s default style is mostly compliant but it uses a different import order from ours. To rectify:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -226,10 +238,12 @@ This will generate all resources required by the application and tests.</p>
 <div class="sect3">
 <h4 id="updating-documentation-to-match-your-fork"><a class="link" href="#updating-documentation-to-match-your-fork">1.4.2. Updating documentation to match your fork</a></h4>
 <div class="paragraph">
-<p>After forking the repo, the documentation will still have the SE-EDU branding and refer to the <code>se-edu/addressbook-level4</code> repo.</p>
+<p>After forking the repo, the documentation will still have the SE-EDU branding, referencing the
+<code>se-edu/addressbook-level4</code>
+repo.</p>
 </div>
 <div class="paragraph">
-<p>If you plan to develop this fork as a separate product (i.e. instead of contributing to <code>se-edu/addressbook-level4</code>), you should do the following:</p>
+<p>If you plan to develop this fork as a separate product (instead of contributing to <code>se-edu/addressbook-level4</code>), you should do the following:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -248,7 +262,7 @@ This will generate all resources required by the application and tests.</p>
 <p>Set up Travis to perform Continuous Integration (CI) for your fork. See <a href="UsingTravis.html">UsingTravis.adoc</a> to learn how to set it up.</p>
 </div>
 <div class="paragraph">
-<p>After setting up Travis, you can optionally set up coverage reporting for your team fork (see <a href="UsingCoveralls.html">UsingCoveralls.adoc</a>).</p>
+<p>After setting up Travis, you can optionally set up coverage reporting for your team&#8217;s fork (see <a href="UsingCoveralls.html">UsingCoveralls.adoc</a>).</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -278,10 +292,11 @@ Having both Travis and AppVeyor ensures your App works on both Unix-based platfo
 </table>
 </div>
 </div>
-<div class="sect3">
-<h4 id="getting-started-with-coding"><a class="link" href="#getting-started-with-coding">1.4.4. Getting started with coding</a></h4>
+</div>
+<div class="sect2">
+<h3 id="before-coding"><a class="link" href="#before-coding">1.5. Before coding</a></h3>
 <div class="paragraph">
-<p>When you are ready to start coding,</p>
+<p><strong>Before you start coding,</strong></p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -292,7 +307,6 @@ Having both Travis and AppVeyor ensures your App works on both Unix-based platfo
 <p>Take a look at <a href="#GetStartedProgramming">Appendix A, <em>Suggested Programming Tasks to Get Started</em></a>.</p>
 </li>
 </ol>
-</div>
 </div>
 </div>
 </div>
@@ -513,7 +527,7 @@ Note how the event is propagated through the <code>EventsCenter</code> to the <c
 <h3 id="Design-Model"><a class="link" href="#Design-Model">2.4. Model component</a></h3>
 <div class="imageblock">
 <div class="content">
-<img src="images/ModelClassDiagram.png" alt="ModelClassDiagram" width="800">
+<img src="images/UpdatedModelComponentClassDiagram.png" alt="UpdatedModelComponentClassDiagram" width="800">
 </div>
 <div class="title">Figure 8. Structure of the Model Component</div>
 </div>
@@ -521,7 +535,7 @@ Note how the event is propagated through the <code>EventsCenter</code> to the <c
 <p><strong>API</strong> : <a href="https://github.com/se-edu/addressbook-level4/tree/master/src/main/java/seedu/address/model/Model.java"><code>Model.java</code></a></p>
 </div>
 <div class="paragraph">
-<p>The <code>Model</code>,</p>
+<p>The <code>ModelManager</code> which implements the interface <code>Model</code> (Figure 8):</p>
 </div>
 <div class="ulist">
 <ul>
@@ -529,7 +543,7 @@ Note how the event is propagated through the <code>EventsCenter</code> to the <c
 <p>stores a <code>UserPref</code> object that represents the user&#8217;s preferences.</p>
 </li>
 <li>
-<p>stores the Expense Tracker data.</p>
+<p>stores the a list of expenses.</p>
 </li>
 <li>
 <p>exposes an unmodifiable <code>ObservableList&lt;Expense&gt;</code> that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.</p>
@@ -546,9 +560,12 @@ Note how the event is propagated through the <code>EventsCenter</code> to the <c
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-As a more OOP model, we can store a <code>Tag</code> list in <code>Expense Tracker</code>, which <code>Expense</code> can reference. This would allow <code>Expense Tracker</code> to only require one <code>Tag</code> object per unique <code>Tag</code>, instead of each <code>Expense</code> needing their own <code>Tag</code> object. An example of how such a model may look like is given below.<br>
+To better adhere to the paradigms of OOP, we can store a <code>Tag</code> list in <code>Expense Tracker</code>, which <code>Expense</code> can
+reference. This
+would allow <code>Expense
+Tracker</code> to only require one <code>Tag</code> object per unique <code>Tag</code>, instead of each <code>Expense</code> needing their own <code>Tag</code> object. An example of how such a model may look like is given below.<br>
 <br>
-<span class="image"><img src="images/ModelClassBetterOopDiagram.png" alt="ModelClassBetterOopDiagram" width="800"></span>
+<span class="image"><img src="images/BetterOopModelComponentClassDiagram.png" alt="BetterOopModelComponentClassDiagram" width="800"></span>
 </td>
 </tr>
 </table>
@@ -3191,4 +3208,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-17 14:16:35 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-17 14:47:07 UTC</div></div></div></body></html>
