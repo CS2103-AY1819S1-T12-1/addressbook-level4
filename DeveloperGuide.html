@@ -33,8 +33,9 @@
 <li><a href="#user-accounts-system">3.2. User Accounts System</a></li>
 <li><a href="#proposed-data-encryption">3.3. [Proposed] Data Encryption</a></li>
 <li><a href="#statistics">3.4. Statistics</a></li>
-<li><a href="#logging">3.5. Logging</a></li>
-<li><a href="#Implementation-Configuration">3.6. Configuration</a></li>
+<li><a href="#user-interface-redesign">3.5. User Interface Redesign</a></li>
+<li><a href="#logging">3.6. Logging</a></li>
+<li><a href="#Implementation-Configuration">3.7. Configuration</a></li>
 </ul>
 </li>
 <li><a href="#documentation">4. Documentation</a>
@@ -1016,7 +1017,7 @@ are used as filters for the expense list. The <code>Predicate</code> is used to 
 <code>StatsCommand#execute()</code> also posts a <code>ShowStatsRequestEvent</code> event to the <code>EventsCenter</code>.</p>
 </li>
 <li>
-<p>The <code>ShowStatsRequestEvent</code> event is handled by <code>MainWindow#handleShowStatsEvent()</code>, which creates a new <code>StatsWindow</code> object after getting the
+<p>The <code>ShowStatsRequestEvent</code> event is handled by <code>MainWindow#handleShowStatsEvent()</code>, which updates the 'StatisticsPanel' object after getting the
 expense data and mode by calling <code>Logic#getExpenseStats()</code> and <code>Logic#getStatsMode()</code>.</p>
 </li>
 <li>
@@ -1029,23 +1030,193 @@ the total cost for that day</p>
 <p><code>Logic#getStatsMode()</code> gets the current StatsMode by calling <code>Model#getStatsMode()</code></p>
 </li>
 <li>
-<p>The <code>StatsWindow</code> object gets created and calls <code>StatsWindow#setData()</code>, which creates a <code>BarChart</code> with the expense data received, which is then added to the <code>ChartArea</code> pane.</p>
-</li>
-<li>
-<p>This results in a new window showing a bar chart of expenses over the last 7 days.</p>
+<p><code>StatisticsPanel</code> UI element updates the bar chart in <code>chartArea</code> to show the expenses over the last 7 days.</p>
 </li>
 </ol>
 </div>
 </div>
 <div class="sect2">
-<h3 id="logging"><a class="link" href="#logging">3.5. Logging</a></h3>
+<h3 id="user-interface-redesign"><a class="link" href="#user-interface-redesign">3.5. User Interface Redesign</a></h3>
+<div class="paragraph">
+<p>The UI has been redesigned to implement the following UI elements required for the Expense Tracker:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Budget Panel</p>
+</li>
+<li>
+<p>Statistics Panel</p>
+</li>
+<li>
+<p>Notifications Panel</p>
+</li>
+<li>
+<p>Categories Panel</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Animations will also be incorporated into the UI elements for a better user experience.</p>
+</div>
+<div class="sect3">
+<h4 id="budget-panel"><a class="link" href="#budget-panel">3.5.1. Budget Panel</a></h4>
+<div class="paragraph">
+<p>The budget panel consists of 3 UI elements:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>BudgetPanel#expenseDisplay</code> – A <code>Text</code> element that displays the user’s current expenses.</p>
+</li>
+<li>
+<p><code>BudgetPanel#budgetDisplay</code> – A <code>Text</code> element that displays the user’s monthly budget cap.</p>
+</li>
+<li>
+<p><code>BudgetPanel#budgetBar</code> – A <code>progressBar</code> element that visually presents the percentage of the current budget cap that has been used.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Given below is an example scenario of how <code>BudgetPanel</code> is updated:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The user launches the application and signs up for a new account. The <code>MainWindow</code> creates a new <code>BudgetPanel</code>, which elements are initialized as follows:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>BudgetPanel#expenseDisplay</code> is green and set to "$0.00".</p>
+</li>
+<li>
+<p><code>BudgetPanel#budgetDisplay</code> is set to "/ $28.00", with $28.00 being the default budget.</p>
+</li>
+<li>
+<p><code>BudgetPanel#budgetBar</code> is green and at 0% progress.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>The user executes the command <code>add n/Lunch $/30.00 c/Food</code>. As the <code>'add</code> command modifies the budget and expenses, <code>AddCommand#execute()</code> will post a <code>UpdateBudgetPanelEvent</code> event to the EventsCenter.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If a command fails its execution, the <code>UpdateBudgetPanelEvent</code> will not be posted.
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>The <code>UpdateBudgetPanelEvent</code> event is handled by <code>BudgetPanel#handleBudgetPanelEvent()</code>, which calls <code>BudgetPanel#update()</code>.</p>
+</li>
+<li>
+<p><code>BudgetPanel#update()</code> calls <code>BudgetPanel#animateBudgetPanel()</code>, which creates a new <code>Timeline</code> object.</p>
+</li>
+<li>
+<p>Two <code>KeyFrame</code> objects are added to the Timeline that smooths the transition of the <code>BudgetPanel#budgetBar</code> progress percentage from 0% to the updated percentage.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If the updated percentage is more than 1.0, <code>BudgetPanel#budgetBar</code> progress percentage will be set to 1.0. Barring oversights, the progress percentage should never fall below 0.0.
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>A call to 'BudgetPanel#incrementKeyFrames()` is made to create the incrementing animation for <code>BudgetPanel#expenseDisplay</code>. The total time for this animation is 0.5 seconds, and consists of 10 <code>KeyFrame</code> objects. With this information, the amount to increment <code>BudgetPanel#expenseDisplay</code> by each <code>KeyFrame</code> can be calculated.
+<code>BudgetPanel#updateExpenseDisplay()</code> is called to increment the <code>BudgetPanel#expenseDisplay</code>.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<code>BudgetPanel#incrementKeyFrames()</code> handles the animation for both the <code>BudgetPanel#budgetDisplay</code> and <code>BudgetPanel#expenseDisplay</code> at the same time.
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p><code>Timeline#playFromStart()</code> is called to execute the animation.</p>
+</li>
+<li>
+<p><code>BudgetPanel#update()</code> also calls <code>BudgetPanel#setBudgetUiColors()`</code>. The method detects that the user has gone over budget, and changes the color of <code>BudgetPanel#expenseDisplay</code> and <code>BudgetPanel#budgetBar</code> from green to red.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Similarly, if the user has gone from over budget to under budget, the color of 'BudgetPanel#expenseDisplay` and <code>BudgetPanel#budgetBar</code> should change from red to green.
+</td>
+</tr>
+</table>
+</div>
+</li>
+</ol>
+</div>
+<div class="sect4">
+<h5 id="design-considerations-3"><a class="link" href="#design-considerations-3">Design Considerations</a></h5>
+<div class="sect5">
+<h6 id="aspect-which-library-to-implement-animation"><a class="link" href="#aspect-which-library-to-implement-animation">Aspect: Which library to implement animation</a></h6>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> Use the <code>Timeline</code> and <code>KeyFrame</code> class</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: More flexible; Able to create the animation frame by frame.</p>
+</li>
+<li>
+<p>Cons: Animations tricks and effects will require manual tweaking for the intented effect.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> Use the <code>Transition</code> class</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: The class is specialized, and thus has built-in methods to create better animations For example, <code>EASE-BOTH</code> can be used to cause the transition to accelerate at different points for a better effect)</p>
+</li>
+<li>
+<p>Cons: Does not work for certain desired effects, such as the 'incrementing' effect required for the <code>Text</code> elements of the <code>BudgetPanel</code>.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="logging"><a class="link" href="#logging">3.6. Logging</a></h3>
 <div class="paragraph">
 <p>We are using <code>java.util.logging</code> package for logging. The <code>LogsCenter</code> class is used to manage the logging levels and logging destinations.</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 3.6, &#8220;Configuration&#8221;</a>)</p>
+<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 3.7, &#8220;Configuration&#8221;</a>)</p>
 </li>
 <li>
 <p>The <code>Logger</code> for a class can be obtained using <code>LogsCenter.getLogger(Class)</code> which will log messages according to the specified logging level</p>
@@ -1076,7 +1247,7 @@ the total cost for that day</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">3.6. Configuration</a></h3>
+<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">3.7. Configuration</a></h3>
 <div class="paragraph">
 <p>Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: <code>config.json</code>).</p>
 </div>
@@ -2952,4 +3123,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-17 12:15:40 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-17 12:46:15 UTC</div></div></div></body></html>
