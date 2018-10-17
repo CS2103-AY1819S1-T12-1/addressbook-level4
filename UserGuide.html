@@ -23,12 +23,13 @@
 <li><a href="#locating-expenses-by-name-code-find-code">3.8. Locating expenses by name: <code>find</code></a></li>
 <li><a href="#listing-all-expenses-code-list-code">3.9. Listing all expenses : <code>list</code></a></li>
 <li><a href="#setting-a-budget-code-setbudget-code">3.10. Setting a budget: <code>setBudget</code></a></li>
-<li><a href="#listing-entered-commands-code-history-code">3.11. Listing entered commands : <code>history</code></a></li>
-<li><a href="#undoing-previous-command-code-undo-code">3.12. Undoing previous command : <code>undo</code></a></li>
-<li><a href="#redoing-the-previously-undone-command-code-redo-code">3.13. Redoing the previously undone command : <code>redo</code></a></li>
-<li><a href="#show-expense-statistics-code-stats-code">3.14. Show expense statistics: <code>stats</code></a></li>
-<li><a href="#clearing-all-entries-code-clear-code">3.15. Clearing all entries : <code>clear</code></a></li>
-<li><a href="#exiting-the-program-code-exit-code">3.16. Exiting the program : <code>exit</code></a></li>
+<li><a href="#sets-recurring-frequency-for-budget-code-setrecurringfrequency-code">3.11. Sets recurring frequency for budget: <code>setRecurringFrequency</code></a></li>
+<li><a href="#listing-entered-commands-code-history-code">3.12. Listing entered commands : <code>history</code></a></li>
+<li><a href="#undoing-previous-command-code-undo-code">3.13. Undoing previous command : <code>undo</code></a></li>
+<li><a href="#redoing-the-previously-undone-command-code-redo-code">3.14. Redoing the previously undone command : <code>redo</code></a></li>
+<li><a href="#show-expense-statistics-code-stats-code">3.15. Show expense statistics: <code>stats</code></a></li>
+<li><a href="#clearing-all-entries-code-clear-code">3.16. Clearing all entries : <code>clear</code></a></li>
+<li><a href="#exiting-the-program-code-exit-code">3.17. Exiting the program : <code>exit</code></a></li>
 </ul>
 </li>
 <li><a href="#faq">4. FAQ</a></li>
@@ -594,7 +595,59 @@ Sets a budget of $20.00.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="listing-entered-commands-code-history-code"><a class="link" href="#listing-entered-commands-code-history-code">3.11. Listing entered commands : <code>history</code></a></h3>
+<h3 id="sets-recurring-frequency-for-budget-code-setrecurringfrequency-code"><a class="link" href="#sets-recurring-frequency-for-budget-code-setrecurringfrequency-code">3.11. Sets recurring frequency for budget: <code>setRecurringFrequency</code></a></h3>
+<div class="paragraph">
+<p>Sets the recurrence frequency for the budget of the expense tracker.</p>
+</div>
+<div class="paragraph">
+<p>The expense tracker will reset your budget after every <code>FREQUENCY</code></p>
+</div>
+<div class="paragraph">
+<p>Format: <code>setRecurringFrequency [hrs/HOURS] [min/MINUTES] [sec/SECONDS]</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Examples:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>setRecurringFrequency hrs/1</code><br>
+Sets the budget to reset every 1 hour</p>
+</li>
+<li>
+<p><code>setRecurringFrequency hrs/1 min/30</code><br>
+Sets the budget reset every 1 hour and 30 minutes</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>The <code>setRecurringFrequency</code> command is case sensitive.</p>
+</li>
+<li>
+<p>HOURS/MINUTES/SECONDS must be a positive number.</p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="listing-entered-commands-code-history-code"><a class="link" href="#listing-entered-commands-code-history-code">3.12. Listing entered commands : <code>history</code></a></h3>
 <div class="paragraph">
 <p>Lists all the commands that you have previously entered in reverse chronological order.<br></p>
 </div>
@@ -617,7 +670,7 @@ Sets a budget of $20.00.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="undoing-previous-command-code-undo-code"><a class="link" href="#undoing-previous-command-code-undo-code">3.12. Undoing previous command : <code>undo</code></a></h3>
+<h3 id="undoing-previous-command-code-undo-code"><a class="link" href="#undoing-previous-command-code-undo-code">3.13. Undoing previous command : <code>undo</code></a></h3>
 <div class="paragraph">
 <p>Restores the expense tracker to the state before the previous <em>undoable</em> command was executed.<br>
 <em>Undoable</em> commands are commands that modify expenses in the expense tracker (<code>add</code>, <code>delete</code>, <code>edit</code> and <code>clear</code>).<br></p>
@@ -656,7 +709,7 @@ The first <code>undo</code> reverses the <code>clear</code> command. The second 
 </div>
 </div>
 <div class="sect2">
-<h3 id="redoing-the-previously-undone-command-code-redo-code"><a class="link" href="#redoing-the-previously-undone-command-code-redo-code">3.13. Redoing the previously undone command : <code>redo</code></a></h3>
+<h3 id="redoing-the-previously-undone-command-code-redo-code"><a class="link" href="#redoing-the-previously-undone-command-code-redo-code">3.14. Redoing the previously undone command : <code>redo</code></a></h3>
 <div class="paragraph">
 <p>Restores the expense tracker to the state before the most recent <code>undo</code> command.<br></p>
 </div>
@@ -700,7 +753,7 @@ The second`redo` reverses the first <code>undo</code> command, reapplying <code>
 </div>
 </div>
 <div class="sect2">
-<h3 id="show-expense-statistics-code-stats-code"><a class="link" href="#show-expense-statistics-code-stats-code">3.14. Show expense statistics: <code>stats</code></a></h3>
+<h3 id="show-expense-statistics-code-stats-code"><a class="link" href="#show-expense-statistics-code-stats-code">3.15. Show expense statistics: <code>stats</code></a></h3>
 <div class="paragraph">
 <p>Shows the user the bar chart of the expenditure over a specified time period, in a given <code>MODE</code>.<br></p>
 </div>
@@ -756,7 +809,7 @@ Shows the expense statistics for the past 3 months, current day included<br></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="clearing-all-entries-code-clear-code"><a class="link" href="#clearing-all-entries-code-clear-code">3.15. Clearing all entries : <code>clear</code></a></h3>
+<h3 id="clearing-all-entries-code-clear-code"><a class="link" href="#clearing-all-entries-code-clear-code">3.16. Clearing all entries : <code>clear</code></a></h3>
 <div class="paragraph">
 <p>Deletes all expense entries from the expense tracker.<br></p>
 </div>
@@ -765,7 +818,7 @@ Shows the expense statistics for the past 3 months, current day included<br></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="exiting-the-program-code-exit-code"><a class="link" href="#exiting-the-program-code-exit-code">3.16. Exiting the program : <code>exit</code></a></h3>
+<h3 id="exiting-the-program-code-exit-code"><a class="link" href="#exiting-the-program-code-exit-code">3.17. Exiting the program : <code>exit</code></a></h3>
 <div class="paragraph">
 <p>Exits the program.<br></p>
 </div>
@@ -855,4 +908,4 @@ e.g. <code>setBudget 20.00</code></p>
 </ul>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-17 14:12:39 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-17 14:16:35 UTC</div></div></div></body></html>
