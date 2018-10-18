@@ -3,37 +3,46 @@
 <link rel="stylesheet" href="stylesheets/coderay-asciidoctor.css"></head><body class="article"><div id="seedu-header"><nav class="navbar navbar-lg navbar-light bg-lighter"><div class="container"><a class="navbar-brand" href="https://se-edu.github.io/"><img src="images/SeEduLogo.png" alt="SE-EDU"></a><ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/addressbook-level1">AB-1</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/addressbook-level2">AB-2</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/addressbook-level3">AB-3</a></li><li class="nav-item"><a class="nav-link active" href="index.html">AB-4</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/collate">Collate</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/se-book">Book</a></li><li class="nav-item"><a class="nav-link" href="https://se-edu.github.io/learningresources">Resources</a></li></ul></div></nav></div><div id="site-header"><nav class="navbar navbar-light bg-light"><div class="container"><a class="navbar-brand" href="index.html">Expense Tracker</a><ul class="navbar-nav"><li class="nav-item"><a class="nav-link active" href="UserGuide.html">User Guide</a></li><li class="nav-item"><a class="nav-link" href="DeveloperGuide.html">Developer Guide</a></li><li class="nav-item"><a class="nav-link" href="LearningOutcomes.html">LOs</a></li><li class="nav-item"><a class="nav-link" href="AboutUs.html">About Us</a></li><li class="nav-item"><a class="nav-link" href="ContactUs.html">Contact Us</a></li><li class="navitem"><a class="nav-link" href="https://github.com/CS2103-AY1819S1-T12-1/main"><span class="fa fa-github fa-lg" aria-hidden="true"></span>&nbsp;View on GitHub</a></li></ul></div></nav></div><div id="header"><h1>Expense Tracker - User Guide</h1></div><div id="content"><div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>By: <code>Team T12-1</code>      Since: <code>Sept 2018</code>      Licence: <code>MIT</code></p>
+<p>By: <code>Team T12-1</code>      Since: <code>Oct 2018</code>      Licence: <code>MIT</code></p>
 </div>
 </div>
 <div id="toc" class="toc">
-<div id="toctitle"></div>
+<div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
 <li><a href="#introduction">1. Introduction</a></li>
 <li><a href="#quick-start">2. Quick Start</a></li>
-<li><a href="#Features">3. Features</a>
+<li><a href="#user-interface">3. User Interface</a>
 <ul class="sectlevel2">
-<li><a href="#signing-up-a-user-code-signup-code">3.1. Signing up a User : <code>signup</code></a></li>
-<li><a href="#logging-in-as-an-existing-user-code-login-code">3.2. Logging in as an existing User : <code>login</code></a></li>
-<li><a href="#setting-a-password-for-the-current-user-code-setpassword-code">3.3. Setting a password for the current user : <code>setpassword</code></a></li>
-<li><a href="#viewing-help-code-help-code">3.4. Viewing help : <code>help</code></a></li>
-<li><a href="#adding-an-expense-code-add-code">3.5. Adding an expense: <code>add</code></a></li>
-<li><a href="#editing-an-expense-code-edit-code">3.6. Editing an expense : <code>edit</code></a></li>
-<li><a href="#deleting-a-expense-code-delete-code">3.7. Deleting a expense : <code>delete</code></a></li>
-<li><a href="#locating-expenses-by-name-code-find-code">3.8. Locating expenses by name: <code>find</code></a></li>
-<li><a href="#listing-all-expenses-code-list-code">3.9. Listing all expenses : <code>list</code></a></li>
-<li><a href="#setting-a-budget-code-setbudget-code">3.10. Setting a budget: <code>setBudget</code></a></li>
-<li><a href="#sets-recurring-frequency-for-budget-code-setrecurringfrequency-code">3.11. Sets recurring frequency for budget: <code>setRecurringFrequency</code></a></li>
-<li><a href="#listing-entered-commands-code-history-code">3.12. Listing entered commands : <code>history</code></a></li>
-<li><a href="#undoing-previous-command-code-undo-code">3.13. Undoing previous command : <code>undo</code></a></li>
-<li><a href="#redoing-the-previously-undone-command-code-redo-code">3.14. Redoing the previously undone command : <code>redo</code></a></li>
-<li><a href="#show-expense-statistics-code-stats-code">3.15. Show expense statistics: <code>stats</code></a></li>
-<li><a href="#clearing-all-entries-code-clear-code">3.16. Clearing all entries : <code>clear</code></a></li>
-<li><a href="#exiting-the-program-code-exit-code">3.17. Exiting the program : <code>exit</code></a></li>
+<li><a href="#expense-list-statistics-panel">3.1. Expense List / Statistics Panel</a></li>
+<li><a href="#budget-tracker">3.2. Budget Tracker</a></li>
+<li><a href="#notifications-panel">3.3. Notifications Panel</a></li>
+<li><a href="#command-box-and-console">3.4. Command Box and Console</a></li>
+<li><a href="#menu-bar">3.5. Menu Bar</a></li>
 </ul>
 </li>
-<li><a href="#faq">4. FAQ</a></li>
-<li><a href="#command-summary">5. Command Summary</a></li>
+<li><a href="#Features">4. Features</a>
+<ul class="sectlevel2">
+<li><a href="#signing-up-a-user-code-signup-code">4.1. Signing up a User : <code>signup</code></a></li>
+<li><a href="#logging-in-as-an-existing-user-code-login-code">4.2. Logging in as an existing User : <code>login</code></a></li>
+<li><a href="#setting-a-password-for-the-current-user-code-setpassword-code">4.3. Setting a password for the current user : <code>setpassword</code></a></li>
+<li><a href="#viewing-help-code-help-code">4.4. Viewing help : <code>help</code></a></li>
+<li><a href="#adding-an-expense-code-add-code">4.5. Adding an expense: <code>add</code></a></li>
+<li><a href="#editing-an-expense-code-edit-code">4.6. Editing an expense : <code>edit</code></a></li>
+<li><a href="#deleting-a-expense-code-delete-code">4.7. Deleting a expense : <code>delete</code></a></li>
+<li><a href="#locating-expenses-by-name-code-find-code">4.8. Locating expenses by name: <code>find</code></a></li>
+<li><a href="#listing-all-expenses-code-list-code">4.9. Listing all expenses : <code>list</code></a></li>
+<li><a href="#setting-a-budget-code-setbudget-code">4.10. Setting a budget: <code>setBudget</code></a></li>
+<li><a href="#setting-a-recurring-frequency-for-budget-code-setrecurringfrequency-code">4.11. Setting a recurring frequency for budget: <code>setRecurringFrequency</code></a></li>
+<li><a href="#listing-entered-commands-code-history-code">4.12. Listing entered commands : <code>history</code></a></li>
+<li><a href="#undoing-previous-command-code-undo-code">4.13. Undoing previous command : <code>undo</code></a></li>
+<li><a href="#redoing-the-previously-undone-command-code-redo-code">4.14. Redoing the previously undone command : <code>redo</code></a></li>
+<li><a href="#show-expense-statistics-code-stats-code">4.15. Show expense statistics: <code>stats</code></a></li>
+<li><a href="#clearing-all-entries-code-clear-code">4.16. Clearing all entries : <code>clear</code></a></li>
+<li><a href="#exiting-the-program-code-exit-code">4.17. Exiting the program : <code>exit</code></a></li>
+</ul>
+</li>
+<li><a href="#faq">5. FAQ</a></li>
+<li><a href="#command-summary">6. Command Summary</a></li>
 </ul>
 </div>
 </div>
@@ -41,7 +50,9 @@
 <h2 id="introduction"><a class="link" href="#introduction">1. Introduction</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The Expense Tracker application is a desktop application which enables users to track their expenses. The application features both a Command Line Interface (CLI) and a Graphical User Interface (GUI) which provides users with the efficency of the CLI while still having the benefits of a GUI.</p>
+<p>The Expense Tracker application is a desktop application which enables users to track their expenses.
+The application features both a Command Line Interface (CLI) and a Graphical User Interface (GUI) which provides users
+with the efficiency of the CLI while still having the benefits of a GUI.</p>
 </div>
 <div class="paragraph">
 <p>Interested? Jump to <a href="#quick-start">Section 2, &#8220;Quick Start&#8221;</a> to get started!</p>
@@ -57,10 +68,10 @@
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Install Java version <code>9</code> (or later) on your computer.</p>
+<p>Install Java (version 9 or later) on your computer.</p>
 </li>
 <li>
-<p>Download the latest <code>expensetracker.jar</code> file from <a href="https://github.com/CS2103-AY1819S1-T12-1/main">here</a></p>
+<p>Download the latest <code>expensetracker.jar</code> file from <a href="https://github.com/CS2103-AY1819S1-T12-1/main/releases">here</a></p>
 </li>
 <li>
 <p>Copy the file to the folder which you want to use as the home folder for your Expense Tracker.</p>
@@ -69,8 +80,9 @@
 <p>Double-click the <code>expensetracker.jar</code> file to start the app. The GUI should appear in a few seconds and look like this:</p>
 <div class="imageblock">
 <div class="content">
-<img src="images/Ui.png" alt="Ui" width="790">
+<img src="images/userguide/uiOnLaunch.png" alt="uiOnLaunch" width="790">
 </div>
+<div class="title">Figure 1. User interface on application launch</div>
 </div>
 </li>
 <li>
@@ -85,14 +97,106 @@ You are now able to use all the commands of the app.<br></p>
 e.g. typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> will open the help window.</p>
 </li>
 <li>
-<p>Refer to <a href="#Features">Section 3, &#8220;Features&#8221;</a> for details of all available commands.</p>
+<p>Refer to <a href="#Features">Section 4, &#8220;Features&#8221;</a> for details of all available commands.</p>
 </li>
 </ol>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="Features"><a class="link" href="#Features">3. Features</a></h2>
+<h2 id="user-interface"><a class="link" href="#user-interface">3. User Interface</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>After logging in, the interface looks something like this:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/userguide/ui.png" alt="ui" width="790">
+</div>
+<div class="title">Figure 2. User interface</div>
+</div>
+<div class="paragraph">
+<p>There are six main components to the user interface, each highlighted by the coloured box as per the diagram above.</p>
+</div>
+<div class="sect2">
+<h3 id="expense-list-statistics-panel"><a class="link" href="#expense-list-statistics-panel">3.1. Expense List / Statistics Panel</a></h3>
+<div class="paragraph">
+<p>This is the portion highlighted in the red box.</p>
+</div>
+<div class="sect3">
+<h4 id="expense-list"><a class="link" href="#expense-list">3.1.1. Expense List</a></h4>
+<div class="paragraph">
+<p>The Expense List shows the list of expenses. By default, the list will show all expenses in the Expense Tracker.
+When commands such as <code>find</code> and <code>list</code> are used, they change which expenses will be shown in the Expense List.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Each expense has an index number next to the expense name. These are relevant to the <code>delete</code> and <code>edit</code> commands.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="statistics-panel"><a class="link" href="#statistics-panel">3.1.2. Statistics Panel</a></h4>
+<div class="paragraph">
+<p>When the <code>stats</code> command is used, the Expense List changes to the Statistics Panel, where statistics about expenses
+will be displayed.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="budget-tracker"><a class="link" href="#budget-tracker">3.2. Budget Tracker</a></h3>
+<div class="paragraph">
+<p>This is the portion highlighted in the blue box.</p>
+</div>
+<div class="paragraph">
+<p>This is a feature which is work in progress.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="notifications-panel"><a class="link" href="#notifications-panel">3.3. Notifications Panel</a></h3>
+<div class="paragraph">
+<p>This is the portion highlighted in the green box.</p>
+</div>
+<div class="paragraph">
+<p>This is a feature which is work in progress.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="command-box-and-console"><a class="link" href="#command-box-and-console">3.4. Command Box and Console</a></h3>
+<div class="paragraph">
+<p>This is the portion highlighted in the yellow box.</p>
+</div>
+<div class="paragraph">
+<p>The Command Box is where the "Enter command here&#8230;&#8203;" is located. To enter a command in the Command Box, user your mouse
+and click anywhere within the box, then proceed to type a command.<br></p>
+</div>
+<div class="paragraph">
+<p>The Console is where any success and error messages, relevant to the most recent command entered, will appear .</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="menu-bar"><a class="link" href="#menu-bar">3.5. Menu Bar</a></h3>
+<div class="paragraph">
+<p>This is the portion highlighted in the orange box.</p>
+</div>
+<div class="paragraph">
+<p>The menu bar contains two submenus, which allow the user to either exit the application or to open the help window.
+These have the same effect as using the commands <code>exit</code> and <code>help</code> respectively.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="Features"><a class="link" href="#Features">4. Features</a></h2>
 <div class="sectionbody">
 <div class="exampleblock">
 <div class="content">
@@ -166,7 +270,7 @@ e.g. typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> wil
 <p>These are the features and respective commands available to use in the Expense Tracker:</p>
 </div>
 <div class="sect2">
-<h3 id="signing-up-a-user-code-signup-code"><a class="link" href="#signing-up-a-user-code-signup-code">3.1. Signing up a User : <code>signup</code></a></h3>
+<h3 id="signing-up-a-user-code-signup-code"><a class="link" href="#signing-up-a-user-code-signup-code">4.1. Signing up a User : <code>signup</code></a></h3>
 <div class="paragraph">
 <p>Signs up a new user to the Expense Tracker.</p>
 </div>
@@ -208,7 +312,7 @@ Signs up a user with the username "username123".</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="logging-in-as-an-existing-user-code-login-code"><a class="link" href="#logging-in-as-an-existing-user-code-login-code">3.2. Logging in as an existing User : <code>login</code></a></h3>
+<h3 id="logging-in-as-an-existing-user-code-login-code"><a class="link" href="#logging-in-as-an-existing-user-code-login-code">4.2. Logging in as an existing User : <code>login</code></a></h3>
 <div class="paragraph">
 <p>Logs in to the Expense Tracker as an existing user and expands the UI to show the existing expenses if it is not already expanded.</p>
 </div>
@@ -263,7 +367,7 @@ Logs in a user with the username "username1234" with password "password1".</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="setting-a-password-for-the-current-user-code-setpassword-code"><a class="link" href="#setting-a-password-for-the-current-user-code-setpassword-code">3.3. Setting a password for the current user : <code>setpassword</code></a></h3>
+<h3 id="setting-a-password-for-the-current-user-code-setpassword-code"><a class="link" href="#setting-a-password-for-the-current-user-code-setpassword-code">4.3. Setting a password for the current user : <code>setpassword</code></a></h3>
 <div class="paragraph">
 <p>Sets a new password for the currently logged in user.</p>
 </div>
@@ -309,7 +413,7 @@ Sets the current user&#8217;s password as "pass123", provided that the current p
 </div>
 </div>
 <div class="sect2">
-<h3 id="viewing-help-code-help-code"><a class="link" href="#viewing-help-code-help-code">3.4. Viewing help : <code>help</code></a></h3>
+<h3 id="viewing-help-code-help-code"><a class="link" href="#viewing-help-code-help-code">4.4. Viewing help : <code>help</code></a></h3>
 <div class="paragraph">
 <p>Opens up a new window with the User Guide.</p>
 </div>
@@ -318,7 +422,7 @@ Sets the current user&#8217;s password as "pass123", provided that the current p
 </div>
 </div>
 <div class="sect2">
-<h3 id="adding-an-expense-code-add-code"><a class="link" href="#adding-an-expense-code-add-code">3.5. Adding an expense: <code>add</code></a></h3>
+<h3 id="adding-an-expense-code-add-code"><a class="link" href="#adding-an-expense-code-add-code">4.5. Adding an expense: <code>add</code></a></h3>
 <div class="paragraph">
 <p>Adds an expense to the tracker.</p>
 </div>
@@ -374,7 +478,7 @@ Adds an expense with its name as "Project", cost as "2.08", category as "School"
 </div>
 </div>
 <div class="sect2">
-<h3 id="editing-an-expense-code-edit-code"><a class="link" href="#editing-an-expense-code-edit-code">3.6. Editing an expense : <code>edit</code></a></h3>
+<h3 id="editing-an-expense-code-edit-code"><a class="link" href="#editing-an-expense-code-edit-code">4.6. Editing an expense : <code>edit</code></a></h3>
 <div class="paragraph">
 <p>Edits the expense at the specified <code>INDEX</code>. The <code>INDEX</code> refers to the index number shown in the displayed expense list
 next to the name of the expense.<br>
@@ -431,7 +535,7 @@ Edits the date of the 2nd expense in the expense list to be the 1st of October, 
 </div>
 </div>
 <div class="sect2">
-<h3 id="deleting-a-expense-code-delete-code"><a class="link" href="#deleting-a-expense-code-delete-code">3.7. Deleting a expense : <code>delete</code></a></h3>
+<h3 id="deleting-a-expense-code-delete-code"><a class="link" href="#deleting-a-expense-code-delete-code">4.7. Deleting a expense : <code>delete</code></a></h3>
 <div class="paragraph">
 <p>Deletes the expense at the specified <code>INDEX</code>. The <code>INDEX</code> refers to the index number shown in the displayed expense list
 next to the name of the expense.<br></p>
@@ -474,7 +578,7 @@ Deletes the 1st expense in the expense list from the expense tracker.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="locating-expenses-by-name-code-find-code"><a class="link" href="#locating-expenses-by-name-code-find-code">3.8. Locating expenses by name: <code>find</code></a></h3>
+<h3 id="locating-expenses-by-name-code-find-code"><a class="link" href="#locating-expenses-by-name-code-find-code">4.8. Locating expenses by name: <code>find</code></a></h3>
 <div class="paragraph">
 <p>Finds expense whose names contain any of the given keywords.<br>
 Format: <code>find [n/NAME] [c/CATEGORY] [$/COST:COST] [t/TAG] [d/DATE:DATE]</code></p>
@@ -531,7 +635,7 @@ Find all the expenses with cost which is larger than or equals to 10.00 and smal
 </div>
 </div>
 <div class="sect2">
-<h3 id="listing-all-expenses-code-list-code"><a class="link" href="#listing-all-expenses-code-list-code">3.9. Listing all expenses : <code>list</code></a></h3>
+<h3 id="listing-all-expenses-code-list-code"><a class="link" href="#listing-all-expenses-code-list-code">4.9. Listing all expenses : <code>list</code></a></h3>
 <div class="paragraph">
 <p>Updates the expense list to show all expenses in the expense tracker.</p>
 </div>
@@ -543,7 +647,7 @@ Find all the expenses with cost which is larger than or equals to 10.00 and smal
 </div>
 </div>
 <div class="sect2">
-<h3 id="setting-a-budget-code-setbudget-code"><a class="link" href="#setting-a-budget-code-setbudget-code">3.10. Setting a budget: <code>setBudget</code></a></h3>
+<h3 id="setting-a-budget-code-setbudget-code"><a class="link" href="#setting-a-budget-code-setbudget-code">4.10. Setting a budget: <code>setBudget</code></a></h3>
 <div class="paragraph">
 <p>Sets the budget for the expense tracker.<br></p>
 </div>
@@ -595,7 +699,7 @@ Sets a budget of $20.00.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="sets-recurring-frequency-for-budget-code-setrecurringfrequency-code"><a class="link" href="#sets-recurring-frequency-for-budget-code-setrecurringfrequency-code">3.11. Sets recurring frequency for budget: <code>setRecurringFrequency</code></a></h3>
+<h3 id="setting-a-recurring-frequency-for-budget-code-setrecurringfrequency-code"><a class="link" href="#setting-a-recurring-frequency-for-budget-code-setrecurringfrequency-code">4.11. Setting a recurring frequency for budget: <code>setRecurringFrequency</code></a></h3>
 <div class="paragraph">
 <p>Sets the recurrence frequency for the budget of the expense tracker.</p>
 </div>
@@ -647,7 +751,7 @@ Sets the budget reset every 1 hour and 30 minutes</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="listing-entered-commands-code-history-code"><a class="link" href="#listing-entered-commands-code-history-code">3.12. Listing entered commands : <code>history</code></a></h3>
+<h3 id="listing-entered-commands-code-history-code"><a class="link" href="#listing-entered-commands-code-history-code">4.12. Listing entered commands : <code>history</code></a></h3>
 <div class="paragraph">
 <p>Lists all the commands that you have previously entered in reverse chronological order.<br></p>
 </div>
@@ -670,7 +774,7 @@ Sets the budget reset every 1 hour and 30 minutes</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="undoing-previous-command-code-undo-code"><a class="link" href="#undoing-previous-command-code-undo-code">3.13. Undoing previous command : <code>undo</code></a></h3>
+<h3 id="undoing-previous-command-code-undo-code"><a class="link" href="#undoing-previous-command-code-undo-code">4.13. Undoing previous command : <code>undo</code></a></h3>
 <div class="paragraph">
 <p>Restores the expense tracker to the state before the previous <em>undoable</em> command was executed.<br>
 <em>Undoable</em> commands are commands that modify expenses in the expense tracker (<code>add</code>, <code>delete</code>, <code>edit</code> and <code>clear</code>).<br></p>
@@ -709,7 +813,7 @@ The first <code>undo</code> reverses the <code>clear</code> command. The second 
 </div>
 </div>
 <div class="sect2">
-<h3 id="redoing-the-previously-undone-command-code-redo-code"><a class="link" href="#redoing-the-previously-undone-command-code-redo-code">3.14. Redoing the previously undone command : <code>redo</code></a></h3>
+<h3 id="redoing-the-previously-undone-command-code-redo-code"><a class="link" href="#redoing-the-previously-undone-command-code-redo-code">4.14. Redoing the previously undone command : <code>redo</code></a></h3>
 <div class="paragraph">
 <p>Restores the expense tracker to the state before the most recent <code>undo</code> command.<br></p>
 </div>
@@ -753,9 +857,10 @@ The second`redo` reverses the first <code>undo</code> command, reapplying <code>
 </div>
 </div>
 <div class="sect2">
-<h3 id="show-expense-statistics-code-stats-code"><a class="link" href="#show-expense-statistics-code-stats-code">3.15. Show expense statistics: <code>stats</code></a></h3>
+<h3 id="show-expense-statistics-code-stats-code"><a class="link" href="#show-expense-statistics-code-stats-code">4.15. Show expense statistics: <code>stats</code></a></h3>
 <div class="paragraph">
-<p>Shows the user the bar chart of the expenditure over a specified time period, in a given <code>MODE</code>.<br></p>
+<p>Changes the expense list to show the statistics panel if the expense list is currently showing, then
+displays a bar chart of the expenditure over a specified time period, in a given <code>MODE</code>.<br></p>
 </div>
 <div class="paragraph">
 <p>The available modes are <code>d</code> and <code>m</code>, which represents day and month respectively. E.g. if NUMBER_OF_DAYS_OR_MONTHS is 7
@@ -809,7 +914,7 @@ Shows the expense statistics for the past 3 months, current day included<br></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="clearing-all-entries-code-clear-code"><a class="link" href="#clearing-all-entries-code-clear-code">3.16. Clearing all entries : <code>clear</code></a></h3>
+<h3 id="clearing-all-entries-code-clear-code"><a class="link" href="#clearing-all-entries-code-clear-code">4.16. Clearing all entries : <code>clear</code></a></h3>
 <div class="paragraph">
 <p>Deletes all expense entries from the expense tracker.<br></p>
 </div>
@@ -818,7 +923,7 @@ Shows the expense statistics for the past 3 months, current day included<br></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="exiting-the-program-code-exit-code"><a class="link" href="#exiting-the-program-code-exit-code">3.17. Exiting the program : <code>exit</code></a></h3>
+<h3 id="exiting-the-program-code-exit-code"><a class="link" href="#exiting-the-program-code-exit-code">4.17. Exiting the program : <code>exit</code></a></h3>
 <div class="paragraph">
 <p>Exits the program.<br></p>
 </div>
@@ -829,7 +934,7 @@ Shows the expense statistics for the past 3 months, current day included<br></p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="faq"><a class="link" href="#faq">4. FAQ</a></h2>
+<h2 id="faq"><a class="link" href="#faq">5. FAQ</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p><strong>Q</strong>: Do I need to manually save my data?<br>
@@ -842,7 +947,7 @@ Shows the expense statistics for the past 3 months, current day included<br></p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="command-summary"><a class="link" href="#command-summary">5. Command Summary</a></h2>
+<h2 id="command-summary"><a class="link" href="#command-summary">6. Command Summary</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>This is a summary of the commands available in the Expense Tracker:</p>
@@ -908,4 +1013,4 @@ e.g. <code>setBudget 20.00</code></p>
 </ul>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-18 04:52:34 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-18 06:23:26 UTC</div></div></div></body></html>
