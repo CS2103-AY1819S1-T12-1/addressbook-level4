@@ -68,7 +68,8 @@ with the efficiency of the CLI while still having the benefits of a GUI.</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Install Java (version 9 or later) on your computer.</p>
+<p>Install Java (version 9 or later) on your computer by going <a href="https://www.oracle.com/technetwork/java/javase/downloads/java-archive-javase9-3934878.html">here</a>
+and downloading the Java SE Runtime Environment for your operating system.</p>
 </li>
 <li>
 <p>Download the latest <code>expensetracker.jar</code> file from <a href="https://github.com/CS2103-AY1819S1-T12-1/main/releases">here</a></p>
@@ -77,7 +78,7 @@ with the efficiency of the CLI while still having the benefits of a GUI.</p>
 <p>Copy the file to the folder which you want to use as the home folder for your Expense Tracker.</p>
 </li>
 <li>
-<p>Double-click the <code>expensetracker.jar</code> file to start the app. The GUI should appear in a few seconds and look like this:</p>
+<p>Double-click the <code>expensetracker.jar</code> file to start the app. The GUI will appear and look like this:</p>
 <div class="imageblock">
 <div class="content">
 <img src="images/userguide/uiOnLaunch.png" alt="uiOnLaunch" width="790">
@@ -86,10 +87,10 @@ with the efficiency of the CLI while still having the benefits of a GUI.</p>
 </div>
 </li>
 <li>
-<p>Type the command <code>singup USERNAME</code> in the command box (the box where it says "Enter command here&#8230;&#8203;") and press <kbd>Enter</kbd> to execute it, where USERNAME is the username of your choice. E.g. <code>signup username123</code></p>
+<p>Type the command <code>signup USERNAME</code> in the command box (the box where it says "Enter command here&#8230;&#8203;") and press <kbd>Enter</kbd> to execute it, where USERNAME is the username of your choice. E.g. <code>signup username123</code></p>
 </li>
 <li>
-<p>Type the command <code>login USERNAME</code> in the command box and press <kbd>Enter</kbd> to execute it, where USERNAME is the username you signed up with in the previous step. e.g. <code>login username123</code><br>
+<p>Type the command <code>login u/USERNAME</code> in the command box and press <kbd>Enter</kbd> to execute it, where USERNAME is the username you signed up with in the previous step. e.g. <code>login u/username123</code><br>
 You are now able to use all the commands of the app.<br></p>
 </li>
 <li>
@@ -213,7 +214,7 @@ These have the same effect as using the commands <code>exit</code> and <code>hel
 <div class="ulist">
 <ul>
 <li>
-<p>E.g. the <code>login</code> command has the format of <code>login USERNAME</code> where <code>USERNAME</code> is a parameter which can be replaced by a user specified value. In order to log in to an account with the username "username123", the user will enter the command <code>login username123</code>.</p>
+<p>E.g. the <code>login</code> command has the format of <code>login u/USERNAME</code> where <code>USERNAME</code> is a parameter which can be replaced by a user specified value. In order to log in to an account with the username "username123", the user will enter the command <code>login u/username123</code>.</p>
 </li>
 </ul>
 </div>
@@ -239,7 +240,7 @@ These have the same effect as using the commands <code>exit</code> and <code>hel
 </div>
 </li>
 <li>
-<p>Parameters can be in any order e.g. if the command format specifies <code>n/NAME p/CATEGORY</code>, using the parameters <code>p/CATEGORY n/NAME</code> is also acceptable.</p>
+<p>Parameters can be in any order e.g. if the command format specifies <code>n/NAME c/CATEGORY</code>, using the parameters <code>c/CATEGORY n/NAME</code> is also acceptable.</p>
 </li>
 </ul>
 </div>
@@ -267,7 +268,7 @@ These have the same effect as using the commands <code>exit</code> and <code>hel
 </table>
 </div>
 <div class="paragraph">
-<p>These are the features and respective commands available to use in the Expense Tracker:</p>
+<p>These are the features commands available to use in the Expense Tracker:</p>
 </div>
 <div class="sect2">
 <h3 id="signing-up-a-user-code-signup-code"><a class="link" href="#signing-up-a-user-code-signup-code">4.1. Signing up a User : <code>signup</code></a></h3>
@@ -481,8 +482,7 @@ Adds an expense with its name as "Project", cost as "2.08", category as "School"
 <h3 id="editing-an-expense-code-edit-code"><a class="link" href="#editing-an-expense-code-edit-code">4.6. Editing an expense : <code>edit</code></a></h3>
 <div class="paragraph">
 <p>Edits the expense at the specified <code>INDEX</code>. The <code>INDEX</code> refers to the index number shown in the displayed expense list
-next to the name of the expense.<br>
-Existing values of the expense will be edited according to the value of the parameters<br></p>
+next to the name of the expense. Existing values of the expense will be edited according to the value of the parameters<br></p>
 </div>
 <div class="paragraph">
 <p>Format: <code>edit INDEX [n/EXPENSE_NAME] [$/COST] [c/CATEGORY] [d/DATE] [t/TAG&#8230;&#8203;]</code></p>
@@ -499,7 +499,7 @@ Existing values of the expense will be edited according to the value of the para
 Edits the name and category of the 1st expense in the expense list to be <code>Stationery</code> and <code>school</code> respectively.</p>
 </li>
 <li>
-<p><code>edit 2 d/01-01-2018</code><br>
+<p><code>edit 2 d/01-10-2018</code><br>
 Edits the date of the 2nd expense in the expense list to be the 1st of October, 2018.</p>
 </li>
 </ul>
@@ -616,13 +616,10 @@ Find all the expenses with cost which is larger than or equals to 10.00 and smal
 <div class="ulist">
 <ul>
 <li>
-<p>The search is case insensitive, i.e. the KEYWORD <code>hans</code> is equivalent to the KEYWORD <code>Hans</code></p>
+<p>Keywords are case insensitive, i.e. the KEYWORD <code>hans</code> is equivalent to the KEYWORD <code>Hans</code></p>
 </li>
 <li>
 <p>The order of the keywords does not matter, i.e. the KEYWORD <code>hans bo</code> is equivalent to the KEYWORD <code>bo hans</code></p>
-</li>
-<li>
-<p>Only the expense name will be searched.</p>
 </li>
 <li>
 <p>Only full words will be matched, i.e. the KEYWORD <code>Han</code> will not match the expense name <code>Hans</code></p>
@@ -955,7 +952,7 @@ Shows the expense statistics for the past 3 months, current day included<br></p>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>SignUp</strong> : <code>signup USERNAME</code><br>
+<p><strong>Sign up</strong> : <code>signup USERNAME</code><br>
 e.g. <code>signup username123</code></p>
 </li>
 <li>
@@ -970,11 +967,11 @@ e.g. <code>setpassword n/pass1 o/passold</code></p>
 <p><strong>Help</strong> : <code>help</code></p>
 </li>
 <li>
-<p><strong>Add</strong> <code>add n/EXPENSE_NAME e/EXPENSE [c/CATEGORY]</code><br>
+<p><strong>Add</strong> <code>add n/EXPENSE_NAME $/COST c/CATEGORY [d/DATE] [t/TAG]…​</code><br>
 e.g. <code>add n/Lunch e/4 c/Food</code></p>
 </li>
 <li>
-<p><strong>Edit</strong> : <code>edit INDEX n/EXPENSE_NAME e/EXPENSE [c/CATEGORY]</code><br>
+<p><strong>Edit</strong> : <code>edit INDEX [n/EXPENSE_NAME] [$/COST] [c/CATEGORY] [d/DATE] [t/TAG…​]</code><br>
 e.g. <code>edit 2 n/Lunch e/4 c/Food</code></p>
 </li>
 <li>
@@ -982,15 +979,18 @@ e.g. <code>edit 2 n/Lunch e/4 c/Food</code></p>
 e.g. <code>delete 3</code></p>
 </li>
 <li>
-<p><strong>Find</strong> : <code>find KEYWORD [MORE_KEYWORDS]</code><br></p>
+<p><strong>Find</strong> : <code>find [n/NAME] [c/CATEGORY] [$/COST:COST] [t/TAG] [d/DATE:DATE]</code><br>
+e.g. <code>find c/School</code></p>
 </li>
 <li>
-<p><strong>List</strong> : <code>list</code>
-e.g. <code>find school</code></p>
+<p><strong>List</strong> : <code>list</code></p>
 </li>
 <li>
-<p><strong>Set Budget</strong> : <code>setBudget</code><br>
+<p><strong>Set budget</strong> : <code>setBudget</code><br>
 e.g. <code>setBudget 20.00</code></p>
+</li>
+<li>
+<p><strong>Set recurring frequency for budget</strong>: <code>setRecurringFrequency [hrs/HOURS] [min/MINUTES] [sec/SECONDS]</code><br></p>
 </li>
 <li>
 <p><strong>History</strong> : <code>history</code></p>
@@ -1002,7 +1002,8 @@ e.g. <code>setBudget 20.00</code></p>
 <p><strong>Redo</strong> : <code>redo</code></p>
 </li>
 <li>
-<p><strong>Statistics</strong> : <code>stats n/NUMBER_OF_DAYS_OR_MONTHS m/MODE</code></p>
+<p><strong>Statistics</strong> : <code>stats n/NUMBER_OF_DAYS_OR_MONTHS m/MODE</code>
+e.g. <code>stats n/7 m/d</code></p>
 </li>
 <li>
 <p><strong>Clear</strong> : <code>clear</code></p>
@@ -1013,4 +1014,4 @@ e.g. <code>setBudget 20.00</code></p>
 </ul>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-18 06:23:26 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-18 07:07:12 UTC</div></div></div></body></html>

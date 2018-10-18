@@ -77,13 +77,11 @@
 </ul>
 </li>
 <li><a href="#non-functional-requirements">Appendix D: Non Functional Requirements</a></li>
-<li><a href="#glossary">Appendix E: Glossary</a></li>
-<li><a href="#product-survey">Appendix F: Product Survey</a></li>
-<li><a href="#instructions-for-manual-testing">Appendix G: Instructions for Manual Testing</a>
+<li><a href="#glossary">Appendix E: Glossary</a>
 <ul class="sectlevel2">
-<li><a href="#launch-and-shutdown">G.1. Launch and Shutdown</a></li>
-<li><a href="#deleting-a-expense">G.2. Deleting a expense</a></li>
-<li><a href="#saving-data">G.3. Saving data</a></li>
+<li><a href="#launch-and-shutdown">E.1. Launch and Shutdown</a></li>
+<li><a href="#deleting-a-expense">E.2. Deleting a expense</a></li>
+<li><a href="#saving-data">E.3. Saving data</a></li>
 </ul>
 </li>
 </ul>
@@ -193,7 +191,7 @@ This will generate all resources required by the application and tests.</p>
 <div class="sect2">
 <h3 id="verifying-the-setup"><a class="link" href="#verifying-the-setup">2.3. Verifying the setup</a></h3>
 <div class="paragraph">
-<p><strong>To verify that you have successfully set up the project:</strong></p>
+<p><strong>To verify that you have successfully set the project up:</strong></p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -209,7 +207,7 @@ This will generate all resources required by the application and tests.</p>
 <div class="sect2">
 <h3 id="configurations-to-apply-before-writing-code"><a class="link" href="#configurations-to-apply-before-writing-code">2.4. Configurations to apply before writing code</a></h3>
 <div class="paragraph">
-<p><strong>The following lists configurations that should be applied before writing code:</strong></p>
+<p>The following lists configurations that should be applied before writing code:</p>
 </div>
 <div class="sect3">
 <h4 id="configuring-the-coding-style"><a class="link" href="#configuring-the-coding-style">2.4.1. Configuring the coding style</a></h4>
@@ -247,12 +245,7 @@ standards</a>. IntelliJ&#8217;s default style is mostly compliant but it uses a 
 <div class="sect3">
 <h4 id="updating-documentation-to-match-your-fork"><a class="link" href="#updating-documentation-to-match-your-fork">2.4.2. Updating documentation to match your fork</a></h4>
 <div class="paragraph">
-<p>After forking the repo, the documentation will still have the SE-EDU branding, referencing the
-<code>se-edu/addressbook-level4</code>
-repo.</p>
-</div>
-<div class="paragraph">
-<p>If you plan to develop this fork as a separate product (instead of contributing to <code>se-edu/addressbook-level4</code>), you should do the following:</p>
+<p>If you plan to develop this fork as a separate product (instead of contributing to expense tracker), you should do the following:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -1061,7 +1054,7 @@ the total cost for that day</p>
 <ol class="arabic">
 <li>
 <p>User enters command <code>find n/Have Lunch f/Food d/01-01-2018:03-01-2018</code>. The command is received by <code>AddressBookParser</code>,
-which then creates a <code>FindCommandParser</code> Object and call <code>FindCommandParser#parse()</code> method.</p>
+which then creates a <code>FindCommandParser</code> Object and calls <code>FindCommandParser#parse()</code> method.</p>
 </li>
 <li>
 <p><code>FindCommandParser#parse()</code> method calls <code>ArgumentTokenizer#tokenize()</code> to tokenize the input String into keywords and store them in
@@ -2384,65 +2377,8 @@ Use case ends</p>
 </dd>
 </dl>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="product-survey"><a class="link" href="#product-survey">Appendix F: Product Survey</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p><strong>Product Name</strong></p>
-</div>
-<div class="paragraph">
-<p>Author: &#8230;&#8203;</p>
-</div>
-<div class="paragraph">
-<p>Pros:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>&#8230;&#8203;</p>
-</li>
-<li>
-<p>&#8230;&#8203;</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Cons:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>&#8230;&#8203;</p>
-</li>
-<li>
-<p>&#8230;&#8203;</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="instructions-for-manual-testing"><a class="link" href="#instructions-for-manual-testing">Appendix G: Instructions for Manual Testing</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Given below are instructions to test the app manually.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-These instructions only provide a starting point for testers to work on; testers are expected to do more <em>exploratory</em> testing.
-</td>
-</tr>
-</table>
-</div>
 <div class="sect2">
-<h3 id="launch-and-shutdown"><a class="link" href="#launch-and-shutdown">G.1. Launch and Shutdown</a></h3>
+<h3 id="launch-and-shutdown"><a class="link" href="#launch-and-shutdown">E.1. Launch and Shutdown</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -2480,7 +2416,7 @@ Expected: The most recent window size and location is retained.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="deleting-a-expense"><a class="link" href="#deleting-a-expense">G.2. Deleting a expense</a></h3>
+<h3 id="deleting-a-expense"><a class="link" href="#deleting-a-expense">E.2. Deleting a expense</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -2512,7 +2448,7 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="saving-data"><a class="link" href="#saving-data">G.3. Saving data</a></h3>
+<h3 id="saving-data"><a class="link" href="#saving-data">E.3. Saving data</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -2532,4 +2468,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-18 06:23:26 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-18 07:07:12 UTC</div></div></div></body></html>
