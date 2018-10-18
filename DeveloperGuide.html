@@ -308,6 +308,7 @@ Having both Travis and AppVeyor ensures your App works on both Unix-based platfo
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="Design-Architecture"><a class="link" href="#Design-Architecture">3.1. Architecture</a></h3>
+<h4 id="overview-of-architecture" class="discrete">Overview of Architecture</h4>
 <div class="imageblock">
 <div class="content">
 <img src="images/Architecture.png" alt="Architecture" width="600">
@@ -356,39 +357,8 @@ The <code>.pptx</code> files used to create diagrams in this document can be fou
 </ul>
 </div>
 <div class="paragraph">
-<p>The rest of the App consists of four components.</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="#Design-Ui"><strong><code>UI</code></strong></a>: The UI of the App.</p>
-</li>
-<li>
-<p><a href="#Design-Logic"><strong><code>Logic</code></strong></a>: The command executor.</p>
-</li>
-<li>
-<p><a href="#Design-Model"><strong><code>Model</code></strong></a>: Holds the data of the App in-memory.</p>
-</li>
-<li>
-<p><a href="#Design-Storage"><strong><code>Storage</code></strong></a>: Reads data from, and writes data to, the hard disk.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Each of the four components</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Defines its <em>API</em> in an <code>interface</code> with the same name as the Component.</p>
-</li>
-<li>
-<p>Exposes its functionality using a <code>{Component Name}Manager</code> class.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>For example, the <code>Logic</code> component (see the class diagram given below) defines it&#8217;s API in the <code>Logic.java</code> interface and exposes its functionality using the <code>LogicManager.java</code> class.</p>
+<p><code>Logic</code> is the command executor. It defines its API in the <code>Logic.java</code> interface and exposes its functionality using the <code>LogicManager.java</code> class.
+Read <a href="#Design-Logic"><strong><code>Logic</code></strong></a> for more details. Its class diagram is given below:</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -396,9 +366,22 @@ The <code>.pptx</code> files used to create diagrams in this document can be fou
 </div>
 <div class="title">Figure 2. Class Diagram of the Logic Component</div>
 </div>
+<div class="paragraph">
+<p><code>UI</code> is responsible for the UI of the App. It defines its API in the <code>Ui.java</code> interface and exposes its functionality using the <code>UiManager.java</code> class.
+Read <a href="#Design-Ui"><strong><code>UI</code></strong></a> for more details.</p>
+</div>
+<div class="paragraph">
+<p><code>Model</code> holds the data of the App in-memory. It defines its API in the <code>Model.java</code> interface and exposes its functionality using the <code>ModelManager.java</code> class.
+Read <a href="#Design-Model"><strong><code>Model</code></strong></a> for more details.</p>
+</div>
+<div class="paragraph">
+<p><code>Storage</code> reads data from, and writes data to, the hard disk.It defines its API in the <code>Storage.java</code> interface and exposes its functionality using the <code>StorageManager.java</code> class.
+Read <a href="#Design-Storage"><strong><code>Storage</code></strong></a> for more details.</p>
+</div>
 <h4 id="events-driven-nature-of-the-design" class="discrete">Events-Driven nature of the design</h4>
 <div class="paragraph">
-<p>The <em>Sequence Diagram</em> below shows how the components interact for the scenario where the user issues the command <code>delete 1</code>.</p>
+<p>The Expense Tracker&#8217;s architecture style is events-driven style. Here is an illustration of how this architecture works.
+The <em>Sequence Diagram</em> below shows how the components interact for the scenario where the user issues the command <code>delete 1</code>.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -1762,7 +1745,7 @@ e.g. <code>seedu.address.logic.LogicManagerTest</code></p>
 <div class="sect2">
 <h3 id="build-automation"><a class="link" href="#build-automation">7.1. Build Automation</a></h3>
 <div class="paragraph">
-<p>See <a href="UsingGradle.html">UsingGradle.adoc</a> to learn how to use Gradle for build automation.</p>
+<p>We use Gradle for build automation. See <a href="UsingGradle.html">UsingGradle.adoc</a> for more details.</p>
 </div>
 </div>
 <div class="sect2">
@@ -1780,13 +1763,13 @@ e.g. <code>seedu.address.logic.LogicManagerTest</code></p>
 <div class="sect2">
 <h3 id="documentation-previews"><a class="link" href="#documentation-previews">7.4. Documentation Previews</a></h3>
 <div class="paragraph">
-<p>When a pull request has changes to asciidoc files, you can use <a href="https://www.netlify.com/">Netlify</a> to see a preview of how the HTML version of those asciidoc files will look like when the pull request is merged. See <a href="UsingNetlify.html">UsingNetlify.adoc</a> for more details.</p>
+<p>We use <a href="https://www.netlify.com/">Netlify</a> to see a preview of how the HTML version of those asciidoc files will look like when the pull request has changes to asciidoc files. See <a href="UsingNetlify.html">UsingNetlify.adoc</a> for more details.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="making-a-release"><a class="link" href="#making-a-release">7.5. Making a Release</a></h3>
 <div class="paragraph">
-<p>Here are the steps to create a new release.</p>
+<p>Follow the steps below to create a new release:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -1800,7 +1783,8 @@ e.g. <code>seedu.address.logic.LogicManagerTest</code></p>
 <p>Tag the repo with the version number. e.g. <code>v0.1</code></p>
 </li>
 <li>
-<p><a href="https://help.github.com/articles/creating-releases/">Create a new release using GitHub</a> and upload the JAR file you created.</p>
+<p>Create a new release using GitHub and upload the JAR file you created. See <a href="https://help.github.com/articles/creating-releases/" class="bare">https://help.github.com/articles/creating-releases/</a>
+for more details.</p>
 </li>
 </ol>
 </div>
@@ -1808,9 +1792,21 @@ e.g. <code>seedu.address.logic.LogicManagerTest</code></p>
 <div class="sect2">
 <h3 id="managing-dependencies"><a class="link" href="#managing-dependencies">7.6. Managing Dependencies</a></h3>
 <div class="paragraph">
-<p>A project often depends on third-party libraries. For example, Expense Tracker depends on the <a href="http://wiki.fasterxml.com/JacksonHome">Jackson library</a> for XML parsing. Managing these <em>dependencies</em> can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives.<br>
-a. Include those libraries in the repo (this bloats the repo size)<br>
-b. Require developers to download those libraries manually (this creates extra work for developers)</p>
+<p>Expense Tracker depends on many third-party libraries. e.g. We use <a href="http://wiki.fasterxml.com/JacksonHome">Jackson library</a> for XML parsing in Expense Tracker.
+Below are different ways to manage these <em>dependencies</em>:</p>
+</div>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Use Gradle to manage these <em>dependencies</em>. Gradle can download the dependencies automatically. (this is better than other alternatives)<br></p>
+</li>
+<li>
+<p>Include those libraries in the repo (this bloats the repo size)<br></p>
+</li>
+<li>
+<p>Require developers to download those libraries manually (this creates extra work for developers)</p>
+</li>
+</ol>
 </div>
 </div>
 </div>
@@ -2468,4 +2464,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-18 07:07:12 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-18 13:09:43 UTC</div></div></div></body></html>
