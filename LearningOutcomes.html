@@ -74,7 +74,7 @@
 <h2 id="use-api-design-code-lo-apidesign-code"><a class="link" href="#use-api-design-code-lo-apidesign-code">3. Use API Design <code>[LO-ApiDesign]</code></a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Note how components of AddressBook have well-defined APIs. For example, the API of the <code>Logic</code> component is given in the <a href="https://github.com/se-edu/addressbook-level4/tree/master/src/main/java/seedu/address/logic/Logic.java"><code>Logic.java</code></a>
+<p>Note how components of ExpenseTracker have well-defined APIs. For example, the API of the <code>Logic</code> component is given in the <a href="https://github.com/se-edu/addressbook-level4/tree/master/src/main/java/seedu/address/logic/Logic.java"><code>Logic.java</code></a>
 <span class="image"><img src="images/LogicClassDiagram.png" alt="LogicClassDiagram" width="800"></span></p>
 </div>
 <div class="paragraph">
@@ -94,7 +94,7 @@
 <h2 id="use-assertions-code-lo-assertions-code"><a class="link" href="#use-assertions-code-lo-assertions-code">4. Use Assertions <code>[LO-Assertions]</code></a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Note how the AddressBook app uses Java <code>assert</code>s to verify assumptions.</p>
+<p>Note how the ExpenseTracker app uses Java <code>assert</code>s to verify assumptions.</p>
 </div>
 <div class="paragraph">
 <p><strong>Resources</strong></p>
@@ -114,7 +114,7 @@
 <p>Make sure assertions are enabled in your IDE by forcing an assertion failure (e.g. add <code>assert false;</code> somewhere in the code and run the code to ensure the runtime reports an assertion failure).</p>
 </li>
 <li>
-<p>Add more assertions to AddressBook as you see fit.</p>
+<p>Add more assertions to ExpenseTracker as you see fit.</p>
 </li>
 </ul>
 </div>
@@ -126,7 +126,7 @@
 <h2 id="use-logging-code-lo-logging-code"><a class="link" href="#use-logging-code-lo-logging-code">5. Use Logging <code>[LO-Logging]</code></a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Note <a href="DeveloperGuide.html#logging">how the AddressBook app uses Java&#8217;s <code>java.util.log</code> package to do logging</a>.</p>
+<p>Note <a href="DeveloperGuide.html#logging">how the ExpenseTracker app uses Java&#8217;s <code>java.util.log</code> package to do logging</a>.</p>
 </div>
 <div class="paragraph">
 <p><strong>Resources</strong></p>
@@ -141,7 +141,7 @@
 <div class="sect2">
 <h3 id="exercise-add-more-logging"><a class="link" href="#exercise-add-more-logging">Exercise: Add more logging</a></h3>
 <div class="paragraph">
-<p>Add more logging to AddressBook as you see fit.</p>
+<p>Add more logging to ExpenseTracker as you see fit.</p>
 </div>
 <hr>
 </div>
@@ -151,7 +151,7 @@
 <h2 id="use-defensive-coding-code-lo-defensivecoding-code"><a class="link" href="#use-defensive-coding-code-lo-defensivecoding-code">6. Use Defensive Coding <code>[LO-DefensiveCoding]</code></a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Note how AddressBook uses the <code>ReadOnly*</code> interfaces to prevent objects being modified by clients who are not supposed to modify them.</p>
+<p>Note how ExpenseTracker uses the <code>ReadOnly*</code> interfaces to prevent objects being modified by clients who are not supposed to modify them.</p>
 </div>
 <div class="paragraph">
 <p><strong>Resources</strong></p>
@@ -166,7 +166,7 @@
 <div class="sect2">
 <h3 id="exercise-identify-more-places-for-defensive-coding"><a class="link" href="#exercise-identify-more-places-for-defensive-coding">Exercise: identify more places for defensive coding</a></h3>
 <div class="paragraph">
-<p>Analyze the AddressBook code/design to identify,</p>
+<p>Analyze the ExpenseTracker code/design to identify,</p>
 </div>
 <div class="ulist">
 <ul>
@@ -186,7 +186,7 @@
 <h2 id="use-build-automation-code-lo-buildautomation-code"><a class="link" href="#use-build-automation-code-lo-buildautomation-code">7. Use Build Automation <code>[LO-BuildAutomation]</code></a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Note <a href="UsingGradle.html">how the AddressBook app uses Gradle to automate build tasks</a>.</p>
+<p>Note <a href="UsingGradle.html">how the ExpenseTracker app uses Gradle to automate build tasks</a>.</p>
 </div>
 <div class="paragraph">
 <p><strong>Resources</strong></p>
@@ -225,7 +225,7 @@
 <h2 id="use-continuous-integration-code-lo-continuousintegration-code"><a class="link" href="#use-continuous-integration-code-lo-continuousintegration-code">8. Use Continuous Integration <code>[LO-ContinuousIntegration]</code></a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Note <a href="UsingTravis.html">how the AddressBook app uses Travis to perform Continuous Integration</a>. (<a href="https://travis-ci.org/se-edu/addressbook-level4"><span class="image"><img src="https://travis-ci.org/se-edu/addressbook-level4.svg?branch=master" alt="Build Status"></span></a>)</p>
+<p>Note <a href="UsingTravis.html">how the ExpenseTracker app uses Travis to perform Continuous Integration</a>. (<a href="https://travis-ci.org/se-edu/addressbook-level4"><span class="image"><img src="https://travis-ci.org/se-edu/addressbook-level4.svg?branch=master" alt="Build Status"></span></a>)</p>
 </div>
 <div class="paragraph">
 <p><strong>Resources</strong></p>
@@ -318,10 +318,10 @@ class gives some examples of how to use <em>Equivalence Partitions</em>, <em>Bou
 <div class="ulist">
 <ul>
 <li>
-<p>Test methods <code>prefsReadSave()</code> and <code>addressBookReadSave()</code> are integration tests. Note how they simply test if The <code>StorageManager</code> class is correctly wired to its dependencies.</p>
+<p>Test methods <code>prefsReadSave()</code> and <code>expenseTrackerReadSave()</code> are integration tests. Note how they simply test if The <code>StorageManager</code> class is correctly wired to its dependencies.</p>
 </li>
 <li>
-<p>Test method <code>handleAddressBookChangedEvent_exceptionThrown_eventRaised()</code> is a unit test because it uses <em>dependency injection</em> to isolate the SUT <code>StorageManager#handleAddressBookChangedEvent(&#8230;&#8203;)</code> from its dependencies.</p>
+<p>Test method <code>handleExpenseTrackerChangedEvent_exceptionThrown_eventRaised()</code> is a unit test because it uses <em>dependency injection</em> to isolate the SUT <code>StorageManager#handleExpenseTrackerChangedEvent(&#8230;&#8203;)</code> from its dependencies.</p>
 </li>
 </ul>
 </div>
@@ -542,4 +542,4 @@ class gives some examples of how to use <em>Equivalence Partitions</em>, <em>Bou
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-24 08:37:58 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-24 10:09:59 UTC</div></div></div></body></html>
