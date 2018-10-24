@@ -821,24 +821,24 @@ If the <code>currentStatePointer</code> is at index <code>expenseTrackerStateLis
 </table>
 </div>
 <div class="paragraph">
-<p>This system is facilitated by methods in the Model interface which now supports the following operations:</p>
+<p>This system is facilitated by newly added methods in the Model interface which now supports the following operations:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><code>Model#loadUserData(Username, Password)</code>&#8201;&#8212;&#8201;Logs in to the user with the input Username and Password and loads the associated data. Returns true if the password matches the user&#8217;s password, else the user is not logged into and false is returned</p>
+<p><code>Model#loadUserData(Username, Password)</code>&#8201;&#8212;&#8201;Logs in to the user with the input Username and Password and loads the associated data into the <code>Model</code>. Returns true if the password matches the user&#8217;s password, else the user is not logged into and false is returned</p>
 </li>
 <li>
-<p><code>Model#unloadUserData()</code>&#8201;&#8212;&#8201;Unselects the user in the Model</p>
+<p><code>Model#unloadUserData()</code>&#8201;&#8212;&#8201;Unselects the user in the <code>Model</code></p>
 </li>
 <li>
-<p><code>Model#isUserExists(Username)</code>&#8201;&#8212;&#8201;Checks if a user with the input Username exists in the model</p>
+<p><code>Model#isUserExists(Username)</code>&#8201;&#8212;&#8201;Checks if a user with the input Username exists in the <code>Model</code></p>
 </li>
 <li>
-<p><code>Model#addUser(Username)</code>&#8201;&#8212;&#8201;Adds a new user with the given Username to the model</p>
+<p><code>Model#addUser(Username)</code>&#8201;&#8212;&#8201;Adds a new user with the given Username to the <code>Model</code></p>
 </li>
 <li>
-<p><code>Model#hasSelectedUser()</code>&#8201;&#8212;&#8201;Checks if a user is currently logged in in the model</p>
+<p><code>Model#hasSelectedUser()</code>&#8201;&#8212;&#8201;Checks if a user is currently logged in in the <code>Model</code></p>
 </li>
 </ul>
 </div>
@@ -862,7 +862,7 @@ If the <code>currentStatePointer</code> is at index <code>expenseTrackerStateLis
 </ul>
 </div>
 <div class="paragraph">
-<p>Given below is an example usage scenario and how the User Account System behaves at each step when the application is launched.</p>
+<p>Below is an example usage scenario and how the User Account System behaves at each step when the application is launched.</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -870,7 +870,7 @@ If the <code>currentStatePointer</code> is at index <code>expenseTrackerStateLis
 <p>The user launches the application and the directory path in the UserPref points at the <em>data</em> folder</p>
 </li>
 <li>
-<p>The method <code>Storage#readAllExpenses(Path)</code> is called by the MainApp and the method loads all the xml data files in the <em>data</em> folder and returns the loaded data as a <code>Map&lt;Username, ReadOnlyExpenseTracker&gt;</code> with the <code>Username</code> of the user data as the key and the user data as a <code>ReadOnlyExpenseTracker</code> as the value to the MainApp class</p>
+<p>The method <code>StorageManager#readAllExpenses(Path)</code> is called by the MainApp and the method loads all the xml data files in the <em>data</em> folder and returns the loaded data as a <code>Map&lt;Username, ReadOnlyAddressBook&gt;</code> with the <code>Username</code> of the user data as the key and the user data as a <code>ReadOnlyExpenseTracker</code> as the value to the MainApp class.</p>
 </li>
 <li>
 <p>A <code>Model</code> instance will then be initialized using the previously mentioned <code>Map</code> of user data.</p>
@@ -878,7 +878,16 @@ If the <code>currentStatePointer</code> is at index <code>expenseTrackerStateLis
 </ol>
 </div>
 <div class="paragraph">
-<p>Given below is an example usage scenario and how the Sign Up and Login system behaves at each step after the application is launched.</p>
+<p>Below is the UML sequence diagram of the <code>StorageManager#readAllExpenses(Path)</code> method mentioned.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/implementation/ReadAllExpensesSequenceDiagram.png" alt="ReadAllExpensesSequenceDiagram" width="800">
+</div>
+<div class="title">Figure 10. Sequence diagram of the <code>StorageManager#readAllExpenses(Path)</code> method</div>
+</div>
+<div class="paragraph">
+<p>Below is an example usage scenario and how the Sign Up and Login system behaves at each step after the application is launched.</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -900,7 +909,25 @@ If the <code>currentStatePointer</code> is at index <code>expenseTrackerStateLis
 </ol>
 </div>
 <div class="paragraph">
-<p>Given below is an example usage scenario and how the Password system behaves at each step after the he/she is logged in.</p>
+<p>Below is the UML sequence diagram that shows how the <code>SignUpCommand</code> works.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/implementation/SignUpCommandSequenceDiagram.png" alt="SignUpCommandSequenceDiagram" width="800">
+</div>
+<div class="title">Figure 11. Sequence diagram showing how <code>SignUpCommand</code> works</div>
+</div>
+<div class="paragraph">
+<p>Below is the UML sequence diagram that shows how the <code>LoginCommand</code> works.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/implementation/LoginCommandSequenceDiagram.png" alt="LoginCommandSequenceDiagram" width="800">
+</div>
+<div class="title">Figure 12. Sequence diagram showing how <code>LoginCommand</code> works</div>
+</div>
+<div class="paragraph">
+<p>Below is an example usage scenario and how the Password system behaves at each step after the he/she is logged in.</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -915,6 +942,15 @@ If the <code>currentStatePointer</code> is at index <code>expenseTrackerStateLis
 </li>
 </ol>
 </div>
+<div class="paragraph">
+<p>Below is the UML sequence diagram that shows how the <code>SetPasswordCommand</code> works.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/implementation/SetPasswordCommandSequenceDiagram.png" alt="SetPasswordCommandSequenceDiagram" width="800">
+</div>
+<div class="title">Figure 13. Sequence diagram showing how <code>SetPasswordCommand</code> works</div>
+</div>
 </div>
 <div class="sect3">
 <h4 id="design-considerations-2"><a class="link" href="#design-considerations-2">4.2.2. Design Considerations</a></h4>
@@ -923,7 +959,7 @@ If the <code>currentStatePointer</code> is at index <code>expenseTrackerStateLis
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Alternative 1 (current choice):</strong></p>
+<p><strong>Alternative 1 (current choice):</strong> Save each user&#8217;s data into a seperate xml file</p>
 <div class="ulist">
 <ul>
 <li>
@@ -1009,7 +1045,7 @@ Below is the UML sequence diagram and a step-by-step explanation of the preparat
 <div class="content">
 <img src="images/implementation/StatsCommandSequenceDiagram.png" alt="StatsCommandSequenceDiagram" width="800">
 </div>
-<div class="title">Figure 10. Sequence diagram of the preparation stage in the statistics mechanism</div>
+<div class="title">Figure 14. Sequence diagram of the preparation stage in the statistics mechanism</div>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -1066,7 +1102,7 @@ the total cost for that day</p>
 <div class="content">
 <img src="images/implementation/FindCommandSequenceDiagram.png" alt="FindCommandSequenceDiagram" width="800">
 </div>
-<div class="title">Figure 11. Sequence diagram of find mechanism</div>
+<div class="title">Figure 15. Sequence diagram of find mechanism</div>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -1442,7 +1478,7 @@ like the figure below should show up.</p>
 <div class="content">
 <img src="images/chrome_save_as_pdf.png" alt="chrome save as pdf" width="300">
 </div>
-<div class="title">Figure 12. Saving documentation as PDF files in Chrome</div>
+<div class="title">Figure 16. Saving documentation as PDF files in Chrome</div>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -2499,4 +2535,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-24 10:09:59 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-24 10:38:15 UTC</div></div></div></body></html>
