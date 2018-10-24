@@ -33,13 +33,12 @@
 <ul class="sectlevel2">
 <li><a href="#undo-redo-feature">4.1. Undo/Redo feature</a></li>
 <li><a href="#user-accounts-system">4.2. User Accounts System</a></li>
-<li><a href="#proposed-data-encryption">4.3. [Proposed] Data Encryption</a></li>
-<li><a href="#statistics">4.4. Statistics</a></li>
-<li><a href="#find">4.5. Find</a></li>
-<li><a href="#user-interface-redesign">4.6. User Interface Redesign</a></li>
-<li><a href="#budget">4.7. Budget</a></li>
-<li><a href="#logging">4.8. Logging</a></li>
-<li><a href="#Implementation-Configuration">4.9. Configuration</a></li>
+<li><a href="#statistics">4.3. Statistics</a></li>
+<li><a href="#find">4.4. Find</a></li>
+<li><a href="#user-interface-redesign">4.5. User Interface Redesign</a></li>
+<li><a href="#budget">4.6. Budget</a></li>
+<li><a href="#logging">4.7. Logging</a></li>
+<li><a href="#Implementation-Configuration">4.8. Configuration</a></li>
 </ul>
 </li>
 <li><a href="#documentation">5. Documentation</a>
@@ -1023,19 +1022,13 @@ If the <code>currentStatePointer</code> is at index <code>expenseTrackerStateLis
 </div>
 </div>
 <div class="sect2">
-<h3 id="proposed-data-encryption"><a class="link" href="#proposed-data-encryption">4.3. [Proposed] Data Encryption</a></h3>
-<div class="paragraph">
-<p><em>{Explain here how the data encryption feature will be implemented}</em></p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="statistics"><a class="link" href="#statistics">4.4. Statistics</a></h3>
+<h3 id="statistics"><a class="link" href="#statistics">4.3. Statistics</a></h3>
 <div class="paragraph">
 <p>The implementation of the Statistics function can be divided into two parts - preparation and execution.
 Given below is an example usage scenario and an explanation of how the statistics mechanism behaves at each step.</p>
 </div>
 <div class="sect3">
-<h4 id="preparation"><a class="link" href="#preparation">4.4.1. Preparation</a></h4>
+<h4 id="preparation"><a class="link" href="#preparation">4.3.1. Preparation</a></h4>
 <div class="paragraph">
 <p>In the preparation phase, the program parses the command for statistics, prepares filters used by the model
 and posts events in <code>EventsCenter</code>.
@@ -1065,7 +1058,7 @@ also posts a `ShowStatsRequestEvent</code> and <code>SwapLeftPanelEvent</code> e
 </div>
 </div>
 <div class="sect3">
-<h4 id="execution"><a class="link" href="#execution">4.4.2. Execution</a></h4>
+<h4 id="execution"><a class="link" href="#execution">4.3.2. Execution</a></h4>
 <div class="paragraph">
 <p>In the execution phase, the program handles the events posted by <code>StatsCommand</code> by
 processing and retrieving the data to be displayed and finally displaying it.
@@ -1094,7 +1087,7 @@ the total cost for that day</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="find"><a class="link" href="#find">4.5. Find</a></h3>
+<h3 id="find"><a class="link" href="#find">4.4. Find</a></h3>
 <div class="paragraph">
 <p>Below is the UML sequence diagram and a step-by-step explanation of an example usage scenario.</p>
 </div>
@@ -1136,7 +1129,7 @@ new predicate.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="user-interface-redesign"><a class="link" href="#user-interface-redesign">4.6. User Interface Redesign</a></h3>
+<h3 id="user-interface-redesign"><a class="link" href="#user-interface-redesign">4.5. User Interface Redesign</a></h3>
 <div class="paragraph">
 <p>The UI has been redesigned to implement the following UI elements required for the Expense Tracker:</p>
 </div>
@@ -1160,7 +1153,7 @@ new predicate.</p>
 <p>Animations will also be incorporated into the UI elements for a better user experience.</p>
 </div>
 <div class="sect3">
-<h4 id="budget-panel"><a class="link" href="#budget-panel">4.6.1. Budget Panel</a></h4>
+<h4 id="budget-panel"><a class="link" href="#budget-panel">4.5.1. Budget Panel</a></h4>
 <div class="paragraph">
 <p>The budget panel consists of 3 UI elements:</p>
 </div>
@@ -1318,9 +1311,9 @@ Similarly, if the user has gone from over budget to under budget, the color of '
 </div>
 </div>
 <div class="sect2">
-<h3 id="budget"><a class="link" href="#budget">4.7. Budget</a></h3>
+<h3 id="budget"><a class="link" href="#budget">4.6. Budget</a></h3>
 <div class="sect3">
-<h4 id="current-implementation-3"><a class="link" href="#current-implementation-3">4.7.1. Current Implementation</a></h4>
+<h4 id="current-implementation-3"><a class="link" href="#current-implementation-3">4.6.1. Current Implementation</a></h4>
 <div class="paragraph">
 <p>The current implementation for budget tracking is described as below.</p>
 </div>
@@ -1374,7 +1367,7 @@ usage of the expense tracker, but rather provide helpful information. For exampl
 </div>
 </div>
 <div class="sect3">
-<h4 id="alternatives-considered"><a class="link" href="#alternatives-considered">4.7.2. Alternatives considered</a></h4>
+<h4 id="alternatives-considered"><a class="link" href="#alternatives-considered">4.6.2. Alternatives considered</a></h4>
 <div class="paragraph">
 <p>Recurrence check was initially implemented via events. Every time <code>ModelManager#loadUserData()</code> is called, an event
 will be sent to the <code>EventBus</code> to be dispatched to an event handler implemented in <code>Budget</code>. However, after heavy
@@ -1385,14 +1378,14 @@ else. Therefore, it should be more closely coupled with <code>loadUserData()</co
 </div>
 </div>
 <div class="sect2">
-<h3 id="logging"><a class="link" href="#logging">4.8. Logging</a></h3>
+<h3 id="logging"><a class="link" href="#logging">4.7. Logging</a></h3>
 <div class="paragraph">
 <p>We are using <code>java.util.logging</code> package for logging. The <code>LogsCenter</code> class is used to manage the logging levels and logging destinations.</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 4.9, &#8220;Configuration&#8221;</a>)</p>
+<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 4.8, &#8220;Configuration&#8221;</a>)</p>
 </li>
 <li>
 <p>The <code>Logger</code> for a class can be obtained using <code>LogsCenter.getLogger(Class)</code> which will log messages according to the specified logging level</p>
@@ -1423,7 +1416,7 @@ else. Therefore, it should be more closely coupled with <code>loadUserData()</co
 </div>
 </div>
 <div class="sect2">
-<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">4.9. Configuration</a></h3>
+<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">4.8. Configuration</a></h3>
 <div class="paragraph">
 <p>Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: <code>config.json</code>).</p>
 </div>
@@ -2544,4 +2537,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-24 11:10:56 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-24 12:44:59 UTC</div></div></div></body></html>
