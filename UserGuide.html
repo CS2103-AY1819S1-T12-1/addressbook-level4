@@ -22,8 +22,8 @@
 </li>
 <li><a href="#Features">4. Features</a>
 <ul class="sectlevel2">
-<li><a href="#signing-up-a-user-code-signup-code">4.1. Signing up a User : <code>signup</code></a></li>
-<li><a href="#logging-in-as-an-existing-user-code-login-code">4.2. Logging in as an existing User : <code>login</code></a></li>
+<li><a href="#signing-up-a-user-code-signup-code">4.1. Signing up a user : <code>signup</code></a></li>
+<li><a href="#logging-in-as-an-existing-user-code-login-code">4.2. Logging in as an existing user : <code>login</code></a></li>
 <li><a href="#setting-a-password-for-the-current-user-code-setpassword-code">4.3. Setting a password for the current user : <code>setpassword</code></a></li>
 <li><a href="#viewing-help-code-help-code">4.4. Viewing help : <code>help</code></a></li>
 <li><a href="#adding-an-expense-code-add-code">4.5. Adding an expense: <code>add</code></a></li>
@@ -36,7 +36,7 @@
 <li><a href="#listing-entered-commands-code-history-code">4.12. Listing entered commands : <code>history</code></a></li>
 <li><a href="#undoing-previous-command-code-undo-code">4.13. Undoing previous command : <code>undo</code></a></li>
 <li><a href="#redoing-the-previously-undone-command-code-redo-code">4.14. Redoing the previously undone command : <code>redo</code></a></li>
-<li><a href="#show-expense-statistics-code-stats-code">4.15. Show expense statistics: <code>stats</code></a></li>
+<li><a href="#showing-expense-statistics-code-stats-code">4.15. Showing expense statistics: <code>stats</code></a></li>
 <li><a href="#clearing-all-entries-code-clear-code">4.16. Clearing all entries : <code>clear</code></a></li>
 <li><a href="#exiting-the-program-code-exit-code">4.17. Exiting the program : <code>exit</code></a></li>
 </ul>
@@ -271,7 +271,7 @@ These have the same effect as using the commands <code>exit</code> and <code>hel
 <p>These are the features commands available to use in the Expense Tracker:</p>
 </div>
 <div class="sect2">
-<h3 id="signing-up-a-user-code-signup-code"><a class="link" href="#signing-up-a-user-code-signup-code">4.1. Signing up a User : <code>signup</code></a></h3>
+<h3 id="signing-up-a-user-code-signup-code"><a class="link" href="#signing-up-a-user-code-signup-code">4.1. Signing up a user : <code>signup</code></a></h3>
 <div class="paragraph">
 <p>Creates a a new user in the Expense Tracker.</p>
 </div>
@@ -313,7 +313,7 @@ Signs up a user with the username "username123".</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="logging-in-as-an-existing-user-code-login-code"><a class="link" href="#logging-in-as-an-existing-user-code-login-code">4.2. Logging in as an existing User : <code>login</code></a></h3>
+<h3 id="logging-in-as-an-existing-user-code-login-code"><a class="link" href="#logging-in-as-an-existing-user-code-login-code">4.2. Logging in as an existing user : <code>login</code></a></h3>
 <div class="paragraph">
 <p>Logs in to the Expense Tracker as an existing user and expands the UI to show the existing expenses if it is not already expanded.</p>
 </div>
@@ -869,17 +869,24 @@ The second`redo` reverses the first <code>undo</code> command, reapplying <code>
 </div>
 </div>
 <div class="sect2">
-<h3 id="show-expense-statistics-code-stats-code"><a class="link" href="#show-expense-statistics-code-stats-code">4.15. Show expense statistics: <code>stats</code></a></h3>
+<h3 id="showing-expense-statistics-code-stats-code"><a class="link" href="#showing-expense-statistics-code-stats-code">4.15. Showing expense statistics: <code>stats</code></a></h3>
 <div class="paragraph">
 <p>Changes the expense list to show the statistics panel if the expense list is currently showing, then
 displays a bar chart of the expenditure over a specified time period, in a given <code>MODE</code>.<br></p>
 </div>
 <div class="paragraph">
-<p>The available modes are <code>d</code> and <code>m</code>, which represents day and month respectively. E.g. if NUMBER_OF_DAYS_OR_MONTHS is 7
-and MODE is 'd', the statistics will include data from the past 7 days, current day included.</p>
+<p>There are two available modes: Time and Category, which can be indicated by <code>t</code> or <code>c</code> respectively in the <code>MODE</code> parameter.<br>
+Choosing Time mode will show a Bar Chart in the statistics panel, where amounts for each day or month will displayed,
+depending on the specified <code>PERIOD_AMOUNT</code> and <code>PERIOD</code>.<br>
+Choosing Category mode will show a Pie Chart in the statistics panel, where amounts for each category will displayed for
+expenses in the specified <code>PERIOD_AMOUNT</code> and <code>PERIOD</code>.</p>
 </div>
 <div class="paragraph">
-<p>Format: <code>stats n/NUMBER_OF_DAYS_OR_MONTHS m/MODE</code></p>
+<p>The available options for <code>PERIOD</code> are <code>d</code> and <code>m</code>, which represents day and month respectively. E.g. if <code>PERIOD_AMOUNT</code> is 7
+and <code>MODE</code> is <code>d</code>, the statistics will include data from the past 7 days.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>stats n/PERIOD_AMOUNT p/PERIOD m/MODE</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -889,12 +896,16 @@ and MODE is 'd', the statistics will include data from the past 7 days, current 
 <div class="ulist">
 <ul>
 <li>
-<p><code>stats n/14 m/d</code><br>
-Shows the expense statistics for the past 14 days, current day included<br></p>
+<p><code>stats n/14 p/d m/t</code><br>
+Shows the expense statistics for the past 14 days as a bar chart showing expenses for each day<br></p>
 </li>
 <li>
-<p><code>stats n/3 m/m</code><br>
-Shows the expense statistics for the past 3 months, current day included<br></p>
+<p><code>stats n/3 p/m m/t</code><br>
+Shows the expense statistics for the past 3 months as a bar chart showing expenses for each month<br></p>
+</li>
+<li>
+<p><code>stats n/3 p/m m/c</code><br>
+Shows the expense statistics for the past 3 months as a pie chart showing expenses for each category<br></p>
 </li>
 </ul>
 </div>
@@ -910,13 +921,16 @@ Shows the expense statistics for the past 3 months, current day included<br></p>
 <div class="ulist">
 <ul>
 <li>
-<p>NUMBER_OF_DAYS_OR_MONTHS must be a positive number greater than 0</p>
+<p>PERIOD_AMOUNT must be a positive number greater than 0</p>
 </li>
 <li>
-<p>MODE can only be 'd' or 'm'.</p>
+<p>PERIOD can only be 'd' or 'm'.</p>
 </li>
 <li>
-<p>If no parameters are provided, the command defaults to show statistics for the past 7 days, current day included.</p>
+<p>MODE can only be 't' or 'c'.</p>
+</li>
+<li>
+<p>If no parameters are provided, the command defaults to show statistics for the past 7 days in time mode.</p>
 </li>
 </ul>
 </div>
@@ -1032,4 +1046,4 @@ e.g. <code>stats n/7 m/d</code></p>
 </ul>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-24 15:13:38 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-27 08:48:05 UTC</div></div></div></body></html>
