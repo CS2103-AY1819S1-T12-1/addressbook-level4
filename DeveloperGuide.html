@@ -1153,9 +1153,9 @@ new predicate.</p>
 <p>Animations will also be incorporated into the UI elements for a better user experience.</p>
 </div>
 <div class="sect3">
-<h4 id="budget-panel"><a class="link" href="#budget-panel">4.5.1. Budget Panel</a></h4>
+<h4 id="totalbudget-panel"><a class="link" href="#totalbudget-panel">4.5.1. totalBudget Panel</a></h4>
 <div class="paragraph">
-<p>The budget panel consists of 3 UI elements:</p>
+<p>The <code>totalBudget</code> panel consists of 3 UI elements:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -1166,7 +1166,8 @@ new predicate.</p>
 <p><code>BudgetPanel#budgetDisplay</code> – A <code>Text</code> element that displays the user’s monthly budget cap.</p>
 </li>
 <li>
-<p><code>BudgetPanel#budgetBar</code> – A <code>progressBar</code> element that visually presents the percentage of the current budget cap that has been used.</p>
+<p><code>BudgetPanel#budgetBar</code> – A <code>progressBar</code> element that visually presents the percentage of the current
+<code>totalBudget</code> cap that has been used.</p>
 </li>
 </ul>
 </div>
@@ -1183,7 +1184,7 @@ new predicate.</p>
 <p><code>BudgetPanel#expenseDisplay</code> is green and set to "$0.00".</p>
 </li>
 <li>
-<p><code>BudgetPanel#budgetDisplay</code> is set to "/ $28.00", with $28.00 being the default budget.</p>
+<p><code>BudgetPanel#budgetDisplay</code> is set to "/ $28.00", with $28.00 being the default <code>totalBudget</code>.</p>
 </li>
 <li>
 <p><code>BudgetPanel#budgetBar</code> is green and at 0% progress.</p>
@@ -1192,7 +1193,8 @@ new predicate.</p>
 </div>
 </li>
 <li>
-<p>The user executes the command <code>add n/Lunch $/30.00 c/Food</code>. As the <code>'add</code> command modifies the budget and expenses, <code>AddCommand#execute()</code> will post a <code>UpdateBudgetPanelEvent</code> event to the EventsCenter.</p>
+<p>The user executes the command <code>add n/Lunch $/30.00 c/Food</code>. As the <code>'add</code> command modifies the <code>totalBudget</code> and
+expenses, <code>AddCommand#execute()</code> will post a <code>UpdateBudgetPanelEvent</code> event to the EventsCenter.</p>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -1247,7 +1249,8 @@ If the updated percentage is more than 1.0, <code>BudgetPanel#budgetBar</code> p
 <p><code>Timeline#playFromStart()</code> is called to execute the animation.</p>
 </li>
 <li>
-<p><code>BudgetPanel#update()</code> also calls <code>BudgetPanel#setBudgetUiColors()`</code>. The method detects that the user has gone over budget, and changes the color of <code>BudgetPanel#expenseDisplay</code> and <code>BudgetPanel#budgetBar</code> from green to red.</p>
+<p><code>BudgetPanel#update()</code> also calls <code>BudgetPanel#setBudgetUiColors()</code>. The method detects that the user has gone
+over budget, and changes the color of <code>BudgetPanel#expenseDisplay</code> and <code>BudgetPanel#budgetBar</code> from green to red.</p>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -1255,7 +1258,8 @@ If the updated percentage is more than 1.0, <code>BudgetPanel#budgetBar</code> p
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-Similarly, if the user has gone from over budget to under budget, the color of 'BudgetPanel#expenseDisplay` and <code>BudgetPanel#budgetBar</code> should change from red to green.
+Similarly, if the user has gone from over budget to under budget, the color of
+'BudgetPanel#expenseDisplay` and <code>BudgetPanel#budgetBar</code> should change from red to green.
 </td>
 </tr>
 </table>
@@ -1319,7 +1323,7 @@ Similarly, if the user has gone from over budget to under budget, the color of '
 If the user&#8217;s total spending exceeds their budget in the specified time period, a warning will be shown to the user.</p>
 </div>
 <div class="paragraph">
-<p>The current implementation for budget tracking is described as below.</p>
+<p>The current implementation for <code>totalBudget</code> tracking is described as below.</p>
 </div>
 <div class="sect4">
 <h5 id="setting-a-budget"><a class="link" href="#setting-a-budget">Setting a budget</a></h5>
@@ -1374,7 +1378,7 @@ nothing will be done.</p>
 be set to <code>currentTime</code> + <code>recurrenceFrequency</code>.</p>
 </li>
 <li>
-<p>If it has already been set, the timing will be updated on the next occurence time</p>
+<p>If it has already been set, the timing will be updated on the next occurrence time</p>
 </li>
 </ul>
 </div>
@@ -1416,7 +1420,37 @@ returned to
 </li>
 <li>
 <p><code>LogicManager</code> then calls <code>SetRecurringBudgetCommand#execute()</code>,which calls <code>ModelManager#setRecurrenceFrequency()</code>
-method to update the time where the next budget is reset.</p>
+method to update the time when the next spendings of <code>totalBudget</code> is reset.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect4">
+<h5 id="budget-by-category"><a class="link" href="#budget-by-category">Budget by Category</a></h5>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>User enters command <code>addCategoryBudget c/School b/2.00</code>. The command is received by <code>ExpenseTrackerParser</code></p>
+</li>
+<li>
+<p><code>ExpenseTrackerParser</code> will then create a <code>AddCategoryBudgetCommandParser</code> Object and calls
+<code>AddCategoryBudgetCommandParser#parse()</code> method.</p>
+</li>
+<li>
+<p><code>AddCategoryBudgetCommandParser#parse()</code> method calls <code>ArgumentTokenizer#tokenize()</code> to tokenize the input String
+into keywords and store them in an <code>ArgumentMultimap</code> Object.</p>
+</li>
+<li>
+<p><code>AddCategoryBudgetCommandParser#parse()</code> method then calls <code>AddCategoryBudgetCommandParser#arePrefixesPresent()</code>
+method. If any of the keywords are missing, <code>ParseException</code> will be thrown.</p>
+</li>
+<li>
+<p>From the previous step, if no exception is thrown, an <code>AddCategoryBudgetCommand</code> Object with <code>category</code> and <code>budget</code>
+is created and returned to <code>LogicManager</code>.</p>
+</li>
+<li>
+<p><code>LogicManager</code> then calls <code>AddCategoryBudgetCommand#execute()</code>,which calls <code>ModelManager#addCategoryBudget()</code>
+method to add a <code>Budget</code> to a <code>Category</code>.</p>
 </li>
 </ol>
 </div>
@@ -1426,17 +1460,10 @@ method to update the time where the next budget is reset.</p>
 <div class="paragraph">
 <p>There is an area for the app to display notifications and additional information to the users beside the usual
 area below the command box. This is particularly useful to the <strong>Budget</strong> feature as budgets should not obstruct the
-usage of the expense tracker, but rather provide helpful information. For example, if a user exceeds his budget after
+usage of the expense tracker, but rather provide helpful information. For example, if a user exceeds his total budget
+ after
  adding an expense, a warning would be displayed in the <strong>Notification center</strong> instead of the area below the command
  box, replacing the success message of adding an expense and confusing the user.</p>
-</div>
-</div>
-<div class="sect4">
-<h5 id="budget-by-category-proposed"><a class="link" href="#budget-by-category-proposed">Budget by Category (Proposed)</a></h5>
-<div class="paragraph">
-<p>Users can now allocate their budgets by categories. This means that within a fixed budget, they can decide how big of
- a proportion a certain category of expense takes. Every <code>Category</code> will now have a <code>Budget</code> and the total budget in
- <code>ModelManager</code> will never exceed the sum of all budgets in <code>Category</code>.</p>
 </div>
 </div>
 </div>
@@ -2043,8 +2070,9 @@ Below are different ways to manage these <em>dependencies</em>:</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">forgetful user</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">receive a notification about my budget when the application boots up</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">be reminded of how much I have spent and can spend.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">receive a notification about my budge twhen the application boots up</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">be reminded of how
+much I have spent and can spend.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
@@ -2056,13 +2084,14 @@ Below are different ways to manage these <em>dependencies</em>:</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">impulsive spender</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">set my maximum budget over a certain period of time</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">know when I am or about to spend over my budget</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">know when I am or about to spend
+over my `totalBudget</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">user who has a limited budget</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">view my expenses over a certain period of time</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">learn from my past endeavours and better manage my budget</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">learn from my past endeavours and better manage my `totalBudget</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
@@ -2114,7 +2143,7 @@ Below are different ways to manage these <em>dependencies</em>:</p>
 <p>Once validated, ExpenseTracker shows success message and details of the expenditure</p>
 </li>
 <li>
-<p>If expenditure causes budget to be below a certain threshold, show a warning message to the user</p>
+<p>If expenditure causes <code>totalBudget</code> to be below a certain threshold, show a warning message to the user</p>
 <div class="paragraph">
 <p>Use case ends.</p>
 </div>
@@ -2184,20 +2213,20 @@ Below are different ways to manage these <em>dependencies</em>:</p>
 </li>
 </ul>
 </div>
-<h3 id="use-case-set-budget" class="discrete">Use case: Set budget</h3>
+<h3 id="use-case-set-code-totalbudget-code" class="discrete">Use case: Set <code>totalBudget</code></h3>
 <div class="paragraph">
 <p><strong>MSS</strong></p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>User requests to set budget</p>
+<p>User requests to set <code>totalBudget</code></p>
 </li>
 <li>
-<p>Expense tracker prompts user to key in budget</p>
+<p>Expense tracker prompts user to key in <code>totalBudget</code></p>
 </li>
 <li>
-<p>User keys in budget value</p>
+<p>User keys in <code>totalBudget</code> value</p>
 </li>
 <li>
 <p>Expense tracker prompts and updates budgets</p>
@@ -2214,7 +2243,7 @@ Below are different ways to manage these <em>dependencies</em>:</p>
 <div class="ulist none">
 <ul class="none">
 <li>
-<p>2a1. Expense tracker prompts user the previously set budget and asks if user wants to continue</p>
+<p>2a1. Expense tracker prompts user the previously set <code>totalBudget</code> and asks if user wants to continue</p>
 </li>
 <li>
 <p>2a2. User confirmed that he/she wants to continue</p>
@@ -2359,13 +2388,13 @@ Use case ends</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>User requests to clear his recorded expenses and budget</p>
+<p>User requests to clear his recorded expenses and <code>totalBudget</code></p>
 </li>
 <li>
 <p>Expense trackers shows a confirmation message</p>
 </li>
 <li>
-<p>Expense tracker deletes all information about the current user’s budget and expenses</p>
+<p>Expense tracker deletes all information about the current user’s <code>totalBudget</code> and expenses</p>
 <div class="paragraph">
 <p>Use case ends</p>
 </div>
@@ -2402,16 +2431,16 @@ Use case ends</p>
 <p>User keys in the command to turn on notifications</p>
 </li>
 <li>
-<p>Expense tracker already has a budget set.</p>
+<p>Expense tracker already has a <code>totalBudget</code> set.</p>
 </li>
 <li>
-<p>Add expenses until the budget has been exceeded</p>
+<p>Add expenses until the <code>totalBudget</code> has been exceeded</p>
 </li>
 <li>
-<p>Expense tracker will detect that the budget has been exceeded</p>
+<p>Expense tracker will detect that the <code>totalBudget</code> has been exceeded</p>
 </li>
 <li>
-<p>Expense tracker will show a visible notification to alert the user that the budget has been exceeded</p>
+<p>Expense tracker will show a visible notification to alert the user that the <code>totalBudget</code> has been exceeded</p>
 <div class="paragraph">
 <p>Use case ends</p>
 </div>
@@ -2428,7 +2457,7 @@ Use case ends</p>
 <p>User keys in command to turn off notifications</p>
 </li>
 <li>
-<p>Notifications no longer show whenever the set budget has been exceeded.</p>
+<p>Notifications no longer show whenever the set <code>totalBudget</code> has been exceeded.</p>
 </li>
 <li>
 <p>Any notification that is currently showing will be hidden from the user.</p>
@@ -2468,7 +2497,7 @@ Use case ends</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>User keys in command to view the information and statistics of his weekly/monthly/yearly budget</p>
+<p>User keys in command to view the information and statistics of his weekly/monthly/yearly <code>totalBudget</code></p>
 </li>
 <li>
 <p>Programs loads a window consisting of visual information displaying the relevant information</p>
@@ -2611,4 +2640,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-27 16:33:59 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-30 09:00:50 UTC</div></div></div></body></html>

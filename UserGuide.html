@@ -31,14 +31,15 @@
 <li><a href="#deleting-a-expense-code-delete-code">4.7. Deleting a expense : <code>delete</code></a></li>
 <li><a href="#locating-expenses-by-name-code-find-code">4.8. Locating expenses by name: <code>find</code></a></li>
 <li><a href="#listing-all-expenses-code-list-code">4.9. Listing all expenses : <code>list</code></a></li>
-<li><a href="#setting-a-budget-code-setbudget-code">4.10. Setting a budget: <code>setBudget</code></a></li>
-<li><a href="#setting-a-recurring-frequency-for-budget-code-setrecurrencefrequency-code">4.11. Setting a recurring frequency for budget: <code>setRecurrenceFrequency</code></a></li>
-<li><a href="#listing-entered-commands-code-history-code">4.12. Listing entered commands : <code>history</code></a></li>
-<li><a href="#undoing-previous-command-code-undo-code">4.13. Undoing previous command : <code>undo</code></a></li>
-<li><a href="#redoing-the-previously-undone-command-code-redo-code">4.14. Redoing the previously undone command : <code>redo</code></a></li>
-<li><a href="#showing-expense-statistics-code-stats-code">4.15. Showing expense statistics: <code>stats</code></a></li>
-<li><a href="#clearing-all-entries-code-clear-code">4.16. Clearing all entries : <code>clear</code></a></li>
-<li><a href="#exiting-the-program-code-exit-code">4.17. Exiting the program : <code>exit</code></a></li>
+<li><a href="#setting-a-total-budget-code-setbudget-code">4.10. Setting a total budget: <code>setBudget</code></a></li>
+<li><a href="#setting-a-recurring-frequency-for-totalbudget-code-setrecurrencefrequency-code">4.11. Setting a recurring frequency for totalBudget: <code>setRecurrenceFrequency</code></a></li>
+<li><a href="#adding-a-category-budget-code-addcategorybudget-code">4.12. Adding a Category Budget: <code>addCategoryBudget</code></a></li>
+<li><a href="#listing-entered-commands-code-history-code">4.13. Listing entered commands : <code>history</code></a></li>
+<li><a href="#undoing-previous-command-code-undo-code">4.14. Undoing previous command : <code>undo</code></a></li>
+<li><a href="#redoing-the-previously-undone-command-code-redo-code">4.15. Redoing the previously undone command : <code>redo</code></a></li>
+<li><a href="#showing-expense-statistics-code-stats-code">4.16. Showing expense statistics: <code>stats</code></a></li>
+<li><a href="#clearing-all-entries-code-clear-code">4.17. Clearing all entries : <code>clear</code></a></li>
+<li><a href="#exiting-the-program-code-exit-code">4.18. Exiting the program : <code>exit</code></a></li>
 </ul>
 </li>
 <li><a href="#faq">5. FAQ</a></li>
@@ -659,12 +660,12 @@ Find all the expenses with tag "lunch" under "School" category on 1-10-2018.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="setting-a-budget-code-setbudget-code"><a class="link" href="#setting-a-budget-code-setbudget-code">4.10. Setting a budget: <code>setBudget</code></a></h3>
+<h3 id="setting-a-total-budget-code-setbudget-code"><a class="link" href="#setting-a-total-budget-code-setbudget-code">4.10. Setting a total budget: <code>setBudget</code></a></h3>
 <div class="paragraph">
-<p>Sets the budget for Expense Tracker.<br></p>
+<p>Sets <code>totalBudget</code> for Expense Tracker.<br></p>
 </div>
 <div class="paragraph">
-<p>The Expense Tracker will warn you when your total expenditure exceeds the budget that is set.</p>
+<p>The Expense Tracker will warn you when your total expenditure exceeds the total budget that is set.</p>
 </div>
 <div class="paragraph">
 <p>Format: <code>setBudget MONEY_WITH_TWO_DECIMAL_PLACES</code></p>
@@ -678,11 +679,11 @@ Find all the expenses with tag "lunch" under "School" category on 1-10-2018.</p>
 <ul>
 <li>
 <p><code>setBudget 2.00</code><br>
-Sets a budget of $2.00.</p>
+Sets a <code>totalBudget</code> of $2.00.</p>
 </li>
 <li>
 <p><code>setBudget 20.00</code><br>
-Sets a budget of $20.00.</p>
+Sets a <code>totalBudget</code> of $20.00.</p>
 </li>
 </ul>
 </div>
@@ -711,12 +712,12 @@ Sets a budget of $20.00.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="setting-a-recurring-frequency-for-budget-code-setrecurrencefrequency-code"><a class="link" href="#setting-a-recurring-frequency-for-budget-code-setrecurrencefrequency-code">4.11. Setting a recurring frequency for budget: <code>setRecurrenceFrequency</code></a></h3>
+<h3 id="setting-a-recurring-frequency-for-totalbudget-code-setrecurrencefrequency-code"><a class="link" href="#setting-a-recurring-frequency-for-totalbudget-code-setrecurrencefrequency-code">4.11. Setting a recurring frequency for totalBudget: <code>setRecurrenceFrequency</code></a></h3>
 <div class="paragraph">
-<p>Sets the recurrence frequency for the budget of Expense Tracker.</p>
+<p>Sets the recurrence frequency for the <code>totalBudget</code> of Expense Tracker.</p>
 </div>
 <div class="paragraph">
-<p>Expense Tracker will reset your budget after every <code>FREQUENCY</code></p>
+<p>Expense Tracker will reset your spending after every <code>FREQUENCY</code></p>
 </div>
 <div class="paragraph">
 <p>Format: <code>setRecurrenceFrequency [hrs/HOURS] [min/MINUTES] [sec/SECONDS]</code></p>
@@ -730,11 +731,11 @@ Sets a budget of $20.00.</p>
 <ul>
 <li>
 <p><code>setRecurrenceFrequency hrs/1</code><br>
-Sets the budget to reset every 1 hour</p>
+Sets the spending of <code>totalBudget</code> to reset every 1 hour</p>
 </li>
 <li>
 <p><code>setRecurrenceFrequency hrs/1 min/30</code><br>
-Sets the budget reset every 1 hour and 30 minutes</p>
+Sets the spending of <code>totalBudget</code> reset every 1 hour and 30 minutes</p>
 </li>
 </ul>
 </div>
@@ -763,7 +764,52 @@ Sets the budget reset every 1 hour and 30 minutes</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="listing-entered-commands-code-history-code"><a class="link" href="#listing-entered-commands-code-history-code">4.12. Listing entered commands : <code>history</code></a></h3>
+<h3 id="adding-a-category-budget-code-addcategorybudget-code"><a class="link" href="#adding-a-category-budget-code-addcategorybudget-code">4.12. Adding a Category Budget: <code>addCategoryBudget</code></a></h3>
+<div class="paragraph">
+<p>Adds a Budget to limit spending on a certain category.</p>
+</div>
+<div class="paragraph">
+<p>If spending exceeds Category budget, a warning similar to 4.10 will be shown.</p>
+</div>
+<div class="paragraph">
+<p>Sum of all category budgets cannot exceed total budget of
+Expense Tracker.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>addCategoryBudget c/CATEGORY b/BUDGET</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>addCategoryBudget c/School b/10.00</code><br>
+Adds a budget of $10 to the <code>School</code> category.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Valid <code>CATEOGRY</code> and <code>BUDGET</code> follows the syntax listed under 4.5 and 4.10</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="listing-entered-commands-code-history-code"><a class="link" href="#listing-entered-commands-code-history-code">4.13. Listing entered commands : <code>history</code></a></h3>
 <div class="paragraph">
 <p>Lists all the commands that you have previously entered in reverse chronological order.<br></p>
 </div>
@@ -786,7 +832,7 @@ Sets the budget reset every 1 hour and 30 minutes</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="undoing-previous-command-code-undo-code"><a class="link" href="#undoing-previous-command-code-undo-code">4.13. Undoing previous command : <code>undo</code></a></h3>
+<h3 id="undoing-previous-command-code-undo-code"><a class="link" href="#undoing-previous-command-code-undo-code">4.14. Undoing previous command : <code>undo</code></a></h3>
 <div class="paragraph">
 <p>Restores Expense Tracker to the state before the previous <em>undoable</em> command was executed.<br>
 <em>Undoable</em> commands are commands that modify expenses in Expense Tracker (<code>add</code>, <code>delete</code>, <code>edit</code> and <code>clear</code>).<br></p>
@@ -825,7 +871,7 @@ The first <code>undo</code> reverses the <code>clear</code> command. The second 
 </div>
 </div>
 <div class="sect2">
-<h3 id="redoing-the-previously-undone-command-code-redo-code"><a class="link" href="#redoing-the-previously-undone-command-code-redo-code">4.14. Redoing the previously undone command : <code>redo</code></a></h3>
+<h3 id="redoing-the-previously-undone-command-code-redo-code"><a class="link" href="#redoing-the-previously-undone-command-code-redo-code">4.15. Redoing the previously undone command : <code>redo</code></a></h3>
 <div class="paragraph">
 <p>Restores Expense Tracker to the state before the most recent <code>undo</code> command.<br></p>
 </div>
@@ -869,7 +915,7 @@ The second`redo` reverses the first <code>undo</code> command, reapplying <code>
 </div>
 </div>
 <div class="sect2">
-<h3 id="showing-expense-statistics-code-stats-code"><a class="link" href="#showing-expense-statistics-code-stats-code">4.15. Showing expense statistics: <code>stats</code></a></h3>
+<h3 id="showing-expense-statistics-code-stats-code"><a class="link" href="#showing-expense-statistics-code-stats-code">4.16. Showing expense statistics: <code>stats</code></a></h3>
 <div class="paragraph">
 <p>Changes the expense list to show the statistics panel if the expense list is currently showing, then
 displays a bar chart of the expenditure over a specified time period, in a given <code>MODE</code>.<br></p>
@@ -940,7 +986,7 @@ Shows the expense statistics for the past 3 months as a pie chart showing expens
 </div>
 </div>
 <div class="sect2">
-<h3 id="clearing-all-entries-code-clear-code"><a class="link" href="#clearing-all-entries-code-clear-code">4.16. Clearing all entries : <code>clear</code></a></h3>
+<h3 id="clearing-all-entries-code-clear-code"><a class="link" href="#clearing-all-entries-code-clear-code">4.17. Clearing all entries : <code>clear</code></a></h3>
 <div class="paragraph">
 <p>Deletes all expense entries from Expense Tracker.<br></p>
 </div>
@@ -949,7 +995,7 @@ Shows the expense statistics for the past 3 months as a pie chart showing expens
 </div>
 </div>
 <div class="sect2">
-<h3 id="exiting-the-program-code-exit-code"><a class="link" href="#exiting-the-program-code-exit-code">4.17. Exiting the program : <code>exit</code></a></h3>
+<h3 id="exiting-the-program-code-exit-code"><a class="link" href="#exiting-the-program-code-exit-code">4.18. Exiting the program : <code>exit</code></a></h3>
 <div class="paragraph">
 <p>Exits the program.<br></p>
 </div>
@@ -1018,11 +1064,11 @@ e.g. <code>find c/School</code></p>
 <p><strong>List</strong> : <code>list</code></p>
 </li>
 <li>
-<p><strong>Set budget</strong> : <code>setBudget</code><br>
+<p><strong>Set <code>totalBudget</code></strong> : <code>setBudget</code><br>
 e.g. <code>setBudget 20.00</code></p>
 </li>
 <li>
-<p><strong>Set recurring frequency for budget</strong>: <code>setRecurrenceFrequency [hrs/HOURS] [min/MINUTES] [sec/SECONDS]</code><br></p>
+<p><strong>Set recurring frequency for <code>totalBudget</code></strong>: <code>setRecurrenceFrequency [hrs/HOURS] [min/MINUTES] [sec/SECONDS]</code><br></p>
 </li>
 <li>
 <p><strong>History</strong> : <code>history</code></p>
@@ -1046,4 +1092,4 @@ e.g. <code>stats n/7 m/d</code></p>
 </ul>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-27 16:33:59 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-30 09:00:50 UTC</div></div></div></body></html>
