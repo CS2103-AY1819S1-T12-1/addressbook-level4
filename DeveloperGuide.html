@@ -1199,7 +1199,7 @@ A <code>CommandResult</code> is then created and returned to <code>LogicManager<
 <p>Animations will also be incorporated into the UI elements for a better user experience.</p>
 </div>
 <div class="sect3">
-<h4 id="totalbudget-panel"><a class="link" href="#totalbudget-panel">4.6.1. totalBudget Panel</a></h4>
+<h4 id="budget-panel"><a class="link" href="#budget-panel">4.6.1. Budget Panel</a></h4>
 <div class="paragraph">
 <p>The <code>totalBudget</code> panel consists of 3 UI elements:</p>
 </div>
@@ -1357,6 +1357,105 @@ Similarly, if the user has gone from over budget to under budget, the color of
 </ul>
 </div>
 </div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="notification-system"><a class="link" href="#notification-system">4.6.2. Notification System</a></h4>
+<div class="paragraph">
+<p>The Notification System is comprised of 3 features:
+* <code>Notification</code> - An abstract method that consists of a <code>header</code>, <code>type</code> and <code>body</code>. There are two types of <code>Notification</code>,
+<code>TipNotification</code> and <code>WarningNotification</code>.
+* <code>NotificationPanel</code> <code>and NotificationCard</code> - Lists the notifications that have been sent to the user.
+* <code>NotificationHandler</code> - Handles the storing and logic of notifications.
+* <code>NotificationCommand</code> - Allows the user to toggle what type of notifications they wish to receive.</p>
+</div>
+<div class="paragraph">
+<p>Given below is an example scenario of how the Notification System functions:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The user launches the application for the first time. A new <code>NotificationHandler</code> is instantiated.</p>
+</li>
+<li>
+<p>A call to <code>NotificationHandler#isTimeToSendTip</code> is made upon login. In turn, a check is made to see if it has
+been a day since the last <code>TipNotification</code> has been sent. If so, a new <code>TipNotification</code> is added to the <code>NotificationHandler#internalList</code> via a call to <code>NotificationPanel#addNotification</code>.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If this is the user&#8217;s first time logging into their account, a new <code>TipNotification</code> will be sent.
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>The user executes the command <code>add n/Lunch $/30.00 c/Food</code>. The <code>add</code> command calls <code>NotificationHandler#isTimeToSendWarning</code> to check if the user is nearing or over their budget.
+If the user is nearing or approaching their budget, a <code>WarningNotification</code> is added to <code>NotificationHandler#internalList</code> via a call to <code>NotificationPanel#addNotification</code>.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The same procedure is carried out if the user execute an <code>edit</code> command.
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>If the size of <code>NotificationHandler#internalList</code> reaches 11 or more, the oldest <code>Notification</code> in the list is then replaced with
+the new <code>Notification</code>.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Given below is an example scenario of how the <code>NotificationCommand</code> functions:
+. The user executes <code>notification n/warning t/off</code>. THe command is received by the <code>ExpenseTrackerParser</code>.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>A call to <code>NotificationCommand#parse</code> is made, which creates a <code>NotificationCommandDescriptor</code> object with the two
+extracted parameters <code>warning</code> and <code>off</code>. A <code>NotificationCommand</code> is returned to the <code>LogicManager</code>.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The <code>n/</code> parameter can be omitted. In this case, all types of notifications will be affected by the toggle.
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p><code>LogicManager</code> then calls <code>NotificationCommand#execute</code>, which calls <code>NotificationHandler#toggleWarningNotifications</code> to set
+<code>NotificationPanel#isWarningEnabled</code> to <code>false</code>.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+ If <code>notification n/tip t/on</code> was executed, <code>NotificationHandler#toggleTipNotifications</code> would be called to set <code>NotificationHandler#isTipEnabled</code>
+ to <code>true</code>.
+ If`notification t/on` was executed, <code>NotificationHandler#toggleBothNotifications</code> will be called instead.
+</td>
+</tr>
+</table>
+</div>
+</li>
+</ol>
 </div>
 </div>
 </div>
@@ -2686,4 +2785,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-31 15:04:51 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-31 15:44:04 UTC</div></div></div></body></html>
