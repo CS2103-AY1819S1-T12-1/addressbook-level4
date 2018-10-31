@@ -35,10 +35,11 @@
 <li><a href="#user-accounts-system">4.2. User Accounts System</a></li>
 <li><a href="#statistics">4.3. Statistics</a></li>
 <li><a href="#find">4.4. Find</a></li>
-<li><a href="#user-interface-redesign">4.5. User Interface Redesign</a></li>
-<li><a href="#budget">4.6. Budget</a></li>
-<li><a href="#logging">4.7. Logging</a></li>
-<li><a href="#Implementation-Configuration">4.8. Configuration</a></li>
+<li><a href="#mass-edit">4.5. Mass Edit</a></li>
+<li><a href="#user-interface-redesign">4.6. User Interface Redesign</a></li>
+<li><a href="#budget">4.7. Budget</a></li>
+<li><a href="#logging">4.8. Logging</a></li>
+<li><a href="#Implementation-Configuration">4.9. Configuration</a></li>
 </ul>
 </li>
 <li><a href="#documentation">5. Documentation</a>
@@ -1108,7 +1109,7 @@ which then creates a <code>FindCommandParser</code> Object and calls <code>FindC
 an <code>ArgumentMultimap</code> Object.</p>
 </li>
 <li>
-<p><code>FindCommandParser#parse()</code> method then calls <code>FindCommandParser#ensureKeywordsAreValid()</code> method. If any
+<p><code>FindCommandParser#parse()</code> method then calls <code>ParserUtil#ensureKeywordsAreValid()</code> method. If any
 of the keywords doesn&#8217;t conform to the correct format, <code>ParseException</code> will be thrown. If no exception is thrown, a
 <code>ExpenseContainsKeywordsPredicate</code> Object is created. It implements Predicate&lt;Expense&gt; interface and is used to filter
 out all the expenses which matches the keywords entered by the user.</p>
@@ -1118,18 +1119,63 @@ out all the expenses which matches the keywords entered by the user.</p>
 <code>LogicManager</code>.</p>
 </li>
 <li>
-<p><code>LogicManager</code> then calls <code>StatsCommand#execute()</code>,which calls <code>ModelManager#updateFilteredExpenseList()</code>
+<p><code>LogicManager</code> then calls <code>FindCommand#execute()</code>,which calls <code>Model#updateFilteredExpenseList()</code>
 method to update the predicate of FilterList&lt;Expense&gt;. FilterList now contains new set of expenses which filtered by the
 new predicate.</p>
 </li>
 <li>
-<p>Then the expense list panel will show a new set of expenses according to the keywords.</p>
+<p>Then the expense list panel will show a new set of expenses according to the keywords. A <code>CommandResult</code> is then created
+and returned to <code>LogicManager</code>.</p>
 </li>
 </ol>
 </div>
 </div>
 <div class="sect2">
-<h3 id="user-interface-redesign"><a class="link" href="#user-interface-redesign">4.5. User Interface Redesign</a></h3>
+<h3 id="mass-edit"><a class="link" href="#mass-edit">4.5. Mass Edit</a></h3>
+<div class="paragraph">
+<p>Below is the UML sequence diagram and a step-by-step explanation of an example usage scenario.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/implementation/MassEditCommandSequenceDiagram.png" alt="MassEditCommandSequenceDiagram" width="800">
+</div>
+<div class="title">Figure 16. Sequence diagram of mass edit mechanism</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>User enters command <code>massedit c/school &#8594; c/work d/01-01-2018</code>. The command is received by <code>ExpenseTrackerParser</code>,
+which then creates a <code>MassEditCommandParser</code> Object and calls <code>MassEditCommandParser#parse()</code> method.</p>
+</li>
+<li>
+<p><code>MassEditCommandParser#parse()</code> method calls <code>ArgumentTokenizer#tokenize()</code> to tokenize the input String into keywords and store them in
+two <code>ArgumentMultimap</code> Objects.</p>
+</li>
+<li>
+<p><code>MassEditCommandParser#parse()</code> method then create a <code>ExpenseContainsKeywordsPredicate</code> Object. Then it calls <code>EditExpenseDescriptor#createEditExpenseDescriptor()</code> method to create an
+<code>EditExpenseDescriptor</code> Object which stores the fields of expenses which are going to be edited.</p>
+</li>
+<li>
+<p>A <code>MassEditCommand</code> Object with the <code>ExpenseContainsKeywordsPredicate</code> and <code>EditExpenseDescriptor</code> Object as parameters is created and returned to
+<code>LogicManager</code>.</p>
+</li>
+<li>
+<p><code>LogicManager</code> then calls <code>MassEditCommand#execute()</code>,which calls <code>Model#updateFilteredExpenseList()</code>
+method to update the predicate of FilterList&lt;Expense&gt;. <code>Model#getFilteredExpenseList()</code> is called to return the FilterList&lt;Expense&gt;.</p>
+</li>
+<li>
+<p>A loop starts and for each <code>Expense</code> in the FilterList&lt;Expense&gt;, <code>EditExpenseDescriptor#createEditedExpense()</code> is called to create an edited Expense object.
+Then <code>Model#updateExpense</code> is called to replace the original <code>Expense</code> with edited <code>Expense</code>.</p>
+</li>
+<li>
+<p>When loop ends, <code>Model#updateFilteredExpenseList()</code> is called again to show the edit <code>Expense</code> to the user.
+A <code>CommandResult</code> is then created and returned to <code>LogicManager</code>.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="user-interface-redesign"><a class="link" href="#user-interface-redesign">4.6. User Interface Redesign</a></h3>
 <div class="paragraph">
 <p>The UI has been redesigned to implement the following UI elements required for the Expense Tracker:</p>
 </div>
@@ -1153,7 +1199,7 @@ new predicate.</p>
 <p>Animations will also be incorporated into the UI elements for a better user experience.</p>
 </div>
 <div class="sect3">
-<h4 id="totalbudget-panel"><a class="link" href="#totalbudget-panel">4.5.1. totalBudget Panel</a></h4>
+<h4 id="totalbudget-panel"><a class="link" href="#totalbudget-panel">4.6.1. totalBudget Panel</a></h4>
 <div class="paragraph">
 <p>The <code>totalBudget</code> panel consists of 3 UI elements:</p>
 </div>
@@ -1274,7 +1320,7 @@ Similarly, if the user has gone from over budget to under budget, the color of
 <div class="content">
 <img src="images/implementation/BudgetPanelSequenceDiagram.png" alt="BudgetPanelSequenceDiagram" width="800">
 </div>
-<div class="title">Figure 16. Sequence diagram of the <code>BudgetPanel</code> update</div>
+<div class="title">Figure 17. Sequence diagram of the <code>BudgetPanel</code> update</div>
 </div>
 <div class="sect4">
 <h5 id="design-considerations-3"><a class="link" href="#design-considerations-3">Design Considerations</a></h5>
@@ -1315,9 +1361,9 @@ Similarly, if the user has gone from over budget to under budget, the color of
 </div>
 </div>
 <div class="sect2">
-<h3 id="budget"><a class="link" href="#budget">4.6. Budget</a></h3>
+<h3 id="budget"><a class="link" href="#budget">4.7. Budget</a></h3>
 <div class="sect3">
-<h4 id="current-implementation-3"><a class="link" href="#current-implementation-3">4.6.1. Current Implementation</a></h4>
+<h4 id="current-implementation-3"><a class="link" href="#current-implementation-3">4.7.1. Current Implementation</a></h4>
 <div class="paragraph">
 <p>The budget feature allows the user to set a budget for a specific time period.
 If the user&#8217;s total spending exceeds their budget in the specified time period, a warning will be shown to the user.</p>
@@ -1334,7 +1380,7 @@ If the user&#8217;s total spending exceeds their budget in the specified time pe
 <div class="content">
 <img src="images/implementation/BudgetCommandSequenceDiagram.png" alt="BudgetCommandSequenceDiagram" width="800">
 </div>
-<div class="title">Figure 17. Sequence diagram of a user setting a budget.</div>
+<div class="title">Figure 18. Sequence diagram of a user setting a budget.</div>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -1389,7 +1435,7 @@ be set to <code>currentTime</code> + <code>recurrenceFrequency</code>.</p>
 <div class="content">
 <img src="images/implementation/SetRecurringBudgetCommandSequenceDiagram.png" alt="SetRecurringBudgetCommandSequenceDiagram" width="800">
 </div>
-<div class="title">Figure 18. Sequence diagram of a user setting a recurrence frequency.</div>
+<div class="title">Figure 19. Sequence diagram of a user setting a recurrence frequency.</div>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -1468,7 +1514,7 @@ usage of the expense tracker, but rather provide helpful information. For exampl
 </div>
 </div>
 <div class="sect3">
-<h4 id="alternatives-considered"><a class="link" href="#alternatives-considered">4.6.2. Alternatives considered</a></h4>
+<h4 id="alternatives-considered"><a class="link" href="#alternatives-considered">4.7.2. Alternatives considered</a></h4>
 <div class="paragraph">
 <p>Recurrence check was initially implemented via events. Every time <code>ModelManager#loadUserData()</code> is called, an event
 will be sent to the <code>EventBus</code> to be dispatched to an event handler implemented in <code>Budget</code>. However, after heavy
@@ -1479,14 +1525,14 @@ else. Therefore, it should be more closely coupled with <code>loadUserData()</co
 </div>
 </div>
 <div class="sect2">
-<h3 id="logging"><a class="link" href="#logging">4.7. Logging</a></h3>
+<h3 id="logging"><a class="link" href="#logging">4.8. Logging</a></h3>
 <div class="paragraph">
 <p>We are using <code>java.util.logging</code> package for logging. The <code>LogsCenter</code> class is used to manage the logging levels and logging destinations.</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 4.8, &#8220;Configuration&#8221;</a>)</p>
+<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 4.9, &#8220;Configuration&#8221;</a>)</p>
 </li>
 <li>
 <p>The <code>Logger</code> for a class can be obtained using <code>LogsCenter.getLogger(Class)</code> which will log messages according to the specified logging level</p>
@@ -1517,7 +1563,7 @@ else. Therefore, it should be more closely coupled with <code>loadUserData()</co
 </div>
 </div>
 <div class="sect2">
-<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">4.8. Configuration</a></h3>
+<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">4.9. Configuration</a></h3>
 <div class="paragraph">
 <p>Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: <code>config.json</code>).</p>
 </div>
@@ -1581,7 +1627,7 @@ like the figure below should show up.</p>
 <div class="content">
 <img src="images/chrome_save_as_pdf.png" alt="chrome save as pdf" width="300">
 </div>
-<div class="title">Figure 19. Saving documentation as PDF files in Chrome</div>
+<div class="title">Figure 20. Saving documentation as PDF files in Chrome</div>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -2640,4 +2686,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-31 14:27:26 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-31 15:04:51 UTC</div></div></div></body></html>

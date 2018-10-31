@@ -28,19 +28,20 @@
 <li><a href="#viewing-help-code-help-code">4.4. Viewing help : <code>help</code></a></li>
 <li><a href="#adding-an-expense-code-add-code">4.5. Adding an expense: <code>add</code></a></li>
 <li><a href="#editing-an-expense-code-edit-code">4.6. Editing an expense : <code>edit</code></a></li>
-<li><a href="#deleting-a-expense-code-delete-code">4.7. Deleting a expense : <code>delete</code></a></li>
-<li><a href="#locating-expenses-by-keywords-code-find-code">4.8. Locating expenses by keywords: <code>find</code></a></li>
-<li><a href="#listing-all-expenses-code-list-code">4.9. Listing all expenses : <code>list</code></a></li>
-<li><a href="#setting-a-total-budget-code-setbudget-code">4.10. Setting a total budget: <code>setBudget</code></a></li>
-<li><a href="#setting-a-recurring-frequency-for-totalbudget-code-setrecurrencefrequency-code">4.11. Setting a recurring frequency for totalBudget: <code>setRecurrenceFrequency</code></a></li>
-<li><a href="#adding-a-category-budget-code-addcategorybudget-code">4.12. Adding a Category Budget: <code>addCategoryBudget</code></a></li>
-<li><a href="#listing-entered-commands-code-history-code">4.13. Listing entered commands : <code>history</code></a></li>
-<li><a href="#undoing-previous-command-code-undo-code">4.14. Undoing previous command : <code>undo</code></a></li>
-<li><a href="#redoing-the-previously-undone-command-code-redo-code">4.15. Redoing the previously undone command : <code>redo</code></a></li>
-<li><a href="#showing-expense-statistics-code-stats-code">4.16. Showing expense statistics: <code>stats</code></a></li>
-<li><a href="#toggling-notifications-code-notification-code">4.17. Toggling Notifications: <code>notification</code></a></li>
-<li><a href="#clearing-all-entries-code-clear-code">4.18. Clearing all entries : <code>clear</code></a></li>
-<li><a href="#exiting-the-program-code-exit-code">4.19. Exiting the program : <code>exit</code></a></li>
+<li><a href="#editing-multiple-expenses-code-massedit-code">4.7. Editing multiple expenses : <code>massedit</code></a></li>
+<li><a href="#deleting-a-expense-code-delete-code">4.8. Deleting a expense : <code>delete</code></a></li>
+<li><a href="#locating-expenses-by-keywords-code-find-code">4.9. Locating expenses by keywords: <code>find</code></a></li>
+<li><a href="#listing-all-expenses-code-list-code">4.10. Listing all expenses : <code>list</code></a></li>
+<li><a href="#setting-a-total-budget-code-setbudget-code">4.11. Setting a total budget: <code>setBudget</code></a></li>
+<li><a href="#setting-a-recurring-frequency-for-totalbudget-code-setrecurrencefrequency-code">4.12. Setting a recurring frequency for totalBudget: <code>setRecurrenceFrequency</code></a></li>
+<li><a href="#adding-a-category-budget-code-addcategorybudget-code">4.13. Adding a Category Budget: <code>addCategoryBudget</code></a></li>
+<li><a href="#listing-entered-commands-code-history-code">4.14. Listing entered commands : <code>history</code></a></li>
+<li><a href="#undoing-previous-command-code-undo-code">4.15. Undoing previous command : <code>undo</code></a></li>
+<li><a href="#redoing-the-previously-undone-command-code-redo-code">4.16. Redoing the previously undone command : <code>redo</code></a></li>
+<li><a href="#showing-expense-statistics-code-stats-code">4.17. Showing expense statistics: <code>stats</code></a></li>
+<li><a href="#toggling-notifications-code-notification-code">4.18. Toggling Notifications: <code>notification</code></a></li>
+<li><a href="#clearing-all-entries-code-clear-code">4.19. Clearing all entries : <code>clear</code></a></li>
+<li><a href="#exiting-the-program-code-exit-code">4.20. Exiting the program : <code>exit</code></a></li>
 </ul>
 </li>
 <li><a href="#faq">5. FAQ</a></li>
@@ -537,7 +538,84 @@ Edits the date of the 2nd expense in the expense list to be the 1st of October, 
 </div>
 </div>
 <div class="sect2">
-<h3 id="deleting-a-expense-code-delete-code"><a class="link" href="#deleting-a-expense-code-delete-code">4.7. Deleting a expense : <code>delete</code></a></h3>
+<h3 id="editing-multiple-expenses-code-massedit-code"><a class="link" href="#editing-multiple-expenses-code-massedit-code">4.7. Editing multiple expenses : <code>massedit</code></a></h3>
+<div class="paragraph">
+<p>Edits the expenses with the keywords specified by the user.
+Existing values of the expense will be edited according to the value of the parameters<br></p>
+</div>
+<div class="paragraph">
+<p>Format: <code>massedit [n/EXPENSE_NAME] [$/COST] [c/CATEGORY] [d/DATE] [t/TAG&#8230;&#8203;] &#8594; [n/EXPENSE_NAME] [$/COST] [c/CATEGORY] [d/DATE] [t/TAG&#8230;&#8203;]</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Examples:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>massedit c/school &#8594; c/food</code><br>
+Edits the expenses under <code>school</code> category.
+The category of these expenses is changed to <code>food</code>.</p>
+</li>
+<li>
+<p><code>massedit n/School fee d/01-10-2018:03-10-2018 &#8594; t/books</code><br>
+Edits expenses, whose names contain <code>school</code>,with date between <code>01-10-2018</code> and <code>03-10-2018</code>(inclusively).
+The tags of these expenses are changed to <code>book</code> tag.</p>
+</li>
+<li>
+<p><code>massedit $/1.00:2.00 &#8594; c/waste n/saving</code><br>
+Edits expenses with cost between 1.00 and 2.00 inclusively.
+The category and name of these expenses are changed to <code>waste</code> and <code>saving</code> respecitvely.</p>
+</li>
+<li>
+<p><code>massedit c/shopping $/100.00 &#8594; n/waste $/200.00</code><br>
+Edits the expenses with cost of <code>100.00</code> under <code>shopping</code> category.
+The name and cost of these expenses are changed to <code>waste</code> and <code>200.00</code> respectively.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="ulist">
+<ul>
+<li>
+<p><code>&#8594;</code> can be key in by typing <code>-</code> followed by <code>&gt;</code>.</p>
+</li>
+<li>
+<p>At least one keyword before <code>&#8594;</code> and one keyword after <code>&#8594;</code> must be provided.</p>
+</li>
+<li>
+<p>The order of the keywords doesn&#8217;t matter.</p>
+</li>
+<li>
+<p>Keywords are case insensitive, i.e. the KEYWORD <code>have</code> is equivalent to the KEYWORD <code>Have</code></p>
+</li>
+<li>
+<p>COST should be a non-zero positive number with two decimal places</p>
+</li>
+<li>
+<p>DATE should be in the format of "dd-mm-yyyy".</p>
+</li>
+<li>
+<p>Only tag keywords can have multiple keywords. Name/Category/Cost/Date can only have one keywords.</p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="deleting-a-expense-code-delete-code"><a class="link" href="#deleting-a-expense-code-delete-code">4.8. Deleting a expense : <code>delete</code></a></h3>
 <div class="paragraph">
 <p>Deletes the expense at the specified <code>INDEX</code>. The <code>INDEX</code> refers to the index number shown in the displayed expense list
 next to the name of the expense.<br></p>
@@ -580,10 +658,10 @@ Deletes the 1st expense in the expense list from Expense Tracker.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="locating-expenses-by-keywords-code-find-code"><a class="link" href="#locating-expenses-by-keywords-code-find-code">4.8. Locating expenses by keywords: <code>find</code></a></h3>
+<h3 id="locating-expenses-by-keywords-code-find-code"><a class="link" href="#locating-expenses-by-keywords-code-find-code">4.9. Locating expenses by keywords: <code>find</code></a></h3>
 <div class="paragraph">
 <p>Finds expense which contains all the given keywords.<br>
-Format: <code>find [n/NAME] [c/CATEGORY] [$/COST:COST] [t/TAG] [d/DATE:DATE]</code></p>
+Format: `find [n/NAME] [c/CATEGORY] [$/COST:COST] [d/DATE:DATE] [t/TAG&#8230;&#8203;] `</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -642,7 +720,7 @@ Find all the expenses with tag "lunch" under "School" category on 1-10-2018.</p>
 <p>Partial word will be matched, i.e. the NAME KEYWORD <code>Hav</code> will match the expense name <code>Have</code></p>
 </li>
 <li>
-<p>Only tag keywords can have multiple keywords. Name/Category/Cost/Date can only have only keywords, i.e."Find n/school n/lunch" is invalid while "Find t/school t/lunch" is valid</p>
+<p>Only tag keywords can have multiple keywords. Name/Category/Cost/Date can only have one keywords, i.e."Find n/school n/lunch" is invalid while "Find t/school t/lunch" is valid</p>
 </li>
 </ul>
 </div>
@@ -652,7 +730,7 @@ Find all the expenses with tag "lunch" under "School" category on 1-10-2018.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="listing-all-expenses-code-list-code"><a class="link" href="#listing-all-expenses-code-list-code">4.9. Listing all expenses : <code>list</code></a></h3>
+<h3 id="listing-all-expenses-code-list-code"><a class="link" href="#listing-all-expenses-code-list-code">4.10. Listing all expenses : <code>list</code></a></h3>
 <div class="paragraph">
 <p>Updates the expense list to show all expenses in Expense Tracker.</p>
 </div>
@@ -664,7 +742,7 @@ Find all the expenses with tag "lunch" under "School" category on 1-10-2018.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="setting-a-total-budget-code-setbudget-code"><a class="link" href="#setting-a-total-budget-code-setbudget-code">4.10. Setting a total budget: <code>setBudget</code></a></h3>
+<h3 id="setting-a-total-budget-code-setbudget-code"><a class="link" href="#setting-a-total-budget-code-setbudget-code">4.11. Setting a total budget: <code>setBudget</code></a></h3>
 <div class="paragraph">
 <p>Sets <code>totalBudget</code> for Expense Tracker.<br></p>
 </div>
@@ -716,7 +794,7 @@ Sets a <code>totalBudget</code> of $20.00.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="setting-a-recurring-frequency-for-totalbudget-code-setrecurrencefrequency-code"><a class="link" href="#setting-a-recurring-frequency-for-totalbudget-code-setrecurrencefrequency-code">4.11. Setting a recurring frequency for totalBudget: <code>setRecurrenceFrequency</code></a></h3>
+<h3 id="setting-a-recurring-frequency-for-totalbudget-code-setrecurrencefrequency-code"><a class="link" href="#setting-a-recurring-frequency-for-totalbudget-code-setrecurrencefrequency-code">4.12. Setting a recurring frequency for totalBudget: <code>setRecurrenceFrequency</code></a></h3>
 <div class="paragraph">
 <p>Sets the recurrence frequency for the <code>totalBudget</code> of Expense Tracker.</p>
 </div>
@@ -768,7 +846,7 @@ Sets the spending of <code>totalBudget</code> reset every 1 hour and 30 minutes<
 </div>
 </div>
 <div class="sect2">
-<h3 id="adding-a-category-budget-code-addcategorybudget-code"><a class="link" href="#adding-a-category-budget-code-addcategorybudget-code">4.12. Adding a Category Budget: <code>addCategoryBudget</code></a></h3>
+<h3 id="adding-a-category-budget-code-addcategorybudget-code"><a class="link" href="#adding-a-category-budget-code-addcategorybudget-code">4.13. Adding a Category Budget: <code>addCategoryBudget</code></a></h3>
 <div class="paragraph">
 <p>Adds a Budget to limit spending on a certain category.</p>
 </div>
@@ -813,7 +891,7 @@ Adds a budget of $10 to the <code>School</code> category.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="listing-entered-commands-code-history-code"><a class="link" href="#listing-entered-commands-code-history-code">4.13. Listing entered commands : <code>history</code></a></h3>
+<h3 id="listing-entered-commands-code-history-code"><a class="link" href="#listing-entered-commands-code-history-code">4.14. Listing entered commands : <code>history</code></a></h3>
 <div class="paragraph">
 <p>Lists all the commands that you have previously entered in reverse chronological order.<br></p>
 </div>
@@ -836,7 +914,7 @@ Adds a budget of $10 to the <code>School</code> category.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="undoing-previous-command-code-undo-code"><a class="link" href="#undoing-previous-command-code-undo-code">4.14. Undoing previous command : <code>undo</code></a></h3>
+<h3 id="undoing-previous-command-code-undo-code"><a class="link" href="#undoing-previous-command-code-undo-code">4.15. Undoing previous command : <code>undo</code></a></h3>
 <div class="paragraph">
 <p>Restores Expense Tracker to the state before the previous <em>undoable</em> command was executed.<br>
 <em>Undoable</em> commands are commands that modify expenses in Expense Tracker (<code>add</code>, <code>delete</code>, <code>edit</code> and <code>clear</code>).<br></p>
@@ -875,7 +953,7 @@ The first <code>undo</code> reverses the <code>clear</code> command. The second 
 </div>
 </div>
 <div class="sect2">
-<h3 id="redoing-the-previously-undone-command-code-redo-code"><a class="link" href="#redoing-the-previously-undone-command-code-redo-code">4.15. Redoing the previously undone command : <code>redo</code></a></h3>
+<h3 id="redoing-the-previously-undone-command-code-redo-code"><a class="link" href="#redoing-the-previously-undone-command-code-redo-code">4.16. Redoing the previously undone command : <code>redo</code></a></h3>
 <div class="paragraph">
 <p>Restores Expense Tracker to the state before the most recent <code>undo</code> command.<br></p>
 </div>
@@ -919,7 +997,7 @@ The second`redo` reverses the first <code>undo</code> command, reapplying <code>
 </div>
 </div>
 <div class="sect2">
-<h3 id="showing-expense-statistics-code-stats-code"><a class="link" href="#showing-expense-statistics-code-stats-code">4.16. Showing expense statistics: <code>stats</code></a></h3>
+<h3 id="showing-expense-statistics-code-stats-code"><a class="link" href="#showing-expense-statistics-code-stats-code">4.17. Showing expense statistics: <code>stats</code></a></h3>
 <div class="paragraph">
 <p>Changes the expense list to show the statistics panel if the expense list is currently showing, then
 displays a bar chart of the expenditure over a specified time period, in a given <code>MODE</code>.<br></p>
@@ -963,7 +1041,7 @@ Shows the expense statistics for the past 3 months as a pie chart showing expens
 </div>
 </div>
 <div class="sect2">
-<h3 id="toggling-notifications-code-notification-code"><a class="link" href="#toggling-notifications-code-notification-code">4.17. Toggling Notifications: <code>notification</code></a></h3>
+<h3 id="toggling-notifications-code-notification-code"><a class="link" href="#toggling-notifications-code-notification-code">4.18. Toggling Notifications: <code>notification</code></a></h3>
 <div class="paragraph">
 <p>Toggles the ability of <code>Expense Tracker</code> to send notifications.</p>
 </div>
@@ -1026,7 +1104,7 @@ Disables the sending of both types of notifications.<br></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="clearing-all-entries-code-clear-code"><a class="link" href="#clearing-all-entries-code-clear-code">4.18. Clearing all entries : <code>clear</code></a></h3>
+<h3 id="clearing-all-entries-code-clear-code"><a class="link" href="#clearing-all-entries-code-clear-code">4.19. Clearing all entries : <code>clear</code></a></h3>
 <div class="paragraph">
 <p>Deletes all expense entries from Expense Tracker.<br></p>
 </div>
@@ -1035,7 +1113,7 @@ Disables the sending of both types of notifications.<br></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="exiting-the-program-code-exit-code"><a class="link" href="#exiting-the-program-code-exit-code">4.19. Exiting the program : <code>exit</code></a></h3>
+<h3 id="exiting-the-program-code-exit-code"><a class="link" href="#exiting-the-program-code-exit-code">4.20. Exiting the program : <code>exit</code></a></h3>
 <div class="paragraph">
 <p>Exits the program.<br></p>
 </div>
@@ -1172,4 +1250,4 @@ e.g. <code>stats n/7 m/d</code></p>
 </ul>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-31 14:27:26 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-31 15:04:51 UTC</div></div></div></body></html>
