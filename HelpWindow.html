@@ -1020,7 +1020,47 @@ command that changes the data.<br></p>
 </div>
 <div class="paragraph">
 <p><strong>Q</strong>: How do I transfer my data to another Computer?<br>
-<strong>A</strong>:  Install the app in the other computer and copy the <code>data</code> folder in your previous Expense Tracker folder over to the new Expense Tracker folder on your other Computer.</p>
+<strong>A</strong>:  Install the app in the other computer and copy the <code>data</code> folder in your previous Expense Tracker folder over to the new Expense Tracker folder on your other Computer.
+If you wish to copy only one user over, create a folder named <code>data</code> in the app directory on the other computer and copy the xml file with your username in the <code>data</code> folder of the old computer into the <code>data</code> folder of the new computer.</p>
+</div>
+<div class="paragraph">
+<p><strong>Q</strong>: How is my expense data kept safe when I use this application?<br>
+<strong>A</strong>: All user expense-specific data is encrypted. The program ensures that no one will be able to decrypt encrypted information without your actual plain text password, which is not stored anywhere. So rest assured that no one can access your data without your password.</p>
+</div>
+<div class="paragraph">
+<p><strong>Q</strong>: How do I manually encrypt text to edit my user XML file as a technologically-savvy user?<br>
+<strong>A</strong>: You can carry out the following steps to do so:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Open <a href="http://murmurhash.shorelabs.com/">this website</a> and wait for it to load.</p>
+</li>
+<li>
+<p>Under <code>MurmurHash3 (32/128 bit, x86/x64)</code>, enter your password in the text box labelled <code>An ASCII Text</code>.</p>
+</li>
+<li>
+<p>Under the text box from step 2, there is a dropdown menu that has <code>x86</code> selected. Click on it and select <code>x64</code>.</p>
+</li>
+<li>
+<p>Beside the menu from step 3, there is a dropdown menu that has <code>32-bit</code> selected. Click on it and select <code>128-bit</code>.</p>
+</li>
+<li>
+<p>Note down the string of characters on the bottom left of the text box from step 2. This is your <code>encryption key</code>.</p>
+</li>
+<li>
+<p>Open <a href="https://www.devglan.com/online-tools/aes-encryption-decryption">this website</a> and wait for it to load.</p>
+</li>
+<li>
+<p>Use the left column on the web page and enter the text you wish to encrypt.</p>
+</li>
+<li>
+<p>Use the <code>encryption</code> key from step 5 as the <code>secret key</code> and leave the other options as default.</p>
+</li>
+<li>
+<p>Click on the <code>Encrypt</code> button to get the encrypted text you want.</p>
+</li>
+</ol>
 </div>
 </div>
 </div>
@@ -1095,4 +1135,4 @@ e.g. <code>stats n/7 m/d</code></p>
 </ul>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-30 20:41:31 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-31 07:46:55 UTC</div></div></div></body></html>
