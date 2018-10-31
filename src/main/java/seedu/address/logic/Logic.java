@@ -6,13 +6,16 @@ import javafx.collections.ObservableList;
 
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.StatsCommand.StatsMode;
+import seedu.address.logic.commands.StatsCommand.StatsPeriod;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.budget.Budget;
+import seedu.address.model.budget.TotalBudget;
+import seedu.address.model.exceptions.InvalidDataException;
 import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.exceptions.NonExistentUserException;
 import seedu.address.model.exceptions.UserAlreadyExistsException;
 import seedu.address.model.expense.Expense;
+import seedu.address.model.notification.Notification;
 
 /**
  * API of the Logic component
@@ -26,9 +29,9 @@ public interface Logic {
      * @throws ParseException If an error occurs during parsing.
      */
     CommandResult execute(String commandText) throws CommandException, ParseException, NoUserSelectedException,
-            UserAlreadyExistsException, NonExistentUserException;
+            UserAlreadyExistsException, NonExistentUserException, InvalidDataException;
 
-    Budget getMaximumBudget();
+    TotalBudget getMaximumBudget() throws NoUserSelectedException;
 
     /**
      * @return an unmodifiable view of the filtered list of expenses
@@ -50,7 +53,24 @@ public interface Logic {
      */
     StatsMode getStatsMode() throws NoUserSelectedException;
 
+    /**
+     * @return a StatsPeriod representing the current period of statistics
+     * @throws NoUserSelectedException
+     */
+    StatsPeriod getStatsPeriod() throws NoUserSelectedException;
+
+    /**
+     * @return an int representing the user selected number of days or months
+     * @throws NoUserSelectedException
+     */
+    int getPeriodAmount() throws NoUserSelectedException;
+
     /** Returns the list of input entered by the user, encapsulated in a {@code ListElementPointer} object */
     ListElementPointer getHistorySnapshot();
+
+    /** Returns an iterator of the list of categories and their total expenses */
+    //Iterator getCategoryList();
+
+    ObservableList<Notification> getNotificationList() throws NoUserSelectedException;
 
 }

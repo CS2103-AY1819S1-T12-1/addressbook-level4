@@ -11,7 +11,7 @@ import seedu.address.model.Model;
 import seedu.address.model.exceptions.NoUserSelectedException;
 
 /**
- * Reverts the {@code model}'s address book to its previously undone state.
+ * Reverts the {@code model}'s expense tracker to its previously undone state.
  */
 public class RedoCommand extends Command {
 

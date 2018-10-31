@@ -8,7 +8,7 @@
 :stylesDir: stylesheets
 :experimental:
 ifdef::env-github[]
-:tip-caption: :bulb:
+:tips-caption: :bulb:
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]

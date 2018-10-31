@@ -8,15 +8,15 @@ import org.junit.Test;
 
 import guitests.guihandles.BudgetPanelHandle;
 import seedu.address.commons.events.ui.UpdateBudgetPanelEvent;
-import seedu.address.model.budget.Budget;
+import seedu.address.model.budget.TotalBudget;
 
 //@@author Snookerballs
-public class BudgetPanelTest extends GuiUnitTest {
+public class TotalBudgetPanelTest extends GuiUnitTest {
     private BudgetPanelHandle budgetPanelHandle;
 
     @Before
     public void setUp() throws InterruptedException {
-        BudgetPanel budgetPanel = new BudgetPanel(new Budget(0, 0));
+        BudgetPanel budgetPanel = new BudgetPanel(new TotalBudget(0, 0));
         Thread.sleep(1000);
         uiPartRule.setUiPart(budgetPanel);
         budgetPanelHandle = new BudgetPanelHandle(budgetPanel.getRoot());
@@ -54,7 +54,7 @@ public class BudgetPanelTest extends GuiUnitTest {
     }
 
     private UpdateBudgetPanelEvent generateUpdateBudgetPanelEvent(double expense, double budget) {
-        return new UpdateBudgetPanelEvent(new Budget(budget, expense));
+        return new UpdateBudgetPanelEvent(new TotalBudget(budget, expense));
     }
 
 }

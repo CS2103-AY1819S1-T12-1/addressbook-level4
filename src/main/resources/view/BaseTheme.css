@@ -1,3 +1,7 @@
+@font-face {
+    url("fonts/Amazing Infographic@ Free.otf") format("woff");
+}
+
 .background {
     -fx-background-color: derive(#e6e6e6, 20%);
     background-color: #383838; /* Used in the default.html file */
@@ -5,28 +9,27 @@
 
 .label {
     -fx-font-size: 11pt;
-    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-family: "Amazing Infographic@";
     -fx-text-fill: #555555;
     -fx-opacity: 0.9;
 }
 
 .label-bright {
     -fx-font-size: 11pt;
-    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-family: "Amazing Infographic@";
     -fx-text-fill: white;
     -fx-opacity: 1;
 }
-
 .label-header {
     -fx-font-size: 32pt;
-    -fx-font-family: "Segoe UI Light";
+    -fx-font-family: "Amazing Infographic@";
     -fx-text-fill: white;
     -fx-opacity: 1;
 }
 
 .text-field {
     -fx-font-size: 12pt;
-    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-family: "Futura";
 }
 
 .tab-pane {
@@ -66,7 +69,7 @@
 
 .table-view .column-header .label {
     -fx-font-size: 20pt;
-    -fx-font-family: "Segoe UI Light";
+    -fx-font-family: "Futura";
     -fx-text-fill: white;
     -fx-alignment: center-left;
     -fx-opacity: 1;
@@ -89,7 +92,6 @@
     -fx-padding: 0 1 0 1;
 }
 
-
 .list-view {
     -fx-background-insets: 0;
     -fx-padding: 10px 5px 10px 5px;
@@ -97,36 +99,32 @@
 }
 
 .list-cell {
-    -fx-padding: 0 0 10px 0;
+    -fx-padding: 10px;
     -fx-background-color: transparent, -fx-background;
     -fx-background-insets: 0px, 5px ;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 5, 0, 0, 5);
 }
 
 .list-cell:empty {
-    -fx-padding: 0 0 10px 0;
     -fx-background-color: transparent ;
     -fx-background-insets: 0 ;
 }
 
 .list-cell:filled:selected {
-    -fx-padding: 0 0 10px 0;
-    -fx-background-color: #9c7a5e;
-}
-
-.list-cell:filled:selected #cardPane {
-    -fx-border-color: #3e7b91;
-    -fx-border-width: 1;
+    -fx-background-color: derive(#e8b68a, 20%);
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 5, 0, 0, 5);
+    -fx-border-color:  derive(#e86200, 50%);
+    -fx-border-width: 3;
 }
 
 .cell_big_label {
-    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-family: "Amazing Infographic@";
     -fx-font-size: 16px;
     -fx-text-fill: #464646;
 }
 
 .cell_small_label {
-    -fx-font-family: "Segoe UI";
+    -fx-font-family: "Futura";
     -fx-font-size: 13px;
     -fx-text-fill: #464646;
 }
@@ -142,7 +140,7 @@
 
 .result-display {
     -fx-background-color: transparent;
-    -fx-font-family: "Segoe UI Light";
+    -fx-font-family: "Futura";
     -fx-text-alignment: center;
     -fx-font-size: 13pt;
     -fx-text-fill: white;
@@ -155,7 +153,7 @@
 }
 
 .status-bar .label {
-    -fx-font-family: "Segoe UI Light";
+    -fx-font-family: "Futura";
     -fx-text-fill: white;
 }
 
@@ -193,7 +191,7 @@
 
 .menu-bar .label {
     -fx-font-size: 14pt;
-    -fx-font-family: "Segoe UI Light";
+    -fx-font-family: "Futura";
     -fx-text-fill: white;
     -fx-opacity: 0.9;
 }
@@ -309,12 +307,11 @@
 }
 
 #commandTextField {
-    -fx-background-color: #95b4b5;
+    -fx-background-color: #9ab4b5;
     -fx-background-insets: 0;
     -fx-border-color: #1b998b;
     -fx-border-insets: 0;
     -fx-border-width: 5;
-    -fx-font-family: "Segoe UI Light";
     -fx-font-size: 13pt;
     -fx-text-fill: #FFF;
 }
@@ -328,10 +325,11 @@
 }
 
 #resultDisplay .content {
-    -fx-background-color: #95b4b5;
+    -fx-background-color: #9ab4b5;
     -fx-background-radius: 0;
     -fx-border-color: #1b998b;
     -fx-border-width: 5;
+    -fx-font-size: 10;
 }
 
 #tags {
@@ -355,7 +353,6 @@
 
 #title .label {
     -fx-font-size: 30pt;
-    -fx-font-family: "Segoe UI Semibold";
     -fx-text-fill: #fff;
     -fx-padding: 10px;
 }
@@ -366,11 +363,21 @@
     -fx-padding: 5px;
 }
 
-#notificationPanel .label, #budgetPanel .label, #statisticLabel{
-    -fx-font-size: 20pt;
-    -fx-font-family: "Segoe UI Semibold";
+#notificationPanel .label, #budgetPanel .label, #statisticPanel #statisticHeader {
+    -fx-font-size: 25pt;
     -fx-text-fill: #656565;
-    -fx-padding: 5px;
+    -fx-padding: 5px 5px 5px 10px;
+}
+
+#statisticPanel #chartArea {
+    -fx-padding: 10px 5px 10px 5px;
+}
+
+
+#statisticPanel {
+    -fx-background-color: #FFF;
+    -fx-alignment: CENTER;
+    -fx-padding: 10px 5px 10px 5px;
 }
 
 #budgetBar > .track {
@@ -382,23 +389,23 @@
     -fx-accent: derive(#61a15a, 20%);
 }
 
-#budgetPanel {
+#budgetPanel #percentageDisplay {
+    -fx-translate-y: 20px;
     -fx-font-size: 20pt;
-    -fx-font-family: "Segoe UI Semibold";
 }
 
-#budgetDisplay{
-    -fx-fill: #656565;
+#notificationListView #header {
+    -fx-font-size: 15pt;
+    -fx-font-family: "Futura";
+    -fx-padding: 10px;
 }
 
-#expenseDisplay {
+#notificationListView #body {
+    -fx-font-size: 10pt;
+    -fx-font-family: "Futura";
+    -fx-padding: 10px;
+}
+
+#notificationCardPane #notificationCardAnchor .label{
     -fx-fill: #61a15a;
-}
-
-.greenBar {
-
-}
-
-.redBar {
-
 }

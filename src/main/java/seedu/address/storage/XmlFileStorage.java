@@ -25,7 +25,7 @@ public class XmlFileStorage {
     }
 
     /**
-     * Returns address book in the file or an empty address book
+     * Returns expense tracker in the file or an empty expense tracker
      */
     public static XmlSerializableExpenseTracker loadDataFromSaveFile(Path file) throws DataConversionException,
                                                                             FileNotFoundException {

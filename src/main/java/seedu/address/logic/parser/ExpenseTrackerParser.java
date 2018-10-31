@@ -6,6 +6,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import seedu.address.logic.commands.AddCategoryBudgetCommand;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
@@ -17,6 +18,8 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.LoginCommand;
+import seedu.address.logic.commands.MassEditCommand;
+import seedu.address.logic.commands.NotificationCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.SetBudgetCommand;
@@ -61,6 +64,10 @@ public class ExpenseTrackerParser {
         case EditCommand.COMMAND_ALIAS:
         case EditCommand.COMMAND_WORD:
             return new EditCommandParser().parse(arguments);
+
+        case MassEditCommand.COMMAND_ALIAS:
+        case MassEditCommand.COMMAND_WORD:
+            return new MassEditCommandParser().parse(arguments);
 
         case SelectCommand.COMMAND_ALIAS:
         case SelectCommand.COMMAND_WORD:
@@ -120,9 +127,18 @@ public class ExpenseTrackerParser {
         case SetRecurringBudgetCommand.COMMAND_WORD:
         case SetRecurringBudgetCommand.COMMAND_ALIAS:
             return new SetRecurringBudgetCommandParser().parse(arguments);
+
+        case AddCategoryBudgetCommand.COMMAND_WORD:
+        case AddCategoryBudgetCommand.COMMAND_ALIAS:
+            return new AddCategoryBudgetCommandParser().parse(arguments);
+
         case SetPasswordCommand.COMMAND_WORD:
         case SetPasswordCommand.COMMAND_ALIAS:
             return new SetPasswordCommandParser().parse(arguments);
+
+        case NotificationCommand.COMMAND_WORD:
+        case NotificationCommand.COMMAND_ALIAS:
+            return new NotificationCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

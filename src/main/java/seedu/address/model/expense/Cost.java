@@ -1,13 +1,12 @@
 package seedu.address.model.expense;
 
-import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Expense's cost in the address book.
+ * Represents a Expense's cost in the expense tracker.
  * Guarantees: immutable; is valid as declared in {@link #isValidCost(String)}
  */
-public class Cost {
+public class Cost extends ExpenseField {
 
     public static final String MESSAGE_COST_CONSTRAINTS =
             "Cost should only take values in the following format: {int}.{digit}{digit}";
@@ -22,11 +21,10 @@ public class Cost {
 
     /**
      * Constructs an {@code Cost}.
-     *
      * @param cost A valid cost.
      */
     public Cost(String cost) {
-        requireNonNull(cost);
+        super(cost);
         checkArgument(isValidCost(cost), MESSAGE_COST_CONSTRAINTS);
         value = cost;
     }
@@ -40,11 +38,6 @@ public class Cost {
 
     public double getCostValue() {
         return Double.parseDouble(this.value);
-    }
-
-    @Override
-    public String toString() {
-        return value;
     }
 
     @Override

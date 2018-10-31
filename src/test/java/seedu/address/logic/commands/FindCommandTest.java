@@ -10,6 +10,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_COST;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.testutil.ModelUtil.getTypicalModel;
 import static seedu.address.testutil.TypicalExpenses.BOOKS;
 import static seedu.address.testutil.TypicalExpenses.CLOTHES;
 import static seedu.address.testutil.TypicalExpenses.ICECREAM;
@@ -17,7 +18,6 @@ import static seedu.address.testutil.TypicalExpenses.LUNCH;
 import static seedu.address.testutil.TypicalExpenses.SCHOOLFEE;
 import static seedu.address.testutil.TypicalExpenses.TAX;
 import static seedu.address.testutil.TypicalExpenses.TOY;
-import static seedu.address.testutil.TypicalExpenses.getTypicalExpenseTracker;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -29,8 +29,6 @@ import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.UserPrefs;
 import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.expense.ExpenseContainsKeywordsPredicate;
 
@@ -38,8 +36,8 @@ import seedu.address.model.expense.ExpenseContainsKeywordsPredicate;
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
 public class FindCommandTest {
-    private Model model = new ModelManager(getTypicalExpenseTracker(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalExpenseTracker(), new UserPrefs());
+    private Model model = getTypicalModel();
+    private Model expectedModel = getTypicalModel();
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test

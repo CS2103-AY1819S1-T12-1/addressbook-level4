@@ -4,10 +4,11 @@ import static java.util.Objects.requireNonNull;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.model.encryption.EncryptionUtil.DEFAULT_ENCRYPTION_KEY;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Optional;
 import java.util.function.Predicate;
 
 import org.junit.Rule;
@@ -16,16 +17,18 @@ import org.junit.rules.ExpectedException;
 
 import javafx.collections.ObservableList;
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.StatsCommand.StatsMode;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.ExpenseTracker;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyExpenseTracker;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.budget.Budget;
+import seedu.address.model.budget.CategoryBudget;
+import seedu.address.model.budget.TotalBudget;
 import seedu.address.model.exceptions.NoUserSelectedException;
-import seedu.address.model.exceptions.NonExistentUserException;
 import seedu.address.model.expense.Expense;
+import seedu.address.model.notification.Notification;
+import seedu.address.model.notification.NotificationHandler;
+import seedu.address.model.user.LoginInformation;
 import seedu.address.model.user.Password;
 import seedu.address.model.user.Username;
 import seedu.address.testutil.ExpenseBuilder;
@@ -55,6 +58,7 @@ public class AddCommandTest {
         assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validExpense), commandResult.feedbackToUser);
         assertEquals(Arrays.asList(validExpense), modelStub.expensesAdded);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
+        assertFalse(modelStub.addWarningNotification());
     }
 
     @Test
@@ -65,6 +69,7 @@ public class AddCommandTest {
 
         assertEquals(AddCommand.MESSAGE_BUDGET_EXCEED_WARNING, commandResult.feedbackToUser);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
+        assertTrue(modelStub.addWarningNotification());
     }
 
     @Test
@@ -75,6 +80,7 @@ public class AddCommandTest {
 
         assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validExpense), commandResult.feedbackToUser);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
+        assertFalse(modelStub.addWarningNotification());
     }
 
     @Test
@@ -125,12 +131,22 @@ public class AddCommandTest {
             throw new AssertionError("setRecurrenceFrequency should not be called");
         }
         @Override
+        public void modifyCategoryBudget(CategoryBudget budget) {
+            throw new AssertionError("modifyCategoryBudget should not be called");
+
+        }
+        @Override
+        public void addCategoryBudget(CategoryBudget budget) {
+            throw new AssertionError("addCategoryBudget should not be called");
+
+        }
+        @Override
         public void resetData(ReadOnlyExpenseTracker newData) {
             throw new AssertionError("resetData method should not be called.");
         }
 
         @Override
-        public void modifyMaximumBudget(Budget budget) {
+        public void modifyMaximumBudget(TotalBudget totalBudget) {
             throw new AssertionError("modifyMaximumBudget method should not be called.");
         }
 
@@ -170,17 +186,37 @@ public class AddCommandTest {
         }
 
         @Override
-        public void updateExpenseStats(Predicate<Expense> predicate) {
+        public void updateExpenseStatsPredicate (Predicate<Expense> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void updateStatsMode(StatsMode statsMode) {
+        public StatsCommand.StatsMode getStatsMode() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public StatsMode getStatsMode() {
+        public void updateStatsMode(StatsCommand.StatsMode statsMode) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public StatsCommand.StatsPeriod getStatsPeriod() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateStatsPeriod(StatsCommand.StatsPeriod statsPeriod) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public int getPeriodAmount() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updatePeriodAmount(int x) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -210,7 +246,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean loadUserData(Username username, Optional<Password> password) throws NonExistentUserException {
+        public boolean loadUserData(LoginInformation loginInformation) {
             throw new AssertionError("loadUserData method should not be called.");
         }
 
@@ -240,18 +276,60 @@ public class AddCommandTest {
         }
 
         @Override
-        public void setPassword(Password password) throws NoUserSelectedException {
-            throw new AssertionError("copy method should not be called.");
+        public void setPassword(Password newPassword, String plainPassword) throws NoUserSelectedException {
+            throw new AssertionError("setPassword method should not be called.");
         }
 
         @Override
-        public boolean isMatchPassword(Optional<Password> toCheck) throws NoUserSelectedException {
+        public boolean isMatchPassword(Password toCheck) throws NoUserSelectedException {
             throw new AssertionError("isMatchPassword method should not be called.");
         }
 
         @Override
-        public Budget getMaximumBudget() {
-            throw new AssertionError("getMaximumBudget method should not be called.");
+        public boolean addWarningNotification() throws NoUserSelectedException {
+            throw new AssertionError("addWarningNotification should not be called.");
+        }
+
+        @Override
+        public boolean addTipNotification() throws NoUserSelectedException {
+            throw new AssertionError("addTipNotification should not be called.");
+        }
+
+        @Override
+        public ObservableList<Notification> getNotificationList() throws NoUserSelectedException {
+            throw new AssertionError("addNotificationList should not be called.");
+        }
+
+        @Override
+        public void toggleTipNotification(boolean toggleOption) throws NoUserSelectedException {
+            throw new AssertionError("toggleTipNotification should not be called.");
+        }
+
+        @Override
+        public void toggleWarningNotification(boolean toggleOption) throws NoUserSelectedException {
+            throw new AssertionError("toggleWarningNotification should not be called.");
+        }
+
+        @Override
+        public void toggleBothNotification(boolean toggleOption) throws NoUserSelectedException {
+            throw new AssertionError("toggleBothNotification should not be called.");
+        }
+
+        @Override
+        public NotificationHandler getNotificationHandler() throws NoUserSelectedException {
+            throw new AssertionError("getNotificationHandler should not be called.");
+        }
+
+        @Override
+        public void modifyNotificationHandler(LocalDateTime time, boolean isTipEnabled, boolean isWarningEnabled)
+                throws NoUserSelectedException {
+            throw new AssertionError("modifyNotificationHandler should not be called.");
+        }
+
+        @Override
+        public TotalBudget getMaximumBudget() {
+            throw new AssertionError("getMaximumTotalBudget method should not be called.");
+
         }
 
     }
@@ -274,9 +352,9 @@ public class AddCommandTest {
         }
 
         @Override
-        public Budget getMaximumBudget() {
+        public TotalBudget getMaximumBudget() {
             // called by {@param UpdateBudgetDisplayEvent}
-            return new Budget(0, 0);
+            return new TotalBudget(0, 0);
         }
     }
 
@@ -307,18 +385,23 @@ public class AddCommandTest {
 
         @Override
         public ReadOnlyExpenseTracker getExpenseTracker() {
-            return new ExpenseTracker(new Username("aa"), Optional.empty());
+            return new ExpenseTracker(new Username("aa"), null, DEFAULT_ENCRYPTION_KEY);
         }
 
         @Override
-        public Budget getMaximumBudget() {
+        public TotalBudget getMaximumBudget() {
             // called by {@param UpdateBudgetDisplayEvent}
-            return new Budget(0, 0);
+            return new TotalBudget(0, 0);
+        }
+
+        @Override
+        public boolean addWarningNotification() {
+            return false;
         }
     }
 
     /**
-     * A Model stub that will always result in a successful add, but can be within or above the budget
+     * A Model stub that will always result in a successful add, but can be within or above the totalBudget
      */
     private class ModelStubBudget extends ModelStub {
         private final boolean withinBudget;
@@ -340,13 +423,22 @@ public class AddCommandTest {
         }
         @Override
         public ReadOnlyExpenseTracker getExpenseTracker() {
-            return new ExpenseTracker(new Username("aa"), Optional.empty());
+            return new ExpenseTracker(new Username("aa"), null, DEFAULT_ENCRYPTION_KEY);
         }
 
         @Override
-        public Budget getMaximumBudget() {
+        public TotalBudget getMaximumBudget() {
             // called by {@param UpdateBudgetDisplayEvent}
-            return new Budget(0, 0);
+            return new TotalBudget(0, 0);
+        }
+
+        @Override
+        public boolean addWarningNotification() {
+            if (withinBudget) {
+                return false;
+            } else {
+                return true;
+            }
         }
     }
 

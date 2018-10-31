@@ -9,7 +9,7 @@
 :xrefstyle: full
 :experimental:
 ifdef::env-github[]
-:tip-caption: :bulb:
+:tips-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
 :repoURL: https://github.com/CS2103-AY1819S1-T12-1/main
@@ -123,7 +123,7 @@ These have the same effect as using the commands `exit` and `help` respectively.
 
 These are the features commands available to use in the Expense Tracker:
 
-=== Signing up a User : `signup`
+=== Signing up a user : `signup`
 Creates a a new user in the Expense Tracker.
 
 Format: `signup USERNAME`
@@ -140,7 +140,7 @@ Format: `signup USERNAME`
 * USERNAME must not contain any of the following characters :  > < : \ / | ?
 ====
 
-=== Logging in as an existing User : `login`
+=== Logging in as an existing user : `login`
 Logs in to the Expense Tracker as an existing user and expands the UI to show the existing expenses if it is not already expanded.
 
 Format: `login u/USERNAME [p/PASSWORD]`
@@ -233,6 +233,41 @@ Format: `edit INDEX [n/EXPENSE_NAME] [$/COST] [c/CATEGORY] [d/DATE] [t/TAG...]`
 * DATE should be in the format of "dd-mm-yyyy".
 ====
 
+=== Editing multiple expenses : `massedit`
+
+Edits the expenses with the keywords specified by the user.
+Existing values of the expense will be edited according to the value of the parameters +
+
+Format: `massedit [n/EXPENSE_NAME] [$/COST] [c/CATEGORY] [d/DATE] [t/TAG...] -> [n/EXPENSE_NAME] [$/COST] [c/CATEGORY] [d/DATE] [t/TAG...]`
+
+****
+*Examples:*
+
+* `massedit c/school -> c/food` +
+ Edits the expenses under `school` category.
+ The category of these expenses is changed to `food`.
+* `massedit n/School fee d/01-10-2018:03-10-2018 -> t/books` +
+ Edits expenses, whose names contain `school`,with date between `01-10-2018` and `03-10-2018`(inclusively).
+ The tags of these expenses are changed to `book` tag.
+* `massedit $/1.00:2.00 -> c/waste n/saving` +
+ Edits expenses with cost between 1.00 and 2.00 inclusively.
+ The category and name of these expenses are changed to `waste` and `saving` respecitvely.
+* `massedit c/shopping $/100.00 -> n/waste $/200.00` +
+ Edits the expenses with cost of `100.00` under `shopping` category.
+ The name and cost of these expenses are changed to `waste` and `200.00` respectively.
+****
+
+[NOTE]
+====
+* `->` can be key in by typing `-` followed by `>`.
+* At least one keyword before `->` and one keyword after `->` must be provided.
+* The order of the keywords doesn't matter.
+* Keywords are case insensitive, i.e. the KEYWORD `have` is equivalent to the KEYWORD `Have`
+* COST should be a non-zero positive number with two decimal places
+* DATE should be in the format of "dd-mm-yyyy".
+* Only tag keywords can have multiple keywords. Name/Category/Cost/Date can only have one keywords.
+====
+
 === Deleting a expense : `delete`
 
 Deletes the expense at the specified `INDEX`. The `INDEX` refers to the index number shown in the displayed expense list
@@ -252,10 +287,10 @@ Format: `delete INDEX`
 * The index *must be a non-zero positive integer* and must correspond to an expense in the expense list.
 ====
 
-=== Locating expenses by name: `find`
+=== Locating expenses by keywords: `find`
 
 Finds expense which contains all the given keywords. +
-Format: `find [n/NAME] [c/CATEGORY] [$/COST:COST] [t/TAG] [d/DATE:DATE]`
+Format: `find [n/NAME] [c/CATEGORY] [$/COST:COST] [d/DATE:DATE] [t/TAG...] `
 
 ****
 *Examples:*
@@ -280,6 +315,7 @@ Find all the expenses with tag "lunch" under "School" category on 1-10-2018.
 * Keywords are case insensitive, i.e. the KEYWORD `have` is equivalent to the KEYWORD `Have`
 * The order of the keywords does not matter, i.e. the KEYWORD `Have lunch` is equivalent to the KEYWORD `lunch have`
 * Partial word will be matched, i.e. the NAME KEYWORD `Hav` will match the expense name `Have`
+* Only tag keywords can have multiple keywords. Name/Category/Cost/Date can only have one keywords, i.e."Find n/school n/lunch" is invalid while "Find t/school t/lunch" is valid
 ====
 
 === Listing all expenses : `list`
@@ -310,10 +346,11 @@ Format: `list`
 //`select 1` +
 //Selects the 1st expense in the results of the `find` command.
 
-=== Setting a budget: `setBudget`
-Sets the budget for Expense Tracker. +
+// tag::budget[]
+=== Setting a total budget: `setBudget`
+Sets `totalBudget` for Expense Tracker. +
 
-The Expense Tracker will warn you when your total expenditure exceeds the budget that is set.
+The Expense Tracker will warn you when your total expenditure exceeds the total budget that is set.
 
 Format: `setBudget MONEY_WITH_TWO_DECIMAL_PLACES`
 
@@ -321,9 +358,9 @@ Format: `setBudget MONEY_WITH_TWO_DECIMAL_PLACES`
 *Examples:*
 
 * `setBudget 2.00` +
- Sets a budget of $2.00.
+ Sets a `totalBudget` of $2.00.
 * `setBudget 20.00` +
- Sets a budget of $20.00.
+ Sets a `totalBudget` of $20.00.
 ****
 
 [NOTE]
@@ -332,29 +369,53 @@ Format: `setBudget MONEY_WITH_TWO_DECIMAL_PLACES`
 * MONEY_WITH_TWO_DECIMAL_PLACES must be a positive number with two decimal places.
 ====
 
-=== Setting a recurring frequency for budget: `setRecurringFrequency`
-Sets the recurrence frequency for the budget of Expense Tracker.
+=== Setting a recurring frequency for totalBudget: `setRecurrenceFrequency`
+Sets the recurrence frequency for the `totalBudget` of Expense Tracker.
 
-Expense Tracker will reset your budget after every `FREQUENCY`
+Expense Tracker will reset your spending after every `FREQUENCY`
 
-Format: `setRecurringFrequency [hrs/HOURS] [min/MINUTES] [sec/SECONDS]`
+Format: `setRecurrenceFrequency [hrs/HOURS] [min/MINUTES] [sec/SECONDS]`
 
 
 ****
 *Examples:*
 
-* `setRecurringFrequency hrs/1` +
-    Sets the budget to reset every 1 hour
-* `setRecurringFrequency hrs/1 min/30` +
-    Sets the budget reset every 1 hour and 30 minutes
+* `setRecurrenceFrequency hrs/1` +
+    Sets the spending of `totalBudget` to reset every 1 hour
+* `setRecurrenceFrequency hrs/1 min/30` +
+    Sets the spending of `totalBudget` reset every 1 hour and 30 minutes
 ****
 
 [NOTE]
 ====
-* The `setRecurringFrequency` command is case sensitive.
+* The `setRecurrenceFrequency` command is case sensitive.
 * HOURS/MINUTES/SECONDS must be a positive number.
 ====
 
+=== Adding a Category Budget: `addCategoryBudget`
+Adds a Budget to limit spending on a certain category.
+
+If spending exceeds Category budget, a warning similar to 4.10 will be shown.
+
+Sum of all category budgets cannot exceed total budget of
+Expense Tracker.
+
+Format: `addCategoryBudget c/CATEGORY b/BUDGET`
+
+****
+*Example:*
+
+* `addCategoryBudget c/School b/10.00` +
+    Adds a budget of $10 to the `School` category.
+
+****
+
+[NOTE]
+====
+Valid `CATEOGRY` and `BUDGET` follows the syntax listed under 4.5 and 4.10
+====
+
+// end::budget[]
 
 === Listing entered commands : `history`
 
@@ -426,31 +487,65 @@ The second`redo` reverses the first `undo` command, reapplying `clear`.
 ****
 // end::undoredo[]
 
-=== Show expense statistics: `stats`
+=== Showing expense statistics: `stats`
 
 Changes the expense list to show the statistics panel if the expense list is currently showing, then
 displays a bar chart of the expenditure over a specified time period, in a given `MODE`. +
 
-The available modes are `d` and `m`, which represents day and month respectively. E.g. if NUMBER_OF_DAYS_OR_MONTHS is 7
-and MODE is 'd', the statistics will include data from the past 7 days, current day included.
+There are two available modes: Time and Category, which can be indicated by `t` or `c` respectively in the `MODE` parameter. +
+Choosing Time mode will show a Bar Chart in the statistics panel, where amounts for each day or month will displayed,
+depending on the specified `PERIOD_AMOUNT` and `PERIOD`. +
+Choosing Category mode will show a Pie Chart in the statistics panel, where amounts for each category will displayed for
+expenses in the specified `PERIOD_AMOUNT` and `PERIOD`.
 
-Format: `stats n/NUMBER_OF_DAYS_OR_MONTHS m/MODE`
+The available options for `PERIOD` are `d` and `m`, which represents day and month respectively. E.g. if `PERIOD_AMOUNT` is 7
+and `MODE` is `d`, the statistics will include data from the past 7 days.
+
+
+Format: `stats n/PERIOD_AMOUNT p/PERIOD m/MODE`
 
 ****
 *Examples:*
 
-* `stats n/14 m/d` +
-Shows the expense statistics for the past 14 days, current day included +
+* `stats n/14 p/d m/t` +
+Shows the expense statistics for the past 14 days as a bar chart showing expenses for each day +
 
-* `stats n/3 m/m` +
-Shows the expense statistics for the past 3 months, current day included +
+* `stats n/3 p/m m/t` +
+Shows the expense statistics for the past 3 months as a bar chart showing expenses for each month +
+
+* `stats n/3 p/m m/c` +
+Shows the expense statistics for the past 3 months as a pie chart showing expenses for each category +
+****
+
+=== Toggling Notifications: `notification`
+
+Toggles the ability of `Expense Tracker` to send notifications.
+
+There are three notification types to toggle: Warning` and Tip, which can be indicated by `warning` or `tip` respectively in the `NOTIFICATION_TYPE` parameter. +
+To toggle both, omit `NOTIFICATION_TYPE`.
+
+There are two toggle options, `on` and `off`, which can be indication by 'on' or 'off' respectively in the `TOGGLE_OPTION` parameter. `TOGGLE_OPTION` is required.
+
+Format: `notification n/NOTIFICATION_TYPE t/TOGGLE_OPTION`
+
+****
+*Examples:*
+
+* `notification n/warning t/off` +
+Disables the sending Warning type notifications. +
+
+* `notification n/tip t/off` +
+Enables the sending of Tip type notifications. +
+
+* `notification t/off` +
+Disables the sending of both types of notifications. +
 ****
 
 [NOTE]
 ====
-* NUMBER_OF_DAYS_OR_MONTHS must be a positive number greater than 0
-* MODE can only be 'd' or 'm'.
-* If no parameters are provided, the command defaults to show statistics for the past 7 days, current day included.
+* NOTIFICATION_TYPE can only be 'warning' or 'tip'
+* TOGGLE_OPTION can only be 'on' or 'off'
+* NOTIFICATION_TYPE is optional
 ====
 
 === Clearing all entries : `clear`
@@ -476,6 +571,23 @@ command that changes the data. +
 
 *Q*: How do I transfer my data to another Computer? +
 *A*:  Install the app in the other computer and copy the `data` folder in your previous Expense Tracker folder over to the new Expense Tracker folder on your other Computer.
+If you wish to copy only one user over, create a folder named `data` in the app directory on the other computer and copy the xml file with your username in the `data` folder of the old computer into the `data` folder of the new computer.
+
+*Q*: How is my expense data kept safe when I use this application? +
+*A*: All user expense-specific data is encrypted. The program ensures that no one will be able to decrypt encrypted information without your actual plain text password, which is not stored anywhere. So rest assured that no one can access your data without your password.
+
+*Q*: How do I manually encrypt text to edit my user XML file as a technologically-savvy user? +
+*A*: You can carry out the following steps to do so:
+
+. Open http://murmurhash.shorelabs.com/[this website] and wait for it to load.
+. Under `MurmurHash3 (32/128 bit, x86/x64)`, enter your password in the text box labelled `An ASCII Text`.
+. Under the text box from step 2, there is a dropdown menu that has `x86` selected. Click on it and select `x64`.
+. Beside the menu from step 3, there is a dropdown menu that has `32-bit` selected. Click on it and select `128-bit`.
+. Note down the string of characters on the bottom left of the text box from step 2. This is your `encryption key`.
+. Open https://www.devglan.com/online-tools/aes-encryption-decryption[this website] and wait for it to load.
+. Use the left column on the web page and enter the text you wish to encrypt.
+. Use the `encryption` key from step 5 as the `secret key` and leave the other options as default.
+. Click on the `Encrypt` button to get the encrypted text you want.
 
 == Command Summary
 
@@ -499,9 +611,9 @@ e.g. `find c/School`
 * *List* : `list`
 //* *Select* : `select INDEX` +
 //e.g.`select 2`
-* *Set budget* : `setBudget` +
+* *Set `totalBudget`* : `setBudget` +
 e.g. `setBudget 20.00`
-* *Set recurring frequency for budget*: `setRecurringFrequency [hrs/HOURS] [min/MINUTES] [sec/SECONDS]` +
+* *Set recurring frequency for `totalBudget`*: `setRecurrenceFrequency [hrs/HOURS] [min/MINUTES] [sec/SECONDS]` +
 * *History* : `history`
 * *Undo* : `undo`
 * *Redo* : `redo`

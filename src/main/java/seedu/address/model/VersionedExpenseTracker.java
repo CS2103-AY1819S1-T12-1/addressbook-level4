@@ -35,7 +35,7 @@ public class VersionedExpenseTracker extends ExpenseTracker {
     }
 
     /**
-     * Restores the address book to its previous state.
+     * Restores the expense tracker to its previous state.
      */
     public void undo() {
         if (!canUndo()) {
@@ -46,7 +46,7 @@ public class VersionedExpenseTracker extends ExpenseTracker {
     }
 
     /**
-     * Restores the address book to its previously undone state.
+     * Restores the expense tracker to its previously undone state.
      */
     public void redo() {
         if (!canRedo()) {
@@ -57,14 +57,14 @@ public class VersionedExpenseTracker extends ExpenseTracker {
     }
 
     /**
-     * Returns true if {@code undo()} has address book states to undo.
+     * Returns true if {@code undo()} has expense tracker states to undo.
      */
     public boolean canUndo() {
         return currentStatePointer > 0;
     }
 
     /**
-     * Returns true if {@code redo()} has address book states to redo.
+     * Returns true if {@code redo()} has expense tracker states to redo.
      */
     public boolean canRedo() {
         return currentStatePointer < expenseTrackerStateList.size() - 1;
@@ -83,7 +83,7 @@ public class VersionedExpenseTracker extends ExpenseTracker {
         }
 
         VersionedExpenseTracker otherVersionedExpenseTracker = (VersionedExpenseTracker) other;
-
+        System.out.println(expenseTrackerStateList.equals(otherVersionedExpenseTracker.expenseTrackerStateList));
         // state check
         return super.equals(otherVersionedExpenseTracker)
                 && expenseTrackerStateList.equals(otherVersionedExpenseTracker.expenseTrackerStateList)

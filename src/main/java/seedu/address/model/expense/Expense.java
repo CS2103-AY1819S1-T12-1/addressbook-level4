@@ -10,7 +10,7 @@ import java.util.Set;
 import seedu.address.model.tag.Tag;
 
 /**
- * Represents a Expense in the address book.
+ * Represents a Expense in the expense tracker.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Expense {
@@ -109,7 +109,7 @@ public class Expense {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, category, cost, tags);
+        return Objects.hash(name, category, date, cost, tags);
     }
 
     @Override

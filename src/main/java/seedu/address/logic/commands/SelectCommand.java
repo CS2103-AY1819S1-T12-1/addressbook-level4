@@ -16,7 +16,7 @@ import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.expense.Expense;
 
 /**
- * Selects a expense identified using it's displayed index from the address book.
+ * Selects a expense identified using it's displayed index from the expense tracker.
  */
 public class SelectCommand extends Command {
 

@@ -2,56 +2,61 @@
 <!-- ExpenseTracker save file which contains the same Expense values as in TypicalExpenses#getTypicalExpenseTracker() -->
 <expensetracker>
     <expenses>
-        <name>School fee</name>
-        <category>School</category>
-        <cost>3.00</cost>
-		<date>02-10-2018</date>
-        <tagged>friends</tagged>
+        <name>21jK1kxwiO97dsMu3/W3Bg==</name>
+        <category>3h4KoHtgA8BBWmPfr+LJCQ==</category>
+        <cost>/O4mBsDjNWQYJjGsfUCzUA==</cost>
+        <date>XY334pjHPNyTyAsIbPchmQ==</date>
+        <tagged>2b/jDRIyTMkPdA51P0KgaA==</tagged>
     </expenses>
     <expenses>
-        <name>Eat ice cream</name>
-        <category>Food</category>
-        <cost>2.00</cost>
-		<date>02-10-2018</date>
-        <tagged>owesMoney</tagged>
-        <tagged>friends</tagged>
+        <name>9BKQqF89EPyA7iq0CQVaOw==</name>
+        <category>fVEW7rjUFg8UXBY9m1IwSA==</category>
+        <cost>ev6kYclwwJUAxEOjjPbmTg==</cost>
+        <date>XY334pjHPNyTyAsIbPchmQ==</date>
+        <tagged>2b/jDRIyTMkPdA51P0KgaA==</tagged>
+        <tagged>HpOG4Mjq+nVU72oO+6Mqog==</tagged>
     </expenses>
     <expenses>
-        <name>Buy toy</name>
-        <category>Entertainment</category>
-        <cost>1.00</cost>
-		<date>03-10-2018</date>
+        <name>SxtxOXtsUjSo6LVsRCsmgg==</name>
+        <category>U/vEDejGea7eqXo6bQ+QhA==</category>
+        <cost>9NEH4NkCXCQO8gwHhUX55A==</cost>
+        <date>uuEio1ctvAi1YXDTUcDNYg==</date>
     </expenses>
     <expenses>
-        <name>New clothes</name>
-        <category>Shopping</category>
-        <cost>2.00</cost>
-		<date>04-10-2018</date>
-        <tagged>friends</tagged>
+        <name>mJRB9dwAZACUB6fJG6CXSQ==</name>
+        <category>Hpz08WQpbogmgPcT40uQlw==</category>
+        <cost>ev6kYclwwJUAxEOjjPbmTg==</cost>
+        <date>hm6JF3k8KuRsAuMQ/gwTQA==</date>
+        <tagged>2b/jDRIyTMkPdA51P0KgaA==</tagged>
     </expenses>
     <expenses>
-        <name>Pay tax</name>
-        <category>Tax</category>
-        <cost>5.00</cost>
-		<date>05-10-2018</date>
+        <name>1I3inAvErk0yFiPxOVoUtg==</name>
+        <category>xFJXCke70UATZt3jQUqA6g==</category>
+        <cost>fXXlPdLIejyV7gSChchtJw==</cost>
+        <date>PzDfYP/LEHuWBVHkpV7+uw==</date>
     </expenses>
     <expenses>
-        <name>Buy books</name>
-        <category>Book</category>
-        <cost>6.00</cost>
-		<date>06-10-2018</date>
+        <name>uUy6/sGch22Hgy7+0Klp0Q==</name>
+        <category>fir6dhYBP3FYwwWX4X+KMg==</category>
+        <cost>9/nrCdVMD3XKumQ0eU2e8w==</cost>
+        <date>xEAWTfjetan8Vl5ULTvhng==</date>
     </expenses>
     <expenses>
-        <name>Have lunch</name>
-        <category>Food</category>
-        <cost>7.00</cost>
-		<date>02-10-2018</date>
+        <name>iSast6brP2Px2sMA57liIQ==</name>
+        <category>fVEW7rjUFg8UXBY9m1IwSA==</category>
+        <cost>oCUynNobLy/5GQOcQxM9PA==</cost>
+        <date>XY334pjHPNyTyAsIbPchmQ==</date>
     </expenses>
     <username>typicalExpensesExpenseTracker</username>
-    <budget>
+    <totalBudget>
         <budgetCap>28.00</budgetCap>
         <currentExpenses>26.00</currentExpenses>
         <nextRecurrence>2017-08-04T10:11:30</nextRecurrence>
         <numberOfSecondsToRecurAgain>50000</numberOfSecondsToRecurAgain>
-    </budget>
+    </totalBudget>
+    <notificationHandler>
+        <lastTipSentOn>2018-10-01T17:26:18.868275</lastTipSentOn>
+        <isTipEnabled>true</isTipEnabled>
+        <isWarningEnabled>true</isWarningEnabled>
+    </notificationHandler>
 </expensetracker>

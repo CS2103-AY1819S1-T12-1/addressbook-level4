@@ -9,10 +9,11 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.ExpenseTracker;
-import seedu.address.model.ReadOnlyExpenseTracker;
-import seedu.address.model.expense.Expense;
+import seedu.address.model.encryption.EncryptedExpense;
+import seedu.address.model.encryption.EncryptedExpenseTracker;
+import seedu.address.model.notification.Notification;
 import seedu.address.model.user.Password;
+import seedu.address.storage.budget.XmlAdaptedTotalBudget;
 
 /**
  * An Immutable ExpenseTracker that is serializable to XML format
@@ -27,9 +28,13 @@ public class XmlSerializableExpenseTracker {
     @XmlElement
     private XmlAdaptedUsername username;
     @XmlElement
-    private XmlAdaptedBudget budget;
+    private XmlAdaptedTotalBudget totalBudget;
     @XmlElement
     private XmlAdaptedPassword password;
+    @XmlElement
+    private XmlAdaptedNotificationHandler notificationHandler;
+    @XmlElement
+    private List<XmlAdaptedNotification> notifications;
 
     /**
      * Creates an empty XmlSerializableExpenseTracker.
@@ -37,17 +42,21 @@ public class XmlSerializableExpenseTracker {
      */
     public XmlSerializableExpenseTracker() {
         expenses = new ArrayList<>();
+        notifications = new ArrayList<>();
     }
 
     /**
      * Conversion
      */
-    public XmlSerializableExpenseTracker(ReadOnlyExpenseTracker src) {
+    public XmlSerializableExpenseTracker(EncryptedExpenseTracker src) {
         this();
         this.username = new XmlAdaptedUsername(src.getUsername());
         this.password = src.getPassword().map(XmlAdaptedPassword::new).orElse(null);
-        expenses.addAll(src.getExpenseList().stream().map(XmlAdaptedExpense::new).collect(Collectors.toList()));
-        this.budget = new XmlAdaptedBudget(src.getMaximumBudget());
+        expenses.addAll(src.getEncryptedExpenses().stream().map(XmlAdaptedExpense::new).collect(Collectors.toList()));
+        this.notificationHandler = new XmlAdaptedNotificationHandler(src.getNotificationHandler());
+        this.notifications.addAll(src.getNotificationList().stream()
+                .map(XmlAdaptedNotification::new).collect(Collectors.toList()));
+        this.totalBudget = new XmlAdaptedTotalBudget(src.getMaximumTotalBudget());
     }
 
     /**
@@ -56,19 +65,28 @@ public class XmlSerializableExpenseTracker {
      * @throws IllegalValueException if there were any data constraints violated or duplicates in the
      * {@code XmlAdaptedExpense}.
      */
-    public ExpenseTracker toModelType() throws IllegalValueException {
+    public EncryptedExpenseTracker toModelType() throws IllegalValueException {
         Optional<Password> passwordOptional = Optional.ofNullable(password).map(XmlAdaptedPassword::toModelType);
-        ExpenseTracker expenseTracker = new ExpenseTracker(username.toModelType(), passwordOptional);
+        EncryptedExpenseTracker expenseTracker;
+        if (totalBudget == null || notificationHandler == null) {
+            expenseTracker = new EncryptedExpenseTracker(username.toModelType(), passwordOptional.orElse(null));
+        } else {
+            expenseTracker = new EncryptedExpenseTracker(username.toModelType(), passwordOptional.orElse(null),
+                    totalBudget.toModelType(), notificationHandler.toModelType());
+        }
         for (XmlAdaptedExpense p : expenses) {
-            Expense expense = p.toModelType();
+            EncryptedExpense expense = p.toModelType();
             if (expenseTracker.hasExpense(expense)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_EXPENSE);
             }
             expenseTracker.addExpense(expense);
         }
-        if (this.budget != null) {
-            expenseTracker.modifyMaximumBudget(this.budget.toModelType());
+
+        for (XmlAdaptedNotification n : notifications) {
+            Notification notification = n.toModelType();
+            expenseTracker.addNotification(notification);
         }
+
         return expenseTracker;
     }
 
@@ -81,6 +99,7 @@ public class XmlSerializableExpenseTracker {
         if (!(other instanceof XmlSerializableExpenseTracker)) {
             return false;
         }
-        return expenses.equals(((XmlSerializableExpenseTracker) other).expenses);
+        return expenses.equals(((XmlSerializableExpenseTracker) other).expenses)
+                && notificationHandler.equals(((XmlSerializableExpenseTracker) other).notificationHandler);
     }
 }

@@ -1,8 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-
-import java.util.Optional;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
@@ -28,13 +27,15 @@ public class SetPasswordCommand extends Command {
     public static final String MESSAGE_SET_PASSWORD_SUCCESS = "Your password has been changed.";
     public static final String MESSAGE_INCORRECT_PASSWORD = "The old password is incorrect.";
 
-    private final Optional<Password> oldPassword;
+    private final Password oldPassword;
     private final Password newPassword;
+    private String newPasswordPlain;
 
-    public SetPasswordCommand(Optional<Password> oldPassword, Password newPassword) {
-        requireNonNull(newPassword);
+    public SetPasswordCommand(Password oldPassword, Password newPassword, String newPasswordPlain) {
+        requireAllNonNull(newPassword, newPasswordPlain);
         this.oldPassword = oldPassword;
         this.newPassword = newPassword;
+        this.newPasswordPlain = newPasswordPlain;
     }
 
     @Override
@@ -43,7 +44,7 @@ public class SetPasswordCommand extends Command {
         if (!model.isMatchPassword(oldPassword)) {
             return new CommandResult(MESSAGE_INCORRECT_PASSWORD);
         }
-        model.setPassword(newPassword);
+        model.setPassword(newPassword, newPasswordPlain);
         return new CommandResult(MESSAGE_SET_PASSWORD_SUCCESS);
     }
 

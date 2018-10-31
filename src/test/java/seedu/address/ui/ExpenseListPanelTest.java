@@ -3,11 +3,12 @@ package seedu.address.ui;
 import static java.time.Duration.ofMillis;
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
+import static seedu.address.model.encryption.EncryptionUtil.DEFAULT_ENCRYPTION_KEY;
 import static seedu.address.testutil.EventsUtil.postNow;
 import static seedu.address.testutil.TypicalExpenses.getTypicalExpenses;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_EXPENSE;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysExpense;
-import static seedu.address.ui.testutil.GuiTestAssert.assertCardEquals;
+import static seedu.address.ui.testutil.GuiTestAssert.assertExpenseCardEquals;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -21,6 +22,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.XmlUtil;
+import seedu.address.model.encryption.EncryptionUtil;
 import seedu.address.model.expense.Expense;
 import seedu.address.storage.XmlSerializableExpenseTracker;
 
@@ -59,7 +61,7 @@ public class ExpenseListPanelTest extends GuiUnitTest {
         ExpenseCardHandle expectedExpense = expenseListPanelHandle.getExpenseCardHandle(
                 INDEX_SECOND_EXPENSE.getZeroBased());
         ExpenseCardHandle selectedExpense = expenseListPanelHandle.getHandleToSelectedCard();
-        assertCardEquals(expectedExpense, selectedExpense);
+        assertExpenseCardEquals(expectedExpense, selectedExpense);
     }
 
     /**
@@ -84,7 +86,8 @@ public class ExpenseListPanelTest extends GuiUnitTest {
         Path xmlFile = createXmlFileWithExpenses(expenseCount);
         XmlSerializableExpenseTracker xmlExpenseTracker =
                 XmlUtil.getDataFromFile(xmlFile, XmlSerializableExpenseTracker.class);
-        return FXCollections.observableArrayList(xmlExpenseTracker.toModelType().getExpenseList());
+        return FXCollections.observableArrayList(xmlExpenseTracker.toModelType().decryptTracker(DEFAULT_ENCRYPTION_KEY)
+                .getExpenseList());
     }
 
     /**
@@ -96,17 +99,19 @@ public class ExpenseListPanelTest extends GuiUnitTest {
         builder.append("<expensetracker>\n");
         for (int i = 0; i < expenseCount; i++) {
             builder.append("<expenses>\n");
-            builder.append("<name>").append(i).append("a</name>\n");
-            builder.append("<category>000</category>\n");
-            builder.append("<cost>1.00</cost>\n");
-            builder.append("<date>01-10-2018</date>\n");
+            builder.append("<name>")
+                    .append(EncryptionUtil.encryptString(Integer.toString(i) + "a", DEFAULT_ENCRYPTION_KEY))
+                    .append("</name>\n");
+            builder.append("<category>xFJXCke70UATZt3jQUqA6g==</category>\n");
+            builder.append("<cost>2ft68hQdx4gIIV0ubyYq4A==</cost>\n");
+            builder.append("<date>SO1fuoCXYqstDP2tg+binw==</date>\n");
             builder.append("</expenses>\n");
         }
         builder.append("<username>manyExpenses</username>\n");
-        builder.append("<budget>\n");
+        builder.append("<totalBudget>\n");
         builder.append("<budgetCap>").append((double) expenseCount).append("</budgetCap>\n");
         builder.append("<currentExpenses>").append((double) expenseCount).append("</currentExpenses>\n");
-        builder.append("</budget>\n");
+        builder.append("</totalBudget>\n");
         builder.append("</expensetracker>\n");
 
         Path manyExpensesFile = Paths.get(TEST_DATA_FOLDER + "manyExpenses.xml");

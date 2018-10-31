@@ -16,7 +16,7 @@ import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.expense.Expense;
 
 /**
- * Deletes a expense identified using it's displayed index from the address book.
+ * Deletes a expense identified using it's displayed index from the expense tracker.
  */
 public class DeleteCommand extends Command {
 

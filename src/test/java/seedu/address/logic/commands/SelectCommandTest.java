@@ -6,7 +6,7 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showExpenseAtIndex;
-import static seedu.address.testutil.TypicalExpenses.getTypicalExpenseTracker;
+import static seedu.address.testutil.ModelUtil.getTypicalModel;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EXPENSE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_EXPENSE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_EXPENSE;
@@ -19,8 +19,6 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.UserPrefs;
 import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.ui.testutil.EventsCollectorRule;
 
@@ -31,8 +29,8 @@ public class SelectCommandTest {
     @Rule
     public final EventsCollectorRule eventsCollectorRule = new EventsCollectorRule();
 
-    private Model model = new ModelManager(getTypicalExpenseTracker(), new UserPrefs());
-    private Model expectedModel = new ModelManager(getTypicalExpenseTracker(), new UserPrefs());
+    private Model model = getTypicalModel();
+    private Model expectedModel = getTypicalModel();
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
@@ -64,7 +62,7 @@ public class SelectCommandTest {
         showExpenseAtIndex(expectedModel, INDEX_FIRST_EXPENSE);
 
         Index outOfBoundsIndex = INDEX_SECOND_EXPENSE;
-        // ensures that outOfBoundIndex is still in bounds of address book list
+        // ensures that outOfBoundIndex is still in bounds of expense tracker list
         assertTrue(outOfBoundsIndex.getZeroBased() < model.getExpenseTracker().getExpenseList().size());
 
         assertExecutionFailure(outOfBoundsIndex, Messages.MESSAGE_INVALID_EXPENSE_DISPLAYED_INDEX);

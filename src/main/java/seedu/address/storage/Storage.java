@@ -10,6 +10,7 @@ import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyExpenseTracker;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.encryption.EncryptedExpenseTracker;
 import seedu.address.model.user.Username;
 
 /**
@@ -27,7 +28,7 @@ public interface Storage extends ExpensesStorage, UserPrefsStorage {
     Path getExpensesDirPath();
 
     @Override
-    Optional<ReadOnlyExpenseTracker> readExpenses() throws DataConversionException, IOException;
+    Optional<EncryptedExpenseTracker> readExpenses() throws DataConversionException, IOException;
 
     /**
      * Returns all ExpenseTracker data as a map with String keys and {@link ReadOnlyExpenseTracker} values. Data is read
@@ -37,13 +38,13 @@ public interface Storage extends ExpensesStorage, UserPrefsStorage {
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
      */
-    Map<Username, ReadOnlyExpenseTracker> readAllExpenses(Path dirPath) throws DataConversionException, IOException;
+    Map<Username, EncryptedExpenseTracker> readAllExpenses(Path dirPath) throws DataConversionException, IOException;
 
     @Override
-    void saveExpenses(ReadOnlyExpenseTracker expenseTracker) throws IOException;
+    void saveExpenses(EncryptedExpenseTracker expenseTracker) throws IOException;
 
     /**
-     * Saves the current version of the Address Book to the hard disk.
+     * Saves the current version of the Expense Tracker to the hard disk.
      *   Creates the data file if it is missing.
      * Raises {@link DataSavingExceptionEvent} if there was an error during saving.
      */

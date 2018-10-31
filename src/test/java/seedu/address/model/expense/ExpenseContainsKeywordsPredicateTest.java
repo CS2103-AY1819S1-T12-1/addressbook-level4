@@ -14,7 +14,7 @@ import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.testutil.ExpenseBuilder;
 
-//@@author Jiang Chen
+//@@author jcjxwy
 public class ExpenseContainsKeywordsPredicateTest {
 
     @Test
@@ -72,7 +72,7 @@ public class ExpenseContainsKeywordsPredicateTest {
     @Test
     public void test_nameDoesNotContainKeywords_returnsFalse() {
         // Zero keywords
-        ArgumentMultimap keywordsMap = prepareKeywords("n/");;
+        ArgumentMultimap keywordsMap = prepareKeywords("n/");
         ExpenseContainsKeywordsPredicate predicate =
                 new ExpenseContainsKeywordsPredicate(keywordsMap);
         assertFalse(predicate.test(new ExpenseBuilder().withName("Alice").build()));

@@ -20,6 +20,7 @@ import java.util.List;
 import org.junit.Test;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.RedoCommand;
@@ -32,9 +33,9 @@ import seedu.address.model.tag.Tag;
 public class FindCommandSystemTest extends ExpenseTrackerSystemTest {
 
     @Test
-    public void find() throws NoUserSelectedException {
+    public void find() throws NoUserSelectedException, IllegalValueException {
         showAllExpenses();
-        /* Case: find multiple expenses in address book, command with leading spaces and trailing spaces
+        /* Case: find multiple expenses in expense tracker, command with leading spaces and trailing spaces
          * -> 2 expenses found
          */
         String command = "   " + FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_BUY + "   ";
@@ -50,7 +51,7 @@ public class FindCommandSystemTest extends ExpenseTrackerSystemTest {
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find one expense in address book with multiple keywords
+        /* Case: find one expense in expense tracker with multiple keywords
          * -> 1 expenses found
          */
         command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_LUNCH + " " + KEYWORD_MATCHING_FOOD;
@@ -64,23 +65,23 @@ public class FindCommandSystemTest extends ExpenseTrackerSystemTest {
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find multiple expenses in address book, 2 keywords -> 2 expenses found */
+        /* Case: find multiple expenses in expense tracker, 2 keywords -> 2 expenses found */
         command = FindCommand.COMMAND_WORD + " " + PREFIX_NAME + " ice clothes";
         ModelHelper.setFilteredList(expectedModel, ICECREAM, CLOTHES);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find multiple expenses in address book, 2 keywords in reversed order -> 2 expenses found */
+        /* Case: find multiple expenses in expense tracker, 2 keywords in reversed order -> 2 expenses found */
         command = FindCommand.COMMAND_WORD + " " + PREFIX_NAME + " clothes ice";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find multiple expenses in address book, 2 keywords with 1 repeat -> 2 expenses found */
+        /* Case: find multiple expenses in expense tracker, 2 keywords with 1 repeat -> 2 expenses found */
         command = FindCommand.COMMAND_WORD + " " + PREFIX_NAME + " clothes clothes ice";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find multiple expenses in address book, 2 matching keywords and 1 non-matching keyword
+        /* Case: find multiple expenses in expense tracker, 2 matching keywords and 1 non-matching keyword
          * -> 2 expenses found
          */
         command = FindCommand.COMMAND_WORD + " " + PREFIX_NAME + " ice clothes NonMatchingKeyWord";
@@ -97,7 +98,7 @@ public class FindCommandSystemTest extends ExpenseTrackerSystemTest {
         expectedResultMessage = RedoCommand.MESSAGE_FAILURE;
         assertCommandFailure(command, expectedResultMessage);
 
-        /* Case: find same expenses in address book after deleting 1 of them -> 1 expense found */
+        /* Case: find same expenses in expense tracker after deleting 1 of them -> 1 expense found */
         executeCommand(DeleteCommand.COMMAND_WORD + " 1");
         assertFalse(getModel().getExpenseTracker().getExpenseList().contains(ICECREAM));
         command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_LUNCH;
@@ -106,40 +107,40 @@ public class FindCommandSystemTest extends ExpenseTrackerSystemTest {
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find expense in address book, keyword is same as name but of different case -> 1 expense found */
+        /* Case: find expense in expense tracker, keyword is same as name but of different case -> 1 expense found */
         command = FindCommand.COMMAND_WORD + " " + PREFIX_NAME + " have";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find expense in address book, keyword is substring of name -> 0 expenses found */
+        /* Case: find expense in expense tracker, keyword is substring of name -> 0 expenses found */
         command = FindCommand.COMMAND_WORD + " " + PREFIX_NAME + " fo";
         ModelHelper.setFilteredList(expectedModel);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find expense in address book, name is substring of keyword -> 1 expenses found */
+        /* Case: find expense in expense tracker, name is substring of keyword -> 1 expenses found */
         command = FindCommand.COMMAND_WORD + " " + PREFIX_NAME + " ha";
         ModelHelper.setFilteredList(expectedModel, LUNCH);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find expense not in address book -> 0 expenses found */
+        /* Case: find expense not in expense tracker -> 0 expenses found */
         command = FindCommand.COMMAND_WORD + " " + PREFIX_NAME + " gamble";
         ModelHelper.setFilteredList(expectedModel);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find category name of expense in address book -> 0 expenses found */
+        /* Case: find category name of expense in expense tracker -> 0 expenses found */
         command = FindCommand.COMMAND_WORD + " " + PREFIX_NAME + CLOTHES.getCategory().categoryName;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find address of expense in address book -> 0 expenses found */
+        /* Case: find address of expense in expense tracker -> 0 expenses found */
         command = FindCommand.COMMAND_WORD + " " + PREFIX_NAME + CLOTHES.getCost().value;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, Name.MESSAGE_NAME_CONSTRAINTS));
         assertSelectedCardUnchanged();
 
-        /* Case: find tags of expense in address book -> 0 expenses found */
+        /* Case: find tags of expense in expense tracker -> 0 expenses found */
         List<Tag> tags = new ArrayList<>(CLOTHES.getTags());
         command = FindCommand.COMMAND_WORD + " " + PREFIX_NAME + tags.get(0).tagName;
         assertCommandSuccess(command, expectedModel);
@@ -154,7 +155,7 @@ public class FindCommandSystemTest extends ExpenseTrackerSystemTest {
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardDeselected();
 
-        /* Case: find expense in empty address book -> 0 expenses found */
+        /* Case: find expense in empty expense tracker -> 0 expenses found */
         deleteAllExpenses();
         command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_BUY;
         expectedModel = getModel();
@@ -183,7 +184,8 @@ public class FindCommandSystemTest extends ExpenseTrackerSystemTest {
      * selected card updated accordingly, depending on {@code cardStatus}.
      * @see ExpenseTrackerSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
-    private void assertCommandSuccess(String command, Model expectedModel) throws NoUserSelectedException {
+    private void assertCommandSuccess(String command, Model expectedModel) throws NoUserSelectedException,
+            IllegalValueException {
         String expectedResultMessage = String.format(
                 MESSAGE_EXPENSES_LISTED_OVERVIEW, expectedModel.getFilteredExpenseList().size());
 
@@ -202,7 +204,8 @@ public class FindCommandSystemTest extends ExpenseTrackerSystemTest {
      * error style.
      * @see ExpenseTrackerSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
-    private void assertCommandFailure(String command, String expectedResultMessage) throws NoUserSelectedException {
+    private void assertCommandFailure(String command, String expectedResultMessage) throws NoUserSelectedException,
+            IllegalValueException {
         Model expectedModel = getModel();
 
         executeCommand(command);

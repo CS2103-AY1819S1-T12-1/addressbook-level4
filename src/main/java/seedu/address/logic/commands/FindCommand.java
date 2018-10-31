@@ -11,7 +11,7 @@ import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.expense.ExpenseContainsKeywordsPredicate;
 
 /**
- * Finds and lists all expenses in address book whose name contains any of the argument keywords.
+ * Finds and lists all expenses in expense tracker whose name contains any of the argument keywords.
  * Keyword matching is case insensitive.
  */
 public class FindCommand extends Command {
@@ -32,6 +32,8 @@ public class FindCommand extends Command {
             "The correct format is d/DATE:DATE or d/DATE. Example: d/01-01-2018:10-01-2018";
     public static final String MESSAGE_INVALID_COST_KEYWORDS_FORMAT =
             "The correct format is $/COST:COST or $/COST. Example: $/1.00:10.00";
+    public static final String MESSAGE_MULTIPLE_KEYWORDS =
+            "The command should not contain more than one name/category/date/cost keyword.";
 
     private final ExpenseContainsKeywordsPredicate predicate;
 

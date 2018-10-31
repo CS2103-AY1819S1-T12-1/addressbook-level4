@@ -13,6 +13,7 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EXPENSE;
 import org.junit.Test;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
@@ -21,7 +22,7 @@ import seedu.address.model.exceptions.NoUserSelectedException;
 
 public class SelectCommandSystemTest extends ExpenseTrackerSystemTest {
     @Test
-    public void select() throws NoUserSelectedException {
+    public void select() throws NoUserSelectedException, IllegalValueException {
         showAllExpenses();
         /* --------------------- Perform select operations on the shown unfiltered list ----------------------- */
 
@@ -56,7 +57,7 @@ public class SelectCommandSystemTest extends ExpenseTrackerSystemTest {
 
         /* --------------------- Perform select operations on the shown filtered list ------------------------- */
 
-        /* Case: filtered expense list, select index within bounds of address book but out of bounds of expense list
+        /* Case: filtered expense list, select index within bounds of expense tracker but out of bounds of expense list
          * -> rejected
          */
         showExpensesWithName(KEYWORD_MATCHING_BUY);
@@ -64,7 +65,7 @@ public class SelectCommandSystemTest extends ExpenseTrackerSystemTest {
         assertCommandFailure(SelectCommand.COMMAND_WORD + " " + invalidIndex,
                 MESSAGE_INVALID_EXPENSE_DISPLAYED_INDEX);
 
-        /* Case: filtered expense list, select index within bounds of address book and expense list -> selected */
+        /* Case: filtered expense list, select index within bounds of expense tracker and expense list -> selected */
         Index validIndex = Index.fromOneBased(1);
         assertTrue(validIndex.getZeroBased() < getModel().getFilteredExpenseList().size());
         command = SelectCommand.COMMAND_WORD + " " + validIndex.getOneBased();
@@ -96,7 +97,7 @@ public class SelectCommandSystemTest extends ExpenseTrackerSystemTest {
         /* Case: mixed case command word -> rejected */
         assertCommandFailure("SeLeCt 1", MESSAGE_UNKNOWN_COMMAND);
 
-        /* Case: select from empty address book -> rejected */
+        /* Case: select from empty expense tracker -> rejected */
         deleteAllExpenses();
         assertCommandFailure(SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_EXPENSE.getOneBased(),
                 MESSAGE_INVALID_EXPENSE_DISPLAYED_INDEX);
@@ -116,7 +117,8 @@ public class SelectCommandSystemTest extends ExpenseTrackerSystemTest {
      * @see ExpenseTrackerSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      * @see ExpenseTrackerSystemTest#assertSelectedCardChanged(Index)
      */
-    private void assertCommandSuccess(String command, Index expectedSelectedCardIndex) throws NoUserSelectedException {
+    private void assertCommandSuccess(String command, Index expectedSelectedCardIndex) throws NoUserSelectedException,
+            IllegalValueException {
         Model expectedModel = getModel();
         String expectedResultMessage = String.format(
                 MESSAGE_SELECT_EXPENSE_SUCCESS, expectedSelectedCardIndex.getOneBased());
@@ -146,7 +148,8 @@ public class SelectCommandSystemTest extends ExpenseTrackerSystemTest {
      * {@code ExpenseTrackerSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
      * @see ExpenseTrackerSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
-    private void assertCommandFailure(String command, String expectedResultMessage) throws NoUserSelectedException {
+    private void assertCommandFailure(String command, String expectedResultMessage) throws NoUserSelectedException,
+            IllegalValueException {
         Model expectedModel = getModel();
 
         executeCommand(command);

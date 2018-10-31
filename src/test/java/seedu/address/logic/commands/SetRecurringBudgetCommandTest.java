@@ -4,7 +4,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalExpenses.getTypicalExpenseTracker;
+import static seedu.address.testutil.ModelUtil.getTypicalModel;
 
 import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
@@ -19,43 +19,43 @@ import seedu.address.testutil.ExpenseTrackerBuilder;
 
 
 public class SetRecurringBudgetCommandTest {
-    private Model model = new ModelManager(getTypicalExpenseTracker(), new UserPrefs());
+    private Model model = getTypicalModel();
     private CommandHistory commandHistory = new CommandHistory();
     private long newRecurrenceFrequency = 123456;
 
     @BeforeEach
     public void setUp() {
-        this.model = new ModelManager(getTypicalExpenseTracker(), new UserPrefs());
+        this.model = getTypicalModel();
         this.commandHistory = new CommandHistory();
     }
 
     @Test
     public void execute_setRecurrence_successful() throws NoUserSelectedException {
         ExpenseTracker emptyBook = new ExpenseTrackerBuilder().build();
-        model = new ModelManager(emptyBook, new UserPrefs());
-        ModelManager expectedModel = new ModelManager(model.getExpenseTracker(), new UserPrefs());
+        model = new ModelManager(emptyBook, new UserPrefs(), null);
+        ModelManager expectedModel = new ModelManager(model.getExpenseTracker(), new UserPrefs(), null);
         expectedModel.setRecurrenceFrequency(this.newRecurrenceFrequency);
         expectedModel.commitExpenseTracker();
-        SetRecurringBudgetCommand setRecurringBudgetCommand = new SetRecurringBudgetCommand(newRecurrenceFrequency);
+        SetRecurringBudgetCommand setRecurrenceFrequencyCommand = new SetRecurringBudgetCommand(newRecurrenceFrequency);
         String expectedMessage = String.format(SetRecurringBudgetCommand.MESSAGE_SUCCESS, this.newRecurrenceFrequency);
-        assertCommandSuccess(setRecurringBudgetCommand, model, commandHistory, expectedMessage, expectedModel);
+        assertCommandSuccess(setRecurrenceFrequencyCommand, model, commandHistory, expectedMessage, expectedModel);
         assertNotNull(expectedModel.getMaximumBudget().getNextRecurrence());
         assertTrue(this.newRecurrenceFrequency
-            == expectedModel.getExpenseTracker().getMaximumBudget().getNumberOfSecondsToRecurAgain());
+            == expectedModel.getExpenseTracker().getMaximumTotalBudget().getNumberOfSecondsToRecurAgain());
 
     }
     @Test
     public void execute_updateRecurrence_successful() throws NoUserSelectedException {
-        ModelManager expectedModel = new ModelManager(model.getExpenseTracker(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getExpenseTracker(), new UserPrefs(), null);
         long initialRecurrenceFrequency =
-            expectedModel.getExpenseTracker().getMaximumBudget().getNumberOfSecondsToRecurAgain();
+            expectedModel.getExpenseTracker().getMaximumTotalBudget().getNumberOfSecondsToRecurAgain();
         expectedModel.setRecurrenceFrequency(this.newRecurrenceFrequency);
         expectedModel.commitExpenseTracker();
         String expectedMessage = String.format(SetRecurringBudgetCommand.MESSAGE_SUCCESS, this.newRecurrenceFrequency);
-        SetRecurringBudgetCommand setRecurringBudgetCommand = new SetRecurringBudgetCommand(newRecurrenceFrequency);
-        assertCommandSuccess(setRecurringBudgetCommand, model, commandHistory, expectedMessage, expectedModel);
+        SetRecurringBudgetCommand setRecurrenceFrequencyCommand = new SetRecurringBudgetCommand(newRecurrenceFrequency);
+        assertCommandSuccess(setRecurrenceFrequencyCommand, model, commandHistory, expectedMessage, expectedModel);
         assertFalse(initialRecurrenceFrequency
-            == expectedModel.getExpenseTracker().getMaximumBudget().getNumberOfSecondsToRecurAgain());
+            == expectedModel.getExpenseTracker().getMaximumTotalBudget().getNumberOfSecondsToRecurAgain());
     }
 
     @Test

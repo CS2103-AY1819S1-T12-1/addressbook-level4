@@ -16,8 +16,8 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.ExpenseTrackerChangedEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.ReadOnlyExpenseTracker;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.encryption.EncryptedExpenseTracker;
 import seedu.address.model.user.Username;
 
 /**
@@ -28,12 +28,14 @@ public class StorageManager extends ComponentManager implements Storage {
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private ExpensesStorage expensesStorage;
     private UserPrefsStorage userPrefsStorage;
+    private TipsStorage tipsStorage;
 
 
-    public StorageManager(ExpensesStorage expensesStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(ExpensesStorage expensesStorage, UserPrefsStorage userPrefsStorage, TipsStorage tipsStorage) {
         super();
         this.expensesStorage = expensesStorage;
         this.userPrefsStorage = userPrefsStorage;
+        this.tipsStorage = tipsStorage;
     }
 
     // ================ UserPrefs methods ==============================
@@ -62,56 +64,45 @@ public class StorageManager extends ComponentManager implements Storage {
     }
 
     @Override
-    public Optional<ReadOnlyExpenseTracker> readExpenses() throws DataConversionException, IOException {
+    public Optional<EncryptedExpenseTracker> readExpenses() throws DataConversionException, IOException {
         return readExpenses(expensesStorage.getExpensesDirPath());
     }
 
     @Override
-    public Optional<ReadOnlyExpenseTracker> readExpenses(Path filePath) throws DataConversionException, IOException {
+    public Optional<EncryptedExpenseTracker> readExpenses(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
         return expensesStorage.readExpenses(filePath);
     }
 
     @Override
-    public Map<Username, ReadOnlyExpenseTracker> readAllExpenses(Path dirPath) throws DataConversionException,
+    public Map<Username, EncryptedExpenseTracker> readAllExpenses(Path dirPath) throws DataConversionException,
             IOException {
         File dir = new File(dirPath.toString());
-        final Map<Username, ReadOnlyExpenseTracker> books = new TreeMap<>();
+        final Map<Username, EncryptedExpenseTracker> trackers = new TreeMap<>();
         File[] directoryListing = dir.listFiles();
         if (!dir.mkdir()) {
             if (directoryListing != null) {
                 for (File child : directoryListing) {
                     readExpenses(Paths.get(child.getPath())).ifPresent(
-                        expenseTracker -> books.put(new Username(child.getName().replace(".xml", "")),
+                        expenseTracker -> trackers.put(new Username(child.getName().replace(".xml", "")),
                                 expenseTracker));
                 }
             }
         }
-        return books;
+        return trackers;
     }
 
     @Override
-    public void saveExpenses(ReadOnlyExpenseTracker expenseTracker) throws IOException {
+    public void saveExpenses(EncryptedExpenseTracker expenseTracker) throws IOException {
         Path path = Paths.get(expensesStorage.getExpensesDirPath().toString(),
                 expenseTracker.getUsername().toString() + ".xml");
         saveExpenses(expenseTracker, path);
     }
 
     @Override
-    public void saveExpenses(ReadOnlyExpenseTracker expenseTracker, Path filePath) throws IOException {
+    public void saveExpenses(EncryptedExpenseTracker expenseTracker, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
         expensesStorage.saveExpenses(expenseTracker, filePath);
-    }
-
-    @Override
-    public void backupExpenses(ReadOnlyExpenseTracker expenseTracker) throws IOException {
-        backupExpenses(expenseTracker, expensesStorage.getExpensesDirPath());
-    }
-
-    @Override
-    public void backupExpenses(ReadOnlyExpenseTracker expenseTracker, Path filePath) throws IOException {
-        logger.fine("Attempting to write backup of: " + filePath);
-        expensesStorage.backupExpenses(expenseTracker, filePath);
     }
 
     @Override

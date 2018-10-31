@@ -10,8 +10,12 @@ import org.testfx.api.FxToolkit;
 import guitests.guihandles.MainWindowHandle;
 import javafx.stage.Stage;
 import seedu.address.TestApp;
+import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ReadOnlyExpenseTracker;
+import seedu.address.model.exceptions.InvalidDataException;
 import seedu.address.model.exceptions.NonExistentUserException;
+import seedu.address.model.user.LoginInformation;
 import seedu.address.testutil.TypicalExpenses;
 
 /**
@@ -27,7 +31,13 @@ public class SystemTestSetupHelper {
     public TestApp setupApplication(Supplier<ReadOnlyExpenseTracker> expenseTracker, Path saveFileLocation) {
         try {
             FxToolkit.registerStage(Stage::new);
-            FxToolkit.setupApplication(() -> testApp = new TestApp(expenseTracker, saveFileLocation));
+            FxToolkit.setupApplication(() -> {
+                try {
+                    return testApp = new TestApp(expenseTracker, saveFileLocation);
+                } catch (IllegalValueException e) {
+                    throw new IllegalStateException("Illegal value in sample test data");
+                }
+            });
         } catch (TimeoutException te) {
             throw new AssertionError("Application takes too long to set up.", te);
         }
@@ -54,8 +64,8 @@ public class SystemTestSetupHelper {
         try {
             FxToolkit.setupFixture(() -> {
                 try {
-                    testApp.getActualModel().loadUserData(TypicalExpenses.SAMPLE_USERNAME, null);
-                } catch (NonExistentUserException e) {
+                    testApp.getActualModel().loadUserData(new LoginInformation(TypicalExpenses.SAMPLE_USERNAME, null));
+                } catch (NonExistentUserException | InvalidDataException | ParseException e) {
                     Assert.fail(e.getMessage());
                 }
             });

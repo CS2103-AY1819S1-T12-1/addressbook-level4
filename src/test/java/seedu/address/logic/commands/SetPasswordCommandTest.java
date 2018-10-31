@@ -3,9 +3,7 @@ package seedu.address.logic.commands;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.testutil.TypicalExpenses.getTypicalExpenseTracker;
-
-import java.util.Optional;
+import static seedu.address.testutil.ModelUtil.getTypicalModel;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -13,8 +11,7 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.UserPrefs;
+import seedu.address.model.user.LoginInformation;
 import seedu.address.model.user.Password;
 import seedu.address.model.user.PasswordTest;
 import seedu.address.testutil.TypicalExpenses;
@@ -26,57 +23,65 @@ public class SetPasswordCommandTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private Model model = new ModelManager(getTypicalExpenseTracker(), new UserPrefs());
+    private Model model = getTypicalModel();
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
     public void constructor_nullNewPassword_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        new SetPasswordCommand(null, null);
+        new SetPasswordCommand(null, null, null);
     }
 
     @Test
-    public void constructor_nullOldPassword_assertNoNullPointerException() {
-        new SetPasswordCommand(null, PasswordTest.VALID_PASSWORD);
+    public void constructor_nullOldPassword_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        new SetPasswordCommand(null, PasswordTest.VALID_PASSWORD, null);
     }
 
     @Test
     public void execute_noOldPassword_assertSetPasswordSuccessful() throws Exception {
-        CommandResult commandResult = new LoginCommand(TypicalExpenses.SAMPLE_USERNAME, null)
+        CommandResult commandResult = new LoginCommand(new LoginInformation(TypicalExpenses.SAMPLE_USERNAME, null))
                 .execute(model, commandHistory);
         assertEquals(String.format(LoginCommand.MESSAGE_LOGIN_SUCCESS, TypicalExpenses.SAMPLE_USERNAME.toString()),
                 commandResult.feedbackToUser);
         assertTrue(model.hasSelectedUser());
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
-        commandResult = new SetPasswordCommand(null, PasswordTest.VALID_PASSWORD)
-                .execute(model, commandHistory);
+        commandResult = new SetPasswordCommand(null, PasswordTest.VALID_PASSWORD,
+                PasswordTest.VALID_PASSWORD_STRING).execute(model, commandHistory);
         assertEquals(model.getExpenseTracker().getPassword().get(), PasswordTest.VALID_PASSWORD);
         assertEquals(SetPasswordCommand.MESSAGE_SET_PASSWORD_SUCCESS, commandResult.feedbackToUser);
     }
 
     @Test
     public void execute_oldPasswordInvalid_assertSetPasswordFailure() throws Exception {
-        CommandResult commandResult = new LoginCommand(TypicalExpenses.SAMPLE_USERNAME, null)
+        CommandResult commandResult = new LoginCommand(new LoginInformation(TypicalExpenses.SAMPLE_USERNAME, null))
                 .execute(model, commandHistory);
         assertEquals(String.format(LoginCommand.MESSAGE_LOGIN_SUCCESS, TypicalExpenses.SAMPLE_USERNAME.toString()),
                 commandResult.feedbackToUser);
-        commandResult = new SetPasswordCommand(null, PasswordTest.VALID_PASSWORD)
-                .execute(model, commandHistory);
+        commandResult = new SetPasswordCommand(null, PasswordTest.VALID_PASSWORD,
+                PasswordTest.VALID_PASSWORD_STRING).execute(model, commandHistory);
         assertEquals(model.getExpenseTracker().getPassword().get(), PasswordTest.VALID_PASSWORD);
         assertEquals(SetPasswordCommand.MESSAGE_SET_PASSWORD_SUCCESS, commandResult.feedbackToUser);
         commandResult = new SetPasswordCommand(
-                Optional.of(new Password(PasswordTest.INVALID_PASSWORD_STRING_SHORT, false)),
-                PasswordTest.VALID_PASSWORD).execute(model, commandHistory);
+                new Password(PasswordTest.INVALID_PASSWORD_STRING_SHORT, false),
+                PasswordTest.VALID_PASSWORD, PasswordTest.VALID_PASSWORD_STRING).execute(model, commandHistory);
         assertEquals(model.getExpenseTracker().getPassword().get(), PasswordTest.VALID_PASSWORD);
         assertEquals(SetPasswordCommand.MESSAGE_INCORRECT_PASSWORD, commandResult.feedbackToUser);
     }
 
     @Test
     public void testEquals() {
-        assertEquals(new SetPasswordCommand(Optional.of(PasswordTest.VALID_PASSWORD), PasswordTest.VALID_PASSWORD),
-                new SetPasswordCommand(Optional.of(PasswordTest.VALID_PASSWORD), PasswordTest.VALID_PASSWORD));
-        assertNotEquals(new SetPasswordCommand(Optional.of(PasswordTest.VALID_PASSWORD), PasswordTest.VALID_PASSWORD),
-                new SetPasswordCommand(Optional.of(PasswordTest.VALID_PASSWORD),
-                        new Password(PasswordTest.VALID_PASSWORD_STRING.toUpperCase(), true)));
+        assertEquals(new SetPasswordCommand(PasswordTest.VALID_PASSWORD,
+                        PasswordTest.VALID_PASSWORD,
+                        PasswordTest.VALID_PASSWORD_STRING),
+                new SetPasswordCommand(PasswordTest.VALID_PASSWORD,
+                        PasswordTest.VALID_PASSWORD,
+                        PasswordTest.VALID_PASSWORD_STRING));
+        assertNotEquals(new SetPasswordCommand(PasswordTest.VALID_PASSWORD,
+                        PasswordTest.VALID_PASSWORD,
+                        PasswordTest.VALID_PASSWORD_STRING),
+                new SetPasswordCommand(PasswordTest.VALID_PASSWORD,
+                        new Password(PasswordTest.VALID_PASSWORD_STRING.toUpperCase(), true),
+                        PasswordTest.VALID_PASSWORD_STRING));
     }
 }

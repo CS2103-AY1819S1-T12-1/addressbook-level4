@@ -14,8 +14,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
-import seedu.address.model.ExpenseTracker;
-import seedu.address.model.ReadOnlyExpenseTracker;
+import seedu.address.model.encryption.EncryptedExpenseTracker;
 import seedu.address.model.user.Username;
 
 /**
@@ -38,7 +37,7 @@ public class XmlExpensesStorage implements ExpensesStorage {
     }
 
     @Override
-    public Optional<ReadOnlyExpenseTracker> readExpenses() throws DataConversionException, IOException {
+    public Optional<EncryptedExpenseTracker> readExpenses() throws DataConversionException, IOException {
         return readExpenses(filePath);
     }
 
@@ -47,7 +46,7 @@ public class XmlExpensesStorage implements ExpensesStorage {
      * @param filePath location of the data. Cannot be null
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyExpenseTracker> readExpenses(Path filePath) throws DataConversionException,
+    public Optional<EncryptedExpenseTracker> readExpenses(Path filePath) throws DataConversionException,
                                                                                  FileNotFoundException {
         requireNonNull(filePath);
         if (!Files.exists(filePath)) {
@@ -58,7 +57,7 @@ public class XmlExpensesStorage implements ExpensesStorage {
         XmlSerializableExpenseTracker xmlExpenseTracker = XmlFileStorage.loadDataFromSaveFile(filePath);
 
         try {
-            Optional<ExpenseTracker> expenseTrackerOptional = Optional.of(xmlExpenseTracker.toModelType());
+            Optional<EncryptedExpenseTracker> expenseTrackerOptional = Optional.of(xmlExpenseTracker.toModelType());
             Username fileName = new Username(filePath.getFileName().toString().replace(".xml", ""));
             expenseTrackerOptional.ifPresent(expenseTracker -> {
                 if (!fileName.equals(expenseTracker.getUsername())) {
@@ -66,8 +65,7 @@ public class XmlExpensesStorage implements ExpensesStorage {
                     expenseTracker.setUsername(fileName);
                 }
             });
-            return expenseTrackerOptional.map(expenseTracker -> expenseTracker);
-            // Typecast to Optional<ReadOnlyExpenseTracker>
+            return expenseTrackerOptional;
         } catch (IllegalValueException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
             throw new DataConversionException(ive);
@@ -75,32 +73,15 @@ public class XmlExpensesStorage implements ExpensesStorage {
     }
 
     @Override
-    public void saveExpenses(ReadOnlyExpenseTracker expenseTracker) throws IOException {
+    public void saveExpenses(EncryptedExpenseTracker expenseTracker) throws IOException {
         saveExpenses(expenseTracker, filePath);
     }
 
     /**
-     * Similar to {@link #saveExpenses(ReadOnlyExpenseTracker)}
+     * Similar to {@link #saveExpenses(EncryptedExpenseTracker)}
      * @param filePath location of the data. Cannot be null
      */
-    public void saveExpenses(ReadOnlyExpenseTracker expenseTracker, Path filePath) throws IOException {
-        requireNonNull(expenseTracker);
-        requireNonNull(filePath);
-
-        FileUtil.createIfMissing(filePath);
-        XmlFileStorage.saveDataToFile(filePath, new XmlSerializableExpenseTracker(expenseTracker));
-    }
-
-    @Override
-    public void backupExpenses(ReadOnlyExpenseTracker expenseTracker) throws IOException {
-        backupExpenses(expenseTracker, backupFilePath);
-    }
-
-    /**
-     * Similar to {@link #backupExpenses(ReadOnlyExpenseTracker)}
-     * @param filePath location of the data. Cannot be null
-     */
-    public void backupExpenses(ReadOnlyExpenseTracker expenseTracker, Path filePath) throws IOException {
+    public void saveExpenses(EncryptedExpenseTracker expenseTracker, Path filePath) throws IOException {
         requireNonNull(expenseTracker);
         requireNonNull(filePath);
 

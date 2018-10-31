@@ -11,14 +11,14 @@
 <?import javafx.scene.layout.VBox?>
 
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-         minWidth="800" minHeight="800" onCloseRequest="#handleExit">
+         minWidth="900" minHeight="800" onCloseRequest="#handleExit">
   <icons>
     <Image url="@/images/address_book_32.png" />
   </icons>
   <scene>
     <Scene>
       <stylesheets>
-        <URL value="@DarkTheme.css" />
+        <URL value="@BaseTheme.css" />
         <URL value="@Extensions.css" />
       </stylesheets>
 
@@ -35,26 +35,26 @@
         <StackPane VBox.vgrow="NEVER" fx:id="titlePlaceholder">
         </StackPane>
 
-        <SplitPane fx:id="splitPane" dividerPositions="0.5" VBox.vgrow="ALWAYS">
-          <VBox fx:id="leftPanel" prefHeight="500" minWidth="472" prefWidth="472" SplitPane.resizableWithParent="false">
-            <StackPane fx:id="leftPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+        <SplitPane fx:id="splitPane" prefHeight="500" minHeight="500" SplitPane.resizableWithParent="true">
+          <VBox fx:id="leftPanel" prefHeight="500" minHeight="500" minWidth="440" prefWidth="440"  SplitPane.resizableWithParent="true" VBox.vgrow="ALWAYS">
+            <StackPane fx:id="leftPanelPlaceholder" prefHeight="500" SplitPane.resizableWithParent="true" VBox.vgrow="ALWAYS"/>
           </VBox>
 
-          <SplitPane id="splitPane" fx:id="rightSplitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS" orientation="VERTICAL">
-            <VBox fx:id="budgetPanel" prefWidth="338" prefHeight="149">
+          <SplitPane id="splitPane" fx:id="rightSplitPane" dividerPositions="0.4" orientation="VERTICAL" SplitPane.resizableWithParent="true">
+            <VBox fx:id="budgetPanel" minWidth = "450" prefWidth="450" prefHeight="150">
               <StackPane fx:id="budgetPanelPlaceholder" VBox.vgrow="ALWAYS"/>
             </VBox>
-            <VBox fx:id="notificationPanel" prefWidth="338" prefHeight="356">
+            <VBox fx:id="notificationPanel" minWidth = "450" prefWidth="450" prefHeight="350">
               <StackPane fx:id="notificationPanelPlaceholder" VBox.vgrow="ALWAYS"/>
             </VBox>
           </SplitPane>
         </SplitPane>
 
-        <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" prefWidth="800" prefHeight="100">
+        <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" prefWidth="900" prefHeight="100">
         </StackPane>
 
         <StackPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder"
-                   prefWidth="800" prefHeight="200">
+                   prefWidth="900" prefHeight="150">
         </StackPane>
 
         <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />

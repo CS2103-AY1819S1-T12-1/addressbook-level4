@@ -6,31 +6,31 @@ import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.ui.UpdateBudgetPanelEvent;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
-import seedu.address.model.budget.Budget;
+import seedu.address.model.budget.TotalBudget;
 import seedu.address.model.exceptions.NoUserSelectedException;
 
 /**
- * Sets the budget cap for the expense tracker.
+ * Sets the totalBudget cap for the expense tracker.
  */
 
 public class SetBudgetCommand extends Command {
     public static final String COMMAND_WORD = "setBudget";
     public static final String COMMAND_ALIAS = "sb";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sets a budget cap for the expense tracker "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Sets a totalBudget cap for the expense tracker "
         + "Parameters: MONEY (Must be a positive float with 2 decimal places)\n"
         + "Example " + COMMAND_WORD + " 130.00";
 
-    public static final String MESSAGE_SUCCESS = "Budget set to %1$s";
-    private final Budget toSet;
+    public static final String MESSAGE_SUCCESS = "TotalBudget set to %1$s";
+    private final TotalBudget toSet;
 
     /**
-     * Creates an AddCommand to add the specified {@code Budget}
+     * Creates an AddCommand to add the specified {@code TotalBudget}
      */
 
-    public SetBudgetCommand(Budget budget) {
-        requireNonNull(budget);
-        this.toSet = budget;
+    public SetBudgetCommand(TotalBudget totalBudget) {
+        requireNonNull(totalBudget);
+        this.toSet = totalBudget;
     }
 
     @Override
@@ -41,6 +41,12 @@ public class SetBudgetCommand extends Command {
         model.commitExpenseTracker();
         EventsCenter.getInstance().post(new UpdateBudgetPanelEvent(model.getMaximumBudget()));
         return new CommandResult(String.format(MESSAGE_SUCCESS, this.toSet));
+    }
+
+    @Override
+    public boolean equals(Object sbCommand) {
+        SetBudgetCommand sbc = (SetBudgetCommand) sbCommand;
+        return sbc.toSet.equals(this.toSet);
     }
 
 }

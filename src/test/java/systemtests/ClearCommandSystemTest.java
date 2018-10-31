@@ -6,10 +6,12 @@ import static seedu.address.testutil.TypicalExpenses.KEYWORD_MATCHING_BUY;
 import org.junit.Test;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
+import seedu.address.model.exceptions.InvalidDataException;
 import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.exceptions.NonExistentUserException;
 import seedu.address.model.exceptions.UserAlreadyExistsException;
@@ -19,40 +21,41 @@ import seedu.address.testutil.ModelUtil;
 public class ClearCommandSystemTest extends ExpenseTrackerSystemTest {
 
     @Test
-    public void clear() throws NoUserSelectedException, UserAlreadyExistsException, NonExistentUserException {
+    public void clear() throws NoUserSelectedException, UserAlreadyExistsException, NonExistentUserException,
+            IllegalValueException, InvalidDataException {
         final Model defaultModel = getModel();
         showAllExpenses();
-        /* Case: clear non-empty address book, command with leading spaces and trailing alphanumeric characters and
+        /* Case: clear non-empty expense tracker, command with leading spaces and trailing alphanumeric characters and
          * spaces -> cleared
          */
         assertCommandSuccess("   " + ClearCommand.COMMAND_WORD + " ab12   ");
         assertSelectedCardUnchanged();
 
-        /* Case: undo clearing address book -> original address book restored */
+        /* Case: undo clearing expense tracker -> original expense tracker restored */
         String command = UndoCommand.COMMAND_WORD;
         String expectedResultMessage = UndoCommand.MESSAGE_SUCCESS;
         assertCommandSuccess(command, expectedResultMessage, defaultModel);
         assertSelectedCardUnchanged();
 
-        /* Case: redo clearing address book -> cleared */
+        /* Case: redo clearing expense tracker -> cleared */
         command = RedoCommand.COMMAND_WORD;
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
         assertCommandSuccess(command, expectedResultMessage, ModelUtil.modelWithTestUser());
         assertSelectedCardUnchanged();
 
-        /* Case: selects first card in expense list and clears address book -> cleared and no card selected */
-        executeCommand(UndoCommand.COMMAND_WORD); // restores the original address book
+        /* Case: selects first card in expense list and clears expense tracker -> cleared and no card selected */
+        executeCommand(UndoCommand.COMMAND_WORD); // restores the original expense tracker
         selectExpense(Index.fromOneBased(1));
         assertCommandSuccess(ClearCommand.COMMAND_WORD);
         assertSelectedCardDeselected();
 
-        /* Case: filters the expense list before clearing -> entire address book cleared */
-        executeCommand(UndoCommand.COMMAND_WORD); // restores the original address book
+        /* Case: filters the expense list before clearing -> entire expense tracker cleared */
+        executeCommand(UndoCommand.COMMAND_WORD); // restores the original expense tracker
         showExpensesWithName(KEYWORD_MATCHING_BUY);
         assertCommandSuccess(ClearCommand.COMMAND_WORD);
         assertSelectedCardUnchanged();
 
-        /* Case: clear empty address book -> cleared */
+        /* Case: clear empty expense tracker -> cleared */
         assertCommandSuccess(ClearCommand.COMMAND_WORD);
         assertSelectedCardUnchanged();
 
@@ -69,7 +72,7 @@ public class ClearCommandSystemTest extends ExpenseTrackerSystemTest {
      * @see ExpenseTrackerSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandSuccess(String command) throws UserAlreadyExistsException, NonExistentUserException,
-            NoUserSelectedException {
+            NoUserSelectedException, IllegalValueException, InvalidDataException {
         assertCommandSuccess(command, ClearCommand.MESSAGE_SUCCESS, ModelUtil.modelWithTestUser());
     }
 
@@ -79,7 +82,7 @@ public class ClearCommandSystemTest extends ExpenseTrackerSystemTest {
      * @see ClearCommandSystemTest#assertCommandSuccess(String)
      */
     private void assertCommandSuccess(String command, String expectedResultMessage, Model expectedModel) throws
-            NoUserSelectedException {
+            NoUserSelectedException, IllegalValueException {
         executeCommand(command);
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
         assertCommandBoxShowsDefaultStyle();
@@ -95,7 +98,8 @@ public class ClearCommandSystemTest extends ExpenseTrackerSystemTest {
      * error style.
      * @see ExpenseTrackerSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
-    private void assertCommandFailure(String command, String expectedResultMessage) throws NoUserSelectedException {
+    private void assertCommandFailure(String command, String expectedResultMessage) throws NoUserSelectedException,
+            IllegalValueException {
         Model expectedModel = getModel();
 
         executeCommand(command);

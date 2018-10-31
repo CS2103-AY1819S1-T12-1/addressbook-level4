@@ -7,8 +7,11 @@ import java.util.stream.Collectors;
 
 import guitests.guihandles.ExpenseCardHandle;
 import guitests.guihandles.ExpenseListPanelHandle;
+import guitests.guihandles.NotificationCardHandle;
+import guitests.guihandles.NotificationListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
 import seedu.address.model.expense.Expense;
+import seedu.address.model.notification.Notification;
 
 /**
  * A set of assertion methods useful for writing GUI tests.
@@ -17,7 +20,7 @@ public class GuiTestAssert {
     /**
      * Asserts that {@code actualCard} displays the same values as {@code expectedCard}.
      */
-    public static void assertCardEquals(ExpenseCardHandle expectedCard, ExpenseCardHandle actualCard) {
+    public static void assertExpenseCardEquals(ExpenseCardHandle expectedCard, ExpenseCardHandle actualCard) {
         assertEquals(expectedCard.getId(), actualCard.getId());
         assertEquals(expectedCard.getCost(), actualCard.getCost());
         assertEquals(expectedCard.getName(), actualCard.getName());
@@ -40,7 +43,7 @@ public class GuiTestAssert {
      * Asserts that the list in {@code expenseListPanelHandle} displays the details of {@code expenses} correctly and
      * in the correct order.
      */
-    public static void assertListMatching(ExpenseListPanelHandle expenseListPanelHandle, Expense... expenses) {
+    public static void assertExpenseListMatching(ExpenseListPanelHandle expenseListPanelHandle, Expense... expenses) {
         for (int i = 0; i < expenses.length; i++) {
             expenseListPanelHandle.navigateToCard(i);
             assertCardDisplaysExpense(expenses[i], expenseListPanelHandle.getExpenseCardHandle(i));
@@ -51,9 +54,50 @@ public class GuiTestAssert {
      * Asserts that the list in {@code expenseListPanelHandle} displays the details of {@code expenses} correctly and
      * in the correct order.
      */
-    public static void assertListMatching(ExpenseListPanelHandle expenseListPanelHandle, List<Expense> expenses) {
-        assertListMatching(expenseListPanelHandle, expenses.toArray(new Expense[0]));
+    public static void assertExpenseListMatching(ExpenseListPanelHandle expenseListPanelHandle,
+                                                 List<Expense> expenses) {
+        assertExpenseListMatching(expenseListPanelHandle, expenses.toArray(new Expense[0]));
     }
+
+    /**
+     * Asserts that {@code actualCard} displays the same values as {@code expectedCard}.
+     */
+    public static void assertNotificationCardEquals(NotificationCardHandle expectedCard,
+                                                    NotificationCardHandle actualCard) {
+        assertEquals(expectedCard.getHeader(), actualCard.getHeader());
+        assertEquals(expectedCard.getBody(), actualCard.getBody());
+    }
+
+    /**
+     * Asserts that {@code actualCard} displays the details of {@code expectedNotification}.
+     */
+    public static void assertCardDisplaysNotification(Notification expectedNotification,
+                                                      NotificationCardHandle actualCard) {
+        assertEquals(expectedNotification.getHeader(), actualCard.getHeader());
+        assertEquals(expectedNotification.getBody(), actualCard.getBody());
+    }
+
+    /**
+     * Asserts that the list in {@code notificationListPanelHandle} displays the details of {@code notification}
+     * correctly and in the correct order.
+     */
+    public static void assertNotificationListMatching(NotificationListPanelHandle notificationsListPanelHandle,
+                                                      Notification... notifications) {
+        for (int i = 0; i < notifications.length; i++) {
+            notificationsListPanelHandle.navigateToCard(i);
+            assertCardDisplaysNotification(notifications[i], notificationsListPanelHandle.getNotificationCardHandle(i));
+        }
+    }
+
+    /**
+     * Asserts that the list in {@code notificationListPanelHandle} displays the details of {@code notifications}
+     * correctly and in the correct order.
+     */
+    public static void assertNotificationListMatching(NotificationListPanelHandle notificationListPanelHandle,
+                                                      List<Notification> notifications) {
+        assertNotificationListMatching(notificationListPanelHandle, notifications.toArray(new Notification[0]));
+    }
+
 
     /**
      * Asserts the size of the list in {@code expenseListPanelHandle} equals to {@code size}.

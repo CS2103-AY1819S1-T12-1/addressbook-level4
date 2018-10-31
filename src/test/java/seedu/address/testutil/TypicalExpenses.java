@@ -14,16 +14,17 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_KFC;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FOOD;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.model.encryption.EncryptionUtil.DEFAULT_ENCRYPTION_KEY;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 import seedu.address.model.ExpenseTracker;
-import seedu.address.model.budget.Budget;
+import seedu.address.model.budget.TotalBudget;
 import seedu.address.model.expense.Expense;
+import seedu.address.model.notification.NotificationHandler;
 import seedu.address.model.user.Username;
 
 /**
@@ -107,16 +108,19 @@ public class TypicalExpenses {
 
     /**
      * Returns an {@code ExpenseTracker} with all the typical expenses
-     * and its maximmum budget equal to the sum of all expenses.
+     * and its maximmum totalBudget equal to the sum of all expenses.
      */
     public static ExpenseTracker getTypicalExpenseTracker() {
         double expense = 0;
-        ExpenseTracker ab = new ExpenseTracker(SAMPLE_USERNAME, Optional.empty());
+        ExpenseTracker ab = new ExpenseTracker(SAMPLE_USERNAME, null, DEFAULT_ENCRYPTION_KEY);
         for (Expense e : getTypicalExpenses()) {
             ab.addExpense(e);
             expense += e.getCost().getCostValue();
         }
-        ab.modifyMaximumBudget(new Budget(expense + 2, expense, LocalDateTime.parse("2017-08-04T10:11:30"), 50000));
+        ab.setNotificationHandler(new NotificationHandler(LocalDateTime.parse("2018-10-01T17:26:18.868275"),
+                true, true));
+        ab.modifyMaximumBudget(new TotalBudget(expense + 2, expense, LocalDateTime.parse("2017-08-04T10:11:30"),
+            50000));
 
         return ab;
     }

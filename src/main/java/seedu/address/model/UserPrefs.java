@@ -14,6 +14,8 @@ public class UserPrefs {
     private GuiSettings guiSettings;
     private Path expenseTrackerDirPath = Paths.get("data");
 
+    private Path tipsFilePath = Paths.get("tips.json");
+
     public UserPrefs() {
         setGuiSettings(800, 800, 0, 0);
     }
@@ -32,6 +34,10 @@ public class UserPrefs {
 
     public Path getExpenseTrackerDirPath() {
         return expenseTrackerDirPath;
+    }
+
+    public Path getTipsFilePath() {
+        return tipsFilePath;
     }
 
     public void setExpenseTrackerDirPath(Path expenseTrackerDirPath) {

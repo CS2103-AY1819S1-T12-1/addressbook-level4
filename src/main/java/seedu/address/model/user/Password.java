@@ -1,11 +1,9 @@
 package seedu.address.model.user;
 
+import static com.google.common.hash.Hashing.sha256;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
-
-import java.nio.charset.StandardCharsets;
-
-import com.google.common.hash.Hashing;
+import static seedu.address.model.encryption.EncryptionUtil.DEFAULT_CHARSET;
 
 //@@author JasonChong96
 /**
@@ -34,7 +32,7 @@ public class Password {
         requireNonNull(password);
         if (isPlainText) {
             checkArgument(isValidPassword(password), MESSAGE_PASSWORD_CONSTRAINTS);
-            this.passwordHash = Hashing.sha256().hashString(password, StandardCharsets.UTF_8).toString();
+            this.passwordHash = sha256().hashString(password, DEFAULT_CHARSET).toString();
         } else {
             this.passwordHash = password;
         }

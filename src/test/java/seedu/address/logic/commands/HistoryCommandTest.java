@@ -5,7 +5,9 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
+import seedu.address.model.exceptions.InvalidDataException;
 import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.exceptions.NonExistentUserException;
 import seedu.address.model.exceptions.UserAlreadyExistsException;
@@ -16,7 +18,8 @@ public class HistoryCommandTest {
     private Model model = ModelUtil.modelWithTestUser();
     private Model expectedModel = ModelUtil.modelWithTestUser();
 
-    public HistoryCommandTest() throws UserAlreadyExistsException, NonExistentUserException, NoUserSelectedException {
+    public HistoryCommandTest() throws UserAlreadyExistsException, NonExistentUserException, NoUserSelectedException,
+            InvalidDataException, ParseException {
     }
 
     @Test

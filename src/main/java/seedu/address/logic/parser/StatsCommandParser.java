@@ -2,9 +2,12 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MODE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NUMBER_OF_DAYS_OR_MONTHS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PERIOD;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PERIOD_AMOUNT;
+import static seedu.address.logic.parser.ParserUtil.arePrefixesPresent;
 
 import seedu.address.logic.commands.StatsCommand;
+
 import seedu.address.logic.parser.exceptions.ParseException;
 
 
@@ -28,14 +31,21 @@ public class StatsCommandParser implements Parser<StatsCommand> {
             return new StatsCommand();
         }
 
-        try {
-            ArgumentMultimap argMultimap =
-                    ArgumentTokenizer.tokenize(args, PREFIX_NUMBER_OF_DAYS_OR_MONTHS, PREFIX_MODE);
-            int numberOfDaysOrMonths = Integer.parseInt(argMultimap.getValue(PREFIX_NUMBER_OF_DAYS_OR_MONTHS).get());
-            String mode = argMultimap.getValue(PREFIX_MODE).get();
+        ArgumentMultimap argMultimap =
+                ArgumentTokenizer.tokenize(args, PREFIX_PERIOD_AMOUNT, PREFIX_PERIOD, PREFIX_MODE);
 
-            return new StatsCommand(numberOfDaysOrMonths, mode);
-        } catch (Exception e) {
+        if (!arePrefixesPresent(argMultimap, PREFIX_PERIOD_AMOUNT, PREFIX_PERIOD, PREFIX_MODE)
+                || !argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, StatsCommand.MESSAGE_USAGE));
+        }
+
+        int periodAmount = Integer.parseInt(argMultimap.getValue(PREFIX_PERIOD_AMOUNT).get());
+        String mode = argMultimap.getValue(PREFIX_MODE).get();
+        String period = argMultimap.getValue(PREFIX_PERIOD).get();
+
+        try {
+            return new StatsCommand(periodAmount, period, mode);
+        } catch (IllegalArgumentException iae) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, StatsCommand.MESSAGE_USAGE));
         }
     }

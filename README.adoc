@@ -15,7 +15,8 @@ image::docs/images/Ui2.png[width="600"]
 
 endif::[]
 
-* Have you ever lost track of your expenditure and burst your budget for the month? Fret not! The Expense Tracker is here to help you.
+* Have you ever lost track of your expenditure and burst your budget for the month? Fret not! The Expense Tracker is
+here to help you.
 * The Expense Tracker application features a GUI but interactions happen using a CLI (Command Line Interface) for quick and easy use
 * The Expense Tracker application is a Java application intended for students who wish to have a better way to track their expenses.
 * It includes support for _Build Automation_ using Gradle and for _Continuous Integration_ using Travis CI.

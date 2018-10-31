@@ -30,9 +30,9 @@ import org.junit.Test;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.EditCommand.EditExpenseDescriptor;
 import seedu.address.model.expense.Category;
 import seedu.address.model.expense.Cost;
+import seedu.address.model.expense.EditExpenseDescriptor;
 import seedu.address.model.expense.Name;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.EditExpenseDescriptorBuilder;
@@ -107,7 +107,7 @@ public class EditCommandParserTest {
         String userInput = targetIndex.getOneBased() + CATEGORY_DESC_BOB + TAG_DESC_HUSBAND
                 + COST_DESC_AMY + NAME_DESC_AMY + TAG_DESC_FRIEND;
 
-        EditCommand.EditExpenseDescriptor descriptor = new EditExpenseDescriptorBuilder().withName(VALID_NAME_GAME)
+        EditExpenseDescriptor descriptor = new EditExpenseDescriptorBuilder().withName(VALID_NAME_GAME)
                 .withCategory(VALID_CATEGORY_IPHONE).withCost(VALID_COST_GAME)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
@@ -120,7 +120,7 @@ public class EditCommandParserTest {
         Index targetIndex = INDEX_FIRST_EXPENSE;
         String userInput = targetIndex.getOneBased() + CATEGORY_DESC_BOB;
 
-        EditCommand.EditExpenseDescriptor descriptor =
+        EditExpenseDescriptor descriptor =
                 new EditExpenseDescriptorBuilder().withCategory(VALID_CATEGORY_IPHONE)
                 .build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
@@ -143,7 +143,7 @@ public class EditCommandParserTest {
         expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
-        // address
+        // cost
         userInput = targetIndex.getOneBased() + COST_DESC_AMY;
         descriptor = new EditExpenseDescriptorBuilder().withCost(VALID_COST_GAME).build();
         expectedCommand = new EditCommand(targetIndex, descriptor);
@@ -163,7 +163,7 @@ public class EditCommandParserTest {
                 + TAG_DESC_FRIEND + CATEGORY_DESC_AMY + COST_DESC_AMY + TAG_DESC_FRIEND
                 + CATEGORY_DESC_BOB + COST_DESC_BOB + TAG_DESC_HUSBAND;
 
-        EditCommand.EditExpenseDescriptor descriptor = new EditExpenseDescriptorBuilder()
+        EditExpenseDescriptor descriptor = new EditExpenseDescriptorBuilder()
                 .withCategory(VALID_CATEGORY_IPHONE)
                 .withCost(VALID_COST_IPHONE).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
                 .build();
@@ -177,7 +177,7 @@ public class EditCommandParserTest {
         // no other valid values specified
         Index targetIndex = INDEX_FIRST_EXPENSE;
         String userInput = targetIndex.getOneBased() + INVALID_CATEGORY_DESC + CATEGORY_DESC_BOB;
-        EditCommand.EditExpenseDescriptor descriptor = new EditExpenseDescriptorBuilder()
+        EditExpenseDescriptor descriptor = new EditExpenseDescriptorBuilder()
                 .withCategory(VALID_CATEGORY_IPHONE).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -201,4 +201,5 @@ public class EditCommandParserTest {
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }
+
 }

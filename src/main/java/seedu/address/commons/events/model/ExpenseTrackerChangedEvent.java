@@ -1,19 +1,19 @@
 package seedu.address.commons.events.model;
 
 import seedu.address.commons.events.BaseEvent;
-import seedu.address.model.ReadOnlyExpenseTracker;
+import seedu.address.model.encryption.EncryptedExpenseTracker;
 
 /** Indicates the ExpenseTracker in the model has changed*/
 public class ExpenseTrackerChangedEvent extends BaseEvent {
 
-    public final ReadOnlyExpenseTracker data;
+    public final EncryptedExpenseTracker data;
 
-    public ExpenseTrackerChangedEvent(ReadOnlyExpenseTracker data) {
+    public ExpenseTrackerChangedEvent(EncryptedExpenseTracker data) {
         this.data = data;
     }
 
     @Override
     public String toString() {
-        return "number of expenses " + data.getExpenseList().size();
+        return "number of expenses " + data.getEncryptedExpenses().size();
     }
 }

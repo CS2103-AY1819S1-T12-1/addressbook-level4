@@ -8,6 +8,8 @@ import org.junit.Test;
 import seedu.address.testutil.Assert;
 
 public class CategoryTest {
+    public static final String INVALID_CATEGORY = "";
+    public static final String VALID_CATEGORY = "Test";
 
     @Test
     public void constructor_null_throwsNullPointerException() {
@@ -16,8 +18,7 @@ public class CategoryTest {
 
     @Test
     public void constructor_invalidCategory_throwsIllegalArgumentException() {
-        String invalidCategory = "";
-        Assert.assertThrows(IllegalArgumentException.class, () -> new Category(invalidCategory));
+        Assert.assertThrows(IllegalArgumentException.class, () -> new Category(INVALID_CATEGORY));
     }
 
     @Test

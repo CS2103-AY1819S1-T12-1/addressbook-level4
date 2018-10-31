@@ -10,12 +10,16 @@ import java.util.stream.Collectors;
 import javax.xml.bind.annotation.XmlElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.encryption.EncryptedCategory;
+import seedu.address.model.encryption.EncryptedCost;
+import seedu.address.model.encryption.EncryptedDate;
+import seedu.address.model.encryption.EncryptedExpense;
+import seedu.address.model.encryption.EncryptedName;
+import seedu.address.model.encryption.EncryptedTag;
 import seedu.address.model.expense.Category;
 import seedu.address.model.expense.Cost;
 import seedu.address.model.expense.Date;
-import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.Name;
-import seedu.address.model.tag.Tag;
 
 /**
  * JAXB-friendly version of the Expense.
@@ -60,11 +64,11 @@ public class XmlAdaptedExpense {
      *
      * @param source future changes to this will not affect the created XmlAdaptedExpense
      */
-    public XmlAdaptedExpense(Expense source) {
-        name = source.getName().expenseName;
-        category = source.getCategory().categoryName;
-        cost = source.getCost().value;
-        date = source.getDate().toString();
+    public XmlAdaptedExpense(EncryptedExpense source) {
+        name = source.getName().getEncryptedString();
+        category = source.getCategory().getEncryptedString();
+        cost = source.getCost().getEncryptedString();
+        date = source.getDate().getEncryptedString();
         tagged = source.getTags().stream()
                 .map(XmlAdaptedTag::new)
                 .collect(Collectors.toList());
@@ -75,8 +79,8 @@ public class XmlAdaptedExpense {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted expense
      */
-    public Expense toModelType() throws IllegalValueException {
-        final List<Tag> expenseTags = new ArrayList<>();
+    public EncryptedExpense toModelType() throws IllegalValueException {
+        final List<EncryptedTag> expenseTags = new ArrayList<>();
         for (XmlAdaptedTag tag : tagged) {
             expenseTags.add(tag.toModelType());
         }
@@ -84,39 +88,20 @@ public class XmlAdaptedExpense {
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
         }
-        if (!Name.isValidName(name)) {
-            throw new IllegalValueException(Name.MESSAGE_NAME_CONSTRAINTS);
-        }
-        final Name modelName = new Name(name);
-
         if (category == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     Category.class.getSimpleName()));
         }
-        if (!Category.isValidCategory(category)) {
-            throw new IllegalValueException(Category.MESSAGE_CATEGORY_CONSTRAINTS);
-        }
-        final Category modelCategory = new Category(category);
-
         if (cost == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Cost.class.getSimpleName()));
         }
-        if (!Cost.isValidCost(cost)) {
-            throw new IllegalValueException(Cost.MESSAGE_COST_CONSTRAINTS);
-        }
-        final Cost modelCost = new Cost(cost);
-
         if (date == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Date.class.getSimpleName()));
         }
-        if (!Date.isValidDate(date)) {
-            throw new IllegalValueException(Date.DATE_FORMAT_CONSTRAINTS);
-        }
-        final Date modelDate = new Date(date);
+        final Set<EncryptedTag> modelTags = new HashSet<>(expenseTags);
 
-        final Set<Tag> modelTags = new HashSet<>(expenseTags);
-
-        return new Expense(modelName, modelCategory, modelCost, modelDate, modelTags);
+        return new EncryptedExpense(new EncryptedName(name), new EncryptedCategory(category),
+                new EncryptedCost(cost), new EncryptedDate(date), modelTags);
     }
 
     @Override

@@ -4,7 +4,10 @@ import static java.util.Objects.requireNonNull;
 
 import java.io.IOException;
 import java.nio.file.Files;
+
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,8 +22,10 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.deser.std.FromStringDeserializer;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import com.fasterxml.jackson.databind.type.CollectionType;
 
 import seedu.address.commons.core.LogsCenter;
+
 import seedu.address.commons.exceptions.DataConversionException;
 
 /**
@@ -96,8 +101,8 @@ public class JsonUtil {
      * @param <T> The generic type to create an instance of
      * @return The instance of T with the specified values in the JSON string
      */
-    public static <T> T fromJsonString(String json, Class<T> instanceClass) throws IOException {
-        return objectMapper.readValue(json, instanceClass);
+    public static <T> T fromJsonString(String jsonFile, Class<T> instanceClass) throws IOException {
+        return objectMapper.readValue(jsonFile, instanceClass);
     }
 
     /**
@@ -108,6 +113,23 @@ public class JsonUtil {
      */
     public static <T> String toJsonString(T instance) throws JsonProcessingException {
         return objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(instance);
+    }
+
+    /**
+     * Converts a JSON file to an arrayList of type T
+     * @param jsonFile Path of the JSON file to convert
+     * @param instanceClass to set arrayList generic to
+     * @param <T> The generic type to create an arrayList of
+     * @return An optional containing the arrayList of objects of T type
+     * @throws IOException
+     */
+    //@@Snookerballs
+    public static <T> Optional<List<T>> fromJsonToArray(Path jsonFile, Class<T> instanceClass) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        CollectionType listType = mapper.getTypeFactory().constructCollectionType(ArrayList.class, instanceClass);
+        List<T> list = mapper.readValue(jsonFile.toFile(), listType);
+
+        return Optional.of(list);
     }
 
     /**

@@ -1,5 +1,7 @@
 package seedu.address;
 
+import static seedu.address.model.encryption.EncryptionUtil.DEFAULT_ENCRYPTION_KEY;
+
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.function.Supplier;
@@ -9,12 +11,14 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.XmlUtil;
 import seedu.address.model.ExpenseTracker;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyExpenseTracker;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.encryption.EncryptionUtil;
 import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.exceptions.NonExistentUserException;
 import seedu.address.storage.UserPrefsStorage;
@@ -40,15 +44,16 @@ public class TestApp extends MainApp {
     public TestApp() {
     }
 
-    public TestApp(Supplier<ReadOnlyExpenseTracker> initialDataSupplier, Path saveFileLocation) {
+    public TestApp(Supplier<ReadOnlyExpenseTracker> initialDataSupplier, Path saveFileLocation) throws
+            IllegalValueException {
         super();
         this.initialDataSupplier = initialDataSupplier;
         this.saveFileLocation = saveFileLocation;
 
         // If some initial local data has been provided, write those to the file
         if (initialDataSupplier.get() != null) {
-            createDataFileWithData(new XmlSerializableExpenseTracker(this.initialDataSupplier.get()),
-                    this.saveFileLocation);
+            createDataFileWithData(new XmlSerializableExpenseTracker(EncryptionUtil.encryptTracker(
+                    this.initialDataSupplier.get())), this.saveFileLocation);
         }
     }
 
@@ -72,12 +77,12 @@ public class TestApp extends MainApp {
     }
 
     /**
-     * Returns a defensive copy of the address book data stored inside the storage file.
+     * Returns a defensive copy of the expense tracker data stored inside the storage file.
      */
-    public ExpenseTracker readStorageExpenseTracker() {
+    public ExpenseTracker readStorageExpenseTracker() throws IllegalValueException {
         try {
             return new ExpenseTracker(storage.readAllExpenses(userPrefs.getExpenseTrackerDirPath()).get(
-                    TypicalExpenses.SAMPLE_USERNAME));
+                    TypicalExpenses.SAMPLE_USERNAME).decryptTracker(DEFAULT_ENCRYPTION_KEY));
         } catch (DataConversionException dce) {
             throw new AssertionError("Data is not in the ExpenseTracker format.", dce);
         } catch (IOException ioe) {

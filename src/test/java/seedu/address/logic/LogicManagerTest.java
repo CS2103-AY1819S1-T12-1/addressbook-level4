@@ -17,12 +17,15 @@ import org.junit.rules.ExpectedException;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.StatsCommand;
 import seedu.address.logic.commands.StatsCommand.StatsMode;
+import seedu.address.logic.commands.StatsCommand.StatsPeriod;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.exceptions.InvalidDataException;
 import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.exceptions.NonExistentUserException;
 import seedu.address.model.exceptions.UserAlreadyExistsException;
@@ -39,11 +42,13 @@ public class LogicManagerTest {
 
     private Logic logic = new LogicManager(model);
 
-    public LogicManagerTest() throws UserAlreadyExistsException, NonExistentUserException, NoUserSelectedException {
+    public LogicManagerTest() throws UserAlreadyExistsException, NonExistentUserException, NoUserSelectedException,
+            InvalidDataException, ParseException {
     }
 
     @BeforeEach
-    public void clearModel() throws UserAlreadyExistsException, NonExistentUserException, NoUserSelectedException {
+    public void clearModel() throws UserAlreadyExistsException, NonExistentUserException, NoUserSelectedException,
+            InvalidDataException, ParseException {
         model = ModelUtil.modelWithTestUser();
     }
 
@@ -80,29 +85,80 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void getExpenseStatsReturnsMapWithCorrectEntries() throws NoUserSelectedException {
+    public void getExpenseStatsReturnsMapWithCorrectSingleEntries() throws NoUserSelectedException {
         Expense validExpense = new ExpenseBuilder().build();
         model.addExpense(validExpense);
-        model.updateStatsMode(StatsMode.DAY);
+        model.updateStatsMode(StatsMode.TIME);
+        model.updateStatsPeriod(StatsPeriod.DAY);
+
+        //Check
         LinkedHashMap<String, Double> map = logic.getExpenseStats();
         assertTrue(map.size() > 0);
         assertTrue(map.containsKey(validExpense.getDate().toString()));
         assertTrue(map.get(validExpense.getDate().toString()) == validExpense.getCost().getCostValue());
 
-        model.updateStatsMode(StatsMode.MONTH);
+        model.updateStatsPeriod(StatsCommand.StatsPeriod.MONTH);
         map = logic.getExpenseStats();
         String month = new SimpleDateFormat("MMM-YYYY").format(validExpense.getDate().fullDate.getTime());
         assertTrue(map.size() > 0);
         assertTrue(map.containsKey(month));
         assertTrue(map.get(month) == validExpense.getCost().getCostValue());
+
+        model.updateStatsMode(StatsMode.CATEGORY);
+        map = logic.getExpenseStats();
+        assertTrue(map.size() > 0);
+        assertTrue(map.containsKey(validExpense.getCategory().categoryName));
+        assertTrue(map.get(validExpense.getCategory().categoryName) == validExpense.getCost().getCostValue());
     }
 
     @Test
-    public void getExpenseStatsReturnsCorrectStatsMode() throws NoUserSelectedException {
-        model.updateStatsMode(StatsMode.DAY);
-        assertTrue(logic.getStatsMode() == StatsMode.DAY);
-        model.updateStatsMode(StatsMode.MONTH);
-        assertTrue(logic.getStatsMode() == StatsMode.MONTH);
+    public void getExpenseStatsReturnsMapWithCorrectMultipleEntries() throws NoUserSelectedException {
+        Expense validExpense = new ExpenseBuilder().build();
+        Expense validExpenseTwo = new ExpenseBuilder().withName("Food").build();
+        model.addExpense(validExpense);
+        model.addExpense(validExpenseTwo);
+        model.updateStatsMode(StatsMode.TIME);
+        model.updateStatsPeriod(StatsPeriod.DAY);
+
+        LinkedHashMap<String, Double> map = logic.getExpenseStats();
+        assertTrue(map.size() > 0);
+        assertTrue(map.containsKey(validExpense.getDate().toString()));
+        assertTrue(map.get(validExpense.getDate().toString()) == (validExpense.getCost().getCostValue() * 2));
+
+        model.updateStatsPeriod(StatsCommand.StatsPeriod.MONTH);
+        map = logic.getExpenseStats();
+        String month = new SimpleDateFormat("MMM-YYYY").format(validExpense.getDate().fullDate.getTime());
+        assertTrue(map.size() > 0);
+        assertTrue(map.containsKey(month));
+        assertTrue(map.get(month) == (validExpense.getCost().getCostValue() * 2));
+
+        model.updateStatsMode(StatsMode.CATEGORY);
+        map = logic.getExpenseStats();
+        assertTrue(map.size() > 0);
+        assertTrue(map.containsKey(validExpense.getCategory().categoryName));
+        assertTrue(map.get(validExpense.getCategory().categoryName) == (validExpense.getCost().getCostValue() * 2));
+    }
+
+    @Test
+    public void getStatsPeriodReturnsCorrectStatsMode() throws NoUserSelectedException {
+        model.updateStatsPeriod(StatsCommand.StatsPeriod.DAY);
+        assertTrue(logic.getStatsPeriod() == StatsPeriod.DAY);
+        model.updateStatsPeriod(StatsCommand.StatsPeriod.MONTH);
+        assertTrue(logic.getStatsPeriod() == StatsCommand.StatsPeriod.MONTH);
+    }
+
+    @Test
+    public void getStatsModeReturnsCorrectStatsMode() throws NoUserSelectedException {
+        model.updateStatsMode(StatsMode.TIME);
+        assertTrue(logic.getStatsMode() == StatsMode.TIME);
+        model.updateStatsMode(StatsMode.CATEGORY);
+        assertTrue(logic.getStatsMode() == StatsMode.CATEGORY);
+    }
+
+    @Test
+    public void getPeriodAmountReturnsCorrectPeriodAmount() throws NoUserSelectedException {
+        model.updatePeriodAmount(7);
+        assertTrue(logic.getPeriodAmount() == 7);
     }
 
     /**
@@ -140,7 +196,7 @@ public class LogicManagerTest {
      */
     private void assertCommandFailure(String inputCommand, Class<?> expectedException, String expectedMessage)
             throws NoUserSelectedException {
-        Model expectedModel = new ModelManager(model.getExpenseTracker(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getExpenseTracker(), new UserPrefs(), null);
         assertCommandBehavior(expectedException, inputCommand, expectedMessage, expectedModel);
     }
 
@@ -148,7 +204,7 @@ public class LogicManagerTest {
      * Executes the command, confirms that the result message is correct and that the expected exception is thrown,
      * and also confirms that the following two parts of the LogicManager object's state are as expected:<br>
      * - the internal model manager data are same as those in the {@code expectedModel} <br>
-     * - {@code expectedModel}'s address book was saved to the storage file.
+     * - {@code expectedModel}'s expense tracker was saved to the storage file.
      */
     private void assertCommandBehavior(Class<?> expectedException, String inputCommand,
                                        String expectedMessage, Model expectedModel) {
@@ -158,11 +214,10 @@ public class LogicManagerTest {
             assertNull(expectedException);
             assertEquals(expectedMessage, result.feedbackToUser);
         } catch (CommandException | ParseException | NoUserSelectedException | NonExistentUserException
-                | UserAlreadyExistsException e) {
+                | UserAlreadyExistsException | InvalidDataException e) {
             assertEquals(expectedException, e.getClass());
             assertEquals(expectedMessage, e.getMessage());
         }
-        System.out.println(expectedModel.equals(model));
         assertEquals(expectedModel, model);
     }
 
@@ -177,7 +232,7 @@ public class LogicManagerTest {
                     HistoryCommand.MESSAGE_SUCCESS, String.join("\n", expectedCommands));
             assertEquals(expectedMessage, result.feedbackToUser);
         } catch (ParseException | CommandException | NoUserSelectedException | NonExistentUserException
-                | UserAlreadyExistsException e) {
+                | UserAlreadyExistsException | InvalidDataException e) {
             throw new AssertionError("Parsing and execution of HistoryCommand.COMMAND_WORD should succeed.", e);
         }
     }

@@ -9,7 +9,7 @@
 :xrefstyle: full
 :experimental:
 ifdef::env-github[]
-:tip-caption: :bulb:
+:tips-caption: :bulb:
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
@@ -484,9 +484,9 @@ image::implementation/FindCommandSequenceDiagram.png[width="800"]
 which then creates a `FindCommandParser` Object and calls `FindCommandParser#parse()` method.
 
 . `FindCommandParser#parse()` method calls `ArgumentTokenizer#tokenize()` to tokenize the input String into keywords and store them in
-an ArgumentMultimap Object.
+an `ArgumentMultimap` Object.
 
-. `FindCommandParser#parse()` method then calls `FindCommandParser#ensureKeywordsAreValid()` method. If any
+. `FindCommandParser#parse()` method then calls `ParserUtil#ensureKeywordsAreValid()` method. If any
 of the keywords doesn't conform to the correct format, `ParseException` will be thrown. If no exception is thrown, a
 `ExpenseContainsKeywordsPredicate` Object is created. It implements Predicate<Expense> interface and is used to filter
 out all the expenses which matches the keywords entered by the user.
@@ -494,11 +494,41 @@ out all the expenses which matches the keywords entered by the user.
 . A `FindCommand` Object with the `ExpenseContainsKeywordsPredicate` Object as parameter is created and returned to
 `LogicManager`.
 
-. `LogicManager` then calls `StatsCommand#execute()`,which calls `ModelManager#updateFilteredExpenseList()`
+. `LogicManager` then calls `FindCommand#execute()`,which calls `Model#updateFilteredExpenseList()`
 method to update the predicate of FilterList<Expense>. FilterList now contains new set of expenses which filtered by the
 new predicate.
 
-. Then the expense list panel will show a new set of expenses according to the keywords.
+. Then the expense list panel will show a new set of expenses according to the keywords. A `CommandResult` is then created
+and returned to `LogicManager`.
+
+=== Mass Edit
+
+Below is the UML sequence diagram and a step-by-step explanation of an example usage scenario.
+
+.Sequence diagram of mass edit mechanism
+image::implementation/MassEditCommandSequenceDiagram.png[width="800"]
+
+. User enters command `massedit c/school -> c/work d/01-01-2018`. The command is received by `ExpenseTrackerParser`,
+  which then creates a `MassEditCommandParser` Object and calls `MassEditCommandParser#parse()` method.
+
+. `MassEditCommandParser#parse()` method calls `ArgumentTokenizer#tokenize()` to tokenize the input String into keywords and store them in
+two `ArgumentMultimap` Objects.
+
+. `MassEditCommandParser#parse()` method then create a `ExpenseContainsKeywordsPredicate` Object. Then it calls `EditExpenseDescriptor#createEditExpenseDescriptor()` method to create an
+`EditExpenseDescriptor` Object which stores the fields of expenses which are going to be edited.
+
+. A `MassEditCommand` Object with the `ExpenseContainsKeywordsPredicate` and `EditExpenseDescriptor` Object as parameters is created and returned to
+`LogicManager`.
+
+. `LogicManager` then calls `MassEditCommand#execute()`,which calls `Model#updateFilteredExpenseList()`
+method to update the predicate of FilterList<Expense>. `Model#getFilteredExpenseList()` is called to return the FilterList<Expense>.
+
+. A loop starts and for each `Expense` in the FilterList<Expense>, `EditExpenseDescriptor#createEditedExpense()` is called to create an edited Expense object.
+Then `Model#updateExpense` is called to replace the original `Expense` with edited `Expense`.
+
+. When loop ends, `Model#updateFilteredExpenseList()` is called again to show the edit `Expense` to the user.
+A `CommandResult` is then created and returned to `LogicManager`.
+
 
 // tag::UserInterfaceRedesign[]
 === User Interface Redesign
@@ -514,20 +544,22 @@ Animations will also be incorporated into the UI elements for a better user expe
 
 ==== Budget Panel
 
-The budget panel consists of 3 UI elements:
+The `totalBudget` panel consists of 3 UI elements:
 
 *	`BudgetPanel#expenseDisplay` – A `Text` element that displays the user’s current expenses.
 *	`BudgetPanel#budgetDisplay` – A `Text` element that displays the user’s monthly budget cap.
-*	`BudgetPanel#budgetBar` – A `progressBar` element that visually presents the percentage of the current budget cap that has been used.
+*	`BudgetPanel#budgetBar` – A `progressBar` element that visually presents the percentage of the current
+`totalBudget` cap that has been used.
 
 Given below is an example scenario of how `BudgetPanel` is updated:
 
 . The user launches the application and signs up for a new account. The `MainWindow` creates a new `BudgetPanel`, which elements are initialized as follows:
 * `BudgetPanel#expenseDisplay` is green and set to "$0.00".
-* `BudgetPanel#budgetDisplay` is set to "/ $28.00", with $28.00 being the default budget.
+* `BudgetPanel#budgetDisplay` is set to "/ $28.00", with $28.00 being the default `totalBudget`.
 * `BudgetPanel#budgetBar` is green and at 0% progress.
 
-. The user executes the command `add n/Lunch $/30.00 c/Food`. As the `'add` command modifies the budget and expenses, `AddCommand#execute()` will post a `UpdateBudgetPanelEvent` event to the EventsCenter.
+. The user executes the command `add n/Lunch $/30.00 c/Food`. As the `'add` command modifies the `totalBudget` and
+expenses, `AddCommand#execute()` will post a `UpdateBudgetPanelEvent` event to the EventsCenter.
 [NOTE]
 If a command fails its execution, the `UpdateBudgetPanelEvent` will not be posted.
 
@@ -546,9 +578,11 @@ If the updated percentage is more than 1.0, `BudgetPanel#budgetBar` progress per
 
 . `Timeline#playFromStart()` is called to execute the animation.
 
-. `BudgetPanel#update()` also calls `BudgetPanel#setBudgetUiColors()``. The method detects that the user has gone over budget, and changes the color of `BudgetPanel#expenseDisplay` and `BudgetPanel#budgetBar` from green to red.
+. `BudgetPanel#update()` also calls `BudgetPanel#setBudgetUiColors()`. The method detects that the user has gone
+over budget, and changes the color of `BudgetPanel#expenseDisplay` and `BudgetPanel#budgetBar` from green to red.
 [NOTE]
-Similarly, if the user has gone from over budget to under budget, the color of 'BudgetPanel#expenseDisplay` and `BudgetPanel#budgetBar` should change from red to green.
+Similarly, if the user has gone from over budget to under budget, the color of
+'BudgetPanel#expenseDisplay` and `BudgetPanel#budgetBar` should change from red to green.
 
 The following sequence diagram shows the process of updating the `BudgetPanel` UI elements:
 
@@ -565,42 +599,140 @@ image::implementation/BudgetPanelSequenceDiagram.png[width="800"]
 ** Pros: The class is specialized, and thus has built-in methods to create better animations For example, `EASE-BOTH` can be used to cause the transition to accelerate at different points for a better effect)
 ** Cons: Does not work for certain desired effects, such as the 'incrementing' effect required for the `Text` elements of the `BudgetPanel`.
 
+==== Notification System
+The Notification System is comprised of 3 features:
+* `Notification` - An abstract method that consists of a `header`, `type` and `body`. There are two types of `Notification`,
+`TipNotification` and `WarningNotification`.
+* `NotificationPanel` `and NotificationCard` - Lists the notifications that have been sent to the user.
+* `NotificationHandler` - Handles the storing and logic of notifications.
+* `NotificationCommand` - Allows the user to toggle what type of notifications they wish to receive.
+
+Given below is an example scenario of how the Notification System functions:
+
+. The user launches the application for the first time. A new `NotificationHandler` is instantiated.
+
+. A call to `NotificationHandler#isTimeToSendTip` is made upon login. In turn, a check is made to see if it has
+been a day since the last `TipNotification` has been sent. If so, a new `TipNotification` is added to the `NotificationHandler#internalList` via a call to `NotificationPanel#addNotification`.
+[NOTE]
+If this is the user's first time logging into their account, a new `TipNotification` will be sent.
+
+. The user executes the command `add n/Lunch $/30.00 c/Food`. The `add` command calls `NotificationHandler#isTimeToSendWarning` to check if the user is nearing or over their budget.
+If the user is nearing or approaching their budget, a `WarningNotification` is added to `NotificationHandler#internalList` via a call to `NotificationPanel#addNotification`.
+[NOTE]
+The same procedure is carried out if the user execute an `edit` command.
+
+. If the size of `NotificationHandler#internalList` reaches 11 or more, the oldest `Notification` in the list is then replaced with
+the new `Notification`.
+
+Given below is an example scenario of how the `NotificationCommand` functions:
+. The user executes `notification n/warning t/off`. THe command is received by the `ExpenseTrackerParser`.
+
+.  A call to `NotificationCommand#parse` is made, which creates a `NotificationCommandDescriptor` object with the two
+extracted parameters `warning` and `off`. A `NotificationCommand` is returned to the `LogicManager`.
+[NOTE]
+The `n/` parameter can be omitted. In this case, all types of notifications will be affected by the toggle.
+
+. `LogicManager` then calls `NotificationCommand#execute`, which calls `NotificationHandler#toggleWarningNotifications` to set
+`NotificationPanel#isWarningEnabled` to `false`.
+[NOTE]
+ If `notification n/tip t/on` was executed, `NotificationHandler#toggleTipNotifications` would be called to set `NotificationHandler#isTipEnabled`
+ to `true`.
+ If`notification t/on` was executed, `NotificationHandler#toggleBothNotifications` will be called instead.
+
+
 // end::userInterfaceRedesign[]
 
 // tag::budget[]
 
 === Budget
 ==== Current Implementation
-The current implementation for budget tracking is described as below.
+The budget feature allows the user to set a budget for a specific time period.
+If the user's total spending exceeds their budget in the specified time period, a warning will be shown to the user.
 
-===== Keeping spendings within budget
-The budget mechanism is facilitated by `VersionedExpenseTracker` and `AddCommand`. Whenever a user adds an expense via
-`AddCommand` if they do not have a budget set, the application will prompt them to do so. After they do so,
-application proceeds normally. If adding another expense will result in them exceeding the budget, they can still do
-so, but a warning will be given to the user.
+The current implementation for `totalBudget` tracking is described as below.
+
+===== Setting a budget
+
+Given below is a sequence diagram and step by step explanation of how the expense tracker executes when a user sets a budget
+
+.Sequence diagram of a user setting a budget.
+image::implementation/BudgetCommandSequenceDiagram.png[width="800"]
+
+. User enters command `setBudget 2.00`.
+. The command is received by `ExpenseTrackerParser`, which then creates a `SetBudgetCommandParser` Object and calls
+`SetBudgetCommandParser#parse()` method.
+. `SetBudgetCommandParser#parse()` will then return a `budget` of `double` type. It will then create a
+`SetBudgetCommand` Object with `budget` as a parameter would be created and returned to `LogicManager`.
+. `LogicManager` then calls `SetBudgetCommand#execute()`, which calls `ModelManager#modifyMaximumBudget` to update the
+ maximum budget of the expense tracker.
+. `LogicManager` will then call `EventsCenter#post()` to update the UI, displaying the updated budget.
+. The budget is then updated.
+
 
 ===== Recurring budget
+
 Every time a user logs in, `Model#loadUserData()` is called and  the application will check if the user has set a time
 where the
-budget will reset (recurrence time). If it is not set, the expense tracker will issue a notification. Else, the
-expense tracker will track the set recurrence time against the time now. If it exceeds, budget will be reset. Else,
+current spending will reset (recurrence time). If it is not set, the expense tracker will issue a notification. Else, the
+expense tracker will track the set recurrence time against the time now. If it exceeds, current spending will be reset. Else,
 nothing will be done.
 
-* Recurrence time is set by `setReccurenceFrequency()`. If it has not been set before, the next recurrence time will
+* Recurrence time is set by `setRecurrenceFrequency()`. If it has not been set before, the next recurrence time will
 be set to `currentTime` + `recurrenceFrequency`.
-* If it has already been set, the timing will be updated on the next occurence time
+* If it has already been set, the timing will be updated on the next occurrence time
+
+Given below is a sequence diagram and step by step explanation of how the expense tracker executes when a user sets a recurrence frequency.
+
+.Sequence diagram of a user setting a recurrence frequency.
+image::implementation/SetRecurringBudgetCommandSequenceDiagram.png[width="800"]
+
+. User enters command `setRecurrenceFrequency min/1`. The command is received by `ExpenseTrackerParser`
+
+. `ExpenseTrackerParser` will then create a `SetRecurringBudgetCommandParser` Object and calls `SetRecurringBudgetCommandParser#parse()` method.
+
+. `SetRecurringBudgetCommandParser#parse()` method calls `ArgumentTokenizer#tokenize()` to tokenize the input String into keywords and store them in
+an `ArgumentMultimap` Object.
+
+. `SetRecurringBudgetCommandParser#parse()` method then calls `SetRecurringBudgetCommandParser#areAnyPrefixesPresent()`
+method. If none of the keywords are present, `ParseException` will be thrown.
+
+. From the previous step, if no exception is thrown, `ParseUtil#parseHours()`, `ParseUtil#parseMinutes()` and
+`ParseUtil#parseSeconds()` will be called to convert the number of hours in seconds, `hours`, the number of minutes in
+seconds, `minutes`,
+and seconds, `seconds`, respectively.
+
+. A `SetRecurringBudgetCommand` Object with `hours+minutes+seconds` as a parameter is created and
+returned to
+`LogicManager`.
+
+. `LogicManager` then calls `SetRecurringBudgetCommand#execute()`,which calls `ModelManager#setRecurrenceFrequency()`
+method to update the time when the next spendings of `totalBudget` is reset.
+
+===== Budget by Category
+. User enters command `addCategoryBudget c/School b/2.00`. The command is received by `ExpenseTrackerParser`
+
+. `ExpenseTrackerParser` will then create a `AddCategoryBudgetCommandParser` Object and calls
+`AddCategoryBudgetCommandParser#parse()` method.
+
+. `AddCategoryBudgetCommandParser#parse()` method calls `ArgumentTokenizer#tokenize()` to tokenize the input String
+into keywords and store them in an `ArgumentMultimap` Object.
+
+. `AddCategoryBudgetCommandParser#parse()` method then calls `AddCategoryBudgetCommandParser#arePrefixesPresent()`
+method. If any of the keywords are missing, `ParseException` will be thrown.
+
+. From the previous step, if no exception is thrown, an `AddCategoryBudgetCommand` Object with `category` and `budget`
+ is created and returned to `LogicManager`.
+
+. `LogicManager` then calls `AddCategoryBudgetCommand#execute()`,which calls `ModelManager#addCategoryBudget()`
+method to add a `Budget` to a `Category`.
 
 ===== Notification center (Proposed)
 There is an area for the app to display notifications and additional information to the users beside the usual
 area below the command box. This is particularly useful to the *Budget* feature as budgets should not obstruct the
-usage of the expense tracker, but rather provide helpful information. For example, if a user exceeds his budget after
+usage of the expense tracker, but rather provide helpful information. For example, if a user exceeds his total budget
+ after
  adding an expense, a warning would be displayed in the *Notification center* instead of the area below the command
  box, replacing the success message of adding an expense and confusing the user.
-
-===== Budget by Category (Proposed)
-Users can now allocate their budgets by categories. This means that within a fixed budget, they can decide how big of
- a proportion a certain category of expense takes. Every `Category` will now have a `Budget` and the total budget in
- `ModelManager` will never exceed the sum of all budgets in `Category`.
 
 ==== Alternatives considered
 Recurrence check was initially implemented via events. Every time `ModelManager#loadUserData()` is called, an event
@@ -867,13 +999,15 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |have my expenditures saved after closing the app |keep track of my expenditures without having to key in my information again
 
-|`* * *` |forgetful user |receive a notification about my budget when the application boots up |be reminded of how much I have spent and can spend.
+|`* * *` |forgetful user |receive a notification about my budge twhen the application boots up |be reminded of how
+much I have spent and can spend.
 
 |`* * *` |user |exit the application with a keyboard command | exit the application conveniently without reaching for my mouse/touchpad
 
-|`* * *` |impulsive spender |set my maximum budget over a certain period of time |know when I am or about to spend over my budget
+|`* * *` |impulsive spender |set my maximum budget over a certain period of time |know when I am or about to spend
+over my `totalBudget
 
-|`* * *` |user who has a limited budget |view my expenses over a certain period of time |learn from my past endeavours and better manage my budget
+|`* * *` |user who has a limited budget|view my expenses over a certain period of time |learn from my past endeavours and better manage my `totalBudget
 
 |`* * *` |user who wants to save money |separate my expenses into different categories| ee where am I spending more money on and where my expenses go and cut them accordingly
 
@@ -900,7 +1034,7 @@ _{More to be added}_
 
 1. User adds expenditure record
 2. Once validated, ExpenseTracker shows success message and details of the expenditure
-3. If expenditure causes budget to be below a certain threshold, show a warning message to the user
+3. If expenditure causes `totalBudget` to be below a certain threshold, show a warning message to the user
 +
 Use case ends.
 
@@ -936,13 +1070,13 @@ Use case ends
 Use case ends
 
 [discrete]
-=== Use case: Set budget
+=== Use case: Set `totalBudget`
 
 *MSS*
 
-1. User requests to set budget
-2. Expense tracker prompts user to key in budget
-3. User keys in budget value
+1. User requests to set `totalBudget`
+2. Expense tracker prompts user to key in `totalBudget`
+3. User keys in `totalBudget` value
 4. Expense tracker prompts and updates budgets
 +
 Use case ends
@@ -951,7 +1085,7 @@ Use case ends
 [none]
 * 2a. Budget is already set
 [none]
-** 2a1. Expense tracker prompts user the previously set budget and asks if user wants to continue
+** 2a1. Expense tracker prompts user the previously set `totalBudget` and asks if user wants to continue
 ** 2a2. User confirmed that he/she wants to continue
 +
 Use case resumes step 2
@@ -1018,9 +1152,9 @@ Use case ends
 
 *MSS*
 
-1. User requests to clear his recorded expenses and budget
+1. User requests to clear his recorded expenses and `totalBudget`
 2. Expense trackers shows a confirmation message
-3. Expense tracker deletes all information about the current user’s budget and expenses
+3. Expense tracker deletes all information about the current user’s `totalBudget` and expenses
 +
 Use case ends
 
@@ -1041,10 +1175,10 @@ Use case ends
 *MSS*
 
 1. User keys in the command to turn on notifications
-2. Expense tracker already has a budget set.
-3. Add expenses until the budget has been exceeded
-4. Expense tracker will detect that the budget has been exceeded
-5. Expense tracker will show a visible notification to alert the user that the budget has been exceeded
+2. Expense tracker already has a `totalBudget` set.
+3. Add expenses until the `totalBudget` has been exceeded
+4. Expense tracker will detect that the `totalBudget` has been exceeded
+5. Expense tracker will show a visible notification to alert the user that the `totalBudget` has been exceeded
 +
 Use case ends
 
@@ -1054,7 +1188,7 @@ Use case ends
 *MSS*
 
 1. User keys in command to turn off notifications
-2. Notifications no longer show whenever the set budget has been exceeded.
+2. Notifications no longer show whenever the set `totalBudget` has been exceeded.
 3. Any notification that is currently showing will be hidden from the user.
 +
 Use case ends
@@ -1076,7 +1210,7 @@ Use case ends
 
 *MSS*
 
-1. User keys in command to view the information and statistics of his weekly/monthly/yearly budget
+1. User keys in command to view the information and statistics of his weekly/monthly/yearly `totalBudget`
 2. Programs loads a window consisting of visual information displaying the relevant information
 +
 Use case ends

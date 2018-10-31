@@ -9,7 +9,7 @@ import seedu.address.model.user.Username;
 
 //@@author JasonChong96
 /**
- * Adds a user to the address book.
+ * Adds a user to the expense tracker.
  */
 public class SignUpCommand extends Command {
     public static final String COMMAND_WORD = "signup";

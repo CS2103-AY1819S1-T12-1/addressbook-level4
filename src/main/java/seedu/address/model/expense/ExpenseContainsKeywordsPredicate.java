@@ -15,10 +15,10 @@ import seedu.address.commons.util.StringUtil;
 
 import seedu.address.logic.parser.ArgumentMultimap;
 
+//@@author jcjxwy
 /**
  * Tests that a {@code Expense}'s {@code Name, Category, Cost, Date, Tag} matches all of the keywords given.
  */
-//@@Author Jiang Chen
 public class ExpenseContainsKeywordsPredicate implements Predicate<Expense> {
     private final ArgumentMultimap keywords;
 
@@ -82,7 +82,8 @@ public class ExpenseContainsKeywordsPredicate implements Predicate<Expense> {
                 Date end = new Date(splitDate[1]);
                 result = result && (start.equals(expense.getDate())
                         || end.equals(expense.getDate())
-                        || (start.isEalierThan(expense.getDate()) && expense.getDate().isEalierThan(end)));
+                        || (Date.compare(start, expense.getDate()) == 1
+                        && Date.compare(expense.getDate(), end) == 1));
             }
         }
 

@@ -1,13 +1,13 @@
 package seedu.address.commons.util;
 
 import static org.junit.Assert.assertEquals;
+import static seedu.address.model.encryption.EncryptionUtil.DEFAULT_ENCRYPTION_KEY;
 
 import java.io.FileNotFoundException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -17,6 +17,8 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.model.ExpenseTracker;
+import seedu.address.model.encryption.EncryptedExpenseTracker;
+import seedu.address.model.encryption.EncryptionUtil;
 import seedu.address.model.user.Username;
 import seedu.address.storage.XmlAdaptedExpense;
 import seedu.address.storage.XmlAdaptedTag;
@@ -74,9 +76,9 @@ public class XmlUtilTest {
 
     @Test
     public void getDataFromFile_validFile_validResult() throws Exception {
-        ExpenseTracker dataFromFile = XmlUtil.getDataFromFile(VALID_FILE,
+        EncryptedExpenseTracker dataFromFile = XmlUtil.getDataFromFile(VALID_FILE,
                 XmlSerializableExpenseTracker.class).toModelType();
-        assertEquals(9, dataFromFile.getExpenseList().size());
+        assertEquals(9, dataFromFile.getEncryptedExpenses().size());
         assertEquals(dataFromFile.getUsername(), new Username(VALID_ADDRESS_BOOK_USERNAME));
     }
 
@@ -110,7 +112,8 @@ public class XmlUtilTest {
     @Test
     public void saveDataToFile_nullFile_throwsNullPointerException() throws Exception {
         thrown.expect(NullPointerException.class);
-        XmlUtil.saveDataToFile(null, new ExpenseTracker(new Username("aaa"), Optional.empty()));
+        XmlUtil.saveDataToFile(null,
+                new ExpenseTracker(new Username("aaa"), null, DEFAULT_ENCRYPTION_KEY));
     }
 
     @Test
@@ -122,23 +125,25 @@ public class XmlUtilTest {
     @Test
     public void saveDataToFile_missingFile_fileNotFoundException() throws Exception {
         thrown.expect(FileNotFoundException.class);
-        XmlUtil.saveDataToFile(MISSING_FILE, new ExpenseTracker(new Username("aaa"), Optional.empty()));
+        XmlUtil.saveDataToFile(MISSING_FILE,
+                new ExpenseTracker(new Username("aaa"), null, DEFAULT_ENCRYPTION_KEY));
     }
 
     @Test
     public void saveDataToFile_validFile_dataSaved() throws Exception {
         FileUtil.createFile(TEMP_FILE);
         XmlSerializableExpenseTracker dataToWrite =
-                new XmlSerializableExpenseTracker(new ExpenseTracker(new Username("AA"), Optional.empty()));
+                new XmlSerializableExpenseTracker(new EncryptedExpenseTracker(new Username("AA"), null));
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
         XmlSerializableExpenseTracker dataFromFile =
                 XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableExpenseTracker.class);
         assertEquals(dataToWrite, dataFromFile);
 
         ExpenseTrackerBuilder builder =
-                new ExpenseTrackerBuilder(new ExpenseTracker(new Username("AAA"), Optional.empty()));
-        dataToWrite = new XmlSerializableExpenseTracker(
-                builder.withExpense(new ExpenseBuilder().build()).build());
+                new ExpenseTrackerBuilder(
+                        new ExpenseTracker(new Username("AAA"), null, DEFAULT_ENCRYPTION_KEY));
+        dataToWrite = new XmlSerializableExpenseTracker(EncryptionUtil.encryptTracker(
+                builder.withExpense(new ExpenseBuilder().build()).build()));
 
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
         dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableExpenseTracker.class);

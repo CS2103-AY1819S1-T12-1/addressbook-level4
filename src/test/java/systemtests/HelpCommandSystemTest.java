@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EXPENSE;
-import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
+import static seedu.address.ui.testutil.GuiTestAssert.assertExpenseListMatching;
 
 import org.junit.Test;
 
@@ -60,7 +60,7 @@ public class HelpCommandSystemTest extends ExpenseTrackerSystemTest {
         assertEquals("", getCommandBox().getInput());
         assertCommandBoxShowsDefaultStyle();
         assertNotEquals(HelpCommand.SHOWING_HELP_MESSAGE, getResultDisplay().getText());
-        assertListMatching(getExpenseListPanel(), getModel().getFilteredExpenseList());
+        assertExpenseListMatching(getExpenseListPanel(), getModel().getFilteredExpenseList());
 
         // assert that the status bar too is updated correctly while the help window is open
         // note: the select command tested above does not update the status bar

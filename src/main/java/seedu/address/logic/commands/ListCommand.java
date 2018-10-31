@@ -10,7 +10,7 @@ import seedu.address.model.Model;
 import seedu.address.model.exceptions.NoUserSelectedException;
 
 /**
- * Lists all expenses in the address book to the user.
+ * Lists all expenses in the expense tracker to the user.
  */
 public class ListCommand extends Command {
 

@@ -1,6 +1,5 @@
 package seedu.address.model.expense;
 
-import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.text.SimpleDateFormat;
@@ -12,7 +11,7 @@ import java.util.GregorianCalendar;
  * Represents the date the Expense was added into the Expense tracker.
  * Guarantees: immutable; is valid as declared in {@link #isValidDate(String)}
  */
-public class Date {
+public class Date extends ExpenseField {
     public static final String DATE_FORMAT_CONSTRAINTS =
             "Date should be valid. Format dd-MM-yyyy";
 
@@ -26,7 +25,7 @@ public class Date {
      * @param date A valid date.
      */
     public Date(String date) {
-        requireNonNull(date);
+        super(date);
         checkArgument(isValidDate(date), DATE_FORMAT_CONSTRAINTS);
         String [] parsedDate = date.split("-");
         fullDate.set(Integer.parseInt(parsedDate[2]),
@@ -38,7 +37,9 @@ public class Date {
      * Constructs a {@code Date} with current date.
      *
      */
-    public Date() {}
+    public Date() {
+        super(new SimpleDateFormat("dd-MM-yyyy").format(Calendar.getInstance().getTime()));
+    }
 
     /**
      * return true is the given date is in the valid format.
@@ -58,45 +59,6 @@ public class Date {
                 return false;
             }
         }
-        return false;
-    }
-
-    /**
-     * return true if {@code this} is earlier than {@param other}
-     * */
-    //@@author Jiang Chen
-    public boolean isEalierThan(Date other) {
-
-        int thisYear = this.fullDate.get(Calendar.YEAR);
-        int otherYear = other.fullDate.get(Calendar.YEAR);
-        if (thisYear < otherYear) {
-            return true;
-        }
-        if (thisYear > otherYear) {
-            return false;
-        }
-
-
-        int thisMonth = this.fullDate.get(Calendar.MONTH);
-        int otherMonth = other.fullDate.get(Calendar.MONTH);
-        if (thisMonth < otherMonth) {
-            return true;
-        }
-        if (thisMonth > otherMonth) {
-            return false;
-        }
-
-
-        int thisDay = this.fullDate.get(Calendar.DAY_OF_YEAR);
-        int otherDay = other.fullDate.get(Calendar.DAY_OF_YEAR);
-
-        if (thisDay < otherDay) {
-            return true;
-        }
-        if (thisDay > otherDay) {
-            return false;
-        }
-
         return false;
     }
 

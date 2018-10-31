@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
-import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
+import static seedu.address.ui.testutil.GuiTestAssert.assertExpenseListMatching;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -27,6 +27,7 @@ import guitests.guihandles.StatusBarFooterHandle;
 import seedu.address.TestApp;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.ListCommand;
@@ -114,6 +115,7 @@ public abstract class ExpenseTrackerSystemTest {
     public BudgetPanelHandle getBudgetPanel() {
         return mainWindowHandle.getBudgetPanel();
     }
+
     /**
      * Executes {@code command} in the application's {@code CommandBox}.
      * Method returns after UI components have been updated.
@@ -129,7 +131,7 @@ public abstract class ExpenseTrackerSystemTest {
     }
 
     /**
-     * Displays all expenses in the address book.
+     * Displays all expenses in the expense tracker.
      */
     protected void showAllExpenses() throws NoUserSelectedException {
 
@@ -156,7 +158,7 @@ public abstract class ExpenseTrackerSystemTest {
     }
 
     /**
-     * Deletes all expenses in the address book.
+     * Deletes all expenses in the expense tracker.
      */
     protected void deleteAllExpenses() throws NoUserSelectedException {
         executeCommand(ClearCommand.COMMAND_WORD);
@@ -175,15 +177,11 @@ public abstract class ExpenseTrackerSystemTest {
      * and the expense list panel displays the expenses in the model correctly.
      */
     protected void assertApplicationDisplaysExpected(String expectedCommandInput, String expectedResultMessage,
-            Model expectedModel) throws NoUserSelectedException {
+            Model expectedModel) throws NoUserSelectedException, IllegalValueException {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
-        System.out.println(expectedModel.getExpenseTracker().getMaximumBudget().getNextRecurrence());
-        System.out.println(
-                new ExpenseTracker(expectedModel.getExpenseTracker()).getMaximumBudget().getNextRecurrence());
-        System.out.println(testApp.readStorageExpenseTracker().getMaximumBudget().getNextRecurrence());
         assertEquals(new ExpenseTracker(expectedModel.getExpenseTracker()), testApp.readStorageExpenseTracker());
-        assertListMatching(getExpenseListPanel(), expectedModel.getFilteredExpenseList());
+        assertExpenseListMatching(getExpenseListPanel(), expectedModel.getFilteredExpenseList());
     }
 
     /**
@@ -265,14 +263,9 @@ public abstract class ExpenseTrackerSystemTest {
     private void assertApplicationStartingStateIsCorrect() throws NoUserSelectedException {
         assertEquals("", getCommandBox().getInput());
         assertEquals("", getResultDisplay().getText());
-        //assertListMatching(getExpenseListPanel(), getModel().getFilteredExpenseList());
+        //assertExpenseListMatching(getExpenseListPanel(), getModel().getFilteredExpenseList());
         assertEquals(Paths.get(".").resolve(testApp.getStorageSaveLocation()).toString(),
                 getStatusBarFooter().getSaveLocation());
-
-        /* assertTrue(getBudgetPanel().isExpenseCorrect(String.format("%.2f", TypicalExpenses.INTIIAL_EXPENSES)));
-        assertTrue(getBudgetPanel().isBudgetCorrect(String.format("%.2f", TypicalExpenses.INTIIAL_BUDGET)));
-        assertTrue(getBudgetPanel().isBudgetBarProgressAccurate(TypicalExpenses.INTIIAL_EXPENSES
-                / TypicalExpenses.INTIIAL_BUDGET));*/
     }
 
     /**

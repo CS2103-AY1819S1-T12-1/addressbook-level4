@@ -1,6 +1,7 @@
 package seedu.address.ui;
 
 import static org.junit.Assert.assertEquals;
+import static seedu.address.model.encryption.EncryptionUtil.DEFAULT_ENCRYPTION_KEY;
 import static seedu.address.testutil.EventsUtil.postNow;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
@@ -11,7 +12,6 @@ import java.time.Clock;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.util.Date;
-import java.util.Optional;
 
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -20,7 +20,9 @@ import org.junit.Test;
 
 import guitests.guihandles.StatusBarFooterHandle;
 import seedu.address.commons.events.model.ExpenseTrackerChangedEvent;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.ExpenseTracker;
+import seedu.address.model.encryption.EncryptionUtil;
 import seedu.address.testutil.ModelUtil;
 
 public class StatusBarFooterTest extends GuiUnitTest {
@@ -28,8 +30,17 @@ public class StatusBarFooterTest extends GuiUnitTest {
     private static final Path STUB_SAVE_LOCATION = Paths.get("Stub");
     private static final Path RELATIVE_PATH = Paths.get(".");
 
-    private static final ExpenseTrackerChangedEvent EVENT_STUB = new ExpenseTrackerChangedEvent(
-            new ExpenseTracker(ModelUtil.TEST_USERNAME, Optional.empty()));
+    private static final ExpenseTrackerChangedEvent EVENT_STUB;
+
+    static {
+        try {
+            EVENT_STUB = new ExpenseTrackerChangedEvent(EncryptionUtil
+                        .encryptTracker(
+                                new ExpenseTracker(ModelUtil.TEST_USERNAME, null, DEFAULT_ENCRYPTION_KEY)));
+        } catch (IllegalValueException e) {
+            throw new IllegalStateException("Default key is illegal");
+        }
+    }
 
     private static final Clock originalClock = StatusBarFooter.getClock();
     private static final Clock injectedClock = Clock.fixed(Instant.now(), ZoneId.systemDefault());
@@ -61,7 +72,7 @@ public class StatusBarFooterTest extends GuiUnitTest {
         // initial state
         assertStatusBarContent(RELATIVE_PATH.resolve(STUB_SAVE_LOCATION).toString(), SYNC_STATUS_INITIAL);
 
-        // after address book is updated
+        // after expense tracker is updated
         postNow(EVENT_STUB);
         assertStatusBarContent(RELATIVE_PATH.resolve(STUB_SAVE_LOCATION).toString(),
                 String.format(SYNC_STATUS_UPDATED, new Date(injectedClock.millis()).toString()));

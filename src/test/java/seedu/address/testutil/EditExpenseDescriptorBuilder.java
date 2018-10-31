@@ -4,10 +4,10 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.EditCommand.EditExpenseDescriptor;
 import seedu.address.model.expense.Category;
 import seedu.address.model.expense.Cost;
+import seedu.address.model.expense.Date;
+import seedu.address.model.expense.EditExpenseDescriptor;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.Name;
 import seedu.address.model.tag.Tag;
@@ -17,14 +17,14 @@ import seedu.address.model.tag.Tag;
  */
 public class EditExpenseDescriptorBuilder {
 
-    private EditCommand.EditExpenseDescriptor descriptor;
+    private EditExpenseDescriptor descriptor;
 
     public EditExpenseDescriptorBuilder() {
         descriptor = new EditExpenseDescriptor();
     }
 
-    public EditExpenseDescriptorBuilder(EditCommand.EditExpenseDescriptor descriptor) {
-        this.descriptor = new EditCommand.EditExpenseDescriptor(descriptor);
+    public EditExpenseDescriptorBuilder(EditExpenseDescriptor descriptor) {
+        this.descriptor = new EditExpenseDescriptor(descriptor);
     }
 
     /**
@@ -70,6 +70,14 @@ public class EditExpenseDescriptorBuilder {
     public EditExpenseDescriptorBuilder withTags(String... tags) {
         Set<Tag> tagSet = Stream.of(tags).map(Tag::new).collect(Collectors.toSet());
         descriptor.setTags(tagSet);
+        return this;
+    }
+
+    /**
+     * Set the {@code Date} of the {@code EditExpenseDescriptor} that we are building.
+     */
+    public EditExpenseDescriptorBuilder withDate(String date) {
+        descriptor.setDate(new Date(date));
         return this;
     }
 

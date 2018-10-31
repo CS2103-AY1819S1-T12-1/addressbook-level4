@@ -7,32 +7,25 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EXPENSES;
+import static seedu.address.model.expense.EditExpenseDescriptor.createEditedExpense;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
-import java.util.Set;
 
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.events.ui.SwapLeftPanelEvent;
 import seedu.address.commons.events.ui.UpdateBudgetPanelEvent;
-import seedu.address.commons.util.CollectionUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.exceptions.NoUserSelectedException;
-import seedu.address.model.expense.Category;
-import seedu.address.model.expense.Cost;
-import seedu.address.model.expense.Date;
+import seedu.address.model.expense.EditExpenseDescriptor;
 import seedu.address.model.expense.Expense;
-import seedu.address.model.expense.Name;
-import seedu.address.model.tag.Tag;
+
 
 /**
- * Edits the details of an existing expense in the address book.
+ * Edits the details of an existing expense in the expense tracker.
  */
 public class EditCommand extends Command {
 
@@ -53,7 +46,7 @@ public class EditCommand extends Command {
 
     public static final String MESSAGE_EDIT_EXPENSE_SUCCESS = "Edited Expense: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_EXPENSE = "This expense already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_EXPENSE = "This expense already exists in the expense tracker.";
 
     private final Index index;
     private final EditExpenseDescriptor editExpenseDescriptor;
@@ -88,25 +81,10 @@ public class EditCommand extends Command {
         }
         model.updateExpense(expenseToEdit, editedExpense);
         model.updateFilteredExpenseList(PREDICATE_SHOW_ALL_EXPENSES);
+        model.addWarningNotification();
         model.commitExpenseTracker();
         EventsCenter.getInstance().post(new UpdateBudgetPanelEvent(model.getMaximumBudget()));
         return new CommandResult(String.format(MESSAGE_EDIT_EXPENSE_SUCCESS, editedExpense));
-    }
-
-    /**
-     * Creates and returns a {@code Expense} with the details of {@code expenseToEdit}
-     * edited with {@code editExpenseDescriptor}.
-     */
-    private static Expense createEditedExpense(Expense expenseToEdit, EditExpenseDescriptor editExpenseDescriptor) {
-        assert expenseToEdit != null;
-
-        Name updatedName = editExpenseDescriptor.getName().orElse(expenseToEdit.getName());
-        Category updatedCategory = editExpenseDescriptor.getCategory().orElse(expenseToEdit.getCategory());
-        Cost updatedCost = editExpenseDescriptor.getCost().orElse(expenseToEdit.getCost());
-        Set<Tag> updatedTags = editExpenseDescriptor.getTags().orElse(expenseToEdit.getTags());
-        Date updatedDate = editExpenseDescriptor.getDate().orElse(expenseToEdit.getDate());
-
-        return new Expense(updatedName, updatedCategory, updatedCost, updatedDate, updatedTags);
     }
 
     @Override
@@ -127,107 +105,4 @@ public class EditCommand extends Command {
                 && editExpenseDescriptor.equals(e.editExpenseDescriptor);
     }
 
-    /**
-     * Stores the details to edit the expense with. Each non-empty field value will replace the
-     * corresponding field value of the expense.
-     */
-    public static class EditExpenseDescriptor {
-        private Name name;
-        private Category category;
-        private Cost cost;
-        private Set<Tag> tags;
-        private Date date;
-
-        public EditExpenseDescriptor() {}
-
-        /**
-         * Copy constructor.
-         * A defensive copy of {@code tags} is used internally.
-         */
-        public EditExpenseDescriptor(EditExpenseDescriptor toCopy) {
-            setName(toCopy.name);
-            setCategory(toCopy.category);
-            setCost(toCopy.cost);
-            setTags(toCopy.tags);
-            setDate(toCopy.date);
-        }
-
-        /**
-         * Returns true if at least one field is edited.
-         */
-        public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(name, category, cost, tags);
-        }
-
-        public void setName(Name name) {
-            this.name = name;
-        }
-
-        public Optional<Name> getName() {
-            return Optional.ofNullable(name);
-        }
-
-        public void setDate(Date date) {
-            this.date = date;
-        }
-
-        public Optional<Date> getDate() {
-            return Optional.ofNullable(date);
-        }
-
-        public void setCategory(Category category) {
-            this.category = category;
-        }
-
-        public Optional<Category> getCategory() {
-            return Optional.ofNullable(category);
-        }
-
-        public void setCost(Cost cost) {
-            this.cost = cost;
-        }
-
-        public Optional<Cost> getCost() {
-            return Optional.ofNullable(cost);
-        }
-
-        /**
-         * Sets {@code tags} to this object's {@code tags}.
-         * A defensive copy of {@code tags} is used internally.
-         */
-        public void setTags(Set<Tag> tags) {
-            this.tags = (tags != null) ? new HashSet<>(tags) : null;
-        }
-
-        /**
-         * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException}
-         * if modification is attempted.
-         * Returns {@code Optional#empty()} if {@code tags} is null.
-         */
-        public Optional<Set<Tag>> getTags() {
-            return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
-        }
-
-        @Override
-        public boolean equals(Object other) {
-            // short circuit if same object
-            if (other == this) {
-                return true;
-            }
-
-            // instanceof handles nulls
-            if (!(other instanceof EditExpenseDescriptor)) {
-                return false;
-            }
-
-            // state check
-            EditExpenseDescriptor e = (EditExpenseDescriptor) other;
-
-            return getName().equals(e.getName())
-                    && getCategory().equals(e.getCategory())
-                    && getCost().equals(e.getCost())
-                    && getTags().equals(e.getTags())
-                    && getDate().equals(e.getDate());
-        }
-    }
 }

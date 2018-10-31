@@ -14,6 +14,7 @@ import org.junit.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
@@ -27,7 +28,7 @@ public class DeleteCommandSystemTest extends ExpenseTrackerSystemTest {
             String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE);
 
     @Test
-    public void delete() throws NoUserSelectedException {
+    public void delete() throws NoUserSelectedException, IllegalValueException {
         showAllExpenses();
         /* -------------- Performing delete operation while an unfiltered list is being shown ----------------- */
 
@@ -61,13 +62,13 @@ public class DeleteCommandSystemTest extends ExpenseTrackerSystemTest {
 
         /* --------------- Performing delete operation while a filtered list is being shown ------------------- */
 
-        /* Case: filtered expense list, delete index within bounds of address book and expense list -> deleted */
+        /* Case: filtered expense list, delete index within bounds of expense tracker and expense list -> deleted */
         showExpensesWithName(KEYWORD_MATCHING_BUY);
         Index index = INDEX_FIRST_EXPENSE;
         assertTrue(index.getZeroBased() < getModel().getFilteredExpenseList().size());
         assertCommandSuccess(index);
 
-        /* Case: filtered expense list, delete index within bounds of address book but out of bounds of expense list
+        /* Case: filtered expense list, delete index within bounds of expense tracker but out of bounds of expense list
          * -> rejected
          */
         showExpensesWithName(KEYWORD_MATCHING_BUY);
@@ -115,7 +116,7 @@ public class DeleteCommandSystemTest extends ExpenseTrackerSystemTest {
     }
 
     /**
-     * Removes the {@code Expense} at the specified {@code index} in {@code model}'s address book.
+     * Removes the {@code Expense} at the specified {@code index} in {@code model}'s expense tracker.
      * @return the removed expense
      */
     private Expense removeExpense(Model model, Index index) throws NoUserSelectedException {
@@ -129,7 +130,7 @@ public class DeleteCommandSystemTest extends ExpenseTrackerSystemTest {
      * performs the same verification as {@code assertCommandSuccess(String, Model, String)}.
      * @see DeleteCommandSystemTest#assertCommandSuccess(String, Model, String)
      */
-    private void assertCommandSuccess(Index toDelete) throws NoUserSelectedException {
+    private void assertCommandSuccess(Index toDelete) throws NoUserSelectedException, IllegalValueException {
         Model expectedModel = getModel();
         Expense deletedExpense = removeExpense(expectedModel, toDelete);
         String expectedResultMessage = String.format(MESSAGE_DELETE_EXPENSE_SUCCESS, deletedExpense);
@@ -150,7 +151,7 @@ public class DeleteCommandSystemTest extends ExpenseTrackerSystemTest {
      * @see ExpenseTrackerSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage) throws
-            NoUserSelectedException {
+            NoUserSelectedException, IllegalValueException {
         assertCommandSuccess(command, expectedModel, expectedResultMessage, null);
     }
 
@@ -161,7 +162,7 @@ public class DeleteCommandSystemTest extends ExpenseTrackerSystemTest {
      * @see ExpenseTrackerSystemTest#assertSelectedCardChanged(Index)
      */
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage,
-            Index expectedSelectedCardIndex) throws NoUserSelectedException {
+            Index expectedSelectedCardIndex) throws NoUserSelectedException, IllegalValueException {
         executeCommand(command);
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
 
@@ -185,7 +186,8 @@ public class DeleteCommandSystemTest extends ExpenseTrackerSystemTest {
      * {@code ExpenseTrackerSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
      * @see ExpenseTrackerSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
-    private void assertCommandFailure(String command, String expectedResultMessage) throws NoUserSelectedException {
+    private void assertCommandFailure(String command, String expectedResultMessage) throws NoUserSelectedException,
+            IllegalValueException {
         Model expectedModel = getModel();
 
         executeCommand(command);

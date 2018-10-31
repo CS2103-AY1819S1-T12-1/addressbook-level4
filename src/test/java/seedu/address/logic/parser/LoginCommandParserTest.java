@@ -4,11 +4,11 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
-import java.util.Optional;
-
 import org.junit.Test;
 
 import seedu.address.logic.commands.LoginCommand;
+import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.user.LoginInformation;
 import seedu.address.model.user.Password;
 import seedu.address.model.user.PasswordTest;
 import seedu.address.model.user.Username;
@@ -19,17 +19,17 @@ public class LoginCommandParserTest {
     private LoginCommandParser parser = new LoginCommandParser();
 
     @Test
-    public void parse_validUsername() {
+    public void parse_validUsername() throws ParseException {
         assertParseSuccess(parser, " " + CliSyntax.PREFIX_USERNAME + UsernameTest.VALID_USERNAME_STRING,
-                new LoginCommand(new Username(UsernameTest.VALID_USERNAME_STRING), null));
+                new LoginCommand(new LoginInformation(new Username(UsernameTest.VALID_USERNAME_STRING), null)));
     }
 
     @Test
-    public void parse_validUsernamePassword() {
+    public void parse_validUsernamePassword() throws ParseException {
         assertParseSuccess(parser, " " + CliSyntax.PREFIX_USERNAME + UsernameTest.VALID_USERNAME_STRING
                 + " " + CliSyntax.PREFIX_PASSWORD + PasswordTest.VALID_PASSWORD_STRING,
-                new LoginCommand(new Username(UsernameTest.VALID_USERNAME_STRING),
-                        Optional.of(new Password(PasswordTest.VALID_PASSWORD_STRING, true))));
+                new LoginCommand(new LoginInformation(new Username(UsernameTest.VALID_USERNAME_STRING),
+                        PasswordTest.VALID_PASSWORD_STRING)));
     }
 
     @Test

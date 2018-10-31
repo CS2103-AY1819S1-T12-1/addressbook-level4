@@ -6,7 +6,7 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showExpenseAtIndex;
-import static seedu.address.testutil.TypicalExpenses.getTypicalExpenseTracker;
+import static seedu.address.testutil.ModelUtil.getTypicalModel;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EXPENSE;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_EXPENSE;
 
@@ -27,7 +27,7 @@ import seedu.address.model.expense.Expense;
  */
 public class DeleteCommandTest {
 
-    private Model model = new ModelManager(getTypicalExpenseTracker(), new UserPrefs());
+    private Model model = getTypicalModel();
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
@@ -37,7 +37,7 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_EXPENSE_SUCCESS, expenseToDelete);
 
-        ModelManager expectedModel = new ModelManager(model.getExpenseTracker(), new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getExpenseTracker(), new UserPrefs(), null);
         expectedModel.deleteExpense(expenseToDelete);
         expectedModel.commitExpenseTracker();
 
@@ -60,7 +60,7 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_EXPENSE_SUCCESS, expenseToDelete);
 
-        Model expectedModel = new ModelManager(model.getExpenseTracker(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getExpenseTracker(), new UserPrefs(), null);
         expectedModel.deleteExpense(expenseToDelete);
         expectedModel.commitExpenseTracker();
         showNoExpense(expectedModel);
@@ -73,7 +73,7 @@ public class DeleteCommandTest {
         showExpenseAtIndex(model, INDEX_FIRST_EXPENSE);
 
         Index outOfBoundIndex = INDEX_SECOND_EXPENSE;
-        // ensures that outOfBoundIndex is still in bounds of address book list
+        // ensures that outOfBoundIndex is still in bounds of expense tracker list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getExpenseTracker().getExpenseList().size());
 
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
@@ -85,7 +85,7 @@ public class DeleteCommandTest {
     public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
         Expense expenseToDelete = model.getFilteredExpenseList().get(INDEX_FIRST_EXPENSE.getZeroBased());
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_EXPENSE);
-        Model expectedModel = new ModelManager(model.getExpenseTracker(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getExpenseTracker(), new UserPrefs(), null);
         expectedModel.deleteExpense(expenseToDelete);
         expectedModel.commitExpenseTracker();
 
@@ -106,10 +106,10 @@ public class DeleteCommandTest {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredExpenseList().size() + 1);
         DeleteCommand deleteCommand = new DeleteCommand(outOfBoundIndex);
 
-        // execution failed -> address book state not added into model
+        // execution failed -> expense tracker state not added into model
         assertCommandFailure(deleteCommand, model, commandHistory, Messages.MESSAGE_INVALID_EXPENSE_DISPLAYED_INDEX);
 
-        // single address book state in model -> undoCommand and redoCommand fail
+        // single expense tracker state in model -> undoCommand and redoCommand fail
         assertCommandFailure(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_FAILURE);
         assertCommandFailure(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_FAILURE);
     }
@@ -124,7 +124,7 @@ public class DeleteCommandTest {
     @Test
     public void executeUndoRedo_validIndexFilteredList_sameExpenseDeleted() throws Exception {
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_EXPENSE);
-        Model expectedModel = new ModelManager(model.getExpenseTracker(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getExpenseTracker(), new UserPrefs(), null);
 
         showExpenseAtIndex(model, INDEX_SECOND_EXPENSE);
         Expense expenseToDelete = model.getFilteredExpenseList().get(INDEX_FIRST_EXPENSE.getZeroBased());
