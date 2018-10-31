@@ -38,8 +38,9 @@
 <li><a href="#undoing-previous-command-code-undo-code">4.14. Undoing previous command : <code>undo</code></a></li>
 <li><a href="#redoing-the-previously-undone-command-code-redo-code">4.15. Redoing the previously undone command : <code>redo</code></a></li>
 <li><a href="#showing-expense-statistics-code-stats-code">4.16. Showing expense statistics: <code>stats</code></a></li>
-<li><a href="#clearing-all-entries-code-clear-code">4.17. Clearing all entries : <code>clear</code></a></li>
-<li><a href="#exiting-the-program-code-exit-code">4.18. Exiting the program : <code>exit</code></a></li>
+<li><a href="#toggling-notifications-code-notification-code">4.17. Toggling Notifications: <code>notification</code></a></li>
+<li><a href="#clearing-all-entries-code-clear-code">4.18. Clearing all entries : <code>clear</code></a></li>
+<li><a href="#exiting-the-program-code-exit-code">4.19. Exiting the program : <code>exit</code></a></li>
 </ul>
 </li>
 <li><a href="#faq">5. FAQ</a></li>
@@ -960,6 +961,45 @@ Shows the expense statistics for the past 3 months as a pie chart showing expens
 </div>
 </div>
 </div>
+</div>
+<div class="sect2">
+<h3 id="toggling-notifications-code-notification-code"><a class="link" href="#toggling-notifications-code-notification-code">4.17. Toggling Notifications: <code>notification</code></a></h3>
+<div class="paragraph">
+<p>Toggles the ability of <code>Expense Tracker</code> to send notifications.</p>
+</div>
+<div class="paragraph">
+<p>There are three notification types to toggle: Warning` and Tip, which can be indicated by <code>warning</code> or <code>tip</code> respectively in the <code>NOTIFICATION_TYPE</code> parameter.<br>
+To toggle both, omit <code>NOTIFICATION_TYPE</code>.</p>
+</div>
+<div class="paragraph">
+<p>There are two toggle options, <code>on</code> and <code>off</code>, which can be indication by 'on' or 'off' respectively in the <code>TOGGLE_OPTION</code> parameter. <code>TOGGLE_OPTION</code> is required.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>notification n/NOTIFICATION_TYPE t/TOGGLE_OPTION</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Examples:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>notification n/warning t/off</code><br>
+Disables the sending Warning type notifications.<br></p>
+</li>
+<li>
+<p><code>notification n/tip t/off</code><br>
+Enables the sending of Tip type notifications.<br></p>
+</li>
+<li>
+<p><code>notification t/off</code><br>
+Disables the sending of both types of notifications.<br></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -970,16 +1010,13 @@ Shows the expense statistics for the past 3 months as a pie chart showing expens
 <div class="ulist">
 <ul>
 <li>
-<p>PERIOD_AMOUNT must be a positive number greater than 0</p>
+<p>NOTIFICATION_TYPE can only be 'warning' or 'tip'</p>
 </li>
 <li>
-<p>PERIOD can only be 'd' or 'm'.</p>
+<p>TOGGLE_OPTION can only be 'on' or 'off'</p>
 </li>
 <li>
-<p>MODE can only be 't' or 'c'.</p>
-</li>
-<li>
-<p>If no parameters are provided, the command defaults to show statistics for the past 7 days in time mode.</p>
+<p>NOTIFICATION_TYPE is optional</p>
 </li>
 </ul>
 </div>
@@ -989,7 +1026,7 @@ Shows the expense statistics for the past 3 months as a pie chart showing expens
 </div>
 </div>
 <div class="sect2">
-<h3 id="clearing-all-entries-code-clear-code"><a class="link" href="#clearing-all-entries-code-clear-code">4.17. Clearing all entries : <code>clear</code></a></h3>
+<h3 id="clearing-all-entries-code-clear-code"><a class="link" href="#clearing-all-entries-code-clear-code">4.18. Clearing all entries : <code>clear</code></a></h3>
 <div class="paragraph">
 <p>Deletes all expense entries from Expense Tracker.<br></p>
 </div>
@@ -998,7 +1035,7 @@ Shows the expense statistics for the past 3 months as a pie chart showing expens
 </div>
 </div>
 <div class="sect2">
-<h3 id="exiting-the-program-code-exit-code"><a class="link" href="#exiting-the-program-code-exit-code">4.18. Exiting the program : <code>exit</code></a></h3>
+<h3 id="exiting-the-program-code-exit-code"><a class="link" href="#exiting-the-program-code-exit-code">4.19. Exiting the program : <code>exit</code></a></h3>
 <div class="paragraph">
 <p>Exits the program.<br></p>
 </div>
@@ -1135,4 +1172,4 @@ e.g. <code>stats n/7 m/d</code></p>
 </ul>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-31 07:46:55 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-10-31 14:27:26 UTC</div></div></div></body></html>
