@@ -31,15 +31,14 @@
 </li>
 <li><a href="#implementation">4. Implementation</a>
 <ul class="sectlevel2">
-<li><a href="#undo-redo-feature">4.1. Undo/Redo feature</a></li>
-<li><a href="#user-accounts-system">4.2. User Accounts System</a></li>
-<li><a href="#statistics">4.3. Statistics</a></li>
-<li><a href="#find">4.4. Find</a></li>
-<li><a href="#mass-edit">4.5. Mass Edit</a></li>
-<li><a href="#user-interface-redesign">4.6. User Interface Redesign</a></li>
-<li><a href="#budget">4.7. Budget</a></li>
-<li><a href="#logging">4.8. Logging</a></li>
-<li><a href="#Implementation-Configuration">4.9. Configuration</a></li>
+<li><a href="#user-accounts-system">4.1. User Accounts System</a></li>
+<li><a href="#statistics">4.2. Statistics</a></li>
+<li><a href="#find">4.3. Find</a></li>
+<li><a href="#mass-edit">4.4. Mass Edit</a></li>
+<li><a href="#user-interface-redesign">4.5. User Interface Redesign</a></li>
+<li><a href="#budget">4.6. Budget</a></li>
+<li><a href="#logging">4.7. Logging</a></li>
+<li><a href="#Implementation-Configuration">4.8. Configuration</a></li>
 </ul>
 </li>
 <li><a href="#documentation">5. Documentation</a>
@@ -594,215 +593,16 @@ Tracker</code> to only require one <code>Tag</code> object per unique <code>Tag<
 <div class="paragraph">
 <p>This section describes some noteworthy details on how certain features are implemented.</p>
 </div>
-<div class="sect2">
-<h3 id="undo-redo-feature"><a class="link" href="#undo-redo-feature">4.1. Undo/Redo feature</a></h3>
-<div class="sect3">
-<h4 id="current-implementation"><a class="link" href="#current-implementation">4.1.1. Current Implementation</a></h4>
 <div class="paragraph">
-<p>The undo/redo mechanism is facilitated by <code>VersionedExpenseTracker</code>.
-It extends <code>ExpenseTracker</code> with an undo/redo history, stored internally as an <code>expenseTrackerStateList</code> and <code>currentStatePointer</code>.
-Additionally, it implements the following operations:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>VersionedExpenseTracker#commit()</code>&#8201;&#8212;&#8201;Saves the current expense tracker state in its history.</p>
-</li>
-<li>
-<p><code>VersionedExpenseTracker#undo()</code>&#8201;&#8212;&#8201;Restores the previous expense tracker state from its history.</p>
-</li>
-<li>
-<p><code>VersionedExpenseTracker#redo()</code>&#8201;&#8212;&#8201;Restores a previously undone expense tracker state from its history.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>These operations are exposed in the <code>Model</code> interface as <code>Model#commitExpenseTracker()</code>, <code>Model#undoExpenseTracker()</code> and <code>Model#redoExpenseTracker()</code> respectively.</p>
-</div>
-<div class="paragraph">
-<p>Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.</p>
-</div>
-<div class="paragraph">
-<p>Step 1. The user launches the application for the first time. The <code>VersionedExpenseTracker</code> will be initialized with the initial expense tracker state, and the <code>currentStatePointer</code> pointing to that single expense tracker state.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/UndoRedoStartingStateListDiagram.png" alt="UndoRedoStartingStateListDiagram" width="800">
-</div>
-</div>
-<div class="paragraph">
-<p>Step 2. The user executes <code>delete 5</code> command to delete the 5th expense in the expense tracker. The <code>delete</code> command calls <code>Model#commitExpenseTracker()</code>, causing the modified state of the expense tracker after the <code>delete 5</code> command executes to be saved in the <code>expenseTrackerStateList</code>, and the <code>currentStatePointer</code> is shifted to the newly inserted expense tracker state.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/UndoRedoNewCommand1StateListDiagram.png" alt="UndoRedoNewCommand1StateListDiagram" width="800">
-</div>
-</div>
-<div class="paragraph">
-<p>Step 3. The user executes <code>add n/David &#8230;&#8203;</code> to add a new expense. The <code>add</code> command also calls <code>Model#commitExpenseTracker()</code>, causing another modified expense tracker state to be saved into the <code>expenseTrackerStateList</code>.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/UndoRedoNewCommand2StateListDiagram.png" alt="UndoRedoNewCommand2StateListDiagram" width="800">
-</div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-If a command fails its execution, it will not call <code>Model#commitExpenseTracker()</code>, so the expense tracker state will not be saved into the <code>expenseTrackerStateList</code>.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Step 4. The user now decides that adding the expense was a mistake, and decides to undo that action by executing the <code>undo</code> command. The <code>undo</code> command will call <code>Model#undoExpenseTracker()</code>, which will shift the <code>currentStatePointer</code> once to the left, pointing it to the previous expense tracker state, and restores the expense tracker to that state.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/UndoRedoExecuteUndoStateListDiagram.png" alt="UndoRedoExecuteUndoStateListDiagram" width="800">
-</div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-If the <code>currentStatePointer</code> is at index 0, pointing to the initial expense tracker state, then there are no previous expense tracker states to restore. The <code>undo</code> command uses <code>Model#canUndoExpenseTracker()</code> to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The following sequence diagram shows how the undo operation works:</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/UndoRedoSequenceDiagram.png" alt="UndoRedoSequenceDiagram" width="800">
-</div>
-</div>
-<div class="paragraph">
-<p>The <code>redo</code> command does the opposite&#8201;&#8212;&#8201;it calls <code>Model#redoExpenseTracker()</code>, which shifts the <code>currentStatePointer</code> once to the right, pointing to the previously undone state, and restores the expense tracker to that state.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-If the <code>currentStatePointer</code> is at index <code>expenseTrackerStateList.size() - 1</code>, pointing to the latest expense tracker state, then there are no undone expense tracker states to restore. The <code>redo</code> command uses <code>Model#canRedoExpenseTracker()</code> to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Step 5. The user then decides to execute the command <code>list</code>. Commands that do not modify the expense tracker, such as <code>list</code>, will usually not call <code>Model#commitExpenseTracker()</code>, <code>Model#undoExpenseTracker()</code> or <code>Model#redoExpenseTracker()</code>. Thus, the <code>expenseTrackerStateList</code> remains unchanged.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/UndoRedoNewCommand3StateListDiagram.png" alt="UndoRedoNewCommand3StateListDiagram" width="800">
-</div>
-</div>
-<div class="paragraph">
-<p>Step 6. The user executes <code>clear</code>, which calls <code>Model#commitExpenseTracker()</code>. Since the <code>currentStatePointer</code> is not pointing at the end of the <code>expenseTrackerStateList</code>, all expense tracker states after the <code>currentStatePointer</code> will be purged. We designed it this way because it no longer makes sense to redo the <code>add n/David &#8230;&#8203;</code> command. This is the behavior that most modern desktop applications follow.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/UndoRedoNewCommand4StateListDiagram.png" alt="UndoRedoNewCommand4StateListDiagram" width="800">
-</div>
-</div>
-<div class="paragraph">
-<p>The following activity diagram summarizes what happens when a user executes a new command:</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/UndoRedoActivityDiagram.png" alt="UndoRedoActivityDiagram" width="650">
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="design-considerations"><a class="link" href="#design-considerations">4.1.2. Design Considerations</a></h4>
-<div class="sect4">
-<h5 id="aspect-how-undo-redo-executes"><a class="link" href="#aspect-how-undo-redo-executes">Aspect: How undo &amp; redo executes</a></h5>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>Alternative 1 (current choice):</strong> Saves the entire expense tracker.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Pros: Easy to implement.</p>
-</li>
-<li>
-<p>Cons: May have performance issues in terms of memory usage.</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p><strong>Alternative 2:</strong> Individual command knows how to undo/redo by itself.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Pros: Will use less memory (e.g. for <code>delete</code>, just save the expense being deleted).</p>
-</li>
-<li>
-<p>Cons: We must ensure that the implementation of each individual command are correct.</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect4">
-<h5 id="aspect-data-structure-to-support-the-undo-redo-commands"><a class="link" href="#aspect-data-structure-to-support-the-undo-redo-commands">Aspect: Data structure to support the undo/redo commands</a></h5>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>Alternative 1 (current choice):</strong> Use a list to store the history of expense tracker states.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.</p>
-</li>
-<li>
-<p>Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both <code>HistoryManager</code> and <code>VersionedExpenseTracker</code>.</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p><strong>Alternative 2:</strong> Use <code>HistoryManager</code> for undo/redo</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.</p>
-</li>
-<li>
-<p>Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as <code>HistoryManager</code> now needs to do two different things.</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-</div>
-</div>
+<p>//// end::undoredo[]</p>
 </div>
 <div class="sect2">
-<h3 id="user-accounts-system"><a class="link" href="#user-accounts-system">4.2. User Accounts System</a></h3>
+<h3 id="user-accounts-system"><a class="link" href="#user-accounts-system">4.1. User Accounts System</a></h3>
 <div class="paragraph">
 <p>The user accounts system allows multiple users to use the Expense Tracker on the same computer without interfering with each other&#8217;s data. It also includes an optional password system that allows users to protect their expense tracker information from being viewed or altered by others.</p>
 </div>
 <div class="sect3">
-<h4 id="current-implementation-2"><a class="link" href="#current-implementation-2">4.2.1. Current Implementation</a></h4>
+<h4 id="current-implementation"><a class="link" href="#current-implementation">4.1.1. Current Implementation</a></h4>
 <div class="paragraph">
 <p>On initialization, the <code>MainApp</code> class loads all xml files within the data folder according to the path in <code>UserPrefs</code>. The data is loaded by <code>MainApp#initModelManager(Storage, UserPref)</code>.</p>
 </div>
@@ -953,7 +753,7 @@ If the <code>currentStatePointer</code> is at index <code>expenseTrackerStateLis
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-2"><a class="link" href="#design-considerations-2">4.2.2. Design Considerations</a></h4>
+<h4 id="design-considerations"><a class="link" href="#design-considerations">4.1.2. Design Considerations</a></h4>
 <div class="sect4">
 <h5 id="aspect-storage-of-separate-user-data"><a class="link" href="#aspect-storage-of-separate-user-data">Aspect: Storage of Separate User Data</a></h5>
 <div class="ulist">
@@ -1023,13 +823,13 @@ If the <code>currentStatePointer</code> is at index <code>expenseTrackerStateLis
 </div>
 </div>
 <div class="sect2">
-<h3 id="statistics"><a class="link" href="#statistics">4.3. Statistics</a></h3>
+<h3 id="statistics"><a class="link" href="#statistics">4.2. Statistics</a></h3>
 <div class="paragraph">
 <p>The implementation of the Statistics function can be divided into two parts - preparation and execution.
 Given below is an example usage scenario and an explanation of how the statistics mechanism behaves at each step.</p>
 </div>
 <div class="sect3">
-<h4 id="preparation"><a class="link" href="#preparation">4.3.1. Preparation</a></h4>
+<h4 id="preparation"><a class="link" href="#preparation">4.2.1. Preparation</a></h4>
 <div class="paragraph">
 <p>In the preparation phase, the program parses the command for statistics, prepares filters used by the model
 and posts events in <code>EventsCenter</code>.
@@ -1044,7 +844,7 @@ Below is the UML sequence diagram and a step-by-step explanation of the preparat
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>User enters command <code>stats n/7 m/d</code>. The command is received by <code>ExpenseTrackerParser</code>, which calls <code>StatsCommandParser#parse()</code>
+<p>User enters command <code>stats n/7 p/d m/t</code>. The command is received by <code>ExpenseTrackerParser</code>, which calls <code>StatsCommandParser#parse()</code>
 to create a <code>StatsCommand</code> object with the two extracted parameters. The <code>StatsCommand</code> object is returned to <code>LogicManager</code>.</p>
 </li>
 <li>
@@ -1055,40 +855,127 @@ also posts a `ShowStatsRequestEvent</code> and <code>SwapLeftPanelEvent</code> e
 </div>
 <div class="paragraph">
 <p>In this example, <code>Predicate</code> is set to filter out expenses which have dates within the last 7 days and
-<code>StatsMode</code> is set to DAY, representing the day mode.</p>
+<code>StatsPeriod</code> is set to TIME, which will be used later to have the UI display a bar chart instead of a pie chart.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="execution"><a class="link" href="#execution">4.3.2. Execution</a></h4>
+<h4 id="execution"><a class="link" href="#execution">4.2.2. Execution</a></h4>
 <div class="paragraph">
 <p>In the execution phase, the program handles the events posted by <code>StatsCommand</code> by
 processing and retrieving the data to be displayed and finally displaying it.
-Below is a step-by-step explanation of the execution stage.</p>
+Below is the UML sequence diagram and a step-by-step explanation of the execution stage.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/implementation/StatsUiSequenceDiagram.png" alt="StatsUiSequenceDiagram" width="800">
+</div>
+<div class="title">Figure 15. Sequence diagram of the execution stage in the statistics mechanism</div>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>The <code>ShowStatsRequestEvent</code> event is handled by <code>MainWindow#handleShowStatsEvent()</code>, which updates the 'StatisticsPanel' object after getting the
-expense data and mode by calling <code>Logic#getExpenseStats()</code> and <code>Logic#getStatsMode()</code>.</p>
+<p>The <code>ShowStatsRequestEvent</code> event is handled by <code>MainWindow#handleShowStatsEvent()</code>, which calls 'StatisticsPanel#setData()'
+and passes the data as parameters by calling
+<code>Logic#getExpenseStats()</code>, <code>Logic#getStatsPeriod()</code>, <code>Logic#getStatsMode()</code> and <code>Logic#getPeriodAmount()</code>.</p>
 </li>
 <li>
-<p><code>Logic#getExpenseStats()</code> gets the filtered expense list by calling <code>ModelManager#getExpenseStats()</code>, which returns
+<p><code>Logic#getExpenseStats()</code> gets the filtered expense list by calling <code>Model#getExpenseStats()</code>, which returns
 an unmodifiable <code>ObservableList</code>, only containing only expenses in the last 7 days, as per the <code>Predicate</code>, and sorted by date.
-<code>Logic#getExpenseStats()</code> then puts the data into a <code>LinkedHashMap&lt;String, Double&gt;</code>, where the key represents the days and the value represents
-the total cost for that day</p>
+<code>Logic#getExpenseStats()</code> then organises the data into a <code>LinkedHashMap&lt;String, Double&gt;</code>, where the key value pair represents
+the x and y values of the chart. In this case, <code>StatsMode</code> is set to TIME, which results in a x,y values of date and cost.
+If <code>StatsMode</code> is set to CATEGORY, the x,y values will be set to category and cost.</p>
 </li>
 <li>
-<p><code>Logic#getStatsMode()</code> gets the current StatsMode by calling <code>Model#getStatsMode()</code></p>
+<p><code>Logic#getStatsPeriod()</code>, <code>Logic#getStatsMode()</code> and <code>Logic#getPeriodAmount()</code> gets their respective data
+by calling the method of the same name in <code>Model</code>.</p>
 </li>
 <li>
-<p><code>StatisticsPanel</code> UI element updates the bar chart in <code>chartArea</code> to show the expenses over the last 7 days.</p>
+<p>Once the parameters are passed into <code>StatisticsPanel#setData()</code>, <code>StackPane#getChildren()#clear()</code> is called to clear
+any display elements in <code>StackPane</code>.</p>
+</li>
+<li>
+<p>In this case, <code>StatsMode</code> is set to TIME, which results in <code>StatisticsPanel#setTimeBasedData()</code> to be called, which
+generates a Bar Chart and calls <code>StackPane#getChildren()#add()</code>, which adds it to <code>StackPane</code>.
+If <code>StatsMode</code> is set to CATEGORY, which results in <code>StatisticsPanel#setCategoryBasedData()</code> to be called, which
+generates a Pie Chart and calls <code>StackPane#getChildren()#add()</code>, which adds it to <code>StackPane</code>.
+If the data received is empty, a <code>Text</code> object is generated and <code>StackPane#getChildren()#add()</code> is called,
+which informs the user that there are no expenditures</p>
 </li>
 </ol>
 </div>
 </div>
+<div class="sect3">
+<h4 id="design-considerations-2"><a class="link" href="#design-considerations-2">4.2.3. Design Considerations</a></h4>
+<div class="sect4">
+<h5 id="aspect-how-to-handle-statistic-data-and-parameters"><a class="link" href="#aspect-how-to-handle-statistic-data-and-parameters">Aspect: How to handle statistic data and parameters</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> Data and each parameter is handled as separate objects</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Easy to implement.</p>
+</li>
+<li>
+<p>Cons: Need to call multiple methods to get parameters</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> Create Statistics object which contains data and all the parameters.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: More scalable. Less method calls to get parameters.</p>
+</li>
+<li>
+<p>Cons: None</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="aspect-how-to-pass-statistic-data-and-parameters-from-command-to-ui"><a class="link" href="#aspect-how-to-pass-statistic-data-and-parameters-from-command-to-ui">Aspect: How to pass statistic data and parameters from Command to UI</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> UI gets all data and parameters from <code>Logic</code>, which gets data from <code>Model</code>.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Easy to implement. Aligned with architecture.</p>
+</li>
+<li>
+<p>Cons: A lot of method calls</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> Pass data and parameters through event</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Less method calls. Easier to read.</p>
+</li>
+<li>
+<p>Cons: Not in aligned with architecture. Need to consider application startup when there are no events posted.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
 </div>
 <div class="sect2">
-<h3 id="find"><a class="link" href="#find">4.4. Find</a></h3>
+<h3 id="find"><a class="link" href="#find">4.3. Find</a></h3>
 <div class="paragraph">
 <p>Below is the UML sequence diagram and a step-by-step explanation of an example usage scenario.</p>
 </div>
@@ -1096,7 +983,7 @@ the total cost for that day</p>
 <div class="content">
 <img src="images/implementation/FindCommandSequenceDiagram.png" alt="FindCommandSequenceDiagram" width="800">
 </div>
-<div class="title">Figure 15. Sequence diagram of find mechanism</div>
+<div class="title">Figure 16. Sequence diagram of find mechanism</div>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -1131,7 +1018,7 @@ and returned to <code>LogicManager</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="mass-edit"><a class="link" href="#mass-edit">4.5. Mass Edit</a></h3>
+<h3 id="mass-edit"><a class="link" href="#mass-edit">4.4. Mass Edit</a></h3>
 <div class="paragraph">
 <p>Below is the UML sequence diagram and a step-by-step explanation of an example usage scenario.</p>
 </div>
@@ -1139,7 +1026,7 @@ and returned to <code>LogicManager</code>.</p>
 <div class="content">
 <img src="images/implementation/MassEditCommandSequenceDiagram.png" alt="MassEditCommandSequenceDiagram" width="800">
 </div>
-<div class="title">Figure 16. Sequence diagram of mass edit mechanism</div>
+<div class="title">Figure 17. Sequence diagram of mass edit mechanism</div>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -1175,7 +1062,7 @@ A <code>CommandResult</code> is then created and returned to <code>LogicManager<
 </div>
 </div>
 <div class="sect2">
-<h3 id="user-interface-redesign"><a class="link" href="#user-interface-redesign">4.6. User Interface Redesign</a></h3>
+<h3 id="user-interface-redesign"><a class="link" href="#user-interface-redesign">4.5. User Interface Redesign</a></h3>
 <div class="paragraph">
 <p>The UI has been redesigned to implement the following UI elements required for the Expense Tracker:</p>
 </div>
@@ -1199,7 +1086,7 @@ A <code>CommandResult</code> is then created and returned to <code>LogicManager<
 <p>Animations will also be incorporated into the UI elements for a better user experience.</p>
 </div>
 <div class="sect3">
-<h4 id="budget-panel"><a class="link" href="#budget-panel">4.6.1. Budget Panel</a></h4>
+<h4 id="budget-panel"><a class="link" href="#budget-panel">4.5.1. Budget Panel</a></h4>
 <div class="paragraph">
 <p>The <code>totalBudget</code> panel consists of 3 UI elements:</p>
 </div>
@@ -1320,7 +1207,7 @@ Similarly, if the user has gone from over budget to under budget, the color of
 <div class="content">
 <img src="images/implementation/BudgetPanelSequenceDiagram.png" alt="BudgetPanelSequenceDiagram" width="800">
 </div>
-<div class="title">Figure 17. Sequence diagram of the <code>BudgetPanel</code> update</div>
+<div class="title">Figure 18. Sequence diagram of the <code>BudgetPanel</code> update</div>
 </div>
 <div class="sect4">
 <h5 id="design-considerations-3"><a class="link" href="#design-considerations-3">Design Considerations</a></h5>
@@ -1360,7 +1247,7 @@ Similarly, if the user has gone from over budget to under budget, the color of
 </div>
 </div>
 <div class="sect3">
-<h4 id="notification-system"><a class="link" href="#notification-system">4.6.2. Notification System</a></h4>
+<h4 id="notification-system"><a class="link" href="#notification-system">4.5.2. Notification System</a></h4>
 <div class="paragraph">
 <p>The Notification System is comprised of 3 features:
 * <code>Notification</code> - An abstract method that consists of a <code>header</code>, <code>type</code> and <code>body</code>. There are two types of <code>Notification</code>,
@@ -1460,9 +1347,9 @@ The <code>n/</code> parameter can be omitted. In this case, all types of notific
 </div>
 </div>
 <div class="sect2">
-<h3 id="budget"><a class="link" href="#budget">4.7. Budget</a></h3>
+<h3 id="budget"><a class="link" href="#budget">4.6. Budget</a></h3>
 <div class="sect3">
-<h4 id="current-implementation-3"><a class="link" href="#current-implementation-3">4.7.1. Current Implementation</a></h4>
+<h4 id="current-implementation-2"><a class="link" href="#current-implementation-2">4.6.1. Current Implementation</a></h4>
 <div class="paragraph">
 <p>The budget feature allows the user to set a budget for a specific time period.
 If the user&#8217;s total spending exceeds their budget in the specified time period, a warning will be shown to the user.</p>
@@ -1479,7 +1366,7 @@ If the user&#8217;s total spending exceeds their budget in the specified time pe
 <div class="content">
 <img src="images/implementation/BudgetCommandSequenceDiagram.png" alt="BudgetCommandSequenceDiagram" width="800">
 </div>
-<div class="title">Figure 18. Sequence diagram of a user setting a budget.</div>
+<div class="title">Figure 19. Sequence diagram of a user setting a budget.</div>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -1534,7 +1421,7 @@ be set to <code>currentTime</code> + <code>recurrenceFrequency</code>.</p>
 <div class="content">
 <img src="images/implementation/SetRecurringBudgetCommandSequenceDiagram.png" alt="SetRecurringBudgetCommandSequenceDiagram" width="800">
 </div>
-<div class="title">Figure 19. Sequence diagram of a user setting a recurrence frequency.</div>
+<div class="title">Figure 20. Sequence diagram of a user setting a recurrence frequency.</div>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -1613,7 +1500,7 @@ usage of the expense tracker, but rather provide helpful information. For exampl
 </div>
 </div>
 <div class="sect3">
-<h4 id="alternatives-considered"><a class="link" href="#alternatives-considered">4.7.2. Alternatives considered</a></h4>
+<h4 id="alternatives-considered"><a class="link" href="#alternatives-considered">4.6.2. Alternatives considered</a></h4>
 <div class="paragraph">
 <p>Recurrence check was initially implemented via events. Every time <code>ModelManager#loadUserData()</code> is called, an event
 will be sent to the <code>EventBus</code> to be dispatched to an event handler implemented in <code>Budget</code>. However, after heavy
@@ -1624,14 +1511,14 @@ else. Therefore, it should be more closely coupled with <code>loadUserData()</co
 </div>
 </div>
 <div class="sect2">
-<h3 id="logging"><a class="link" href="#logging">4.8. Logging</a></h3>
+<h3 id="logging"><a class="link" href="#logging">4.7. Logging</a></h3>
 <div class="paragraph">
 <p>We are using <code>java.util.logging</code> package for logging. The <code>LogsCenter</code> class is used to manage the logging levels and logging destinations.</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 4.9, &#8220;Configuration&#8221;</a>)</p>
+<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 4.8, &#8220;Configuration&#8221;</a>)</p>
 </li>
 <li>
 <p>The <code>Logger</code> for a class can be obtained using <code>LogsCenter.getLogger(Class)</code> which will log messages according to the specified logging level</p>
@@ -1662,7 +1549,7 @@ else. Therefore, it should be more closely coupled with <code>loadUserData()</co
 </div>
 </div>
 <div class="sect2">
-<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">4.9. Configuration</a></h3>
+<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">4.8. Configuration</a></h3>
 <div class="paragraph">
 <p>Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: <code>config.json</code>).</p>
 </div>
@@ -1726,7 +1613,7 @@ like the figure below should show up.</p>
 <div class="content">
 <img src="images/chrome_save_as_pdf.png" alt="chrome save as pdf" width="300">
 </div>
-<div class="title">Figure 20. Saving documentation as PDF files in Chrome</div>
+<div class="title">Figure 21. Saving documentation as PDF files in Chrome</div>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -2785,4 +2672,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-01 04:27:23 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-01 19:05:26 UTC</div></div></div></body></html>
