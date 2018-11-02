@@ -28,14 +28,20 @@ public class ModelUtil {
     /**
      * An extension of the {@code ModelManager} where developers can pass in the time instead of checking against
      * system clock. Class of a model with a test user that is already logged in with username TEST_USERNAME.
-     * The expense tracker is empty. TotalBudget cap is $28 with $10 current expenses
+     * The address book is empty. TotalBudget cap is $28 with $10 current expenses
+     */
+
+    /**
+     * Creates a model with a test user that is already logged in with username TEST_USERNAME. The address book is
+     * empty. TotalBudget cap is $28 with $0 current expenses
+     * @return a model logged in with a test user
      */
     public static Model modelWithTestUser() throws NonExistentUserException, UserAlreadyExistsException,
             NoUserSelectedException, InvalidDataException, ParseException {
         Model model = new ModelManager();
         model.addUser(TypicalExpenses.SAMPLE_USERNAME);
         model.loadUserData(new LoginInformation(TypicalExpenses.SAMPLE_USERNAME, null));
-        model.getNotificationHandler().clearList();
+        model.clearNotifications();
         model.modifyNotificationHandler(LocalDateTime.parse("2018-10-01T17:26:18.868275"), true,
                 true);
         model.modifyMaximumBudget(new TotalBudget(28.00, 0.00, LocalDateTime.parse("2018-10-10T10:11:30"), 50000));

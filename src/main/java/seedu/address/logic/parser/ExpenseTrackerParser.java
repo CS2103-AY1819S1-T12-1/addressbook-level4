@@ -6,7 +6,6 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import seedu.address.logic.commands.AddCategoryBudgetCommand;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
@@ -23,6 +22,7 @@ import seedu.address.logic.commands.NotificationCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.SetBudgetCommand;
+import seedu.address.logic.commands.SetCategoryBudgetCommand;
 import seedu.address.logic.commands.SetPasswordCommand;
 import seedu.address.logic.commands.SetRecurringBudgetCommand;
 import seedu.address.logic.commands.SignUpCommand;
@@ -128,9 +128,9 @@ public class ExpenseTrackerParser {
         case SetRecurringBudgetCommand.COMMAND_ALIAS:
             return new SetRecurringBudgetCommandParser().parse(arguments);
 
-        case AddCategoryBudgetCommand.COMMAND_WORD:
-        case AddCategoryBudgetCommand.COMMAND_ALIAS:
-            return new AddCategoryBudgetCommandParser().parse(arguments);
+        case SetCategoryBudgetCommand.COMMAND_WORD:
+        case SetCategoryBudgetCommand.COMMAND_ALIAS:
+            return new SetCategoryBudgetCommandParser().parse(arguments);
 
         case SetPasswordCommand.COMMAND_WORD:
         case SetPasswordCommand.COMMAND_ALIAS:

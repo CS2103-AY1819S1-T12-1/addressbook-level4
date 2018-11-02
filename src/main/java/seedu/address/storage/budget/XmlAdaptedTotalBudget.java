@@ -52,9 +52,6 @@ public class XmlAdaptedTotalBudget extends XmlAdaptedBudget {
                 .stream()
                 .map(categoryBudget -> new XmlAdaptedCategoryBudget(categoryBudget))
                 .collect(Collectors.toCollection(HashSet::new));
-        System.out.println("xmlTotalBudget gets constructed");
-        System.out.println(source.getCategoryBudgets());
-        System.out.println(this.categoryBudgets);
     }
 
     /**

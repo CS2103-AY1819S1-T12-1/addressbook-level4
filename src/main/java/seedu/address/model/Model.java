@@ -8,7 +8,6 @@ import seedu.address.logic.commands.StatsCommand.StatsMode;
 import seedu.address.logic.commands.StatsCommand.StatsPeriod;
 import seedu.address.model.budget.CategoryBudget;
 import seedu.address.model.budget.TotalBudget;
-import seedu.address.model.exceptions.CategoryBudgetDoesNotExist;
 import seedu.address.model.exceptions.CategoryBudgetExceedTotalBudgetException;
 import seedu.address.model.exceptions.InvalidDataException;
 import seedu.address.model.exceptions.NoUserSelectedException;
@@ -182,16 +181,7 @@ public interface Model {
      * @throws CategoryBudgetExceedTotalBudgetException Throws this if adding a
      * category totalBudget results in the sum of all category budgets exceeding the total totalBudget.
      */
-    void addCategoryBudget(CategoryBudget budget) throws CategoryBudgetExceedTotalBudgetException,
-        NoUserSelectedException;
-
-    /**
-     * Modifies an existing Category TotalBudget in the expense tracker
-     * @param budget a valid {@code CategoryBudget}
-     * @throws CategoryBudgetDoesNotExist Throws this if attempting to modify a {@code CategoryBudget} that does not
-     * exist
-     */
-    void modifyCategoryBudget(CategoryBudget budget) throws CategoryBudgetDoesNotExist,
+    void setCategoryBudget(CategoryBudget budget) throws CategoryBudgetExceedTotalBudgetException,
         NoUserSelectedException;
 
     /**
@@ -273,4 +263,8 @@ public interface Model {
     void modifyNotificationHandler(LocalDateTime time, boolean isTipEnabled, boolean isWarningEnabled)
             throws NoUserSelectedException;
 
+    /**
+     * Clears the list in notificationHandler
+     */
+    void clearNotifications() throws NoUserSelectedException;
 }

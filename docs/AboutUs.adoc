@@ -13,7 +13,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 === Winson Heng Yong Seng
 image::winsonhys.png[width="150", align="left"]
-{empty}[https://github.com/winsonhys[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/winsonhys[github]] [<<winson#, portfolio>>]
 
 Role: Team Lead +
 Responsibilities: Model and Logic
@@ -22,7 +22,7 @@ Responsibilities: Model and Logic
 
 === Jonathan Tan Jit Ming
 image::jonathantjm.png[width="150", align="left"]
-{empty}[https://github.com/jonathantjm[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/jonathantjm[github]] [<<jonathan#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Documentation
@@ -31,7 +31,7 @@ Responsibilities: Documentation
 
 === Jamie Chow Wen Juan
 image::snookerballs.png[width="150", align="left"]
-{empty}[https://github.com/Snookerballs[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/Snookerballs[github]] [<<jaime#, portfolio>>]
 
 Role: Developer +
 Responsibilities: UI
@@ -40,7 +40,7 @@ Responsibilities: UI
 
 === Jiang Chen
 image::jcjxwy.png[width="150", align="left"]
-{empty}[https://github.com/jcjxwy[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/jcjxwy[github]] [<<jiangchen#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Integration
@@ -49,7 +49,7 @@ Responsibilities: Integration
 
 === Jason Chong Yi Sheng
 image::jasonchong96.png[width="150", align="left"]
-{empty}[https://github.com/JasonChong96[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/JasonChong96[github]] [<<jason#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Deliverables and Deadlines

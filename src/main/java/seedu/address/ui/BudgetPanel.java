@@ -30,6 +30,7 @@ public class BudgetPanel extends UiPart<Region> {
     private static final double ANIMATION_TIME = 0.5;
     private static final double NUM_OF_FRAMES = 10;
     private static final double TIME_OF_KEY_FRAMES = ANIMATION_TIME / NUM_OF_FRAMES;
+    private static final double CURRENT_FONT_SIZE = 30.0;
 
     private Timeline timeline;
     private final Logger logger = LogsCenter.getLogger(BudgetPanel.class);
@@ -58,9 +59,12 @@ public class BudgetPanel extends UiPart<Region> {
         budgetDisplay = new Text("/$0");
         expenseDisplay = new Text("$0");
         budgetDisplay.setStyle("-fx-fill: #555555;");
-        budgetDisplay.setFont(Font.font("Amazing Infographic@", 30));
-        expenseDisplay.setFont(Font.font("Amazing Infographic@", 30));
+        budgetDisplay.setFont(Font.font("Futura", CURRENT_FONT_SIZE));
+        expenseDisplay.setFont(Font.font("Futura", CURRENT_FONT_SIZE));
+        budgetDisplay.maxHeight(10.00);
+        expenseDisplay.maxWidth(10.00);
         percentageDisplay.getChildren().addAll(expenseDisplay, budgetDisplay);
+
         update(totalBudget);
     }
 
@@ -130,14 +134,25 @@ public class BudgetPanel extends UiPart<Region> {
         );
 
         addIncrementKeyFrames(newExpenses, newBudgetCap);
-        timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(ANIMATION_TIME + 0.5),
+        /*timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(ANIMATION_TIME + 0.5),
                     new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
                     timeline.stop();
                 }
-            }));
+            }));*/
+
+        //Safeguard from animation error
+        timeline.setOnFinished(temp -> {
+            updateExpenseTextDisplay(newExpenses);
+            updateBudgetCapTextDisplay(newBudgetCap);
+            currentExpenses = newExpenses;
+            currentBudgetCap = newBudgetCap;
+            alterTextSize();
+            timeline.stop();
+        });
         timeline.playFromStart();
+
     }
 
     /**
@@ -166,10 +181,11 @@ public class BudgetPanel extends UiPart<Region> {
 
                     updateExpenseTextDisplay(currentExpenses);
                     updateBudgetCapTextDisplay(currentBudgetCap);
-
+                    alterTextSize();
                 }
             });
             timeline.getKeyFrames().add(frame);
+
         }
     }
 
@@ -186,6 +202,14 @@ public class BudgetPanel extends UiPart<Region> {
             budgetBar.setStyle("-fx-accent: derive(#61a15a, 20%);");
         }
 
+    }
+
+    /**
+     * Alter the size of texts depending on whether it has overflowed.
+     */
+    public void alterTextSize() {
+        percentageDisplay.setScaleY(percentageDisplay.getMaxHeight() / percentageDisplay.getHeight());
+        percentageDisplay.setScaleX(percentageDisplay.getMaxHeight() / percentageDisplay.getHeight());
     }
 
     @Subscribe

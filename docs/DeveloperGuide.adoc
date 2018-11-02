@@ -269,86 +269,87 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 This section describes some noteworthy details on how certain features are implemented.
 
 // tag::undoredo[]
-=== Undo/Redo feature
-==== Current Implementation
+//=== Undo/Redo feature
+//==== Current Implementation
+//
+//The undo/redo mechanism is facilitated by `VersionedExpenseTracker`.
+//It extends `ExpenseTracker` with an undo/redo history, stored internally as an `expenseTrackerStateList` and `currentStatePointer`.
+//Additionally, it implements the following operations:
+//
+//* `VersionedExpenseTracker#commit()` -- Saves the current expense tracker state in its history.
+//* `VersionedExpenseTracker#undo()` -- Restores the previous expense tracker state from its history.
+//* `VersionedExpenseTracker#redo()` -- Restores a previously undone expense tracker state from its history.
+//
+//These operations are exposed in the `Model` interface as `Model#commitExpenseTracker()`, `Model#undoExpenseTracker()` and `Model#redoExpenseTracker()` respectively.
+//
+//Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+//
+//Step 1. The user launches the application for the first time. The `VersionedExpenseTracker` will be initialized with the initial expense tracker state, and the `currentStatePointer` pointing to that single expense tracker state.
+//
+//image::UndoRedoStartingStateListDiagram.png[width="800"]
+//
+//Step 2. The user executes `delete 5` command to delete the 5th expense in the expense tracker. The `delete` command calls `Model#commitExpenseTracker()`, causing the modified state of the expense tracker after the `delete 5` command executes to be saved in the `expenseTrackerStateList`, and the `currentStatePointer` is shifted to the newly inserted expense tracker state.
+//
+//image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
+//
+//Step 3. The user executes `add n/David ...` to add a new expense. The `add` command also calls `Model#commitExpenseTracker()`, causing another modified expense tracker state to be saved into the `expenseTrackerStateList`.
+//
+//image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
+//
+//[NOTE]
+//If a command fails its execution, it will not call `Model#commitExpenseTracker()`, so the expense tracker state will not be saved into the `expenseTrackerStateList`.
+//
+//Step 4. The user now decides that adding the expense was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoExpenseTracker()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous expense tracker state, and restores the expense tracker to that state.
+//
+//image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
+//
+//[NOTE]
+//If the `currentStatePointer` is at index 0, pointing to the initial expense tracker state, then there are no previous expense tracker states to restore. The `undo` command uses `Model#canUndoExpenseTracker()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+//
+//The following sequence diagram shows how the undo operation works:
+//
+//image::UndoRedoSequenceDiagram.png[width="800"]
+//
+//The `redo` command does the opposite -- it calls `Model#redoExpenseTracker()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the expense tracker to that state.
+//
+//[NOTE]
+//If the `currentStatePointer` is at index `expenseTrackerStateList.size() - 1`, pointing to the latest expense tracker state, then there are no undone expense tracker states to restore. The `redo` command uses `Model#canRedoExpenseTracker()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+//
+//Step 5. The user then decides to execute the command `list`. Commands that do not modify the expense tracker, such as `list`, will usually not call `Model#commitExpenseTracker()`, `Model#undoExpenseTracker()` or `Model#redoExpenseTracker()`. Thus, the `expenseTrackerStateList` remains unchanged.
+//
+//image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
+//
+//Step 6. The user executes `clear`, which calls `Model#commitExpenseTracker()`. Since the `currentStatePointer` is not pointing at the end of the `expenseTrackerStateList`, all expense tracker states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
+//
+//image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
+//
+//The following activity diagram summarizes what happens when a user executes a new command:
+//
+//image::UndoRedoActivityDiagram.png[width="650"]
+//
+//==== Design Considerations
+//
+//===== Aspect: How undo & redo executes
+//
+//* **Alternative 1 (current choice):** Saves the entire expense tracker.
+//** Pros: Easy to implement.
+//** Cons: May have performance issues in terms of memory usage.
+//* **Alternative 2:** Individual command knows how to undo/redo by itself.
+//** Pros: Will use less memory (e.g. for `delete`, just save the expense being deleted).
+//** Cons: We must ensure that the implementation of each individual command are correct.
+//
+//===== Aspect: Data structure to support the undo/redo commands
+//
+//* **Alternative 1 (current choice):** Use a list to store the history of expense tracker states.
+//** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
+//** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedExpenseTracker`.
+//* **Alternative 2:** Use `HistoryManager` for undo/redo
+//** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
+//** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
+//// end::undoredo[]
 
-The undo/redo mechanism is facilitated by `VersionedExpenseTracker`.
-It extends `ExpenseTracker` with an undo/redo history, stored internally as an `expenseTrackerStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
+//tag::useraccounts[]
 
-* `VersionedExpenseTracker#commit()` -- Saves the current expense tracker state in its history.
-* `VersionedExpenseTracker#undo()` -- Restores the previous expense tracker state from its history.
-* `VersionedExpenseTracker#redo()` -- Restores a previously undone expense tracker state from its history.
-
-These operations are exposed in the `Model` interface as `Model#commitExpenseTracker()`, `Model#undoExpenseTracker()` and `Model#redoExpenseTracker()` respectively.
-
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
-
-Step 1. The user launches the application for the first time. The `VersionedExpenseTracker` will be initialized with the initial expense tracker state, and the `currentStatePointer` pointing to that single expense tracker state.
-
-image::UndoRedoStartingStateListDiagram.png[width="800"]
-
-Step 2. The user executes `delete 5` command to delete the 5th expense in the expense tracker. The `delete` command calls `Model#commitExpenseTracker()`, causing the modified state of the expense tracker after the `delete 5` command executes to be saved in the `expenseTrackerStateList`, and the `currentStatePointer` is shifted to the newly inserted expense tracker state.
-
-image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
-
-Step 3. The user executes `add n/David ...` to add a new expense. The `add` command also calls `Model#commitExpenseTracker()`, causing another modified expense tracker state to be saved into the `expenseTrackerStateList`.
-
-image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
-
-[NOTE]
-If a command fails its execution, it will not call `Model#commitExpenseTracker()`, so the expense tracker state will not be saved into the `expenseTrackerStateList`.
-
-Step 4. The user now decides that adding the expense was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoExpenseTracker()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous expense tracker state, and restores the expense tracker to that state.
-
-image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
-
-[NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial expense tracker state, then there are no previous expense tracker states to restore. The `undo` command uses `Model#canUndoExpenseTracker()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
-
-The following sequence diagram shows how the undo operation works:
-
-image::UndoRedoSequenceDiagram.png[width="800"]
-
-The `redo` command does the opposite -- it calls `Model#redoExpenseTracker()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the expense tracker to that state.
-
-[NOTE]
-If the `currentStatePointer` is at index `expenseTrackerStateList.size() - 1`, pointing to the latest expense tracker state, then there are no undone expense tracker states to restore. The `redo` command uses `Model#canRedoExpenseTracker()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the expense tracker, such as `list`, will usually not call `Model#commitExpenseTracker()`, `Model#undoExpenseTracker()` or `Model#redoExpenseTracker()`. Thus, the `expenseTrackerStateList` remains unchanged.
-
-image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
-
-Step 6. The user executes `clear`, which calls `Model#commitExpenseTracker()`. Since the `currentStatePointer` is not pointing at the end of the `expenseTrackerStateList`, all expense tracker states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
-
-image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-image::UndoRedoActivityDiagram.png[width="650"]
-
-==== Design Considerations
-
-===== Aspect: How undo & redo executes
-
-* **Alternative 1 (current choice):** Saves the entire expense tracker.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the expense being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
-
-===== Aspect: Data structure to support the undo/redo commands
-
-* **Alternative 1 (current choice):** Use a list to store the history of expense tracker states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedExpenseTracker`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
-
-// tag::login[]
 === User Accounts System
 The user accounts system allows multiple users to use the Expense Tracker on the same computer without interfering with each other's data. It also includes an optional password system that allows users to protect their expense tracker information from being viewed or altered by others.
 
@@ -432,8 +433,9 @@ image::implementation/SetPasswordCommandSequenceDiagram.png[width="800"]
 * **Alternative 2:** User data is loaded only when the user attempts to log in
 ** Pros: Unnecessary data is not kept in memory so memory space is not wasted
 ** Cons: Increase degree of coupling between the Logic, Model and Storage components as the login command will require the Storage to load and return the user's data.
-// end::login[]
+// end::useraccounts[]
 
+// tag::statistics[]
 === Statistics
 
 The implementation of the Statistics function can be divided into two parts - preparation and execution.
@@ -447,32 +449,68 @@ Below is the UML sequence diagram and a step-by-step explanation of the preparat
 .Sequence diagram of the preparation stage in the statistics mechanism
 image::implementation/StatsCommandSequenceDiagram.png[width="800"]
 
-. User enters command `stats n/7 m/d`. The command is received by `ExpenseTrackerParser`, which calls `StatsCommandParser#parse()`
+. User enters command `stats n/7 p/d m/t`. The command is received by `ExpenseTrackerParser`, which calls `StatsCommandParser#parse()`
 to create a `StatsCommand` object with the two extracted parameters. The `StatsCommand` object is returned to `LogicManager`.
 
 . `LogicManager` then calls `StatsCommand#execute()`, which updates the `Predicate` and `StatsMode` in `ModelManager and
 also posts a `ShowStatsRequestEvent` and `SwapLeftPanelEvent` event to the `EventsCenter`.
 
 In this example, `Predicate` is set to filter out expenses which have dates within the last 7 days and
-`StatsMode` is set to DAY, representing the day mode.
+`StatsPeriod` is set to TIME, which will be used later to have the UI display a bar chart instead of a pie chart.
 
 ==== Execution
 In the execution phase, the program handles the events posted by `StatsCommand` by
 processing and retrieving the data to be displayed and finally displaying it.
-Below is a step-by-step explanation of the execution stage.
+Below is the UML sequence diagram and a step-by-step explanation of the execution stage.
 
-. The `ShowStatsRequestEvent` event is handled by `MainWindow#handleShowStatsEvent()`, which updates the 'StatisticsPanel' object after getting the
-expense data and mode by calling `Logic#getExpenseStats()` and `Logic#getStatsMode()`.
+.Sequence diagram of the execution stage in the statistics mechanism
+image::implementation/StatsUiSequenceDiagram.png[width="800"]
 
-. `Logic#getExpenseStats()` gets the filtered expense list by calling `ModelManager#getExpenseStats()`, which returns
+. The `ShowStatsRequestEvent` event is handled by `MainWindow#handleShowStatsEvent()`, which calls 'StatisticsPanel#setData()'
+and passes the data as parameters by calling
+`Logic#getExpenseStats()`, `Logic#getStatsPeriod()`, `Logic#getStatsMode()` and `Logic#getPeriodAmount()`.
+
+. `Logic#getExpenseStats()` gets the filtered expense list by calling `Model#getExpenseStats()`, which returns
 an unmodifiable `ObservableList`, only containing only expenses in the last 7 days, as per the `Predicate`, and sorted by date.
-`Logic#getExpenseStats()` then puts the data into a `LinkedHashMap<String, Double>`, where the key represents the days and the value represents
-the total cost for that day
+`Logic#getExpenseStats()` then organises the data into a `LinkedHashMap<String, Double>`, where the key value pair represents
+the x and y values of the chart. In this case, `StatsMode` is set to TIME, which results in a x,y values of date and cost.
+If `StatsMode` is set to CATEGORY, the x,y values will be set to category and cost.
 
-. `Logic#getStatsMode()` gets the current StatsMode by calling `Model#getStatsMode()`
+. `Logic#getStatsPeriod()`, `Logic#getStatsMode()` and `Logic#getPeriodAmount()` gets their respective data
+ by calling the method of the same name in `Model`.
 
-. `StatisticsPanel` UI element updates the bar chart in `chartArea` to show the expenses over the last 7 days.
+. Once the parameters are passed into `StatisticsPanel#setData()`, `StackPane#getChildren()#clear()` is called to clear
+any display elements in `StackPane`.
 
+. In this case, `StatsMode` is set to TIME, which results in `StatisticsPanel#setTimeBasedData()` to be called, which
+generates a Bar Chart and calls `StackPane#getChildren()#add()`, which adds it to `StackPane`.
+If `StatsMode` is set to CATEGORY, which results in `StatisticsPanel#setCategoryBasedData()` to be called, which
+generates a Pie Chart and calls `StackPane#getChildren()#add()`, which adds it to `StackPane`.
+If the data received is empty, a `Text` object is generated and `StackPane#getChildren()#add()` is called,
+which informs the user that there are no expenditures
+
+==== Design Considerations
+
+===== Aspect: How to handle statistic data and parameters
+
+* **Alternative 1 (current choice):** Data and each parameter is handled as separate objects
+** Pros: Easy to implement.
+** Cons: Need to call multiple methods to get parameters
+* **Alternative 2:** Create Statistics object which contains data and all the parameters.
+** Pros: More scalable. Less method calls to get parameters.
+** Cons: None
+
+===== Aspect: How to pass statistic data and parameters from Command to UI
+
+* **Alternative 1 (current choice):** UI gets all data and parameters from `Logic`, which gets data from `Model`.
+** Pros: Easy to implement. Aligned with architecture.
+** Cons: A lot of method calls
+* **Alternative 2:** Pass data and parameters through event
+** Pros: Less method calls. Easier to read.
+** Cons: Not in aligned with architecture. Need to consider application startup when there are no events posted.
+// end::statistics[]
+
+// tag::find[]
 === Find
 
 Below is the UML sequence diagram and a step-by-step explanation of an example usage scenario.
@@ -501,6 +539,9 @@ new predicate.
 . Then the expense list panel will show a new set of expenses according to the keywords. A `CommandResult` is then created
 and returned to `LogicManager`.
 
+// end::find[]
+
+// tag::massedit[]
 === Mass Edit
 
 Below is the UML sequence diagram and a step-by-step explanation of an example usage scenario.
@@ -529,6 +570,7 @@ Then `Model#updateExpense` is called to replace the original `Expense` with edit
 . When loop ends, `Model#updateFilteredExpenseList()` is called again to show the edit `Expense` to the user.
 A `CommandResult` is then created and returned to `LogicManager`.
 
+// end::massedit[]
 
 // tag::UserInterfaceRedesign[]
 === User Interface Redesign
@@ -709,7 +751,7 @@ returned to
 method to update the time when the next spendings of `totalBudget` is reset.
 
 ===== Budget by Category
-. User enters command `addCategoryBudget c/School b/2.00`. The command is received by `ExpenseTrackerParser`
+. User enters command `setCategoryBudget c/School b/2.00`. The command is received by `ExpenseTrackerParser`
 
 . `ExpenseTrackerParser` will then create a `AddCategoryBudgetCommandParser` Object and calls
 `AddCategoryBudgetCommandParser#parse()` method.
@@ -723,7 +765,7 @@ method. If any of the keywords are missing, `ParseException` will be thrown.
 . From the previous step, if no exception is thrown, an `AddCategoryBudgetCommand` Object with `category` and `budget`
  is created and returned to `LogicManager`.
 
-. `LogicManager` then calls `AddCategoryBudgetCommand#execute()`,which calls `ModelManager#addCategoryBudget()`
+. `LogicManager` then calls `AddCategoryBudgetCommand#execute()`,which calls `ModelManager#setCategoryBudget()`
 method to add a `Budget` to a `Category`.
 
 ===== Notification center (Proposed)

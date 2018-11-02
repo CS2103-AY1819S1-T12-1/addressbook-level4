@@ -3,10 +3,12 @@ package seedu.address.model.budget;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
-import seedu.address.model.exceptions.CategoryBudgetDoesNotExist;
 import seedu.address.model.exceptions.CategoryBudgetExceedTotalBudgetException;
+import seedu.address.model.expense.Category;
 import seedu.address.model.expense.Expense;
 
 
@@ -105,45 +107,39 @@ public class TotalBudget extends Budget {
     }
 
     /**
-     * Adds a category totalBudget. Total sum of all category budgets cannnot exceed the totalBudget cap.
+     * Adds a category totalBudget. Total sum of all category budgets cannot exceed the totalBudget cap.
      * @param budget
      * @throws CategoryBudgetExceedTotalBudgetException throws this if adding a category totalBudget exceeds the current
      * total totalBudget.
      */
-    public void addCategoryBudget(CategoryBudget budget) throws CategoryBudgetExceedTotalBudgetException {
+    public void setCategoryBudget(CategoryBudget budget) throws CategoryBudgetExceedTotalBudgetException {
         double sumOfCurrentCategoryBudgets =
             this.categoryBudgets.stream().mapToDouble(categoryBudget -> categoryBudget.getBudgetCap()).sum();
-        System.out.println(sumOfCurrentCategoryBudgets);
-        System.out.println(budget.getBudgetCap());
         if (sumOfCurrentCategoryBudgets + budget.getBudgetCap() > this.getBudgetCap()) {
             throw new CategoryBudgetExceedTotalBudgetException(budget, this);
         }
-        this.categoryBudgets.add(budget);
-        System.out.println("Category budget added");
-        System.out.println(this.getCategoryBudgets());
-    }
-
-    /**
-     * Modifies a category totalBudget currently in the set of category budgets.
-     * @param budget
-     */
-    public void modifyCategoryBudget(CategoryBudget budget) throws CategoryBudgetDoesNotExist {
-        if (this.categoryBudgets.remove(budget)) {
-            throw new CategoryBudgetDoesNotExist(budget);
-        }
+        this.categoryBudgets.remove(budget);
         this.categoryBudgets.add(budget);
     }
 
     public HashSet<CategoryBudget> getCategoryBudgets() {
-        return new HashSet<>(this.categoryBudgets);
+        return new HashSet<>(this.categoryBudgets.stream()
+            .map(cBudget -> new CategoryBudget(cBudget))
+            .collect(Collectors.toSet()));
+    }
+
+    @Override
+    public void clearSpending() {
+        super.clearSpending();
+        this.categoryBudgets.forEach(expense -> expense.clearSpending());
     }
 
     @Override
     public boolean addExpense(Expense expense) {
+
         this.currentExpenses += expense.getCost().getCostValue();
 
         AtomicInteger categoryBudgetNotExceeded = new AtomicInteger(0);
-
         this.categoryBudgets.forEach(cBudget -> {
             if (cBudget.getCategory().equals(expense.getCategory())) {
                 if (!cBudget.addExpense(expense)) {
@@ -153,6 +149,46 @@ public class TotalBudget extends Budget {
         });
         return this.currentExpenses <= this.budgetCap && categoryBudgetNotExceeded.get() < 1;
     }
+
+    @Override
+    public void removeExpense(Expense expense) {
+
+        super.removeExpense(expense);
+        Category cat = expense.getCategory();
+        CategoryBudget toDelete = null;
+        List<CategoryBudget> cBudgetList = this.categoryBudgets.stream().collect(Collectors.toList());
+        for (int i = 0; i < cBudgetList.size(); i++) {
+            if (cBudgetList.get(i).getCategory().equals(cat)) {
+                toDelete = cBudgetList.get(i);
+            }
+        }
+        if (toDelete != null) {
+            toDelete.removeExpense(expense);
+        }
+    }
+
+    @Override
+    public void alterSpending(Expense target, Expense editedExpense) {
+        super.alterSpending(target, editedExpense);
+        CategoryBudget toRemove = null;
+        CategoryBudget toAdd = null;
+        List<CategoryBudget> cBudgetArray = this.categoryBudgets.stream().collect(Collectors.toList());
+        for (int i = 0; i < cBudgetArray.size(); i++) {
+            if (cBudgetArray.get(i).getCategory().equals(target.getCategory())) {
+                toRemove = cBudgetArray.get(i);
+            }
+            if (cBudgetArray.get(i).getCategory().equals(editedExpense.getCategory())) {
+                toAdd = cBudgetArray.get(i);
+            }
+        }
+        if (toRemove != null) {
+            toRemove.removeExpense(target);
+        }
+        if (toAdd != null) {
+            toAdd.addExpense(editedExpense);
+        }
+    }
+
 
     @Override
     public boolean equals(Object budget) {

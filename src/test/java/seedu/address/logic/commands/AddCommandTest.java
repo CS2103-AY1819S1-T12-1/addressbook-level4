@@ -47,7 +47,6 @@ public class AddCommandTest {
         thrown.expect(NullPointerException.class);
         new AddCommand(null);
     }
-
     @Test
     public void execute_expenseAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingExpenseAdded modelStub = new ModelStubAcceptingExpenseAdded();
@@ -126,18 +125,15 @@ public class AddCommandTest {
         public boolean addExpense(Expense expense) {
             throw new AssertionError("addExpense method should not be called.");
         }
+
         @Override
         public void setRecurrenceFrequency(long seconds) {
             throw new AssertionError("setRecurrenceFrequency should not be called");
         }
-        @Override
-        public void modifyCategoryBudget(CategoryBudget budget) {
-            throw new AssertionError("modifyCategoryBudget should not be called");
 
-        }
         @Override
-        public void addCategoryBudget(CategoryBudget budget) {
-            throw new AssertionError("addCategoryBudget should not be called");
+        public void setCategoryBudget(CategoryBudget budget) {
+            throw new AssertionError("setCategoryBudget should not be called");
 
         }
         @Override
@@ -324,6 +320,11 @@ public class AddCommandTest {
         public void modifyNotificationHandler(LocalDateTime time, boolean isTipEnabled, boolean isWarningEnabled)
                 throws NoUserSelectedException {
             throw new AssertionError("modifyNotificationHandler should not be called.");
+        }
+
+        @Override
+        public void clearNotifications() throws NoUserSelectedException {
+            throw new AssertionError("clearNotifications method should not be called.");
         }
 
         @Override

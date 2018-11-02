@@ -26,7 +26,7 @@ Some of its main features are:
 == Summary of contributions
 
 * *Major enhancement*: added *the ability to have a budget on expenses.*
-** What it does: informs the user if the their expenses exceed a set budget
+** Function: informs the user if the their expenses exceed a set budget
 ** Justification: This is a core feature as it allows the user to know when they are spending too much money, the
 main purpose of an expense tracker.
 ** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth
@@ -37,7 +37,7 @@ main purpose of an expense tracker.
 
 . Added a `history` command that allows the user to navigate to previous commands using up/down keys.
 . Added a `setRecurrenceFrequency` command that allows the user to reset their spending at a frequency of their choice.
-. Added a `addCategoryBudget` command that allows the user to set budgets based on their category of expenses.
+. Added a `setCategoryBudget` command that allows the user to set budgets based on their category of expenses.
 
 * *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 
@@ -46,7 +46,7 @@ main purpose of an expense tracker.
 ** Project management:
 *** Created the organisation repository, set up issue tracker and milestones.
 ** Documentation:
-*** Updated the About Us document template: https://github.com/CS2103-AY1819S1-T12-1/main/pull/2[#2]
+*** Updated the About Us document: https://github.com/CS2103-AY1819S1-T12-1/main/pull/2[#2]
 *** Made changes to the Developer Guide. Improved language and edited diagrams:
 https://github.com/CS2103-AY1819S1-T12-1/main/pull/74[#74]
 ** Community:
@@ -58,14 +58,10 @@ https://github.com/CS2103-AY1819S1-T12-1/main/pull/24[#24], https://github.com/C
 https://github.com/CS2103-AY1819S1-T12-1/main/pull/33[#33], https://github.com/CS2103-AY1819S1-T12-1/main/pull/45[#45],
 https://github.com/CS2103-AY1819S1-T12-1/main/pull/69[#69], https://github.com/CS2103-AY1819S1-T12-1/main/pull/71[#71],
 https://github.com/CS2103-AY1819S1-T12-1/main/pull/108[#108]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
-*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
 ** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
+*** Created a script to pull code from main fork to local fork.
+https://github.com/CS2103-AY1819S1-T12-1/main/pull/17[#17]
 
-_{you can add/remove categories in the list above}_
 
 == Contributions to the User Guide
 

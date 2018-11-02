@@ -21,6 +21,11 @@ public class CategoryBudget extends Budget {
         this.belongsToCategory = new Category(category);
     }
 
+    public CategoryBudget (CategoryBudget cBudget) {
+        super(cBudget);
+        this.belongsToCategory = cBudget.getCategory();
+    }
+
     public Category getCategory() {
         return this.belongsToCategory;
     }
@@ -28,7 +33,7 @@ public class CategoryBudget extends Budget {
     @Override
     public boolean equals(Object categoryBudget) {
         CategoryBudget otherCategoryBudget = (CategoryBudget) categoryBudget;
-        return super.equals(categoryBudget) && this.belongsToCategory.equals(otherCategoryBudget.getCategory());
+        return this.belongsToCategory.equals(otherCategoryBudget.getCategory());
     }
 
     @Override

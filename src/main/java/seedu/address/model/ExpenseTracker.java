@@ -11,7 +11,6 @@ import javafx.collections.ObservableList;
 
 import seedu.address.model.budget.CategoryBudget;
 import seedu.address.model.budget.TotalBudget;
-import seedu.address.model.exceptions.CategoryBudgetDoesNotExist;
 import seedu.address.model.exceptions.CategoryBudgetExceedTotalBudgetException;
 import seedu.address.model.expense.Expense;
 import seedu.address.model.expense.UniqueExpenseList;
@@ -76,21 +75,18 @@ public class ExpenseTracker implements ReadOnlyExpenseTracker {
      * @throws CategoryBudgetExceedTotalBudgetException Throws this if adding a category totalBudget will result in the
      * sum of category budgets exceeding the total TotalBudget
      */
-    public void addCategoryBudget(CategoryBudget budget) throws CategoryBudgetExceedTotalBudgetException {
-
-        this.maximumTotalBudget.addCategoryBudget(budget);
-        System.out.println("Expense tracker class");
-        System.out.println(this.maximumTotalBudget.getCategoryBudgets());
+    public void setCategoryBudget(CategoryBudget budget) throws CategoryBudgetExceedTotalBudgetException {
+        CategoryBudget toAdd = budget;
+        toAdd.modifyExpenses(this.expenses.asUnmodifiableObservableList().stream().mapToDouble(expense -> {
+            if (expense.getCategory().equals(budget.getCategory())) {
+                return expense.getCost().getCostValue();
+            } else {
+                return 0;
+            }
+        }).sum());
+        this.maximumTotalBudget.setCategoryBudget(budget);
     }
 
-    /**
-     * Modifies an existing category totalBudget.
-     * @param budget
-     * @throws CategoryBudgetDoesNotExist Throws this if category totalBudget does not exist
-     */
-    public void modifyCategoryBudget(CategoryBudget budget) throws CategoryBudgetDoesNotExist {
-        this.maximumTotalBudget.modifyCategoryBudget(budget);
-    }
 
     /**
      * Sets the recurrence frequency for resetting the totalBudget and spending.
@@ -124,13 +120,19 @@ public class ExpenseTracker implements ReadOnlyExpenseTracker {
     }
 
     /// notification-level operations
+    /**
+     * Clears the {@code internalList} of the NotificationHandler.
+     */
+    public void clearNotifications() {
+        this.notificationHandler.clearList();
+    }
 
     /**
-     * Adds a {@code notification} to the {@code notificationHandler}
+     * Adds a {@code notification} to top of the list in the {@code notificationHandler}
      * @param notification to add
      */
-    public void addNotification(Notification notification) {
-        this.notificationHandler.add(notification);
+    public void addNotificationToTop(Notification notification) {
+        this.notificationHandler.addToTop(notification);
     }
 
     /**
@@ -199,7 +201,7 @@ public class ExpenseTracker implements ReadOnlyExpenseTracker {
     }
 
     /**
-     * Adds a expense into the expense tracker
+     * Adds a expense into the address book
      * @return true if expense is successfully added without exceeding totalBudget, else false
      */
     public boolean addExpense(Expense p) {

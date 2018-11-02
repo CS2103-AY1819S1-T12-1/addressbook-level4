@@ -1,4 +1,4 @@
-= John Doe - Project Portfolio
+= Jason Chong Yi Sheng - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
@@ -9,28 +9,31 @@
 
 == Overview
 
-This portfolio aims to document the contributions made by *Winson Heng Yong Seng* to the *ExpenseTracker*.
+This portfolio aims to document the contributions made by *Jason Chong Yi Sheng* to the *ExpenseTracker*.
 
 *ExpenseTracker* is a desktop expense tracking application developed to aid users in tracking their expenses and
 save money. The user interacts with it using a Command Line Interface (CLI), and it has a Graphical User Interface
-(GUI) created with JavaFX library. It is written in Java, and has about 20 kLoC.
+(GUI) created with JavaFX library. It is written in Java, and has about 20 kLoC. The product was morphed from an https://github.com/nus-cs2103-AY1819S1/addressbook-level4[Address Book] over a period of 8 weeks
+under the constraints described https://nus-cs2103-ay1819s1.github.io/cs2103-website/admin/project-constraints.html[here].
 
 Some of its main features are:
 
 . Setting a budget for expenses.
-. Multiple user accounts.
+. Multiple user accounts with data encryption.
 . Categorization of expenses.
 . Statistics for expenses.
 
 == Summary of contributions
 
-* *Major enhancement*: added *user accounts system*
-** What it does: Allows multiple users.
-** Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.
-** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
-** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+* *Major enhancement*: added *user accounts system with data encryption*
+** What it does: Allows multiple users to use the application on the same machine without affecting each other's data. Also keeps each user's data encrypted and inaccessible by others.
+** Justification: This feature improves the product significantly because multiple users can share the application on the same computer. For many people, financial information is often kept private so this function allows them to use the application without fear of other's having unauthorized access to their spending data.
+** The following are the highlights of this feature:
+*** This enhancement adds a robust user accounts system that comes with several features, namely `signup`, `login` and `setpassword`. Each user's data file is kept separately and explicitly labelled with their username. The implementation too was challenging as it required changes to how data is loaded in the `Storage` component and stored in the `Model` component.
+*** The encryption algorithm also makes use of hash algorithms and the AES symmetric key encryption algorithm to ensure that no one can gain access to a user's information unless he/she knows the plain text password of the user, which is not stored anywhere.
+** Credits: Google Guava library for common hashing algorithms.
 
-* *Minor enhancement*: added a history command that allows the user to navigate to previous commands using up/down keys.
+* *Minor enhancement*: added a encrypt command to allow the user to manually encrypt strings for them to edit the data files directly
 
 * *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
 
@@ -38,21 +41,25 @@ Some of its main features are:
 
 ** Project management:
 *** Managed releases `v1.1` - `v1.4` (5 releases) on GitHub
-** Enhancements to existing features:
-*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
-*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
+//** Enhancements to existing features:
+//*** Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
+//*** Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com[#14]
+*** Updated `Storage` component section of the Developer Guide: https://github.com[#14]
 ** Community:
-*** PRs reviewed (with non-trivial review comments): https://github.com[#12], https://github.com[#32], https://github.com[#19], https://github.com[#42]
-*** Contributed to forum discussions (examples:  https://github.com[1], https://github.com[2], https://github.com[3], https://github.com[4])
+*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103-AY1819S1-T12-1/main/pull/25[#25], https://github.com/CS2103-AY1819S1-T12-1/main/pull/30[#30], https://github.com/CS2103-AY1819S1-T12-1/main/pull/35[#35], https://github.com/CS2103-AY1819S1-T12-1/main/pull/39[#39], https://github.com/CS2103-AY1819S1-T12-1/main/pull/70[#70], https://github.com/CS2103-AY1819S1-T12-1/main/pull/82[#82])
+*** Attempts to help other batch mates on forums (examples:
+https://github.com/nus-cs2103-AY1819S1/forum/issues/111[1],
+https://github.com/nus-cs2103-AY1819S1/forum/issues/58[2])
+// TODO: Add bug reports
 *** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
-*** Some parts of the history feature I added was adopted by several other class mates (https://github.com[1], https://github.com[2])
 ** Tools:
-*** Integrated a third party library (Natty) to the project (https://github.com[#42])
-*** Integrated a new Github plugin (CircleCI) to the team repo
-
-_{you can add/remove categories in the list above}_
+*** Integrated the following Github plugins to the team repo:
+**** TravisCI
+**** Appveyor
+**** Codacy
+**** Coveralls
+*** Added Reposense configuration file to allow for collation of teammates' code contributions
 
 == Contributions to the User Guide
 
@@ -60,9 +67,10 @@ _{you can add/remove categories in the list above}_
 |===
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
+== Features
+include::../UserGuide.adoc[tag=useraccounts]
 
-include::../UserGuide.adoc[tag=undoredo]
-
+== Frequently Asked Questions
 include::../UserGuide.adoc[tag=dataencryption]
 
 == Contributions to the Developer Guide
@@ -71,13 +79,7 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::../DeveloperGuide.adoc[tag=useraccounts]
 
 include::../DeveloperGuide.adoc[tag=dataencryption]
 
-
-== PROJECT: PowerPointLabs
-
----
-
-_{Optionally, you may include other projects in your portfolio.}_

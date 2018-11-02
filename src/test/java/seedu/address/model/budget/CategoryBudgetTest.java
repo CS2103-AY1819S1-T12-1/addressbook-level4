@@ -32,7 +32,7 @@ public class CategoryBudgetTest {
             VALID_BUDGET)));
         assertFalse(new CategoryBudget(VALID_CATEGORY, VALID_BUDGET).equals(new CategoryBudget("hohohaha",
             VALID_BUDGET)));
-        assertFalse(new CategoryBudget(VALID_CATEGORY, VALID_BUDGET).equals(new CategoryBudget(VALID_CATEGORY,
+        assertTrue(new CategoryBudget(VALID_CATEGORY, VALID_BUDGET).equals(new CategoryBudget(VALID_CATEGORY,
             "222.00")));
     }
 

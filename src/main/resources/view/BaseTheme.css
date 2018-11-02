@@ -1,6 +1,3 @@
-@font-face {
-    url("fonts/Amazing Infographic@ Free.otf") format("woff");
-}
 
 .background {
     -fx-background-color: derive(#e6e6e6, 20%);
@@ -9,20 +6,20 @@
 
 .label {
     -fx-font-size: 11pt;
-    -fx-font-family: "Amazing Infographic@";
+    -fx-font-family: "Futura";
     -fx-text-fill: #555555;
     -fx-opacity: 0.9;
 }
 
 .label-bright {
     -fx-font-size: 11pt;
-    -fx-font-family: "Amazing Infographic@";
+    -fx-font-family: "Futura";
     -fx-text-fill: white;
     -fx-opacity: 1;
 }
 .label-header {
     -fx-font-size: 32pt;
-    -fx-font-family: "Amazing Infographic@";
+    -fx-font-family: "Futura";
     -fx-text-fill: white;
     -fx-opacity: 1;
 }
@@ -118,7 +115,7 @@
 }
 
 .cell_big_label {
-    -fx-font-family: "Amazing Infographic@";
+    -fx-font-family: "Futura";
     -fx-font-size: 16px;
     -fx-text-fill: #464646;
 }
@@ -390,7 +387,6 @@
 }
 
 #budgetPanel #percentageDisplay {
-    -fx-translate-y: 20px;
     -fx-font-size: 20pt;
 }
 

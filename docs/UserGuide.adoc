@@ -114,7 +114,7 @@ These have the same effect as using the commands `exit` and `help` respectively.
 ** E.g. if a command format contains the parameter `[t/TAG]...`, the parameter can be replaced with `t/friend`, `t/friend t/family` etc.
 * Parameters can be in any order e.g. if the command format specifies `n/NAME c/CATEGORY`, using the parameters `c/CATEGORY n/NAME` is also acceptable.
 ====
-
+//tag::useraccounts[]
 [NOTE]
 ====
 * Before a user is logged in, only `login`, `signup` and `help` commands are useable.
@@ -180,7 +180,7 @@ Format: `setpassword n/NEW_PASSWORD [o/OLD_PASSWORD]`
 ====
 * OLD_PASSWORD is needed if a password has been previously set for the current user and they have to match.
 ====
-
+//end::useraccounts[]
 === Viewing help : `help`
 Opens up a new window with the User Guide.
 
@@ -233,6 +233,7 @@ Format: `edit INDEX [n/EXPENSE_NAME] [$/COST] [c/CATEGORY] [d/DATE] [t/TAG...]`
 * DATE should be in the format of "dd-mm-yyyy".
 ====
 
+// tag::massedit[]
 === Editing multiple expenses : `massedit`
 
 Edits the expenses with the keywords specified by the user.
@@ -268,6 +269,8 @@ Format: `massedit [n/EXPENSE_NAME] [$/COST] [c/CATEGORY] [d/DATE] [t/TAG...] -> 
 * Only tag keywords can have multiple keywords. Name/Category/Cost/Date can only have one keywords.
 ====
 
+// end::massedit[]
+
 === Deleting a expense : `delete`
 
 Deletes the expense at the specified `INDEX`. The `INDEX` refers to the index number shown in the displayed expense list
@@ -287,6 +290,7 @@ Format: `delete INDEX`
 * The index *must be a non-zero positive integer* and must correspond to an expense in the expense list.
 ====
 
+// tag::find[]
 === Locating expenses by keywords: `find`
 
 Finds expense which contains all the given keywords. +
@@ -317,6 +321,8 @@ Find all the expenses with tag "lunch" under "School" category on 1-10-2018.
 * Partial word will be matched, i.e. the NAME KEYWORD `Hav` will match the expense name `Have`
 * Only tag keywords can have multiple keywords. Name/Category/Cost/Date can only have one keywords, i.e."Find n/school n/lunch" is invalid while "Find t/school t/lunch" is valid
 ====
+
+// end::find[]
 
 === Listing all expenses : `list`
 
@@ -392,7 +398,7 @@ Format: `setRecurrenceFrequency [hrs/HOURS] [min/MINUTES] [sec/SECONDS]`
 * HOURS/MINUTES/SECONDS must be a positive number.
 ====
 
-=== Adding a Category Budget: `addCategoryBudget`
+=== Adding a Category Budget: `setCategoryBudget`
 Adds a Budget to limit spending on a certain category.
 
 If spending exceeds Category budget, a warning similar to 4.10 will be shown.
@@ -400,13 +406,13 @@ If spending exceeds Category budget, a warning similar to 4.10 will be shown.
 Sum of all category budgets cannot exceed total budget of
 Expense Tracker.
 
-Format: `addCategoryBudget c/CATEGORY b/BUDGET`
+Format: `setCategoryBudget c/CATEGORY b/BUDGET`
 
 ****
 *Example:*
 
-* `addCategoryBudget c/School b/10.00` +
-    Adds a budget of $10 to the `School` category.
+* `setCategoryBudget c/School b/10.00` +
+    Sets a budget of $10 to the `School` category.
 
 ****
 
@@ -487,6 +493,7 @@ The second`redo` reverses the first `undo` command, reapplying `clear`.
 ****
 // end::undoredo[]
 
+// tag::statistics[]
 === Showing expense statistics: `stats`
 
 Changes the expense list to show the statistics panel if the expense list is currently showing, then
@@ -516,6 +523,7 @@ Shows the expense statistics for the past 3 months as a bar chart showing expens
 * `stats n/3 p/m m/c` +
 Shows the expense statistics for the past 3 months as a pie chart showing expenses for each category +
 ****
+// end::statistics[]
 
 === Toggling Notifications: `notification`
 
@@ -572,7 +580,7 @@ command that changes the data. +
 *Q*: How do I transfer my data to another Computer? +
 *A*:  Install the app in the other computer and copy the `data` folder in your previous Expense Tracker folder over to the new Expense Tracker folder on your other Computer.
 If you wish to copy only one user over, create a folder named `data` in the app directory on the other computer and copy the xml file with your username in the `data` folder of the old computer into the `data` folder of the new computer.
-
+//tag::dataencryption[]
 *Q*: How is my expense data kept safe when I use this application? +
 *A*: All user expense-specific data is encrypted. The program ensures that no one will be able to decrypt encrypted information without your actual plain text password, which is not stored anywhere. So rest assured that no one can access your data without your password.
 
@@ -588,7 +596,7 @@ If you wish to copy only one user over, create a folder named `data` in the app 
 . Use the left column on the web page and enter the text you wish to encrypt.
 . Use the `encryption` key from step 5 as the `secret key` and leave the other options as default.
 . Click on the `Encrypt` button to get the encrypted text you want.
-
+//end::dataencryption[]
 == Command Summary
 
 This is a summary of the commands available in Expense Tracker:

@@ -20,11 +20,11 @@
         </columnConstraints>
         <rowConstraints>
           <RowConstraints maxHeight="46.0" minHeight="10.0" prefHeight="32.0" vgrow="SOMETIMES" />
-          <RowConstraints maxHeight="71.0" minHeight="10.0" prefHeight="68.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="71.0" minHeight="10.0" prefHeight="66.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="55.0" minHeight="10.0" prefHeight="49.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <TextFlow fx:id="percentageDisplay" prefHeight="37.0" prefWidth="300.0" textAlignment="CENTER" GridPane.rowIndex="2" />
+            <TextFlow fx:id="percentageDisplay" maxHeight="50.00" prefHeight="50.0" prefWidth="300.0" textAlignment="CENTER" GridPane.rowIndex="2" />
          </children>
       </GridPane>
    </children>

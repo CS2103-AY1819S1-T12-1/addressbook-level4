@@ -13,17 +13,17 @@ import static seedu.address.model.expense.CategoryTest.VALID_CATEGORY;
 
 import org.junit.Test;
 
-import seedu.address.logic.commands.AddCategoryBudgetCommand;
+import seedu.address.logic.commands.SetCategoryBudgetCommand;
 import seedu.address.model.budget.CategoryBudget;
 
 
-public class AddCategoryBudgetParserTest {
-    private AddCategoryBudgetCommandParser parser = new AddCategoryBudgetCommandParser();
+public class SetCategoryBudgetParserTest {
+    private SetCategoryBudgetCommandParser parser = new SetCategoryBudgetCommandParser();
 
     @Test
     public void parse_validCategoryBudget_returnsAddCategoryBudgetCommand() {
         assertParseSuccess(parser, " " + PREFIX_CATEGORY + VALID_CATEGORY
-            + " " + PREFIX_BUDGET + VALID_BUDGET, new AddCategoryBudgetCommand(new CategoryBudget(VALID_CATEGORY,
+            + " " + PREFIX_BUDGET + VALID_BUDGET, new SetCategoryBudgetCommand(new CategoryBudget(VALID_CATEGORY,
             VALID_BUDGET)));
     }
 
@@ -31,13 +31,13 @@ public class AddCategoryBudgetParserTest {
     public void parse_invalidCategoryValidBudget_throwsParseError() {
         assertParseFailure(parser, " " + PREFIX_CATEGORY + INVALID_CATEGORY
             + " " + PREFIX_BUDGET + VALID_BUDGET , String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-            AddCategoryBudgetCommand.MESSAGE_USAGE));
+            SetCategoryBudgetCommand.MESSAGE_USAGE));
     }
 
     @Test
     public void parse_validCategoryInvalidBudget_throwsParseError() {
         assertParseFailure(parser, " " + PREFIX_CATEGORY + VALID_CATEGORY
             + " " + PREFIX_BUDGET + INVALID_BUDGET, String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-            AddCategoryBudgetCommand.MESSAGE_USAGE));
+            SetCategoryBudgetCommand.MESSAGE_USAGE));
     }
 }

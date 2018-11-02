@@ -4,6 +4,7 @@ import static junit.framework.TestCase.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.testutil.ModelUtil.getTypicalModel;
 import static seedu.address.testutil.TypicalExpenses.getTypicalExpenseTracker;
 
 import org.junit.Test;
@@ -29,7 +30,7 @@ public class NotificationCommandTest {
      */
     @BeforeEach
     public void resetModelsAndCommandHistory() {
-        this.model = new ModelManager(getTypicalExpenseTracker(), new UserPrefs(), null);
+        this.model = getTypicalModel();
         this.commandHistory = new CommandHistory();
     }
 

@@ -7,6 +7,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.Model;
+import seedu.address.model.exceptions.NoUserSelectedException;
 import seedu.address.model.expense.Expense;
 import seedu.address.storage.StorageManager;
 
@@ -28,11 +30,22 @@ public class Budget {
     protected double budgetCap;
     protected double currentExpenses;
 
+    public Budget (String budget, Model model) throws NoUserSelectedException {
+        requireNonNull(budget);
+        requireNonNull(model);
+        checkArgument(isValidBudget(budget), BUDGET_VALIDATION_REGEX);
+        this.budgetCap = Double.parseDouble(budget);
+        this.currentExpenses =
+            model.getExpenseTracker().getExpenseList()
+                .stream().mapToDouble(expense -> expense.getCost().getCostValue()).sum();
+
+    }
+
     public Budget (String budget) {
         requireNonNull(budget);
         checkArgument(isValidBudget(budget), BUDGET_VALIDATION_REGEX);
         this.budgetCap = Double.parseDouble(budget);
-        this.currentExpenses = 0.0;
+        this.currentExpenses = 0;
 
     }
 
@@ -44,6 +57,11 @@ public class Budget {
     public Budget(double budget, double currentExpenses) {
         this.budgetCap = budget;
         this.currentExpenses = currentExpenses;
+    }
+
+    public Budget(Budget budget) {
+        this.budgetCap = budget.getBudgetCap();
+        this.currentExpenses = budget.getCurrentExpenses();
     }
 
 

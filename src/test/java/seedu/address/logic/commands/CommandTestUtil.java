@@ -132,9 +132,7 @@ public class CommandTestUtil {
      */
     public static void assertCommandSuccess(Command command, Model actualModel, CommandHistory actualCommandHistory,
             String expectedMessage, Model expectedModel) {
-        System.out.println("Creating expectedCommandHistory");
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
-        System.out.println("Created expectedCommandHistory");
         try {
             CommandResult result = command.execute(actualModel, actualCommandHistory);
             assertEquals(expectedMessage, result.feedbackToUser);
@@ -142,7 +140,6 @@ public class CommandTestUtil {
             assertEquals(expectedModel, actualModel);
             assertEquals(expectedCommandHistory, actualCommandHistory);
         } catch (Exception ce) {
-            System.out.println(ce);
             throw new AssertionError("Execution of command should not fail.", ce);
         }
     }

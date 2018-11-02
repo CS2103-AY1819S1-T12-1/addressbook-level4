@@ -30,7 +30,6 @@ import seedu.address.model.budget.CategoryBudget;
 import seedu.address.model.budget.TotalBudget;
 import seedu.address.model.encryption.EncryptedExpenseTracker;
 import seedu.address.model.encryption.EncryptionUtil;
-import seedu.address.model.exceptions.CategoryBudgetDoesNotExist;
 import seedu.address.model.exceptions.CategoryBudgetExceedTotalBudgetException;
 import seedu.address.model.exceptions.InvalidDataException;
 import seedu.address.model.exceptions.NoUserSelectedException;
@@ -161,7 +160,6 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public boolean addExpense(Expense expense) throws NoUserSelectedException {
         boolean budgetNotExceeded = versionedExpenseTracker.addExpense(expense);
-
         updateFilteredExpenseList(PREDICATE_SHOW_ALL_EXPENSES);
         indicateExpenseTrackerChanged();
         return budgetNotExceeded;
@@ -203,7 +201,7 @@ public class ModelManager extends ComponentManager implements Model {
         }
         boolean isNotificationAdded = this.versionedExpenseTracker.checkIfAddWarningNotification(getMaximumBudget());
         if (isNotificationAdded) {
-            this.versionedExpenseTracker.addNotification(new WarningNotification(getMaximumBudget()));
+            this.versionedExpenseTracker.addNotificationToTop(new WarningNotification(getMaximumBudget()));
             indicateExpenseTrackerChanged();
         }
         return isNotificationAdded;
@@ -217,7 +215,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         boolean isNotificationAdded = this.versionedExpenseTracker.checkIfAddTipNotification();
         if (isNotificationAdded) {
-            this.versionedExpenseTracker.addNotification(new TipNotification(tips));
+            this.versionedExpenseTracker.addNotificationToTop(new TipNotification(tips));
             indicateExpenseTrackerChanged();
         }
         return isNotificationAdded;
@@ -279,6 +277,15 @@ public class ModelManager extends ComponentManager implements Model {
         this.versionedExpenseTracker.modifyNotificationHandler(time, isTipEnabled, isWarningEnabled);
     }
 
+    @Override
+    public void clearNotifications() throws NoUserSelectedException {
+        if (!hasSelectedUser()) {
+            throw new NoUserSelectedException();
+        }
+
+        versionedExpenseTracker.clearNotifications();
+    }
+
     //=========== Undo/Redo =================================================================================
 
     @Override
@@ -328,20 +335,13 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void addCategoryBudget(CategoryBudget budget) throws CategoryBudgetExceedTotalBudgetException,
+    public void setCategoryBudget(CategoryBudget budget) throws CategoryBudgetExceedTotalBudgetException,
         NoUserSelectedException {
         requireUserSelected();
-        this.versionedExpenseTracker.addCategoryBudget(budget);
+        this.versionedExpenseTracker.setCategoryBudget(budget);
         indicateExpenseTrackerChanged();
     }
 
-    @Override
-    public void modifyCategoryBudget(CategoryBudget budget) throws CategoryBudgetDoesNotExist,
-        NoUserSelectedException {
-        requireUserSelected();
-        this.versionedExpenseTracker.modifyCategoryBudget(budget);
-        indicateExpenseTrackerChanged();
-    }
 
     @Override
     public TotalBudget getMaximumBudget() throws NoUserSelectedException {

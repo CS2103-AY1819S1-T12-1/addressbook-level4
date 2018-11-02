@@ -92,6 +92,19 @@ public class NotificationHandler implements Iterable<Notification> {
         }
     }
 
+    /**
+     * Adds a the Top of internalList.
+     *
+     * @param notification to add
+     */
+    public void addToTop(Notification notification) {
+        requireNonNull(notification);
+        internalList.add(0, notification);
+        if (internalList.size() > MAXIMUM_NUMBER_OF_NOTIFICATIONS) {
+            internalList.remove(internalList.size() - 1);
+        }
+    }
+
     public int size() {
         return internalList.size();
     }
