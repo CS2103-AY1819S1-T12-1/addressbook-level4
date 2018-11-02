@@ -1462,7 +1462,7 @@ method to update the time when the next spendings of <code>totalBudget</code> is
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>User enters command <code>addCategoryBudget c/School b/2.00</code>. The command is received by <code>ExpenseTrackerParser</code></p>
+<p>User enters command <code>setCategoryBudget c/School b/2.00</code>. The command is received by <code>ExpenseTrackerParser</code></p>
 </li>
 <li>
 <p><code>ExpenseTrackerParser</code> will then create a <code>AddCategoryBudgetCommandParser</code> Object and calls
@@ -1481,7 +1481,7 @@ method. If any of the keywords are missing, <code>ParseException</code> will be 
 is created and returned to <code>LogicManager</code>.</p>
 </li>
 <li>
-<p><code>LogicManager</code> then calls <code>AddCategoryBudgetCommand#execute()</code>,which calls <code>ModelManager#addCategoryBudget()</code>
+<p><code>LogicManager</code> then calls <code>AddCategoryBudgetCommand#execute()</code>,which calls <code>ModelManager#setCategoryBudget()</code>
 method to add a <code>Budget</code> to a <code>Category</code>.</p>
 </li>
 </ol>
@@ -2672,4 +2672,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-02 02:34:07 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-02 03:02:30 UTC</div></div></div></body></html>
