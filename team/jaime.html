@@ -1,0 +1,418 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]--><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="Asciidoctor 1.5.6.1"><title>Jaime Chow Wen Juan - Project Portfolio</title><link rel="stylesheet" href="../stylesheets/gh-pages.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="../stylesheets/coderay-asciidoctor.css"></head><body class="article"><div id="site-header"><nav class="navbar navbar-light bg-light"><div class="container"><a class="navbar-brand" href="../index.html">Expense Tracker</a><ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="../UserGuide.html">User Guide</a></li><li class="nav-item"><a class="nav-link" href="../DeveloperGuide.html">Developer Guide</a></li><li class="nav-item"><a class="nav-link active" href="../AboutUs.html">About Us</a></li><li class="nav-item"><a class="nav-link" href="../ContactUs.html">Contact Us</a></li><li class="navitem"><a class="nav-link" href="https://github.com/CS2103-AY1819S1-T12-1/main"><span class="fa fa-github fa-lg" aria-hidden="true"></span>&nbsp;View on GitHub</a></li></ul></div></nav></div><div id="header"><h1>Jaime Chow Wen Juan - Project Portfolio</h1></div><div id="content"><div class="sect1">
+<h2 id="project-expensetracker"><a class="link" href="#project-expensetracker">PROJECT: ExpenseTracker</a></h2>
+<div class="sectionbody">
+<hr>
+</div>
+</div>
+<div class="sect1">
+<h2 id="overview"><a class="link" href="#overview">Overview</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This portfolio aims to document the contributions made by <strong>Jaime Chow Wen Juan</strong> to the <strong>ExpenseTracker</strong>.</p>
+</div>
+<div class="paragraph">
+<p>The <strong>ExpenseTracker</strong> is a desktop expense tracking application developed to aid users in tracking their expenses and
+save money. The user interacts with it using a Command Line Interface (CLI), and it has a Graphical User Interface
+(GUI) created with JavaFX library. It is written in Java, and has about 20 kLoC.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="summary-of-contributions"><a class="link" href="#summary-of-contributions">Summary of contributions</a></h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Major enhancement 1</strong>: Budget Panel*</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>A GUI element that dynamically updates and displays the user&#8217;s budget and expenses.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/Budget_Panel.png" alt="Budget Panel" width="800">
+</div>
+<div class="title">Figure 1. The Budget Panel Component</div>
+</div>
+<div class="paragraph">
+<p>Consists of:
+ . The Budget Bar - A <code>progressBar</code> which shows the the percentage of the budget that the user has used.
+ . Expense and Budget information - Two <code>Text</code> objects in a <code>TextFlow</code> object. Displays, respectively, the exact amount of expenses spent and
+ budget for the month.</p>
+</div>
+<div class="paragraph">
+<p><strong>Highlights</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Budget Bar</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Implemented animation to smooth out changes to the progress percentage.</p>
+</li>
+<li>
+<p>Implemented color swapping. The`expenseDisplay` text object now turns red when over budget, and green when under budget.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Expense and Budget information</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Implemented animation that creates an 'incrementing number' effect when updating the expense information.</p>
+</li>
+<li>
+<p>Implemented color swapping. The progress meter now turns red when over budget, and green when under budget.</p>
+</li>
+<li>
+<p>Text shrinking. Both text objects dynamically shrinks dependant on the length of the text information displayed.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>![](images::Budget_Panel_Color_Swaps.gif)</p>
+</div>
+<div class="paragraph">
+<p><strong>Challenges</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Dynamic Text Size Change - As this is not a standard feature of any text-based JavaFX class, it
+had to manually implemented. In addition, <code>TextFlow</code> objects do not truncate any text overflows, but instead alters the <code>TextView</code> width. Attempting to dynamically increase or decrease the size of the text
+based on the <code>TextFlow#width</code> proved difficult and inconsistent when coupled with the animation.</p>
+</li>
+<li>
+<p>Testing - There were issues that arose during testing due to the addition of animations. With how animations were implemented, the tests methods would check the values of the <code>progressBar</code> and <code>Text</code> objects before they were correctly updated.
+Ultimately, a decision to call `Thread#sleep# for the duration of the animation was made.</p>
+</li>
+<li>
+<p><strong>Major enhancement 2</strong>: Notification System*
+A feature that allows the sending and displaying of notifications. The system consists of:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>Notification</code> - Stores the message to be sent to the user. There are two types of <code>Notification</code>: <code>TipNotification</code> and <code>WarningNotification</code>.</p>
+</li>
+<li>
+<p><code>NotificationHandler</code> - Handles the storage and creation of <code>Notification</code> objects.</p>
+</li>
+<li>
+<p><code>NotificationPanel</code> and <code>NotificationCard</code> - GUI Elements that displays the Notifications to the user.</p>
+</li>
+<li>
+<p><code>XmlAdaptedNotificationHandler</code>, <code>JsonTipsStorage</code> and <code>XmlAdaptedNotificationHandler</code> - Manages the saving and reading on Notifications.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/Notification_Panel.png" alt="Notification Panel" width="800">
+</div>
+<div class="title">Figure 2. The Notification Panel Component'</div>
+</div>
+<div class="paragraph">
+<p><strong>Highlights</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>Notification</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Able to randomly generate a new saving tip when the user first logs in for that day.</p>
+</li>
+<li>
+<p>Able to send a warning notification when the user is approaching or above budget.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>NotificationHandler</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Challenges</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Testing - Issues with testing mainly arose due to a <code>LocalDateTime</code> instance field in the NotificationHandler class. The instance field was initially initialized to <code>LocalDate#now()</code>, resulting in many errors due to the dynamic nature of the instance field.
+Furthermore, the different methods in which a test <code>Model</code> object was instantiated in the existing tests caused numerous errors Thus, many test cases had to be rewritten to pass testing.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+As an example of this issue: a model created via <code>getTypicalExpenseTracker()</code> would not call <code>Model#loadData</code>, which meant that a <code>TipNotification</code> would not be generated.
+However, a <code>Model</code> created via <code>getTypicalModel</code> would not call <code>Model#loadData</code>. There were instances where these differently instantiated <code>Model</code> objects would be compared.
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Notification Storage - The given <code>loadDataFromStorage</code> had difficulty reading a list of Notifications into the <code>XmlAdaptedNotificationHandler</code>. Thus, the list had to be separated and manually added to a newly instantiated <code>ExpenseTracker</code> object.</p>
+</li>
+<li>
+<p><strong>Minor enhancement</strong>:</p>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Minor Animations such as GUI fade-in upon login, and animation on statistics GUI elements.</p>
+</li>
+<li>
+<p>CSS Overhaul.</p>
+</li>
+<li>
+<p>Visual Redesign on the GUI.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p><strong>Code contributed</strong>: [<a href="https://github.com">Functional code</a>] [<a href="https://github.com">Test code</a>] <em>{give links to collated code files}</em></p>
+</li>
+<li>
+<p><strong>Other contributions</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Project management:
+<strong>*</strong></p>
+</li>
+<li>
+<p>Documentation:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Updated the User Guide</p>
+</li>
+<li>
+<p>Updated the Developer Guide</p>
+</li>
+<li>
+<p>Made changes to the Developer Guide. Improved language and edited diagrams:
+<a href="https://github.com/CS2103-AY1819S1-T12-1/main/pull/74">#74</a></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Community:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Reviewed PRs (with non-trivial review comments):</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><em>{you can add/remove categories in the list above}</em></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="contributions-to-the-user-guide"><a class="link" href="#contributions-to-the-user-guide">Contributions to the User Guide</a></h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users.</em></p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect2">
+<h3 id="setting-a-total-budget-code-setbudget-code"><a class="link" href="#setting-a-total-budget-code-setbudget-code">Setting a total budget: <code>setBudget</code></a></h3>
+<div class="paragraph">
+<p>Sets <code>totalBudget</code> for Expense Tracker.<br></p>
+</div>
+<div class="paragraph">
+<p>The Expense Tracker will warn you when your total expenditure exceeds the total budget that is set.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>setBudget MONEY_WITH_TWO_DECIMAL_PLACES</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Examples:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>setBudget 2.00</code><br>
+Sets a <code>totalBudget</code> of $2.00.</p>
+</li>
+<li>
+<p><code>setBudget 20.00</code><br>
+Sets a <code>totalBudget</code> of $20.00.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>The <code>setBudget</code> command is case sensitive.</p>
+</li>
+<li>
+<p>MONEY_WITH_TWO_DECIMAL_PLACES must be a positive number with two decimal places.</p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="setting-a-recurring-frequency-for-totalbudget-code-setrecurrencefrequency-code"><a class="link" href="#setting-a-recurring-frequency-for-totalbudget-code-setrecurrencefrequency-code">Setting a recurring frequency for totalBudget: <code>setRecurrenceFrequency</code></a></h3>
+<div class="paragraph">
+<p>Sets the recurrence frequency for the <code>totalBudget</code> of Expense Tracker.</p>
+</div>
+<div class="paragraph">
+<p>Expense Tracker will reset your spending after every <code>FREQUENCY</code></p>
+</div>
+<div class="paragraph">
+<p>Format: <code>setRecurrenceFrequency [hrs/HOURS] [min/MINUTES] [sec/SECONDS]</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Examples:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>setRecurrenceFrequency hrs/1</code><br>
+Sets the spending of <code>totalBudget</code> to reset every 1 hour</p>
+</li>
+<li>
+<p><code>setRecurrenceFrequency hrs/1 min/30</code><br>
+Sets the spending of <code>totalBudget</code> reset every 1 hour and 30 minutes</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>The <code>setRecurrenceFrequency</code> command is case sensitive.</p>
+</li>
+<li>
+<p>HOURS/MINUTES/SECONDS must be a positive number.</p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="adding-a-category-budget-code-setcategorybudget-code"><a class="link" href="#adding-a-category-budget-code-setcategorybudget-code">Adding a Category Budget: <code>setCategoryBudget</code></a></h3>
+<div class="paragraph">
+<p>Adds a Budget to limit spending on a certain category.</p>
+</div>
+<div class="paragraph">
+<p>If spending exceeds Category budget, a warning similar to 4.10 will be shown.</p>
+</div>
+<div class="paragraph">
+<p>Sum of all category budgets cannot exceed total budget of
+Expense Tracker.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>setCategoryBudget c/CATEGORY b/BUDGET</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Example:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>setCategoryBudget c/School b/10.00</code><br>
+Sets a budget of $10 to the <code>School</code> category.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Valid <code>CATEOGRY</code> and <code>BUDGET</code> follows the syntax listed under 4.5 and 4.10</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="contributions-to-the-developer-guide"><a class="link" href="#contributions-to-the-developer-guide">Contributions to the Developer Guide</a></h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project.</em></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-02 03:04:01 UTC</div></div></div></body></html>

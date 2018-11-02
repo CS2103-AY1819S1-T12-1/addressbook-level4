@@ -1,0 +1,342 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]--><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="Asciidoctor 1.5.6.1"><title>Jiang Chen - Project Portfolio</title><link rel="stylesheet" href="../stylesheets/gh-pages.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="../stylesheets/coderay-asciidoctor.css"></head><body class="article"><div id="site-header"><nav class="navbar navbar-light bg-light"><div class="container"><a class="navbar-brand" href="../index.html">Expense Tracker</a><ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="../UserGuide.html">User Guide</a></li><li class="nav-item"><a class="nav-link" href="../DeveloperGuide.html">Developer Guide</a></li><li class="nav-item"><a class="nav-link active" href="../AboutUs.html">About Us</a></li><li class="nav-item"><a class="nav-link" href="../ContactUs.html">Contact Us</a></li><li class="navitem"><a class="nav-link" href="https://github.com/CS2103-AY1819S1-T12-1/main"><span class="fa fa-github fa-lg" aria-hidden="true"></span>&nbsp;View on GitHub</a></li></ul></div></nav></div><div id="header"><h1>Jiang Chen - Project Portfolio</h1></div><div id="content"><div class="sect1">
+<h2 id="project-expensetracker"><a class="link" href="#project-expensetracker">PROJECT: ExpenseTracker</a></h2>
+<div class="sectionbody">
+<hr>
+</div>
+</div>
+<div class="sect1">
+<h2 id="overview"><a class="link" href="#overview">Overview</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This portfolio aims to document my role and contribution to the <strong>ExpenseTracker</strong>
+ExpenseTracker is a desktop application used for tracking user&#8217;s expenses.
+The user interacts with it using a CLI, and it has a GUI created with JavaFX.
+It is written in Java, and has about 20 kLoC.</p>
+</div>
+<div class="paragraph">
+<p>This project is CS2103T project. The main purpose of this project is to morph AddressBook - Level 4,
+a given desktop application, into a new application.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="summary-of-contributions"><a class="link" href="#summary-of-contributions">Summary of contributions</a></h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Major enhancement</strong>: added <strong>the ability to find and edit multiple expenses by keywords</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>What it does: Allow user to filter out the particular expenses by entering relevant keywords. Allow user to mass edit
+these expenses.</p>
+</li>
+<li>
+<p>Justification: This feature improves the product significantly because it is more convenient for user to find and edit particular expenses.</p>
+</li>
+<li>
+<p>Highlights: This enhancement affects existing commands and commands to be added in future.
+It required an in-depth analysis of design alternatives. The implementation too was challenging
+as it required changes to existing commands.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Code contributed</strong>: [<a href="https://github.com">Functional code</a>] [<a href="https://github.com">Test code</a>] <em>{give links to collated code files}</em></p>
+</li>
+<li>
+<p><strong>Other contributions</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Enhancements to existing features:</p>
+</li>
+<li>
+<p>Refactor original AddressBook and Person class into ExpenseTracker and Expense class.</p>
+</li>
+<li>
+<p>Update sample entries.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="contributions-to-the-user-guide"><a class="link" href="#contributions-to-the-user-guide">Contributions to the User Guide</a></h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users.</em></p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect2">
+<h3 id="locating-expenses-by-keywords-code-find-code"><a class="link" href="#locating-expenses-by-keywords-code-find-code">Locating expenses by keywords: <code>find</code></a></h3>
+<div class="paragraph">
+<p>Finds expense which contains all the given keywords.<br>
+Format: `find [n/NAME] [c/CATEGORY] [$/COST:COST] [d/DATE:DATE] [t/TAG&#8230;&#8203;] `</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Examples:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>find c/School</code><br>
+Find all the expenses under <code>School</code> category.</p>
+</li>
+<li>
+<p><code>find d/1-10-2018:7-10-2018</code><br>
+Find all the expenses from 1-10-2018 to 7-10-2018.</p>
+</li>
+<li>
+<p><code>find d/1-10-2018</code><br>
+Find all the expenses on 1-10-2018</p>
+</li>
+<li>
+<p><code>find $/10.00:20.00</code><br>
+Find all the expenses with cost between 10 and 20(inclusive).</p>
+</li>
+<li>
+<p><code>find $/10.00</code><br>
+Find all the expenses with cost of 10.00.</p>
+</li>
+<li>
+<p><code>find c/School t/lunch d/1-10-2018</code><br>
+Find all the expenses with tag "lunch" under "School" category on 1-10-2018.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Command should at least have one keyword.</p>
+</li>
+<li>
+<p>Keywords are case insensitive, i.e. the KEYWORD <code>have</code> is equivalent to the KEYWORD <code>Have</code></p>
+</li>
+<li>
+<p>The order of the keywords does not matter, i.e. the KEYWORD <code>Have lunch</code> is equivalent to the KEYWORD <code>lunch have</code></p>
+</li>
+<li>
+<p>Partial word will be matched, i.e. the NAME KEYWORD <code>Hav</code> will match the expense name <code>Have</code></p>
+</li>
+<li>
+<p>Only tag keywords can have multiple keywords. Name/Category/Cost/Date can only have one keywords, i.e."Find n/school n/lunch" is invalid while "Find t/school t/lunch" is valid</p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="editing-multiple-expenses-code-massedit-code"><a class="link" href="#editing-multiple-expenses-code-massedit-code">Editing multiple expenses : <code>massedit</code></a></h3>
+<div class="paragraph">
+<p>Edits the expenses with the keywords specified by the user.
+Existing values of the expense will be edited according to the value of the parameters<br></p>
+</div>
+<div class="paragraph">
+<p>Format: <code>massedit [n/EXPENSE_NAME] [$/COST] [c/CATEGORY] [d/DATE] [t/TAG&#8230;&#8203;] &#8594; [n/EXPENSE_NAME] [$/COST] [c/CATEGORY] [d/DATE] [t/TAG&#8230;&#8203;]</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Examples:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>massedit c/school &#8594; c/food</code><br>
+Edits the expenses under <code>school</code> category.
+The category of these expenses is changed to <code>food</code>.</p>
+</li>
+<li>
+<p><code>massedit n/School fee d/01-10-2018:03-10-2018 &#8594; t/books</code><br>
+Edits expenses, whose names contain <code>school</code>,with date between <code>01-10-2018</code> and <code>03-10-2018</code>(inclusively).
+The tags of these expenses are changed to <code>book</code> tag.</p>
+</li>
+<li>
+<p><code>massedit $/1.00:2.00 &#8594; c/waste n/saving</code><br>
+Edits expenses with cost between 1.00 and 2.00 inclusively.
+The category and name of these expenses are changed to <code>waste</code> and <code>saving</code> respecitvely.</p>
+</li>
+<li>
+<p><code>massedit c/shopping $/100.00 &#8594; n/waste $/200.00</code><br>
+Edits the expenses with cost of <code>100.00</code> under <code>shopping</code> category.
+The name and cost of these expenses are changed to <code>waste</code> and <code>200.00</code> respectively.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="ulist">
+<ul>
+<li>
+<p><code>&#8594;</code> can be key in by typing <code>-</code> followed by <code>&gt;</code>.</p>
+</li>
+<li>
+<p>At least one keyword before <code>&#8594;</code> and one keyword after <code>&#8594;</code> must be provided.</p>
+</li>
+<li>
+<p>The order of the keywords doesn&#8217;t matter.</p>
+</li>
+<li>
+<p>Keywords are case insensitive, i.e. the KEYWORD <code>have</code> is equivalent to the KEYWORD <code>Have</code></p>
+</li>
+<li>
+<p>COST should be a non-zero positive number with two decimal places</p>
+</li>
+<li>
+<p>DATE should be in the format of "dd-mm-yyyy".</p>
+</li>
+<li>
+<p>Only tag keywords can have multiple keywords. Name/Category/Cost/Date can only have one keywords.</p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="contributions-to-the-developer-guide"><a class="link" href="#contributions-to-the-developer-guide">Contributions to the Developer Guide</a></h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project.</em></p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect2">
+<h3 id="find"><a class="link" href="#find">Find</a></h3>
+<div class="paragraph">
+<p>Below is the UML sequence diagram and a step-by-step explanation of an example usage scenario.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/implementation/FindCommandSequenceDiagram.png" alt="FindCommandSequenceDiagram" width="800">
+</div>
+<div class="title">Figure 1. Sequence diagram of find mechanism</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>User enters command <code>find n/Have Lunch f/Food d/01-01-2018:03-01-2018</code>. The command is received by <code>ExpenseTrackerParser</code>,
+which then creates a <code>FindCommandParser</code> Object and calls <code>FindCommandParser#parse()</code> method.</p>
+</li>
+<li>
+<p><code>FindCommandParser#parse()</code> method calls <code>ArgumentTokenizer#tokenize()</code> to tokenize the input String into keywords and store them in
+an <code>ArgumentMultimap</code> Object.</p>
+</li>
+<li>
+<p><code>FindCommandParser#parse()</code> method then calls <code>ParserUtil#ensureKeywordsAreValid()</code> method. If any
+of the keywords doesn&#8217;t conform to the correct format, <code>ParseException</code> will be thrown. If no exception is thrown, a
+<code>ExpenseContainsKeywordsPredicate</code> Object is created. It implements Predicate&lt;Expense&gt; interface and is used to filter
+out all the expenses which matches the keywords entered by the user.</p>
+</li>
+<li>
+<p>A <code>FindCommand</code> Object with the <code>ExpenseContainsKeywordsPredicate</code> Object as parameter is created and returned to
+<code>LogicManager</code>.</p>
+</li>
+<li>
+<p><code>LogicManager</code> then calls <code>FindCommand#execute()</code>,which calls <code>Model#updateFilteredExpenseList()</code>
+method to update the predicate of FilterList&lt;Expense&gt;. FilterList now contains new set of expenses which filtered by the
+new predicate.</p>
+</li>
+<li>
+<p>Then the expense list panel will show a new set of expenses according to the keywords. A <code>CommandResult</code> is then created
+and returned to <code>LogicManager</code>.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="mass-edit"><a class="link" href="#mass-edit">Mass Edit</a></h3>
+<div class="paragraph">
+<p>Below is the UML sequence diagram and a step-by-step explanation of an example usage scenario.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/implementation/MassEditCommandSequenceDiagram.png" alt="MassEditCommandSequenceDiagram" width="800">
+</div>
+<div class="title">Figure 2. Sequence diagram of mass edit mechanism</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>User enters command <code>massedit c/school &#8594; c/work d/01-01-2018</code>. The command is received by <code>ExpenseTrackerParser</code>,
+which then creates a <code>MassEditCommandParser</code> Object and calls <code>MassEditCommandParser#parse()</code> method.</p>
+</li>
+<li>
+<p><code>MassEditCommandParser#parse()</code> method calls <code>ArgumentTokenizer#tokenize()</code> to tokenize the input String into keywords and store them in
+two <code>ArgumentMultimap</code> Objects.</p>
+</li>
+<li>
+<p><code>MassEditCommandParser#parse()</code> method then create a <code>ExpenseContainsKeywordsPredicate</code> Object. Then it calls <code>EditExpenseDescriptor#createEditExpenseDescriptor()</code> method to create an
+<code>EditExpenseDescriptor</code> Object which stores the fields of expenses which are going to be edited.</p>
+</li>
+<li>
+<p>A <code>MassEditCommand</code> Object with the <code>ExpenseContainsKeywordsPredicate</code> and <code>EditExpenseDescriptor</code> Object as parameters is created and returned to
+<code>LogicManager</code>.</p>
+</li>
+<li>
+<p><code>LogicManager</code> then calls <code>MassEditCommand#execute()</code>,which calls <code>Model#updateFilteredExpenseList()</code>
+method to update the predicate of FilterList&lt;Expense&gt;. <code>Model#getFilteredExpenseList()</code> is called to return the FilterList&lt;Expense&gt;.</p>
+</li>
+<li>
+<p>A loop starts and for each <code>Expense</code> in the FilterList&lt;Expense&gt;, <code>EditExpenseDescriptor#createEditedExpense()</code> is called to create an edited Expense object.
+Then <code>Model#updateExpense</code> is called to replace the original <code>Expense</code> with edited <code>Expense</code>.</p>
+</li>
+<li>
+<p>When loop ends, <code>Model#updateFilteredExpenseList()</code> is called again to show the edit <code>Expense</code> to the user.
+A <code>CommandResult</code> is then created and returned to <code>LogicManager</code>.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="project-powerpointlabs"><a class="link" href="#project-powerpointlabs">PROJECT: PowerPointLabs</a></h2>
+<div class="sectionbody">
+<hr>
+</div>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-02 03:04:01 UTC</div></div></div></body></html>
