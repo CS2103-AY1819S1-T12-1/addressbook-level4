@@ -1,6 +1,6 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]--><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="Asciidoctor 1.5.6.1"><title>John Doe - Project Portfolio</title><link rel="stylesheet" href="../stylesheets/gh-pages.css">
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]--><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="Asciidoctor 1.5.6.1"><title>Jason Chong Yi Sheng - Project Portfolio</title><link rel="stylesheet" href="../stylesheets/gh-pages.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="../stylesheets/coderay-asciidoctor.css"></head><body class="article"><div id="site-header"><nav class="navbar navbar-light bg-light"><div class="container"><a class="navbar-brand" href="../index.html">Expense Tracker</a><ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="../UserGuide.html">User Guide</a></li><li class="nav-item"><a class="nav-link" href="../DeveloperGuide.html">Developer Guide</a></li><li class="nav-item"><a class="nav-link active" href="../AboutUs.html">About Us</a></li><li class="nav-item"><a class="nav-link" href="../ContactUs.html">Contact Us</a></li><li class="navitem"><a class="nav-link" href="https://github.com/CS2103-AY1819S1-T12-1/main"><span class="fa fa-github fa-lg" aria-hidden="true"></span>&nbsp;View on GitHub</a></li></ul></div></nav></div><div id="header"><h1>John Doe - Project Portfolio</h1></div><div id="content"><div class="sect1">
+<link rel="stylesheet" href="../stylesheets/coderay-asciidoctor.css"></head><body class="article"><div id="site-header"><nav class="navbar navbar-light bg-light"><div class="container"><a class="navbar-brand" href="../index.html">Expense Tracker</a><ul class="navbar-nav"><li class="nav-item"><a class="nav-link" href="../UserGuide.html">User Guide</a></li><li class="nav-item"><a class="nav-link" href="../DeveloperGuide.html">Developer Guide</a></li><li class="nav-item"><a class="nav-link active" href="../AboutUs.html">About Us</a></li><li class="nav-item"><a class="nav-link" href="../ContactUs.html">Contact Us</a></li><li class="navitem"><a class="nav-link" href="https://github.com/CS2103-AY1819S1-T12-1/main"><span class="fa fa-github fa-lg" aria-hidden="true"></span>&nbsp;View on GitHub</a></li></ul></div></nav></div><div id="header"><h1>Jason Chong Yi Sheng - Project Portfolio</h1></div><div id="content"><div class="sect1">
 <h2 id="project-expensetracker"><a class="link" href="#project-expensetracker">PROJECT: ExpenseTracker</a></h2>
 <div class="sectionbody">
 <hr>
@@ -10,12 +10,13 @@
 <h2 id="overview"><a class="link" href="#overview">Overview</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This portfolio aims to document the contributions made by <strong>Winson Heng Yong Seng</strong> to the <strong>ExpenseTracker</strong>.</p>
+<p>This portfolio aims to document the contributions made by <strong>Jason Chong Yi Sheng</strong> to the <strong>ExpenseTracker</strong>.</p>
 </div>
 <div class="paragraph">
 <p><strong>ExpenseTracker</strong> is a desktop expense tracking application developed to aid users in tracking their expenses and
 save money. The user interacts with it using a Command Line Interface (CLI), and it has a Graphical User Interface
-(GUI) created with JavaFX library. It is written in Java, and has about 20 kLoC.</p>
+(GUI) created with JavaFX library. It is written in Java, and has about 20 kLoC. The product was morphed from an <a href="https://github.com/nus-cs2103-AY1819S1/addressbook-level4">Address Book</a> over 8 weeks
+under the constraints described <a href="https://nus-cs2103-ay1819s1.github.io/cs2103-website/admin/project-constraints.html">here</a>.</p>
 </div>
 <div class="paragraph">
 <p>Some of its main features are:</p>
@@ -26,7 +27,7 @@ save money. The user interacts with it using a Command Line Interface (CLI), and
 <p>Setting a budget for expenses.</p>
 </li>
 <li>
-<p>Multiple user accounts.</p>
+<p>Multiple user accounts with data encryption.</p>
 </li>
 <li>
 <p>Categorization of expenses.</p>
@@ -44,26 +45,36 @@ save money. The user interacts with it using a Command Line Interface (CLI), and
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Major enhancement</strong>: added <strong>user accounts system</strong></p>
+<p><strong>Major enhancement</strong>: added <strong>user accounts system with data encryption</strong></p>
 <div class="ulist">
 <ul>
 <li>
-<p>What it does: Allows multiple users.</p>
+<p>What it does: Allows multiple users to use the application on the same machine without affecting each other&#8217;s data. Also keeps each user&#8217;s data encrypted and inaccessible by others.</p>
 </li>
 <li>
-<p>Justification: This feature improves the product significantly because a user can make mistakes in commands and the app should provide a convenient way to rectify them.</p>
+<p>Justification: This feature improves the product significantly because multiple users can share the application on the same computer. For many people, financial information is often kept private so this function allows them to use the application without fear of other&#8217;s having unauthorized access to their spending data.</p>
 </li>
 <li>
-<p>Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.</p>
+<p>The following are the highlights of this feature:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>This enhancement adds a robust user accounts system that comes with several features, namely <code>signup</code>, <code>login</code> and <code>setpassword</code>. Each user&#8217;s data file is kept separately and explicitly labelled with their username. The implementation too was challenging as it required changes to how data is loaded in the <code>Storage</code> component and stored in the <code>Model</code> component.</p>
 </li>
 <li>
-<p>Credits: <em>{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}</em></p>
+<p>The encryption algorithm also makes use of hash algorithms and the AES symmetric key encryption algorithm to ensure that no one can gain access to a user&#8217;s information unless he/she knows the plain text password of the user, which is not stored anywhere.</p>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p><strong>Minor enhancement</strong>: added a history command that allows the user to navigate to previous commands using up/down keys.</p>
+<p>Credits: Google Guava library for common hashing algorithms.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Minor enhancement</strong>: added a encrypt command to allow the user to manually encrypt strings for them to edit the data files directly</p>
 </li>
 <li>
 <p><strong>Code contributed</strong>: [<a href="https://github.com">Functional code</a>] [<a href="https://github.com">Test code</a>] <em>{give links to collated code files}</em></p>
@@ -83,24 +94,11 @@ save money. The user interacts with it using a Command Line Interface (CLI), and
 </div>
 </li>
 <li>
-<p>Enhancements to existing features:</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Updated the GUI color scheme (Pull requests <a href="https://github.com">#33</a>, <a href="https://github.com">#34</a>)</p>
-</li>
-<li>
-<p>Wrote additional tests for existing features to increase coverage from 88% to 92% (Pull requests <a href="https://github.com">#36</a>, <a href="https://github.com">#38</a>)</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
 <p>Documentation:</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Did cosmetic tweaks to existing contents of the User Guide: <a href="https://github.com">#14</a></p>
+<p>Updated <code>Storage</code> component section of the Developer Guide: <a href="https://github.com">#14</a></p>
 </li>
 </ul>
 </div>
@@ -110,16 +108,15 @@ save money. The user interacts with it using a Command Line Interface (CLI), and
 <div class="ulist">
 <ul>
 <li>
-<p>PRs reviewed (with non-trivial review comments): <a href="https://github.com">#12</a>, <a href="https://github.com">#32</a>, <a href="https://github.com">#19</a>, <a href="https://github.com">#42</a></p>
+<p>PRs reviewed (with non-trivial review comments): <a href="https://github.com/CS2103-AY1819S1-T12-1/main/pull/25">#25</a>, <a href="https://github.com/CS2103-AY1819S1-T12-1/main/pull/30">#30</a>, <a href="https://github.com/CS2103-AY1819S1-T12-1/main/pull/35">#35</a>, <a href="https://github.com/CS2103-AY1819S1-T12-1/main/pull/39">#39</a>, <a href="https://github.com/CS2103-AY1819S1-T12-1/main/pull/70">#70</a>, <a href="https://github.com/CS2103-AY1819S1-T12-1/main/pull/82">#82</a>)</p>
 </li>
 <li>
-<p>Contributed to forum discussions (examples:  <a href="https://github.com">1</a>, <a href="https://github.com">2</a>, <a href="https://github.com">3</a>, <a href="https://github.com">4</a>)</p>
+<p>Attempts to help other batch mates on forums (examples:
+<a href="https://github.com/nus-cs2103-AY1819S1/forum/issues/111">1</a>,
+<a href="https://github.com/nus-cs2103-AY1819S1/forum/issues/58">2</a>)</p>
 </li>
 <li>
 <p>Reported bugs and suggestions for other teams in the class (examples:  <a href="https://github.com">1</a>, <a href="https://github.com">2</a>, <a href="https://github.com">3</a>)</p>
-</li>
-<li>
-<p>Some parts of the history feature I added was adopted by several other class mates (<a href="https://github.com">1</a>, <a href="https://github.com">2</a>)</p>
 </li>
 </ul>
 </div>
@@ -129,10 +126,26 @@ save money. The user interacts with it using a Command Line Interface (CLI), and
 <div class="ulist">
 <ul>
 <li>
-<p>Integrated a third party library (Natty) to the project (<a href="https://github.com">#42</a>)</p>
+<p>Integrated the following Github plugins to the team repo:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>TravisCI</p>
 </li>
 <li>
-<p>Integrated a new Github plugin (CircleCI) to the team repo</p>
+<p>Appveyor</p>
+</li>
+<li>
+<p>Codacy</p>
+</li>
+<li>
+<p>Coveralls</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Added Reposense configuration file to allow for collation of teammates' code contributions</p>
 </li>
 </ul>
 </div>
@@ -141,9 +154,6 @@ save money. The user interacts with it using a Command Line Interface (CLI), and
 </div>
 </li>
 </ul>
-</div>
-<div class="paragraph">
-<p><em>{you can add/remove categories in the list above}</em></p>
 </div>
 </div>
 </div>
@@ -160,14 +170,42 @@ save money. The user interacts with it using a Command Line Interface (CLI), and
 </tr>
 </tbody>
 </table>
-<div class="sect2">
-<h3 id="undoing-previous-command-code-undo-code"><a class="link" href="#undoing-previous-command-code-undo-code">Undoing previous command : <code>undo</code></a></h3>
-<div class="paragraph">
-<p>Restores Expense Tracker to the state before the previous <em>undoable</em> command was executed.<br>
-<em>Undoable</em> commands are commands that modify expenses in Expense Tracker (<code>add</code>, <code>delete</code>, <code>edit</code> and <code>clear</code>).<br></p>
+</div>
+</div>
+<div class="sect1">
+<h2 id="features"><a class="link" href="#features">Features</a></h2>
+<div class="sectionbody">
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Before a user is logged in, only <code>login</code>, <code>signup</code> and <code>help</code> commands are useable.</p>
+</li>
+<li>
+<p>After a user is logged in, the rest of the commands will become useable.</p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
-<p>Format: <code>undo</code></p>
+<p>These are the features commands available to use in the Expense Tracker:</p>
+</div>
+<div class="sect2">
+<h3 id="signing-up-a-user-code-signup-code"><a class="link" href="#signing-up-a-user-code-signup-code">Signing up a user : <code>signup</code></a></h3>
+<div class="paragraph">
+<p>Creates a a new user in the Expense Tracker.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>signup USERNAME</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -177,35 +215,39 @@ save money. The user interacts with it using a Command Line Interface (CLI), and
 <div class="ulist">
 <ul>
 <li>
-<p><code>delete 1</code><br>
-<code>list</code><br>
-<code>undo</code><br>
-Reverses the <code>delete 1</code> command.</p>
-</li>
-<li>
-<p><code>list</code><br>
-<code>undo</code><br>
-The <code>undo</code> command fails as there are no undoable commands executed previously.</p>
-</li>
-<li>
-<p><code>delete 1</code><br>
-<code>clear</code><br>
-<code>undo</code><br>
-<code>undo</code><br>
-The first <code>undo</code> reverses the <code>clear</code> command. The second <code>undo</code> reverses the <code>delete 1</code> command.</p>
+<p><code>signup username123</code><br>
+Signs up a user with the username "username123".</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>USERNAME must not contain any of the following characters :  &gt; &lt; : \ / | ?</p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
 </div>
 <div class="sect2">
-<h3 id="redoing-the-previously-undone-command-code-redo-code"><a class="link" href="#redoing-the-previously-undone-command-code-redo-code">Redoing the previously undone command : <code>redo</code></a></h3>
+<h3 id="logging-in-as-an-existing-user-code-login-code"><a class="link" href="#logging-in-as-an-existing-user-code-login-code">Logging in as an existing user : <code>login</code></a></h3>
 <div class="paragraph">
-<p>Restores Expense Tracker to the state before the most recent <code>undo</code> command.<br></p>
+<p>Logs in to the Expense Tracker as an existing user and expands the UI to show the existing expenses if it is not already expanded.</p>
 </div>
 <div class="paragraph">
-<p>Format: <code>redo</code></p>
+<p>Format: <code>login u/USERNAME [p/PASSWORD]</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -215,33 +257,134 @@ The first <code>undo</code> reverses the <code>clear</code> command. The second 
 <div class="ulist">
 <ul>
 <li>
-<p><code>delete 1</code><br>
-<code>undo</code><br>
-<code>redo</code><br>
-The <code>undo</code> command reverses the <code>delete 1</code> command.<br>
-The <code>redo</code> command reverses the <code>undo</code> command.</p>
+<p><code>login u/username123</code><br>
+Logs in a user with the username "username123".</p>
 </li>
 <li>
-<p><code>delete 1</code><br>
-<code>redo</code><br>
-The <code>redo</code> command fails as there was no <code>undo</code> command executed previously.</p>
-</li>
-<li>
-<p><code>delete 1</code><br>
-<code>clear</code><br>
-<code>undo</code>
-<code>undo</code>
-<code>redo</code> (reapplies the <code>delete 1</code> command)<br>
-<code>redo</code> (reapplies the <code>clear</code> command)<br>
-The first <code>undo</code> reverses the <code>clear</code> command.<br>
-The second <code>undo</code> reverses the <code>delete 1</code> command.<br>
-The first <code>redo</code> reverses the second <code>undo</code> command, reapplying <code>delete 1</code>.
-The second`redo` reverses the first <code>undo</code> command, reapplying <code>clear</code>.</p>
+<p><code>login u/username1234 p/password1</code><br>
+Logs in a user with the username "username1234" with password "password1".</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>USERNAME is case insensitive</p>
+</li>
+<li>
+<p>PASSWORD is case sensitive</p>
+</li>
+<li>
+<p>PASSWORD cannot contain any spaces and must be at least 6 characters long</p>
+</li>
+<li>
+<p>Expense Tracker contains a sample user with USERNAME <code>sample</code></p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="setting-a-password-for-the-current-user-code-setpassword-code"><a class="link" href="#setting-a-password-for-the-current-user-code-setpassword-code">Setting a password for the current user : <code>setpassword</code></a></h3>
+<div class="paragraph">
+<p>Sets a new password for the currently logged in user.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>setpassword n/NEW_PASSWORD [o/OLD_PASSWORD]</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Examples:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>setpassword n/pass123</code><br>
+Sets the current user&#8217;s password as "pass123", provided that there is no previously set password</p>
+</li>
+<li>
+<p><code>setpassword n/pass123 o/password1</code><br>
+Sets the current user&#8217;s password as "pass123", provided that the current password is "password1"</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>OLD_PASSWORD is needed if a password has been previously set for the current user and they have to match.</p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="frequently-asked-questions"><a class="link" href="#frequently-asked-questions">Frequently Asked Questions</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>Q</strong>: How is my expense data kept safe when I use this application?<br>
+<strong>A</strong>: All user expense-specific data is encrypted. The program ensures that no one will be able to decrypt encrypted information without your actual plain text password, which is not stored anywhere. So rest assured that no one can access your data without your password.</p>
+</div>
+<div class="paragraph">
+<p><strong>Q</strong>: How do I manually encrypt text to edit my user XML file as a technologically-savvy user?<br>
+<strong>A</strong>: You can carry out the following steps to do so:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Open <a href="http://murmurhash.shorelabs.com/">this website</a> and wait for it to load.</p>
+</li>
+<li>
+<p>Under <code>MurmurHash3 (32/128 bit, x86/x64)</code>, enter your password in the text box labelled <code>An ASCII Text</code>.</p>
+</li>
+<li>
+<p>Under the text box from step 2, there is a dropdown menu that has <code>x86</code> selected. Click on it and select <code>x64</code>.</p>
+</li>
+<li>
+<p>Beside the menu from step 3, there is a dropdown menu that has <code>32-bit</code> selected. Click on it and select <code>128-bit</code>.</p>
+</li>
+<li>
+<p>Note down the string of characters on the bottom left of the text box from step 2. This is your <code>encryption key</code>.</p>
+</li>
+<li>
+<p>Open <a href="https://www.devglan.com/online-tools/aes-encryption-decryption">this website</a> and wait for it to load.</p>
+</li>
+<li>
+<p>Use the left column on the web page and enter the text you wish to encrypt.</p>
+</li>
+<li>
+<p>Use the <code>encryption</code> key from step 5 as the <code>secret key</code> and leave the other options as default.</p>
+</li>
+<li>
+<p>Click on the <code>Encrypt</code> button to get the encrypted text you want.</p>
+</li>
+</ol>
 </div>
 </div>
 </div>
@@ -258,14 +401,231 @@ The second`redo` reverses the first <code>undo</code> command, reapplying <code>
 </tr>
 </tbody>
 </table>
-</div>
-</div>
-<div class="sect1">
-<h2 id="project-powerpointlabs"><a class="link" href="#project-powerpointlabs">PROJECT: PowerPointLabs</a></h2>
-<div class="sectionbody">
-<hr>
+<div class="sect2">
+<h3 id="user-accounts-system"><a class="link" href="#user-accounts-system">User Accounts System</a></h3>
 <div class="paragraph">
-<p><em>{Optionally, you may include other projects in your portfolio.}</em></p>
+<p>The user accounts system allows multiple users to use the Expense Tracker on the same computer without interfering with each other&#8217;s data. It also includes an optional password system that allows users to protect their expense tracker information from being viewed or altered by others.</p>
+</div>
+<div class="sect3">
+<h4 id="current-implementation"><a class="link" href="#current-implementation">Current Implementation</a></h4>
+<div class="paragraph">
+<p>On initialization, the <code>MainApp</code> class loads all xml files within the data folder according to the path in <code>UserPrefs</code>. The data is loaded by <code>MainApp#initModelManager(Storage, UserPref)</code>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>An xml data file not be loaded if the username value is not the same as the filename (ignoring file extension).</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This system is facilitated by newly added methods in the Model interface which now supports the following operations:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>Model#loadUserData(Username, Password)</code>&#8201;&#8212;&#8201;Logs in to the user with the input Username and Password and loads the associated data into the <code>Model</code>. Returns true if the password matches the user&#8217;s password, else the user is not logged into and false is returned</p>
+</li>
+<li>
+<p><code>Model#unloadUserData()</code>&#8201;&#8212;&#8201;Unselects the user in the <code>Model</code></p>
+</li>
+<li>
+<p><code>Model#isUserExists(Username)</code>&#8201;&#8212;&#8201;Checks if a user with the input Username exists in the <code>Model</code></p>
+</li>
+<li>
+<p><code>Model#addUser(Username)</code>&#8201;&#8212;&#8201;Adds a new user with the given Username to the <code>Model</code></p>
+</li>
+<li>
+<p><code>Model#hasSelectedUser()</code>&#8201;&#8212;&#8201;Checks if a user is currently logged in in the <code>Model</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The classes <code>Username</code> and <code>Password</code> have also been implemented and have the following noteworthy characteristics:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Two <code>Username</code> classes are equivalent if and only if the internal username String are equivalent (case-insensitive).</p>
+</li>
+<li>
+<p><code>Username</code> cannot be constructed with a String containing any of the following characters: <em>" &gt; &lt; : \ / | ? *</em></p>
+</li>
+<li>
+<p>When a <code>Password</code> class is constructed with plain text, the password is hashed before being stored as an internal String in the <code>Password</code> object</p>
+</li>
+<li>
+<p><code>Password</code> is only valid if the plain text form is at least 6 characters long</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Below is an example usage scenario and how the User Account System behaves at each step when the application is launched.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The user launches the application and the directory path in the UserPref points at the <em>data</em> folder</p>
+</li>
+<li>
+<p>The method <code>StorageManager#readAllExpenses(Path)</code> is called by the MainApp and the method loads all the xml data files in the <em>data</em> folder and returns the loaded data as a <code>Map&lt;Username, ReadOnlyAddressBook&gt;</code> with the <code>Username</code> of the user data as the key and the user data as a <code>ReadOnlyExpenseTracker</code> as the value to the MainApp class.</p>
+</li>
+<li>
+<p>A <code>Model</code> instance will then be initialized using the previously mentioned <code>Map</code> of user data.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Below is the UML sequence diagram of the <code>StorageManager#readAllExpenses(Path)</code> method mentioned.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/implementation/ReadAllExpensesSequenceDiagram.png" alt="ReadAllExpensesSequenceDiagram" width="800">
+</div>
+<div class="title">Figure 1. Sequence diagram of the <code>StorageManager#readAllExpenses(Path)</code> method</div>
+</div>
+<div class="paragraph">
+<p>Below is an example usage scenario and how the Sign Up and Login system behaves at each step after the application is launched.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The user executes the command <code>signup john</code> to create a user with the <code>Username</code> john</p>
+</li>
+<li>
+<p>The <code>signup</code> command calls <code>Model#addUser(Username)</code> which adds the user <code>john</code> to the <code>Model</code>. The operation is successful as <code>john</code> does not break any of the <code>Username</code> constraints and does not already exist in the Model.</p>
+</li>
+<li>
+<p>The user then executes the command <code>login u/john</code> to log in to his user account</p>
+</li>
+<li>
+<p>The <code>login</code> command calls <code>loadUserData(Username, Password)</code> with a null password as a password was not provided. The method is executed successfully as the user <code>john</code> has no password set.</p>
+</li>
+<li>
+<p>The selected data in the <code>Model</code> is switched to <code>john&#8217;s and an `UserLoggedInEvent</code> is raised for the <code>UI</code> to show `john&#8217;s Expense Tracker data</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Below is the UML sequence diagram that shows how the <code>SignUpCommand</code> works.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/implementation/SignUpCommandSequenceDiagram.png" alt="SignUpCommandSequenceDiagram" width="800">
+</div>
+<div class="title">Figure 2. Sequence diagram showing how <code>SignUpCommand</code> works</div>
+</div>
+<div class="paragraph">
+<p>Below is the UML sequence diagram that shows how the <code>LoginCommand</code> works.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/implementation/LoginCommandSequenceDiagram.png" alt="LoginCommandSequenceDiagram" width="800">
+</div>
+<div class="title">Figure 3. Sequence diagram showing how <code>LoginCommand</code> works</div>
+</div>
+<div class="paragraph">
+<p>Below is an example usage scenario and how the Password system behaves at each step after the he/she is logged in.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The user is already logged in to the account <code>john</code> with an existing password <code>password1</code> and executes the command <code>setpassword o/password1 n/password2</code> to change his password to <code>password2</code></p>
+</li>
+<li>
+<p>The <code>setpassword</code> command calls the <code>Model#setPassword(Password)</code> method since the given old password matches his existing password and <code>password2</code> does not violate any password constraints</p>
+</li>
+<li>
+<p>The <code>Model#setPassword(Password)</code> changes <code>john&#8217;s account password to `password2</code></p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Below is the UML sequence diagram that shows how the <code>SetPasswordCommand</code> works.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/implementation/SetPasswordCommandSequenceDiagram.png" alt="SetPasswordCommandSequenceDiagram" width="800">
+</div>
+<div class="title">Figure 4. Sequence diagram showing how <code>SetPasswordCommand</code> works</div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-01 19:05:26 UTC</div></div></div></body></html>
+<div class="sect3">
+<h4 id="design-considerations"><a class="link" href="#design-considerations">Design Considerations</a></h4>
+<div class="sect4">
+<h5 id="aspect-storage-of-separate-user-data"><a class="link" href="#aspect-storage-of-separate-user-data">Aspect: Storage of Separate User Data</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> Save each user&#8217;s data into a seperate xml file</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: More work needed to implement as the data loading has to be changed to read from multiple xml files</p>
+</li>
+<li>
+<p>Cons: Users can transfer their own data between computers easily by just copying their own account&#8217;s xml file</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> Save all the separated user data in a single xml data file</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Relatively easier to implement. ExpenseTracker already loads data from a single xml data file so less work has to be done to change the storage structure</p>
+</li>
+<li>
+<p>Cons: Users will be unable to easily transfer their individual data to another computer</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="aspect-loading-of-user-data"><a class="link" href="#aspect-loading-of-user-data">Aspect: Loading of User Data</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> Loading of User data is only done on initialization of the Expense Tracker</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Ability to switch user accounts quickly after the Expense Tracker is loaded as all users are already loaded into memory</p>
+</li>
+<li>
+<p>Cons: External changes to the data files after initialization will not be reflected may be overwritten</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> User data is loaded only when the user attempts to log in</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Unnecessary data is not kept in memory so memory space is not wasted</p>
+</li>
+<li>
+<p>Cons: Increase degree of coupling between the Logic, Model and Storage components as the login command will require the Storage to load and return the user&#8217;s data.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-02 02:34:07 UTC</div></div></div></body></html>
