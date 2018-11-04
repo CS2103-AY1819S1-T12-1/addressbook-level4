@@ -34,7 +34,7 @@
 <li><a href="#listing-all-expenses-code-list-code">4.10. Listing all expenses : <code>list</code></a></li>
 <li><a href="#setting-a-total-budget-code-setbudget-code">4.11. Setting a total budget: <code>setBudget</code></a></li>
 <li><a href="#setting-a-recurring-frequency-for-totalbudget-code-setrecurrencefrequency-code">4.12. Setting a recurring frequency for totalBudget: <code>setRecurrenceFrequency</code></a></li>
-<li><a href="#adding-a-category-budget-code-setcategorybudget-code">4.13. Adding a Category Budget: <code>setCategoryBudget</code></a></li>
+<li><a href="#setting-a-category-budget-code-setcategorybudget-code">4.13. Setting a Category Budget: <code>setCategoryBudget</code></a></li>
 <li><a href="#listing-entered-commands-code-history-code">4.14. Listing entered commands : <code>history</code></a></li>
 <li><a href="#undoing-previous-command-code-undo-code">4.15. Undoing previous command : <code>undo</code></a></li>
 <li><a href="#redoing-the-previously-undone-command-code-redo-code">4.16. Redoing the previously undone command : <code>redo</code></a></li>
@@ -45,6 +45,7 @@
 </ul>
 </li>
 <li><a href="#faq">5. FAQ</a></li>
+<li><a href="#command-shorthands">6. Command Shorthands</a></li>
 </ul>
 </div>
 </div>
@@ -798,7 +799,7 @@ Sets a <code>totalBudget</code> of $20.00.</p>
 <p>Sets the recurrence frequency for the <code>totalBudget</code> of Expense Tracker.</p>
 </div>
 <div class="paragraph">
-<p>Expense Tracker will reset your spending after every <code>FREQUENCY</code></p>
+<p>Expense Tracker will reset your expenses after every <code>FREQUENCY</code></p>
 </div>
 <div class="paragraph">
 <p>Format: <code>setRecurrenceFrequency [hrs/HOURS] [min/MINUTES] [sec/SECONDS]</code></p>
@@ -812,11 +813,11 @@ Sets a <code>totalBudget</code> of $20.00.</p>
 <ul>
 <li>
 <p><code>setRecurrenceFrequency hrs/1</code><br>
-Sets the spending of <code>totalBudget</code> to reset every 1 hour</p>
+Sets the expenses of <code>totalBudget</code> to reset every 1 hour</p>
 </li>
 <li>
 <p><code>setRecurrenceFrequency hrs/1 min/30</code><br>
-Sets the spending of <code>totalBudget</code> reset every 1 hour and 30 minutes</p>
+Sets the expenses of <code>totalBudget</code> to reset every 1 hour and 30 minutes</p>
 </li>
 </ul>
 </div>
@@ -845,12 +846,12 @@ Sets the spending of <code>totalBudget</code> reset every 1 hour and 30 minutes<
 </div>
 </div>
 <div class="sect2">
-<h3 id="adding-a-category-budget-code-setcategorybudget-code"><a class="link" href="#adding-a-category-budget-code-setcategorybudget-code">4.13. Adding a Category Budget: <code>setCategoryBudget</code></a></h3>
+<h3 id="setting-a-category-budget-code-setcategorybudget-code"><a class="link" href="#setting-a-category-budget-code-setcategorybudget-code">4.13. Setting a Category Budget: <code>setCategoryBudget</code></a></h3>
 <div class="paragraph">
-<p>Adds a Budget to limit spending on a certain category.</p>
+<p>Sets a Budget to limit expenses on a certain category.</p>
 </div>
 <div class="paragraph">
-<p>If spending exceeds Category budget, a warning similar to 4.10 will be shown.</p>
+<p>If expenses exceeds Category budget, a warning similar to 4.10 will be shown.</p>
 </div>
 <div class="paragraph">
 <p>Sum of all category budgets cannot exceed total budget of
@@ -881,8 +882,15 @@ Sets a budget of $10 to the <code>School</code> category.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="paragraph">
-<p>Valid <code>CATEOGRY</code> and <code>BUDGET</code> follows the syntax listed under 4.5 and 4.10</p>
+<div class="ulist">
+<ul>
+<li>
+<p>The <code>setCategoryBudget</code> command is case sensitive</p>
+</li>
+<li>
+<p><code>CATEOGRY</code> can only consist of one keyword and <code>BUDGET</code> must be a positive number with two decimal places.</p>
+</li>
+</ul>
 </div>
 </td>
 </tr>
@@ -1222,6 +1230,9 @@ e.g. <code>setBudget 20.00</code></p>
 <p><strong>Set recurring frequency for <code>totalBudget</code></strong>: <code>setRecurrenceFrequency [hrs/HOURS] [min/MINUTES] [sec/SECONDS]</code><br></p>
 </li>
 <li>
+<p><strong>Set category budgets</strong> : <code>setCategoryBudget c/CATEGORY b/BUDGET</code><br></p>
+</li>
+<li>
 <p><strong>History</strong> : <code>history</code></p>
 </li>
 <li>
@@ -1243,4 +1254,70 @@ e.g. <code>stats n/7 m/d</code></p>
 </ul>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-04 14:01:51 UTC</div></div></div></body></html>
+</div>
+<div class="sect1">
+<h2 id="command-shorthands"><a class="link" href="#command-shorthands">6. Command Shorthands</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This is a list of mappings of commands to their command shorthands in Expense Tracker:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>signup</code>: <code>su</code></p>
+</li>
+<li>
+<p><code>login</code>: <code>li</code></p>
+</li>
+<li>
+<p><code>setpassword</code>: <code>sp</code></p>
+</li>
+<li>
+<p><code>help</code>: <code>h</code></p>
+</li>
+<li>
+<p><code>add</code>: <code>a</code></p>
+</li>
+<li>
+<p><code>edit</code>: <code>e</code></p>
+</li>
+<li>
+<p><code>delete</code>: <code>d</code></p>
+</li>
+<li>
+<p><code>find</code>: <code>f</code></p>
+</li>
+<li>
+<p><code>list</code>: <code>l</code></p>
+</li>
+<li>
+<p><code>setBudget</code>: <code>sb</code></p>
+</li>
+<li>
+<p><code>setRecurringFrequency</code>: <code>srf</code></p>
+</li>
+<li>
+<p><code>setCategoryBudget</code>: <code>scb</code></p>
+</li>
+<li>
+<p><code>history</code>: <code>h</code></p>
+</li>
+<li>
+<p><code>undo</code>: <code>u</code></p>
+</li>
+<li>
+<p><code>redo</code>: <code>r</code></p>
+</li>
+<li>
+<p><code>stats</code>:  <code>su</code></p>
+</li>
+<li>
+<p><code>clear</code>: <code>c</code></p>
+</li>
+<li>
+<p><code>exit</code>: <code>x</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-04 16:10:58 UTC</div></div></div></body></html>

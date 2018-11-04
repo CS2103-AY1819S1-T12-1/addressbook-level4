@@ -308,7 +308,7 @@ Sets a <code>totalBudget</code> of $20.00.</p>
 <p>Sets the recurrence frequency for the <code>totalBudget</code> of Expense Tracker.</p>
 </div>
 <div class="paragraph">
-<p>Expense Tracker will reset your spending after every <code>FREQUENCY</code></p>
+<p>Expense Tracker will reset your expenses after every <code>FREQUENCY</code></p>
 </div>
 <div class="paragraph">
 <p>Format: <code>setRecurrenceFrequency [hrs/HOURS] [min/MINUTES] [sec/SECONDS]</code></p>
@@ -322,11 +322,11 @@ Sets a <code>totalBudget</code> of $20.00.</p>
 <ul>
 <li>
 <p><code>setRecurrenceFrequency hrs/1</code><br>
-Sets the spending of <code>totalBudget</code> to reset every 1 hour</p>
+Sets the expenses of <code>totalBudget</code> to reset every 1 hour</p>
 </li>
 <li>
 <p><code>setRecurrenceFrequency hrs/1 min/30</code><br>
-Sets the spending of <code>totalBudget</code> reset every 1 hour and 30 minutes</p>
+Sets the expenses of <code>totalBudget</code> to reset every 1 hour and 30 minutes</p>
 </li>
 </ul>
 </div>
@@ -355,12 +355,12 @@ Sets the spending of <code>totalBudget</code> reset every 1 hour and 30 minutes<
 </div>
 </div>
 <div class="sect2">
-<h3 id="adding-a-category-budget-code-setcategorybudget-code"><a class="link" href="#adding-a-category-budget-code-setcategorybudget-code">Adding a Category Budget: <code>setCategoryBudget</code></a></h3>
+<h3 id="setting-a-category-budget-code-setcategorybudget-code"><a class="link" href="#setting-a-category-budget-code-setcategorybudget-code">Setting a Category Budget: <code>setCategoryBudget</code></a></h3>
 <div class="paragraph">
-<p>Adds a Budget to limit spending on a certain category.</p>
+<p>Sets a Budget to limit expenses on a certain category.</p>
 </div>
 <div class="paragraph">
-<p>If spending exceeds Category budget, a warning similar to 4.10 will be shown.</p>
+<p>If expenses exceeds Category budget, a warning similar to 4.10 will be shown.</p>
 </div>
 <div class="paragraph">
 <p>Sum of all category budgets cannot exceed total budget of
@@ -391,8 +391,15 @@ Sets a budget of $10 to the <code>School</code> category.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="paragraph">
-<p>Valid <code>CATEOGRY</code> and <code>BUDGET</code> follows the syntax listed under 4.5 and 4.10</p>
+<div class="ulist">
+<ul>
+<li>
+<p>The <code>setCategoryBudget</code> command is case sensitive</p>
+</li>
+<li>
+<p><code>CATEOGRY</code> can only consist of one keyword and <code>BUDGET</code> must be a positive number with two decimal places.</p>
+</li>
+</ul>
 </div>
 </td>
 </tr>
@@ -415,4 +422,4 @@ Sets a budget of $10 to the <code>School</code> category.</p>
 </tbody>
 </table>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-04 14:01:51 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-04 16:10:58 UTC</div></div></div></body></html>

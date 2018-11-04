@@ -7,10 +7,10 @@
 </div>
 </div>
 <div class="sect1">
-<h2 id="overview"><a class="link" href="#overview">Overview</a></h2>
+<h2 id="1-overview"><a class="link" href="#1-overview">1. Overview</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This portfolio aims to document the contributions made by <strong>Winson Heng Yong Seng</strong> to the <strong>ExpenseTracker</strong>.</p>
+<p>This portfolio aims to document the contributions that I made to the <strong>ExpenseTracker</strong>.</p>
 </div>
 <div class="paragraph">
 <p><strong>ExpenseTracker</strong> is a desktop expense tracking application developed to aid users in tracking their expenses and
@@ -39,7 +39,7 @@ save money. The user interacts with it using a Command Line Interface (CLI), and
 </div>
 </div>
 <div class="sect1">
-<h2 id="summary-of-contributions"><a class="link" href="#summary-of-contributions">Summary of contributions</a></h2>
+<h2 id="2-summary-of-contributions"><a class="link" href="#2-summary-of-contributions">2. Summary of contributions</a></h2>
 <div class="sectionbody">
 <div class="ulist">
 <ul>
@@ -48,7 +48,7 @@ save money. The user interacts with it using a Command Line Interface (CLI), and
 <div class="ulist">
 <ul>
 <li>
-<p>Function: informs the user if the their expenses exceed a set budget</p>
+<p>Function: It informs the user if the their expenses exceed a set budget</p>
 </li>
 <li>
 <p>Justification: This is a core feature as it allows the user to know when they are spending too much money, the
@@ -63,14 +63,11 @@ commands and the existing implementation of the main <code>ExpenseTracker</code>
 </div>
 </li>
 <li>
-<p><strong>Minor enhancement</strong>:</p>
+<p><strong>Minor enhancements</strong>:</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Added a <code>history</code> command that allows the user to navigate to previous commands using up/down keys.</p>
-</li>
-<li>
-<p>Added a <code>setRecurrenceFrequency</code> command that allows the user to reset their spending at a frequency of their choice.</p>
+<p>Added a <code>setRecurrenceFrequency</code> command that allows the user to reset their expenses at a frequency of their choice.</p>
 </li>
 <li>
 <p>Added a <code>setCategoryBudget</code> command that allows the user to set budgets based on their category of expenses.</p>
@@ -145,7 +142,7 @@ commands and the existing implementation of the main <code>ExpenseTracker</code>
 </div>
 </div>
 <div class="sect1">
-<h2 id="contributions-to-the-user-guide"><a class="link" href="#contributions-to-the-user-guide">Contributions to the User Guide</a></h2>
+<h2 id="3-contributions-to-the-user-guide"><a class="link" href="#3-contributions-to-the-user-guide">3. Contributions to the User Guide</a></h2>
 <div class="sectionbody">
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
@@ -215,7 +212,7 @@ Sets a <code>totalBudget</code> of $20.00.</p>
 <p>Sets the recurrence frequency for the <code>totalBudget</code> of Expense Tracker.</p>
 </div>
 <div class="paragraph">
-<p>Expense Tracker will reset your spending after every <code>FREQUENCY</code></p>
+<p>Expense Tracker will reset your expenses after every <code>FREQUENCY</code></p>
 </div>
 <div class="paragraph">
 <p>Format: <code>setRecurrenceFrequency [hrs/HOURS] [min/MINUTES] [sec/SECONDS]</code></p>
@@ -229,11 +226,11 @@ Sets a <code>totalBudget</code> of $20.00.</p>
 <ul>
 <li>
 <p><code>setRecurrenceFrequency hrs/1</code><br>
-Sets the spending of <code>totalBudget</code> to reset every 1 hour</p>
+Sets the expenses of <code>totalBudget</code> to reset every 1 hour</p>
 </li>
 <li>
 <p><code>setRecurrenceFrequency hrs/1 min/30</code><br>
-Sets the spending of <code>totalBudget</code> reset every 1 hour and 30 minutes</p>
+Sets the expenses of <code>totalBudget</code> to reset every 1 hour and 30 minutes</p>
 </li>
 </ul>
 </div>
@@ -262,12 +259,12 @@ Sets the spending of <code>totalBudget</code> reset every 1 hour and 30 minutes<
 </div>
 </div>
 <div class="sect2">
-<h3 id="adding-a-category-budget-code-setcategorybudget-code"><a class="link" href="#adding-a-category-budget-code-setcategorybudget-code">Adding a Category Budget: <code>setCategoryBudget</code></a></h3>
+<h3 id="setting-a-category-budget-code-setcategorybudget-code"><a class="link" href="#setting-a-category-budget-code-setcategorybudget-code">Setting a Category Budget: <code>setCategoryBudget</code></a></h3>
 <div class="paragraph">
-<p>Adds a Budget to limit spending on a certain category.</p>
+<p>Sets a Budget to limit expenses on a certain category.</p>
 </div>
 <div class="paragraph">
-<p>If spending exceeds Category budget, a warning similar to 4.10 will be shown.</p>
+<p>If expenses exceeds Category budget, a warning similar to 4.10 will be shown.</p>
 </div>
 <div class="paragraph">
 <p>Sum of all category budgets cannot exceed total budget of
@@ -298,8 +295,15 @@ Sets a budget of $10 to the <code>School</code> category.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="paragraph">
-<p>Valid <code>CATEOGRY</code> and <code>BUDGET</code> follows the syntax listed under 4.5 and 4.10</p>
+<div class="ulist">
+<ul>
+<li>
+<p>The <code>setCategoryBudget</code> command is case sensitive</p>
+</li>
+<li>
+<p><code>CATEOGRY</code> can only consist of one keyword and <code>BUDGET</code> must be a positive number with two decimal places.</p>
+</li>
+</ul>
 </div>
 </td>
 </tr>
@@ -309,7 +313,7 @@ Sets a budget of $10 to the <code>School</code> category.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="contributions-to-the-developer-guide"><a class="link" href="#contributions-to-the-developer-guide">Contributions to the Developer Guide</a></h2>
+<h2 id="4-contributions-to-the-developer-guide"><a class="link" href="#4-contributions-to-the-developer-guide">4. Contributions to the Developer Guide</a></h2>
 <div class="sectionbody">
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
@@ -326,14 +330,14 @@ Sets a budget of $10 to the <code>School</code> category.</p>
 <div class="sect3">
 <h4 id="current-implementation"><a class="link" href="#current-implementation">Current Implementation</a></h4>
 <div class="paragraph">
-<p>The budget feature allows the user to set a budget for a specific time period.
-If the user&#8217;s total spending exceeds their budget in the specified time period, a warning will be shown to the user.</p>
+<p>The budget feature allows the user to set a budget for their expenses.
+If the user&#8217;s total expenses exceeds their budget, a warning will be shown to the user.</p>
 </div>
 <div class="paragraph">
-<p>The current implementation for <code>totalBudget</code> tracking is described as below.</p>
+<p>The current implementation for budget tracking is described as below.</p>
 </div>
 <div class="sect4">
-<h5 id="setting-a-budget"><a class="link" href="#setting-a-budget">Setting a budget</a></h5>
+<h5 id="setting-a-budget"><a class="link" href="#setting-a-budget">Setting a Budget</a></h5>
 <div class="paragraph">
 <p>Given below is a sequence diagram and step by step explanation of how the expense tracker executes when a user sets a budget</p>
 </div>
@@ -370,12 +374,12 @@ maximum budget of the expense tracker.</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="recurring-budget"><a class="link" href="#recurring-budget">Recurring budget</a></h5>
+<h5 id="setting-a-recurring-budget"><a class="link" href="#setting-a-recurring-budget">Setting a recurring Budget</a></h5>
 <div class="paragraph">
 <p>Every time a user logs in, <code>Model#loadUserData()</code> is called and  the application will check if the user has set a time
 where the
-current spending will reset (recurrence time). If it is not set, the expense tracker will issue a notification. Else, the
-expense tracker will track the set recurrence time against the time now. If it exceeds, current spending will be reset. Else,
+current expenses will reset (recurrence time). If it is not set, the expense tracker will issue a notification. Else, the
+expense tracker will track the set recurrence time against the time now. If it exceeds, current expenses will be reset. Else,
 nothing will be done.</p>
 </div>
 <div class="ulist">
@@ -427,13 +431,18 @@ returned to
 </li>
 <li>
 <p><code>LogicManager</code> then calls <code>SetRecurringBudgetCommand#execute()</code>,which calls <code>ModelManager#setRecurrenceFrequency()</code>
-method to update the time when the next spendings of <code>totalBudget</code> is reset.</p>
+method to update the time when the next expenses of <code>totalBudget</code> is reset.</p>
 </li>
 </ol>
 </div>
 </div>
 <div class="sect4">
-<h5 id="budget-by-category"><a class="link" href="#budget-by-category">Budget by Category</a></h5>
+<h5 id="setting-a-budget-by-category"><a class="link" href="#setting-a-budget-by-category">Setting a Budget by Category</a></h5>
+<div class="paragraph">
+<p>An extension to the budget feature, this allows the user to divide their budget based on categories. Users can
+allocate parts of their budget to certain categories.
+If the user&#8217;s total expenses for a Category exceeds their Category Budget, a warning will be shown to the user.</p>
+</div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -486,4 +495,4 @@ else. Therefore, it should be more closely coupled with <code>loadUserData()</co
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-04 14:01:51 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-04 16:10:58 UTC</div></div></div></body></html>

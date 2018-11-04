@@ -1351,14 +1351,14 @@ The <code>n/</code> parameter can be omitted. In this case, all types of notific
 <div class="sect3">
 <h4 id="current-implementation-2"><a class="link" href="#current-implementation-2">4.6.1. Current Implementation</a></h4>
 <div class="paragraph">
-<p>The budget feature allows the user to set a budget for a specific time period.
-If the user&#8217;s total spending exceeds their budget in the specified time period, a warning will be shown to the user.</p>
+<p>The budget feature allows the user to set a budget for their expenses.
+If the user&#8217;s total expenses exceeds their budget, a warning will be shown to the user.</p>
 </div>
 <div class="paragraph">
-<p>The current implementation for <code>totalBudget</code> tracking is described as below.</p>
+<p>The current implementation for budget tracking is described as below.</p>
 </div>
 <div class="sect4">
-<h5 id="setting-a-budget"><a class="link" href="#setting-a-budget">Setting a budget</a></h5>
+<h5 id="setting-a-budget"><a class="link" href="#setting-a-budget">Setting a Budget</a></h5>
 <div class="paragraph">
 <p>Given below is a sequence diagram and step by step explanation of how the expense tracker executes when a user sets a budget</p>
 </div>
@@ -1395,12 +1395,12 @@ maximum budget of the expense tracker.</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="recurring-budget"><a class="link" href="#recurring-budget">Recurring budget</a></h5>
+<h5 id="setting-a-recurring-budget"><a class="link" href="#setting-a-recurring-budget">Setting a recurring Budget</a></h5>
 <div class="paragraph">
 <p>Every time a user logs in, <code>Model#loadUserData()</code> is called and  the application will check if the user has set a time
 where the
-current spending will reset (recurrence time). If it is not set, the expense tracker will issue a notification. Else, the
-expense tracker will track the set recurrence time against the time now. If it exceeds, current spending will be reset. Else,
+current expenses will reset (recurrence time). If it is not set, the expense tracker will issue a notification. Else, the
+expense tracker will track the set recurrence time against the time now. If it exceeds, current expenses will be reset. Else,
 nothing will be done.</p>
 </div>
 <div class="ulist">
@@ -1452,13 +1452,18 @@ returned to
 </li>
 <li>
 <p><code>LogicManager</code> then calls <code>SetRecurringBudgetCommand#execute()</code>,which calls <code>ModelManager#setRecurrenceFrequency()</code>
-method to update the time when the next spendings of <code>totalBudget</code> is reset.</p>
+method to update the time when the next expenses of <code>totalBudget</code> is reset.</p>
 </li>
 </ol>
 </div>
 </div>
 <div class="sect4">
-<h5 id="budget-by-category"><a class="link" href="#budget-by-category">Budget by Category</a></h5>
+<h5 id="setting-a-budget-by-category"><a class="link" href="#setting-a-budget-by-category">Setting a Budget by Category</a></h5>
+<div class="paragraph">
+<p>An extension to the budget feature, this allows the user to divide their budget based on categories. Users can
+allocate parts of their budget to certain categories.
+If the user&#8217;s total expenses for a Category exceeds their Category Budget, a warning will be shown to the user.</p>
+</div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -2077,7 +2082,7 @@ Below are different ways to manage these <em>dependencies</em>:</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">user who wants to track their spending</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">user who wants to track their expenses</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">add a new expense</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">have the app keep track of my expenses</p></td>
 </tr>
@@ -2672,4 +2677,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-04 14:01:51 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-04 16:10:58 UTC</div></div></div></body></html>
