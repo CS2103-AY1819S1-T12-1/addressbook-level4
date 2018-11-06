@@ -232,7 +232,13 @@ Signs up a user with the username "username123".</p>
 <div class="ulist">
 <ul>
 <li>
-<p>USERNAME must not contain any of the following characters :  &gt; &lt; : \ / | ?</p>
+<p>USERNAME must be at least 1 character long</p>
+</li>
+<li>
+<p>USERNAME must be at most 250 characters long</p>
+</li>
+<li>
+<p>USERNAME cannot contain white spaces or any of the following characters :  &gt; &lt; : \ / | ?</p>
 </li>
 </ul>
 </div>
@@ -284,10 +290,14 @@ Logs in a user with the username "username1234" with password "password1".</p>
 <p>PASSWORD is case sensitive</p>
 </li>
 <li>
-<p>PASSWORD cannot contain any spaces and must be at least 6 characters long</p>
+<p>PASSWORD cannot contain any spaces and must be 6 to 100 characters long</p>
 </li>
 <li>
 <p>Expense Tracker contains a sample user with USERNAME <code>sample</code></p>
+</li>
+<li>
+<p>If the user with USERNAME has no password, then the login will be successful
+regardless of whether a PASSWORD has been provided</p>
 </li>
 </ul>
 </div>
@@ -628,4 +638,4 @@ Sets the current user&#8217;s password as "pass123", provided that the current p
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-06 09:23:10 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-06 13:22:07 UTC</div></div></div></body></html>
