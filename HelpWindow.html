@@ -560,7 +560,7 @@ Edits the date of the 2nd expense in the expense list to be the 1st of October, 
 Existing values of the expense will be edited according to the value of the parameters<br></p>
 </div>
 <div class="paragraph">
-<p>Format: <code>massedit [n/EXPENSE_NAME] [$/COST] [c/CATEGORY] [d/DATE] [t/TAG&#8230;&#8203;] &#8594; [n/EXPENSE_NAME] [$/COST] [c/CATEGORY] [d/DATE] [t/TAG&#8230;&#8203;]</code></p>
+<p>Format: <code>massedit [n/EXPENSE_NAME] [$/COST] [c/CATEGORY] [d/DATE] [t/TAG&#8230;&#8203;] -&gt; [n/EXPENSE_NAME] [$/COST] [c/CATEGORY] [d/DATE] [t/TAG&#8230;&#8203;]</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -570,22 +570,22 @@ Existing values of the expense will be edited according to the value of the para
 <div class="ulist">
 <ul>
 <li>
-<p><code>massedit c/school &#8594; c/food</code><br>
+<p><code>massedit c/school -&gt; c/food</code><br>
 Edits the expenses under <code>school</code> category.
 The category of these expenses is changed to <code>food</code>.</p>
 </li>
 <li>
-<p><code>massedit n/School fee d/01-10-2018:03-10-2018 &#8594; t/books</code><br>
+<p><code>massedit n/School fee d/01-10-2018:03-10-2018 -&gt; t/books</code><br>
 Edits expenses, whose names contain <code>school</code>,with date between <code>01-10-2018</code> and <code>03-10-2018</code>(inclusively).
 The tags of these expenses are changed to <code>book</code> tag.</p>
 </li>
 <li>
-<p><code>massedit $/1.00:2.00 &#8594; c/waste n/saving</code><br>
+<p><code>massedit $/1.00:2.00 -&gt; c/waste n/saving</code><br>
 Edits expenses with cost between 1.00 and 2.00 inclusively.
 The category and name of these expenses are changed to <code>waste</code> and <code>saving</code> respecitvely.</p>
 </li>
 <li>
-<p><code>massedit c/shopping $/100.00 &#8594; n/waste $/200.00</code><br>
+<p><code>massedit c/shopping $/100.00 -&gt; n/waste $/200.00</code><br>
 Edits the expenses with cost of <code>100.00</code> under <code>shopping</code> category.
 The name and cost of these expenses are changed to <code>waste</code> and <code>200.00</code> respectively.</p>
 </li>
@@ -603,10 +603,7 @@ The name and cost of these expenses are changed to <code>waste</code> and <code>
 <div class="ulist">
 <ul>
 <li>
-<p><code>&#8594;</code> can be key in by typing <code>-</code> followed by <code>&gt;</code>.</p>
-</li>
-<li>
-<p>At least one keyword before <code>&#8594;</code> and one keyword after <code>&#8594;</code> must be provided.</p>
+<p>At least one keyword before <code>-&gt;</code> and one keyword after <code>-&gt;</code> must be provided.</p>
 </li>
 <li>
 <p>The order of the keywords doesn&#8217;t matter.</p>
@@ -1336,4 +1333,4 @@ e.g. <code>stats n/7 m/d</code></p>
 </ul>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-06 13:22:07 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-07 07:02:10 UTC</div></div></div></body></html>
