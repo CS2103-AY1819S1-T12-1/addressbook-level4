@@ -155,12 +155,10 @@ commands and the existing implementation of the main <code>ExpenseTracker</code>
 </tbody>
 </table>
 <div class="sect2">
-<h3 id="setting-a-total-budget-code-setbudget-code"><a class="link" href="#setting-a-total-budget-code-setbudget-code">Setting a total budget: <code>setBudget</code></a></h3>
+<h3 id="SetBudgetCommand"><a class="link" href="#SetBudgetCommand">Setting a total budget: <code>setBudget</code></a></h3>
 <div class="paragraph">
-<p>Sets <code>totalBudget</code> for Expense Tracker.<br></p>
-</div>
-<div class="paragraph">
-<p>The Expense Tracker will warn you when your total expenditure exceeds the total budget that is set.</p>
+<p>Sets <code>totalBudget</code> for Expense Tracker. You can use this feature to let Expense Tracker warn you when your total
+expenditure exceeds, or is close to exceeding, the budget that you set.</p>
 </div>
 <div class="paragraph">
 <p>Format: <code>setBudget MONEY_WITH_TWO_DECIMAL_PLACES</code></p>
@@ -209,10 +207,12 @@ Sets a <code>totalBudget</code> of $20.00.</p>
 <div class="sect2">
 <h3 id="setting-a-recurring-frequency-for-totalbudget-code-setrecurrencefrequency-code"><a class="link" href="#setting-a-recurring-frequency-for-totalbudget-code-setrecurrencefrequency-code">Setting a recurring frequency for totalBudget: <code>setRecurrenceFrequency</code></a></h3>
 <div class="paragraph">
-<p>Sets the recurrence frequency for the <code>totalBudget</code> of Expense Tracker.</p>
+<p>Sets the recurrence frequency for the <code>totalBudget</code> of Expense Tracker. You can use this feature to refresh your
+expenditure when tracking your budget usage.</p>
 </div>
 <div class="paragraph">
-<p>Expense Tracker will reset your expenses after every <code>FREQUENCY</code></p>
+<p>For example, if you specify the frequency to be 24 hours, any expenditure that you make within the 24 hours will be
+reset to $0.00 after 24 hours has passed.</p>
 </div>
 <div class="paragraph">
 <p>Format: <code>setRecurrenceFrequency [hrs/HOURS] [min/MINUTES] [sec/SECONDS]</code></p>
@@ -259,16 +259,15 @@ Sets the expenses of <code>totalBudget</code> to reset every 1 hour and 30 minut
 </div>
 </div>
 <div class="sect2">
-<h3 id="setting-a-category-budget-code-setcategorybudget-code"><a class="link" href="#setting-a-category-budget-code-setcategorybudget-code">Setting a Category Budget: <code>setCategoryBudget</code></a></h3>
+<h3 id="SetCategoryBudgetCommand"><a class="link" href="#SetCategoryBudgetCommand">Setting a Category Budget: <code>setCategoryBudget</code></a></h3>
 <div class="paragraph">
 <p>Sets a Budget to limit expenses on a certain category.</p>
 </div>
 <div class="paragraph">
-<p>If expenses exceeds Category budget, a warning similar to 4.10 will be shown.</p>
+<p>If expenses exceeds Category budget, a warning similar to 5.11 will be shown.</p>
 </div>
 <div class="paragraph">
-<p>Sum of all category budgets cannot exceed total budget of
-Expense Tracker.</p>
+<p>The Sum of all category budgets cannot exceed total budget set in 5.11</p>
 </div>
 <div class="paragraph">
 <p>Format: <code>setCategoryBudget c/CATEGORY b/BUDGET</code></p>
@@ -301,7 +300,10 @@ Sets a budget of $10 to the <code>School</code> category.</p>
 <p>The <code>setCategoryBudget</code> command is case sensitive</p>
 </li>
 <li>
-<p><code>CATEOGRY</code> can only consist of one keyword and <code>BUDGET</code> must be a positive number with two decimal places.</p>
+<p>CATEOGRY can only consist of one keyword</p>
+</li>
+<li>
+<p>BUDGET must be a positive number with two decimal places.</p>
 </li>
 </ul>
 </div>
@@ -495,4 +497,4 @@ else. Therefore, it should be more closely coupled with <code>loadUserData()</co
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-08 05:11:50 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-08 06:16:08 UTC</div></div></div></body></html>
