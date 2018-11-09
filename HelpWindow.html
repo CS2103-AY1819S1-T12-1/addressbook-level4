@@ -34,7 +34,7 @@
 <li><a href="#FindCommand">5.9. Locating expenses by keywords: <code>find</code></a></li>
 <li><a href="#ListCommand">5.10. Listing all expenses : <code>list</code></a></li>
 <li><a href="#SetBudgetCommand">5.11. Setting a total budget: <code>setBudget</code></a></li>
-<li><a href="#setting-a-recurring-frequency-for-totalbudget-code-setrecurrencefrequency-code">5.12. Setting a recurring frequency for totalBudget: <code>setRecurrenceFrequency</code></a></li>
+<li><a href="#setting-a-recurrence-frequency-for-total-budget-code-setrecurrencefrequency-code">5.12. Setting a recurrence frequency for total budget: <code>setRecurrenceFrequency</code></a></li>
 <li><a href="#SetCategoryBudgetCommand">5.13. Setting a Category Budget: <code>setCategoryBudget</code></a></li>
 <li><a href="#listing-entered-commands-code-history-code">5.14. Listing entered commands : <code>history</code></a></li>
 <li><a href="#undoing-previous-command-code-undo-code">5.15. Undoing previous command : <code>undo</code></a></li>
@@ -801,8 +801,21 @@ as the <code>find</code> command will filter out certain expenses.</p>
 <div class="sect2">
 <h3 id="SetBudgetCommand"><a class="link" href="#SetBudgetCommand">5.11. Setting a total budget: <code>setBudget</code></a></h3>
 <div class="paragraph">
-<p>Sets <code>totalBudget</code> for Expense Tracker. You can use this feature to let Expense Tracker warn you when your total
-expenditure exceeds, or is close to exceeding, the budget that you set.</p>
+<p>Sets the total budget that you should spend for Expense Tracker.<br></p>
+</div>
+<div class="paragraph">
+<p>Available spending is defined as the total amount of expenses you can add before you exceed your budget.</p>
+</div>
+<div class="paragraph">
+<p>The Expense Tracker will warn you when adding an expense results in your available spending exceeding the total
+budget that is set,
+as shown in the figure below.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/Overbudget.JPG" alt="Overbudget" width="790">
+</div>
+<div class="title">Figure 5. Notification that is shown when a user adds an expense which results in the user exceeding the budget.</div>
 </div>
 <div class="paragraph">
 <p>Format: <code>setBudget MONEY_WITH_TWO_DECIMAL_PLACES</code></p>
@@ -816,11 +829,11 @@ expenditure exceeds, or is close to exceeding, the budget that you set.</p>
 <ul>
 <li>
 <p><code>setBudget 2.00</code><br>
-Sets a <code>totalBudget</code> of $2.00.</p>
+Sets a total budget of $2.00.</p>
 </li>
 <li>
 <p><code>setBudget 20.00</code><br>
-Sets a <code>totalBudget</code> of $20.00.</p>
+Sets a total budget of $20.00.</p>
 </li>
 </ul>
 </div>
@@ -849,14 +862,36 @@ Sets a <code>totalBudget</code> of $20.00.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="setting-a-recurring-frequency-for-totalbudget-code-setrecurrencefrequency-code"><a class="link" href="#setting-a-recurring-frequency-for-totalbudget-code-setrecurrencefrequency-code">5.12. Setting a recurring frequency for totalBudget: <code>setRecurrenceFrequency</code></a></h3>
+<h3 id="setting-a-recurrence-frequency-for-total-budget-code-setrecurrencefrequency-code"><a class="link" href="#setting-a-recurrence-frequency-for-total-budget-code-setrecurrencefrequency-code">5.12. Setting a recurrence frequency for total budget: <code>setRecurrenceFrequency</code></a></h3>
 <div class="paragraph">
-<p>Sets the recurrence frequency for the <code>totalBudget</code> of Expense Tracker. You can use this feature to refresh your
-expenditure when tracking your budget usage.</p>
+<p>Sets the recurrence frequency for resetting the available spending of the total budget of Expense Tracker.</p>
 </div>
 <div class="paragraph">
-<p>For example, if you specify the frequency to be 24 hours, any expenditure that you make within the 24 hours will be
-reset to $0.00 after 24 hours has passed.</p>
+<p>Expense Tracker will reset your available spending after every user defined frequency.
+A detailed use case is given below:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>User types in the command <code>setRecurrenceFrequency hrs/1</code> as he wants his available spending to reset every hour.</p>
+</li>
+<li>
+<p>User closes his application.</p>
+</li>
+<li>
+<p>User reopens his application after one hour and thirty minutes to record another expense.</p>
+</li>
+<li>
+<p>His available spending will now be reset as it is past the set frequency of one hour. A notification will be shown
+to inform you that this is done. This is shown in the figure below.</p>
+</li>
+</ol>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/reset_notif.PNG" alt="reset notif" width="790">
+</div>
+<div class="title">Figure 6. Notification that is shown when the expense tracker resets the available spending.</div>
 </div>
 <div class="paragraph">
 <p>Format: <code>setRecurrenceFrequency [hrs/HOURS] [min/MINUTES] [sec/SECONDS]</code></p>
@@ -870,11 +905,11 @@ reset to $0.00 after 24 hours has passed.</p>
 <ul>
 <li>
 <p><code>setRecurrenceFrequency hrs/1</code><br>
-Sets the expenses of <code>totalBudget</code> to reset every 1 hour</p>
+Sets the available spending of your total budget to reset every 1 hour</p>
 </li>
 <li>
 <p><code>setRecurrenceFrequency hrs/1 min/30</code><br>
-Sets the expenses of <code>totalBudget</code> to reset every 1 hour and 30 minutes</p>
+Sets the available spending of your total budget to reset every 1 hour and 30 minutes</p>
 </li>
 </ul>
 </div>
@@ -895,6 +930,10 @@ Sets the expenses of <code>totalBudget</code> to reset every 1 hour and 30 minut
 <li>
 <p>HOURS/MINUTES/SECONDS must be a positive number.</p>
 </li>
+<li>
+<p>This feature does not reset all of your expenses. It just resets your available spending. Thus,
+it is possible that you have 10 expenses of $200.00 with a budget of $10, and yet you are not over your budget.</p>
+</li>
 </ul>
 </div>
 </td>
@@ -908,10 +947,8 @@ Sets the expenses of <code>totalBudget</code> to reset every 1 hour and 30 minut
 <p>Sets a Budget to limit expenses on a certain category.</p>
 </div>
 <div class="paragraph">
-<p>If expenses exceeds Category budget, a warning similar to 5.11 will be shown.</p>
-</div>
-<div class="paragraph">
-<p>The Sum of all category budgets cannot exceed total budget set in 5.11</p>
+<p>If adding an expense causes the available spending of that category to exceeds Category budget, a warning shown in
+figure 3 will be displayed</p>
 </div>
 <div class="paragraph">
 <p>Format: <code>setCategoryBudget c/CATEGORY b/BUDGET</code></p>
@@ -925,7 +962,7 @@ Sets the expenses of <code>totalBudget</code> to reset every 1 hour and 30 minut
 <ul>
 <li>
 <p><code>setCategoryBudget c/School b/10.00</code><br>
-Sets a budget of $10 to the <code>School</code> category.</p>
+Sets a budget of $10 for the <code>School</code> category.</p>
 </li>
 </ul>
 </div>
@@ -944,10 +981,11 @@ Sets a budget of $10 to the <code>School</code> category.</p>
 <p>The <code>setCategoryBudget</code> command is case sensitive</p>
 </li>
 <li>
-<p>CATEOGRY can only consist of one keyword</p>
+<p><code>CATEOGRY</code> can only consist of one keyword and <code>BUDGET</code> must be a positive number with two decimal places.</p>
 </li>
 <li>
-<p>BUDGET must be a positive number with two decimal places.</p>
+<p>The sum of all Category budgets cannot exceed the total budget of
+Expense Tracker. This is because Category budgets are used to segment your total budget, not as a replacement.</p>
 </li>
 </ul>
 </div>
@@ -1077,7 +1115,7 @@ depending on the specified <code>PERIOD_AMOUNT</code> and <code>PERIOD</code>.<b
 <div class="content">
 <img src="images/userguide/barChart.png" alt="barChart" width="790">
 </div>
-<div class="title">Figure 5. Statistics Panel showing a bar chart in Time mode</div>
+<div class="title">Figure 7. Statistics Panel showing a bar chart in Time mode</div>
 </div>
 <div class="paragraph">
 <p>Choosing Category mode will show a pie chart, similar to the one below, in the statistics panel, where amounts for each category will displayed for
@@ -1087,7 +1125,7 @@ expenses in the specified <code>PERIOD_AMOUNT</code> and <code>PERIOD</code>.</p
 <div class="content">
 <img src="images/userguide/pieChart.png" alt="pieChart" width="790">
 </div>
-<div class="title">Figure 6. Statistics Panel showing a pie chart in Category mode</div>
+<div class="title">Figure 8. Statistics Panel showing a pie chart in Category mode</div>
 </div>
 <div class="paragraph">
 <p>The available options for <code>PERIOD</code> are <code>d</code> and <code>m</code>, which represents day and month respectively. E.g. if <code>PERIOD_AMOUNT</code> is 7
@@ -1523,4 +1561,4 @@ e.g. <code>notification n/tip t/off</code></p>
 </ul>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-09 11:53:31 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-09 15:00:40 UTC</div></div></div></body></html>

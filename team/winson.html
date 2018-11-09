@@ -41,6 +41,9 @@ save money. The user interacts with it using a Command Line Interface (CLI), and
 <div class="sect1">
 <h2 id="2-summary-of-contributions"><a class="link" href="#2-summary-of-contributions">2. Summary of contributions</a></h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>This section highlights some of the contributions that I have made to Expense Tracker.</p>
+</div>
 <div class="ulist">
 <ul>
 <li>
@@ -48,7 +51,7 @@ save money. The user interacts with it using a Command Line Interface (CLI), and
 <div class="ulist">
 <ul>
 <li>
-<p>Function: It informs the user if the their expenses exceed a set budget</p>
+<p>Function: It informs the user if the their spendings exceed a set budget</p>
 </li>
 <li>
 <p>Justification: This is a core feature as it allows the user to know when they are spending too much money, the
@@ -67,7 +70,8 @@ commands and the existing implementation of the main <code>ExpenseTracker</code>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Added a <code>setRecurrenceFrequency</code> command that allows the user to reset their expenses at a frequency of their choice.</p>
+<p>Added a <code>setRecurrenceFrequency</code> command that allows the user to reset their available spending at a frequency of
+their choice.</p>
 </li>
 <li>
 <p>Added a <code>setCategoryBudget</code> command that allows the user to set budgets based on their category of expenses.</p>
@@ -157,8 +161,21 @@ commands and the existing implementation of the main <code>ExpenseTracker</code>
 <div class="sect2">
 <h3 id="SetBudgetCommand"><a class="link" href="#SetBudgetCommand">Setting a total budget: <code>setBudget</code></a></h3>
 <div class="paragraph">
-<p>Sets <code>totalBudget</code> for Expense Tracker. You can use this feature to let Expense Tracker warn you when your total
-expenditure exceeds, or is close to exceeding, the budget that you set.</p>
+<p>Sets the total budget that you should spend for Expense Tracker.<br></p>
+</div>
+<div class="paragraph">
+<p>Available spending is defined as the total amount of expenses you can add before you exceed your budget.</p>
+</div>
+<div class="paragraph">
+<p>The Expense Tracker will warn you when adding an expense results in your available spending exceeding the total
+budget that is set,
+as shown in the figure below.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/Overbudget.JPG" alt="Overbudget" width="790">
+</div>
+<div class="title">Figure 1. Notification that is shown when a user adds an expense which results in the user exceeding the budget.</div>
 </div>
 <div class="paragraph">
 <p>Format: <code>setBudget MONEY_WITH_TWO_DECIMAL_PLACES</code></p>
@@ -172,11 +189,11 @@ expenditure exceeds, or is close to exceeding, the budget that you set.</p>
 <ul>
 <li>
 <p><code>setBudget 2.00</code><br>
-Sets a <code>totalBudget</code> of $2.00.</p>
+Sets a total budget of $2.00.</p>
 </li>
 <li>
 <p><code>setBudget 20.00</code><br>
-Sets a <code>totalBudget</code> of $20.00.</p>
+Sets a total budget of $20.00.</p>
 </li>
 </ul>
 </div>
@@ -205,14 +222,36 @@ Sets a <code>totalBudget</code> of $20.00.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="setting-a-recurring-frequency-for-totalbudget-code-setrecurrencefrequency-code"><a class="link" href="#setting-a-recurring-frequency-for-totalbudget-code-setrecurrencefrequency-code">Setting a recurring frequency for totalBudget: <code>setRecurrenceFrequency</code></a></h3>
+<h3 id="setting-a-recurrence-frequency-for-total-budget-code-setrecurrencefrequency-code"><a class="link" href="#setting-a-recurrence-frequency-for-total-budget-code-setrecurrencefrequency-code">Setting a recurrence frequency for total budget: <code>setRecurrenceFrequency</code></a></h3>
 <div class="paragraph">
-<p>Sets the recurrence frequency for the <code>totalBudget</code> of Expense Tracker. You can use this feature to refresh your
-expenditure when tracking your budget usage.</p>
+<p>Sets the recurrence frequency for resetting the available spending of the total budget of Expense Tracker.</p>
 </div>
 <div class="paragraph">
-<p>For example, if you specify the frequency to be 24 hours, any expenditure that you make within the 24 hours will be
-reset to $0.00 after 24 hours has passed.</p>
+<p>Expense Tracker will reset your available spending after every user defined frequency.
+A detailed use case is given below:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>User types in the command <code>setRecurrenceFrequency hrs/1</code> as he wants his available spending to reset every hour.</p>
+</li>
+<li>
+<p>User closes his application.</p>
+</li>
+<li>
+<p>User reopens his application after one hour and thirty minutes to record another expense.</p>
+</li>
+<li>
+<p>His available spending will now be reset as it is past the set frequency of one hour. A notification will be shown
+to inform you that this is done. This is shown in the figure below.</p>
+</li>
+</ol>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/reset_notif.PNG" alt="reset notif" width="790">
+</div>
+<div class="title">Figure 2. Notification that is shown when the expense tracker resets the available spending.</div>
 </div>
 <div class="paragraph">
 <p>Format: <code>setRecurrenceFrequency [hrs/HOURS] [min/MINUTES] [sec/SECONDS]</code></p>
@@ -226,11 +265,11 @@ reset to $0.00 after 24 hours has passed.</p>
 <ul>
 <li>
 <p><code>setRecurrenceFrequency hrs/1</code><br>
-Sets the expenses of <code>totalBudget</code> to reset every 1 hour</p>
+Sets the available spending of your total budget to reset every 1 hour</p>
 </li>
 <li>
 <p><code>setRecurrenceFrequency hrs/1 min/30</code><br>
-Sets the expenses of <code>totalBudget</code> to reset every 1 hour and 30 minutes</p>
+Sets the available spending of your total budget to reset every 1 hour and 30 minutes</p>
 </li>
 </ul>
 </div>
@@ -251,6 +290,10 @@ Sets the expenses of <code>totalBudget</code> to reset every 1 hour and 30 minut
 <li>
 <p>HOURS/MINUTES/SECONDS must be a positive number.</p>
 </li>
+<li>
+<p>This feature does not reset all of your expenses. It just resets your available spending. Thus,
+it is possible that you have 10 expenses of $200.00 with a budget of $10, and yet you are not over your budget.</p>
+</li>
 </ul>
 </div>
 </td>
@@ -264,10 +307,8 @@ Sets the expenses of <code>totalBudget</code> to reset every 1 hour and 30 minut
 <p>Sets a Budget to limit expenses on a certain category.</p>
 </div>
 <div class="paragraph">
-<p>If expenses exceeds Category budget, a warning similar to 5.11 will be shown.</p>
-</div>
-<div class="paragraph">
-<p>The Sum of all category budgets cannot exceed total budget set in 5.11</p>
+<p>If adding an expense causes the available spending of that category to exceeds Category budget, a warning shown in
+figure 3 will be displayed</p>
 </div>
 <div class="paragraph">
 <p>Format: <code>setCategoryBudget c/CATEGORY b/BUDGET</code></p>
@@ -281,7 +322,7 @@ Sets the expenses of <code>totalBudget</code> to reset every 1 hour and 30 minut
 <ul>
 <li>
 <p><code>setCategoryBudget c/School b/10.00</code><br>
-Sets a budget of $10 to the <code>School</code> category.</p>
+Sets a budget of $10 for the <code>School</code> category.</p>
 </li>
 </ul>
 </div>
@@ -300,10 +341,11 @@ Sets a budget of $10 to the <code>School</code> category.</p>
 <p>The <code>setCategoryBudget</code> command is case sensitive</p>
 </li>
 <li>
-<p>CATEOGRY can only consist of one keyword</p>
+<p><code>CATEOGRY</code> can only consist of one keyword and <code>BUDGET</code> must be a positive number with two decimal places.</p>
 </li>
 <li>
-<p>BUDGET must be a positive number with two decimal places.</p>
+<p>The sum of all Category budgets cannot exceed the total budget of
+Expense Tracker. This is because Category budgets are used to segment your total budget, not as a replacement.</p>
 </li>
 </ul>
 </div>
@@ -347,7 +389,7 @@ If the user&#8217;s total expenses exceeds their budget, a warning will be shown
 <div class="content">
 <img src="../images/implementation/BudgetCommandSequenceDiagram.png" alt="BudgetCommandSequenceDiagram" width="800">
 </div>
-<div class="title">Figure 1. Sequence diagram of a user setting a budget.</div>
+<div class="title">Figure 3. Sequence diagram of a user setting a budget.</div>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -402,7 +444,7 @@ be set to <code>currentTime</code> + <code>recurrenceFrequency</code>.</p>
 <div class="content">
 <img src="../images/implementation/SetRecurringBudgetCommandSequenceDiagram.png" alt="SetRecurringBudgetCommandSequenceDiagram" width="800">
 </div>
-<div class="title">Figure 2. Sequence diagram of a user setting a recurrence frequency.</div>
+<div class="title">Figure 4. Sequence diagram of a user setting a recurrence frequency.</div>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -497,4 +539,4 @@ else. Therefore, it should be more closely coupled with <code>loadUserData()</co
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-09 11:53:31 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-09 15:00:41 UTC</div></div></div></body></html>
