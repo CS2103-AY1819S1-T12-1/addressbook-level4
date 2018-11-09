@@ -67,7 +67,7 @@ with features such as setting a budget and expense statistics, which help you st
 <div class="sectionbody">
 <div class="paragraph">
 <p>The <strong>Expense Tracker User Guide</strong> contains all the essential information for you to make full use of Expense Tracker.
-Jump to <a href="#quick-start">Section 3, &#8220;Quick Start&#8221;</a> to get started or go to <a href="#Features">Section 5, &#8220;Features&#8221;</a> for a list of all the commands available.</p>
+Jump to <a href="#quick-start">Quick Start</a> to get started or go to <a href="#Features">Features</a> for a list of all the commands available.</p>
 </div>
 </div>
 </div>
@@ -107,7 +107,7 @@ You are now able to use all the commands of the app.<br></p>
 </li>
 <li>
 <p>Type commands in the command box, as highlighted in the figure below, and press <kbd>Enter</kbd> to execute it.
-Refer to <a href="#Features">Section 5, &#8220;Features&#8221;</a> for details on all the available commands.<br>
+Refer to <a href="#Features">Features</a> for details on all the available commands.<br>
 e.g. typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> will open the help window.</p>
 </li>
 </ol>
@@ -135,7 +135,7 @@ e.g. typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> wil
 <p>This is the portion highlighted by the red box. There are two modes to this panel, Expense List mode and Statistics Panel mode.
 You are able to change to the Expense List mode by using the <code>list</code> command and Statistics Mode
 by using the <code>stats</code> command.<br>
-See <a href="#ListCommand">Section 5.10, &#8220;Listing all expenses : <code>list</code>&#8221;</a> and <a href="#StatsCommand">Section 5.17, &#8220;Showing expense statistics: <code>stats</code>&#8221;</a> for more details on these commands.</p>
+See <a href="#ListCommand"><code>list</code></a> and <a href="#StatsCommand"><code>stats</code></a> commands for more details on these commands.</p>
 </div>
 <div class="sect3">
 <h4 id="expense-list-mode"><a class="link" href="#expense-list-mode">4.1.1. Expense List mode</a></h4>
@@ -152,7 +152,7 @@ See <a href="#ListCommand">Section 5.10, &#8220;Listing all expenses : <code>lis
 <p>When commands which alter the Expense List such as <code>find</code> and <code>list</code> are used, they change which expenses will be shown.</p>
 </div>
 <div class="paragraph">
-<p>See <a href="#FindCommand">Section 5.9, &#8220;Locating expenses by keywords: <code>find</code>&#8221;</a> and <a href="#ListCommand">Section 5.10, &#8220;Listing all expenses : <code>list</code>&#8221;</a> for more details.</p>
+<p>See <a href="#FindCommand"><code>find</code></a> and <a href="#ListCommand"><code>list</code></a> commands for more details.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -165,7 +165,7 @@ See <a href="#ListCommand">Section 5.10, &#8220;Listing all expenses : <code>lis
 <p>Each expense has an index number next to the expense name. These are relevant to the <code>delete</code> and <code>edit</code> commands.</p>
 </div>
 <div class="paragraph">
-<p>See <a href="#DeleteCommand">Section 5.8, &#8220;Deleting a expense : <code>delete</code>&#8221;</a> and <a href="#EditCommand">Section 5.6, &#8220;Editing an expense : <code>edit</code>&#8221;</a> for more details.</p>
+<p>See <a href="#DeleteCommand"><code>delete</code></a> and <a href="#EditCommand"><code>edit</code></a> commands for more details.</p>
 </div>
 </td>
 </tr>
@@ -185,11 +185,11 @@ See <a href="#ListCommand">Section 5.10, &#8220;Listing all expenses : <code>lis
 </div>
 <div class="paragraph">
 <p>In the top half, statistics about your expenses are shown. These can be changed by the <code>stats</code> command.
-See <a href="#StatsCommand">Section 5.17, &#8220;Showing expense statistics: <code>stats</code>&#8221;</a> for more details.</p>
+See <a href="#StatsCommand"><code>stats</code></a> command for more details.</p>
 </div>
 <div class="paragraph">
 <p>In the bottom half, all the category budgets you set using the <code>setCategoryBudget</code> command can be seen.
-See <a href="#SetCategoryBudgetCommand">Section 5.13, &#8220;Setting a Category Budget: <code>setCategoryBudget</code>&#8221;</a> for more details.</p>
+See <a href="#SetCategoryBudgetCommand"><code>setCategoryBudget</code></a> command for more details.</p>
 </div>
 </div>
 </div>
@@ -201,7 +201,7 @@ See <a href="#SetCategoryBudgetCommand">Section 5.13, &#8220;Setting a Category 
 <div class="paragraph">
 <p>The Budget Tracker shows information about your total expenditure and
 the budget which you set using the <code>setBudget</code> command.
-See <a href="#SetBudgetCommand">Section 5.11, &#8220;Setting a total budget: <code>setBudget</code>&#8221;</a> for more details.</p>
+See <a href="#SetBudgetCommand"><code>setBudget</code></a> command for more details.</p>
 </div>
 </div>
 <div class="sect2">
@@ -1070,10 +1070,24 @@ displays a graph of your expenditure over a specified time period, in a given <c
 </div>
 <div class="paragraph">
 <p>There are two available modes: Time and Category, which can be indicated by <code>t</code> or <code>c</code> respectively in the <code>MODE</code> parameter.<br>
-Choosing Time mode will show a Bar Chart in the statistics panel, where amounts for each day or month will displayed,
-depending on the specified <code>PERIOD_AMOUNT</code> and <code>PERIOD</code>.<br>
-Choosing Category mode will show a Pie Chart in the statistics panel, where amounts for each category will displayed for
+Choosing Time mode will show a bar chart, similar to the one below, in the statistics panel, where amounts for each day or month will displayed,
+depending on the specified <code>PERIOD_AMOUNT</code> and <code>PERIOD</code>.<br></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/userguide/barChart.png" alt="barChart" width="790">
+</div>
+<div class="title">Figure 5. Statistics Panel showing a bar chart in Time mode</div>
+</div>
+<div class="paragraph">
+<p>Choosing Category mode will show a pie chart, similar to the one below, in the statistics panel, where amounts for each category will displayed for
 expenses in the specified <code>PERIOD_AMOUNT</code> and <code>PERIOD</code>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/userguide/pieChart.png" alt="pieChart" width="790">
+</div>
+<div class="title">Figure 6. Statistics Panel showing a pie chart in Category mode</div>
 </div>
 <div class="paragraph">
 <p>The available options for <code>PERIOD</code> are <code>d</code> and <code>m</code>, which represents day and month respectively. E.g. if <code>PERIOD_AMOUNT</code> is 7
@@ -1226,7 +1240,8 @@ This command is for advanced users only and should be used with caution.
 </table>
 </div>
 <div class="paragraph">
-<p>Encrypts text using your account&#8217;s password.</p>
+<p>Encrypts text using your account&#8217;s password.
+You may want to use this feature if you wish to edit your expenses in the data file directly.</p>
 </div>
 <div class="paragraph">
 <p>Format: <code>encrypt TEXT</code></p>
@@ -1284,7 +1299,8 @@ This command is for advanced users only and should be used with caution.
 </table>
 </div>
 <div class="paragraph">
-<p>Decrypts an encrypted text that has been encrypted using your account&#8217;s password.</p>
+<p>Decrypts an encrypted text that has been encrypted using your account&#8217;s password.
+You may want to use this feature if you wish to edit your expenses in the data file directly.</p>
 </div>
 <div class="paragraph">
 <p>Format: <code>decrypt TEXT</code></p>
@@ -1507,4 +1523,4 @@ e.g. <code>notification n/tip t/off</code></p>
 </ul>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-08 06:16:08 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-09 07:55:50 UTC</div></div></div></body></html>
