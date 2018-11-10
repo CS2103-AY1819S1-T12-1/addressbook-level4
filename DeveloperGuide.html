@@ -10,18 +10,16 @@
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
 <li><a href="#introduction">1. Introduction</a></li>
-<li><a href="#setting-up">2. Setting up</a>
+<li><a href="#set-up">2. Set Up</a>
 <ul class="sectlevel2">
 <li><a href="#prerequisites">2.1. Prerequisites</a></li>
-<li><a href="#setting-up-the-project-in-your-computer">2.2. Setting up the project in your computer</a></li>
-<li><a href="#verifying-the-setup">2.3. Verifying the setup</a></li>
-<li><a href="#configurations-to-apply-before-writing-code">2.4. Configurations to apply before writing code</a></li>
-<li><a href="#before-coding">2.5. Before coding</a></li>
+<li><a href="#the-project">2.2. The Project</a></li>
+<li><a href="#configurations">2.3. Configurations</a></li>
 </ul>
 </li>
 <li><a href="#design">3. Design</a>
 <ul class="sectlevel2">
-<li><a href="#Design-Architecture">3.1. Architecture</a></li>
+<li><a href="#Design-Architecture">3.1. Overview of Architecture</a></li>
 <li><a href="#Design-Ui">3.2. UI component</a></li>
 <li><a href="#Design-Logic">3.3. Logic component</a></li>
 <li><a href="#Design-Model">3.4. Model component</a></li>
@@ -31,17 +29,17 @@
 </li>
 <li><a href="#implementation">4. Implementation</a>
 <ul class="sectlevel2">
-<li><a href="#user-accounts-system">4.1. User Accounts System</a></li>
-<li><a href="#statistics">4.2. Statistics</a></li>
-<li><a href="#find">4.3. Find</a></li>
-<li><a href="#mass-edit">4.4. Mass Edit</a></li>
-<li><a href="#user-interface-redesign">4.5. User Interface Redesign</a></li>
-<li><a href="#budget">4.6. Budget</a></li>
-<li><a href="#logging">4.7. Logging</a></li>
-<li><a href="#Implementation-Configuration">4.8. Configuration</a></li>
+<li><a href="#undo-redo-feature">4.1. Undo/Redo feature</a></li>
+<li><a href="#user-accounts-system">4.2. User Accounts System</a></li>
+<li><a href="#statistics">4.3. Statistics</a></li>
+<li><a href="#find">4.4. Find</a></li>
+<li><a href="#mass-edit">4.5. Mass Edit</a></li>
+<li><a href="#user-interface-redesign">4.6. User Interface Redesign</a></li>
+<li><a href="#budget">4.7. Budget</a></li>
+<li><a href="#logging">4.8. Logging</a></li>
 </ul>
 </li>
-<li><a href="#documentation">5. Documentation</a>
+<li><a href="#documentation-2">5. Documentation</a>
 <ul class="sectlevel2">
 <li><a href="#editing-documentation">5.1. Editing Documentation</a></li>
 <li><a href="#publishing-documentation">5.2. Publishing Documentation</a></li>
@@ -61,7 +59,7 @@
 <li><a href="#dev-ops">7. Dev Ops</a>
 <ul class="sectlevel2">
 <li><a href="#build-automation">7.1. Build Automation</a></li>
-<li><a href="#continuous-integration">7.2. Continuous Integration</a></li>
+<li><a href="#continuous-integration-2">7.2. Continuous Integration</a></li>
 <li><a href="#coverage-reporting">7.3. Coverage Reporting</a></li>
 <li><a href="#documentation-previews">7.4. Documentation Previews</a></li>
 <li><a href="#making-a-release">7.5. Making a Release</a></li>
@@ -76,11 +74,12 @@
 </ul>
 </li>
 <li><a href="#non-functional-requirements">Appendix D: Non Functional Requirements</a></li>
-<li><a href="#glossary">Appendix E: Glossary</a>
+<li><a href="#glossary">Appendix E: Glossary</a></li>
+<li><a href="#instructions-for-manual-testing">Appendix F: Instructions for Manual Testing</a>
 <ul class="sectlevel2">
-<li><a href="#launch-and-shutdown">E.1. Launch and Shutdown</a></li>
-<li><a href="#deleting-a-expense">E.2. Deleting a expense</a></li>
-<li><a href="#saving-data">E.3. Saving data</a></li>
+<li><a href="#launch-and-shutdown">F.1. Launch and Shutdown</a></li>
+<li><a href="#deleting-a-expense">F.2. Deleting a expense</a></li>
+<li><a href="#saving-data">F.3. Saving data</a></li>
 </ul>
 </li>
 </ul>
@@ -90,29 +89,34 @@
 <h2 id="introduction"><a class="link" href="#introduction">1. Introduction</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The Expense Tracker application is a desktop application which enables users to track their expenses.
-The application features both a Command Line Interface (CLI) and a Graphical User Interface (GUI) which provides users
-with the efficiency of the CLI while still having the benefits of a GUI.<br></p>
+<p>Expense Tracker is a desktop application that you can use to track your expenses. Expense Tracker provides you
+with features such as setting a budget and expense statistics, which help you stay within your budget.</p>
 </div>
 <div class="paragraph">
-<p>This application was morphed from <a href="https://github.com/se-edu/addressbook-level4">AddressBook-Level4</a>, developed by <a href="https://github.com/se-edu/">se-edu</a></p>
+<p>The <strong>Expense Tracker Developer Guide</strong> contains all the information you need to start development on Expense Tracker. It
+also includes information about the overall architecture and implementation of various features in Expense Tracker.
+Whether this is your first project or your 37th project, this guide will help you to start contribute to Expense Tracker.
+Jump to <a href="#Setting up">Setting up</a> to start setting up your environment.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="setting-up"><a class="link" href="#setting-up">2. Setting up</a></h2>
+<h2 id="set-up"><a class="link" href="#set-up">2. Set Up</a></h2>
 <div class="sectionbody">
 <hr>
 <div class="paragraph">
-<p>Follow the guide in this section below to start development on ExpenseTracker</p>
+<p>Follow the steps in the section below to start development on Expense Tracker</p>
 </div>
 <hr>
 <div class="sect2">
 <h3 id="prerequisites"><a class="link" href="#prerequisites">2.1. Prerequisites</a></h3>
+<div class="paragraph">
+<p>You will need to ensure that you have these two programs installed on your computer:</p>
+</div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p><strong><a href="https://www.oracle.com/technetwork/java/javase/downloads/java-archive-javase9-3934878.html">JDK <code>9</code></a></strong> or later</p>
+<p><strong><a href="https://www.oracle.com/technetwork/java/javase/downloads/java-archive-javase9-3934878.html">Java Development Kit (JDK) <code>9</code></a></strong></p>
 <div class="admonitionblock warning">
 <table>
 <tr>
@@ -121,14 +125,15 @@ with the efficiency of the CLI while still having the benefits of a GUI.<br></p>
 </td>
 <td class="content">
 JDK <code>10</code> on Windows will fail to run tests in <a href="UsingGradle.html#Running-Tests">headless mode</a> due to a <a href="https://github.com/javafxports/openjdk-jfx/issues/66">JavaFX bug</a>.
-Windows developers are highly recommended to use JDK <code>9</code>.
+Therefore we highly recommended you to use JDK <code>9</code>.
 </td>
 </tr>
 </table>
 </div>
 </li>
 <li>
-<p><strong>IntelliJ</strong> IDE</p>
+<p>An Integrated Development Environment (IDE). We recommend using <a href="https://www.jetbrains.com/idea/"><strong>IntelliJ</strong></a> as
+instructions related to the IDE in this guide assume the use of IntelliJ</p>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -136,8 +141,8 @@ Windows developers are highly recommended to use JDK <code>9</code>.
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-IntelliJ by default has Gradle and JavaFx plugins installed.<br>
-Do not disable them. If you have disabled them, go to <code>File</code> &gt; <code>Settings</code> &gt; <code>Plugins</code> to re-enable them.
+IntelliJ has Gradle and JavaFx plugins installed by default, which are both used in the development of Expense Tracker.
+If you have disabled them, go to <code>File</code> &gt; <code>Settings</code> &gt; <code>Plugins</code> to re-enable them.<br>
 </td>
 </tr>
 </table>
@@ -147,20 +152,18 @@ Do not disable them. If you have disabled them, go to <code>File</code> &gt; <co
 </div>
 </div>
 <div class="sect2">
-<h3 id="setting-up-the-project-in-your-computer"><a class="link" href="#setting-up-the-project-in-your-computer">2.2. Setting up the project in your computer</a></h3>
+<h3 id="the-project"><a class="link" href="#the-project">2.2. The Project</a></h3>
 <div class="paragraph">
-<p><strong>To set up the project:</strong></p>
+<p>Follow these steps to set up the project:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Fork this repo and clone the fork to your computer</p>
+<p>Fork this repo and clone the fork to your computer, in a folder of your choice.</p>
 </li>
 <li>
 <p>Open IntelliJ (if you are not in the <a href="https://i.stack.imgur.com/cQnLl.png">welcome screen</a>, click <code>File</code> &gt; <code>Close
-Project</code> to close
- the
-existing project dialog first)</p>
+Project</code> to close the existing project dialog first).</p>
 </li>
 <li>
 <p>Click <code>Configure</code> &gt; <code>Project Defaults</code> &gt; <code>Project Structure</code></p>
@@ -172,7 +175,7 @@ existing project dialog first)</p>
 <p>Click <code>Import Project</code></p>
 </li>
 <li>
-<p>Locate the <code>build.gradle</code> file and select it. Click <code>OK</code></p>
+<p>Locate the <code>build.gradle</code> file in the project folder and select it. Click <code>OK</code></p>
 </li>
 <li>
 <p>Click <code>Open as Project</code></p>
@@ -186,16 +189,13 @@ This will generate all resources required by the application and tests.</p>
 </li>
 </ol>
 </div>
-</div>
-<div class="sect2">
-<h3 id="verifying-the-setup"><a class="link" href="#verifying-the-setup">2.3. Verifying the setup</a></h3>
 <div class="paragraph">
-<p><strong>To verify that you have successfully set the project up:</strong></p>
+<p>In order to verify that you have successfully set the project up:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Run the <code>seedu.address.MainApp</code> and try a few commands</p>
+<p>Run <code>seedu.address.MainApp</code> and try a few commands</p>
 </li>
 <li>
 <p><a href="#Testing">Run the tests</a> and ensure that they all pass.</p>
@@ -204,12 +204,12 @@ This will generate all resources required by the application and tests.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="configurations-to-apply-before-writing-code"><a class="link" href="#configurations-to-apply-before-writing-code">2.4. Configurations to apply before writing code</a></h3>
+<h3 id="configurations"><a class="link" href="#configurations">2.3. Configurations</a></h3>
 <div class="paragraph">
 <p>The following lists configurations that should be applied before writing code:</p>
 </div>
 <div class="sect3">
-<h4 id="configuring-the-coding-style"><a class="link" href="#configuring-the-coding-style">2.4.1. Configuring the coding style</a></h4>
+<h4 id="coding-style"><a class="link" href="#coding-style">2.3.1. Coding style</a></h4>
 <div class="paragraph">
 <p>This project follows <a href="https://github.com/oss-generic/process/blob/master/docs/CodingStandards.adoc">oss-generic coding
 standards</a>. IntelliJ&#8217;s default style is mostly compliant but it uses a different import order from ours. To rectify:</p>
@@ -238,27 +238,54 @@ standards</a>. IntelliJ&#8217;s default style is mostly compliant but it uses a 
 </ol>
 </div>
 <div class="paragraph">
-<p>Optionally, you can follow the <a href="UsingCheckstyle.html">UsingCheckstyle.adoc</a> document to configure Intellij to check style-compliance as you write code.</p>
+<p>Optionally, you can follow the instructions in the <a href="UsingCheckstyle.html">UsingCheckstyle.adoc</a> document to configure Intellij to check style-compliance as you write code.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="updating-documentation-to-match-your-fork"><a class="link" href="#updating-documentation-to-match-your-fork">2.4.2. Updating documentation to match your fork</a></h4>
+<h4 id="documentation"><a class="link" href="#documentation">2.3.2. Documentation</a></h4>
 <div class="paragraph">
-<p>If you plan to develop this fork as a separate product (instead of contributing to expense tracker), you should do the following:</p>
+<p>If you plan to develop this fork as a separate product (instead of contributing to Expense Tracker), you should do the following:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Configure the <a href="#Docs-SiteWideDocSettings">site-wide documentation settings</a> in <a href="https://github.com/CS2103-AY1819S1-T12-1/main/build.gradle"><code>build.gradle</code></a>, such as the <code>site-name</code>, to suit your own project.</p>
+<p>Configure the <a href="#Docs-SiteWideDocSettings">site-wide documentation settings</a> in <a href="https://github.com/CS2103-AY1819S1-T12-1/main/tree/master/build.gradle"><code>build.gradle</code></a>, such as the <code>site-name</code>, to suit your own project.</p>
 </li>
 <li>
-<p>Replace the URL in the attribute <code>repoURL</code> in <a href="https://github.com/CS2103-AY1819S1-T12-1/main/docs/DeveloperGuide.adoc"><code>DeveloperGuide.adoc</code></a> and <a href="https://github.com/CS2103-AY1819S1-T12-1/main/docs/UserGuide.adoc"><code>UserGuide.adoc</code></a> with the URL of your fork.</p>
+<p>Replace the URL in the attribute <code>repoURL</code> in <a href="https://github.com/CS2103-AY1819S1-T12-1/main/tree/master/docs/DeveloperGuide.adoc"><code>DeveloperGuide.adoc</code></a> and <a href="https://github.com/CS2103-AY1819S1-T12-1/main/tree/master/docs/UserGuide.adoc"><code>UserGuide.adoc</code></a> with the URL of your fork.</p>
 </li>
 </ol>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+See <a href="#Implementation-Configuration">[Implementation-Configuration]</a> for more configurations to set if you wish to develop this fork as a separate product
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+In the Developer Guide, many diagrams are used to illustrate various components of Expense tracker. These are created using <code>.pptx</code>
+files used which can be found in the <a href="https://github.com/CS2103-AY1819S1-T12-1/main/tree/master/docs/diagrams/">diagrams</a> folder. To update a diagram, modify the diagram
+in the relevant pptx file, select the all objects of the diagram, right click and choose <code>Save as picture</code>. You can then
+save the image in the <a href="https://github.com/CS2103-AY1819S1-T12-1/main/tree/master/docs/images/">images</a> folder, and use them in the Developer Guide.
+</td>
+</tr>
+</table>
+</div>
 </div>
 <div class="sect3">
-<h4 id="setting-up-ci"><a class="link" href="#setting-up-ci">2.4.3. Setting up CI</a></h4>
+<h4 id="continuous-integration"><a class="link" href="#continuous-integration">2.3.3. Continuous Integration</a></h4>
 <div class="paragraph">
 <p>Set up Travis to perform Continuous Integration (CI) for your fork. See <a href="UsingTravis.html">UsingTravis.adoc</a> to learn how to set it up.</p>
 </div>
@@ -292,12 +319,12 @@ Having both Travis and AppVeyor ensures your App works on both Unix-based platfo
 </tr>
 </table>
 </div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="before-coding"><a class="link" href="#before-coding">2.5. Before coding</a></h3>
+<hr>
 <div class="paragraph">
-<p>Before you start coding, get a sense of the overall design by reading <a href="#Design-Architecture">Section 3.1, &#8220;Architecture&#8221;</a>.</p>
+<p>Now you&#8217;re all set to start coding! If you want to get a sense of the overall design, take some time to read up on the
+<a href="#Design-Architecture">design</a> of the application.</p>
+</div>
+<hr>
 </div>
 </div>
 </div>
@@ -306,8 +333,7 @@ Having both Travis and AppVeyor ensures your App works on both Unix-based platfo
 <h2 id="design"><a class="link" href="#design">3. Design</a></h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="Design-Architecture"><a class="link" href="#Design-Architecture">3.1. Architecture</a></h3>
-<h4 id="overview-of-architecture" class="discrete">Overview of Architecture</h4>
+<h3 id="Design-Architecture"><a class="link" href="#Design-Architecture">3.1. Overview of Architecture</a></h3>
 <div class="imageblock">
 <div class="content">
 <img src="images/Architecture.png" alt="Architecture" width="600">
@@ -315,30 +341,19 @@ Having both Travis and AppVeyor ensures your App works on both Unix-based platfo
 <div class="title">Figure 1. Architecture Diagram</div>
 </div>
 <div class="paragraph">
-<p>The <strong><em>Architecture Diagram</em></strong> given above explains the high-level design of the App. Given below is a quick overview of each component.</p>
-</div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-The <code>.pptx</code> files used to create diagrams in this document can be found in the <a href="https://github.com/CS2103-AY1819S1-T12-1/main/docs/diagrams/">diagrams</a> folder. To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose <code>Save as picture</code>.
-</td>
-</tr>
-</table>
+<p>The <strong><em>Architecture Diagram</em></strong> given above explains the high-level design of Expense Tracker. Given below is a
+quick overview for each component</p>
 </div>
 <div class="paragraph">
-<p><code>Main</code> has only one class called <a href="https://github.com/CS2103-AY1819S1-T12-1/main/src/main/java/seedu/address/MainApp.java"><code>MainApp</code></a>. It is responsible for,</p>
+<p><code>Main</code> has only one class called <a href="https://github.com/CS2103-AY1819S1-T12-1/main/tree/master/src/main/java/seedu/address/MainApp.java"><code>MainApp</code></a>. It is responsible for:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>At app launch: Initializes the components in the correct sequence, and connects them up with each other.</p>
+<p>Initialising the components in the correct sequence and connecting them up with each other when the app is launched.</p>
 </li>
 <li>
-<p>At shut down: Shuts down the components and invokes cleanup method where necessary.</p>
+<p>Shutting down the components and invoking cleanup methods where necessary when the app is shut down.</p>
 </li>
 </ul>
 </div>
@@ -348,22 +363,17 @@ The <code>.pptx</code> files used to create diagrams in this document can be fou
 <div class="ulist">
 <ul>
 <li>
-<p><code>EventsCenter</code> : This class (written using <a href="https://github.com/google/guava/wiki/EventBusExplained">Google&#8217;s Event Bus library</a>) is used by components to communicate with other components using events (i.e. a form of <em>Event Driven</em> design)</p>
+<p><code>EventsCenter</code> : This class (written using <a href="https://github.com/google/guava/wiki/EventBusExplained">Google&#8217;s Event Bus library</a>) is used by components to communicate with other components using events.
+See <a href="#Event-driven">Event-Driven Design</a> from more details.</p>
 </li>
 <li>
-<p><code>LogsCenter</code> : Used by many classes to write log messages to the App&#8217;s log file.</p>
+<p><code>LogsCenter</code> : This class is used by many components to write log messages to Expense Tracker&#8217;s log file.</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
 <p><code>Logic</code> is the command executor. It defines its API in the <code>Logic.java</code> interface and exposes its functionality using the <code>LogicManager.java</code> class.
-Read <a href="#Design-Logic"><strong><code>Logic</code></strong></a> for more details. Its class diagram is given below:</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/LogicClassDiagram.png" alt="LogicClassDiagram" width="800">
-</div>
-<div class="title">Figure 2. Class Diagram of the Logic Component</div>
+Read <a href="#Design-Logic"><strong><code>Logic</code></strong></a> for more details.</p>
 </div>
 <div class="paragraph">
 <p><code>UI</code> is responsible for the UI of the App. It defines its API in the <code>Ui.java</code> interface and exposes its functionality using the <code>UiManager.java</code> class.
@@ -377,16 +387,17 @@ Read <a href="#Design-Model"><strong><code>Model</code></strong></a> for more de
 <p><code>Storage</code> reads data from, and writes data to, the hard disk.It defines its API in the <code>Storage.java</code> interface and exposes its functionality using the <code>StorageManager.java</code> class.
 Read <a href="#Design-Storage"><strong><code>Storage</code></strong></a> for more details.</p>
 </div>
-<h4 id="events-driven-nature-of-the-design" class="discrete">Events-Driven nature of the design</h4>
+<h4 id="Event-driven" class="discrete">Events-Driven Design</h4>
 <div class="paragraph">
-<p>The Expense Tracker&#8217;s architecture style is events-driven style. Here is an illustration of how this architecture works.
-The <em>Sequence Diagram</em> below shows how the components interact for the scenario where the user issues the command <code>delete 1</code>.</p>
+<p>Expense Tracker&#8217;s architecture style is an events-driven style. To illustrate how the architecture works, we will use
+the scenario of a user issuing the command 'delete 1'.
+The <em>Sequence Diagram</em> below shows the first part of component interaction once the command is given.</p>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="images/SDforDeletePerson.png" alt="SDforDeletePerson" width="800">
 </div>
-<div class="title">Figure 3. Component interactions for <code>delete 1</code> command (part 1)</div>
+<div class="title">Figure 2. Component interactions for <code>delete 1</code> command (part 1)</div>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -395,19 +406,19 @@ The <em>Sequence Diagram</em> below shows how the components interact for the sc
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-Note how the <code>Model</code> simply raises a <code>ExpenseTrackerChangedEvent</code> when the Expense Tracker data are changed, instead of asking the <code>Storage</code> to save the updates to the hard disk.
+Note how <code>Model</code> simply raises an <code>ExpenseTrackerChangedEvent</code> when there is a change in the data, instead of asking <code>Storage</code> to save the updates to the hard disk.
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>The diagram below shows how the <code>EventsCenter</code> reacts to that event, which eventually results in the updates being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time.</p>
+<p>The <em>Sequence Diagram</em> below shows how <code>EventsCenter</code> reacts to that event, which eventually results in the updates being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time.</p>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="images/SDforDeletePersonEventHandling.png" alt="SDforDeletePersonEventHandling" width="800">
 </div>
-<div class="title">Figure 4. Component interactions for <code>delete 1</code> command (part 2)</div>
+<div class="title">Figure 3. Component interactions for <code>delete 1</code> command (part 2)</div>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -416,7 +427,7 @@ Note how the <code>Model</code> simply raises a <code>ExpenseTrackerChangedEvent
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-Note how the event is propagated through the <code>EventsCenter</code> to the <code>Storage</code> and <code>UI</code> without <code>Model</code> having to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct coupling between components.
+Note how the event is propagated through <code>EventsCenter</code> to <code>Storage</code> and <code>UI</code> without <code>Model</code> having to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct coupling between components.
 </td>
 </tr>
 </table>
@@ -431,27 +442,27 @@ Note how the event is propagated through the <code>EventsCenter</code> to the <c
 <div class="content">
 <img src="images/UiClassDiagram.png" alt="UiClassDiagram" width="800">
 </div>
-<div class="title">Figure 5. Structure of the UI Component</div>
+<div class="title">Figure 4. Structure of the UI Component</div>
 </div>
 <div class="paragraph">
-<p><strong>API</strong> : <a href="https://github.com/CS2103-AY1819S1-T12-1/main/src/main/java/seedu/address/ui/Ui.java"><code>Ui.java</code></a></p>
+<p><strong>API</strong> : <a href="https://github.com/CS2103-AY1819S1-T12-1/main/tree/master/src/main/java/seedu/address/ui/Ui.java"><code>Ui.java</code></a></p>
 </div>
 <div class="paragraph">
-<p>The UI consists of a <code>MainWindow</code> that is made up of parts e.g.<code>CommandBox</code>, <code>ResultDisplay</code>, <code>ExpenseListPanel</code>, <code>StatusBarFooter</code>, <code>BrowserPanel</code> etc. All these, including the <code>MainWindow</code>, inherit from the abstract <code>UiPart</code> class.</p>
+<p>As per the diagram above, <code>UI</code> consists of a <code>MainWindow</code> that is made up of parts e.g.<code>CommandBox</code>, <code>ResultDisplay</code>, <code>ExpenseListPanel</code>, <code>StatusBarFooter</code>, <code>BrowserPanel</code> etc. All these, including <code>MainWindow</code>, inherit from the abstract <code>UiPart</code> class.</p>
 </div>
 <div class="paragraph">
-<p>The <code>UI</code> component uses JavaFx UI framework. The layout of these UI parts are defined in matching <code>.fxml</code> files that are in the <code>src/main/resources/view</code> folder. For example, the layout of the <a href="https://github.com/CS2103-AY1819S1-T12-1/main/src/main/java/seedu/address/ui/MainWindow.java"><code>MainWindow</code></a> is specified in <a href="https://github.com/CS2103-AY1819S1-T12-1/main/src/main/resources/view/MainWindow.fxml"><code>MainWindow.fxml</code></a></p>
+<p><code>UI</code> uses JavaFx UI framework. The layout of these UI parts are defined in matching <code>.fxml</code> files that are in <code>src/main/resources/view</code> folder. For example, the layout of the <a href="https://github.com/CS2103-AY1819S1-T12-1/main/tree/master/src/main/java/seedu/address/ui/MainWindow.java"><code>MainWindow</code></a> is specified in <a href="https://github.com/CS2103-AY1819S1-T12-1/main/tree/master/src/main/resources/view/MainWindow.fxml"><code>MainWindow.fxml</code></a></p>
 </div>
 <div class="paragraph">
-<p>The <code>UI</code> component,</p>
+<p>Below lists other functions that <code>UI</code> carries out:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>Executes user commands using the <code>Logic</code> component.</p>
+<p>Executes user commands using <code>Logic</code>.</p>
 </li>
 <li>
-<p>Binds itself to some data in the <code>Model</code> so that the UI can auto-update when data in the <code>Model</code> change.</p>
+<p>Binds itself to some data in <code>Model</code> so that the UI can auto-update when data in <code>Model</code> changes.</p>
 </li>
 <li>
 <p>Responds to events raised from various parts of the App and updates the UI accordingly.</p>
@@ -465,36 +476,28 @@ Note how the event is propagated through the <code>EventsCenter</code> to the <c
 <div class="content">
 <img src="images/LogicClassDiagram.png" alt="LogicClassDiagram" width="800">
 </div>
-<div class="title">Figure 6. Structure of the Logic Component</div>
+<div class="title">Figure 5. Structure of the Logic Component</div>
 </div>
 <div class="paragraph">
 <p><strong>API</strong> :
-<a href="https://github.com/CS2103-AY1819S1-T12-1/main/src/main/java/seedu/address/logic/Logic.java"><code>Logic.java</code></a></p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>Logic</code> uses the <code>ExpenseTrackerParser</code> class to parse user commands.</p>
-</li>
-<li>
-<p>This results in a <code>Command</code> object which is executed by the <code>LogicManager</code>.</p>
-</li>
-<li>
-<p>The command execution can affect the <code>Model</code> (e.g. adding a expense) and/or raise events.</p>
-</li>
-<li>
-<p>The result of the command execution is encapsulated as a <code>CommandResult</code> object which is passed back to the <code>Ui</code>.</p>
-</li>
-</ul>
+<a href="https://github.com/CS2103-AY1819S1-T12-1/main/tree/master/src/main/java/seedu/address/logic/Logic.java"><code>Logic.java</code></a></p>
 </div>
 <div class="paragraph">
-<p>Given below is the Sequence Diagram for interactions within the <code>Logic</code> component for the <code>execute("delete 1")</code> API call.</p>
+<p>As per the diagram above, <code>Logic</code> uses <code>ExpenseTrackerParser</code> to parse user commands.
+This results in a <code>Command</code> object which is executed by <code>LogicManager</code>.<br></p>
+</div>
+<div class="paragraph">
+<p>The execution of certain commands can affect <code>Model</code>, like adding a expense, and/or raise events, like the <code>stats</code> command.
+The result of the command execution is encapsulated as a <code>CommandResult</code> object which is passed back to <code>UI</code>.</p>
+</div>
+<div class="paragraph">
+<p>Given below is the <em>Sequence Diagram</em> for interactions within <code>Logic</code> for <code>execute("delete 1")</code> API call.</p>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="images/DeletePersonSdForLogic.png" alt="DeletePersonSdForLogic" width="800">
 </div>
-<div class="title">Figure 7. Interactions Inside the Logic Component for the <code>delete 1</code> Command</div>
+<div class="title">Figure 6. Interactions Inside the Logic Component for <code>delete 1</code> Command</div>
 </div>
 </div>
 <div class="sect2">
@@ -503,13 +506,13 @@ Note how the event is propagated through the <code>EventsCenter</code> to the <c
 <div class="content">
 <img src="images/UpdatedModelComponentClassDiagram.png" alt="UpdatedModelComponentClassDiagram" width="800">
 </div>
-<div class="title">Figure 8. Structure of the Model Component</div>
+<div class="title">Figure 7. Structure of the Model Component</div>
 </div>
 <div class="paragraph">
-<p><strong>API</strong> : <a href="https://github.com/CS2103-AY1819S1-T12-1/main/src/main/java/seedu/address/model/Model.java"><code>Model.java</code></a></p>
+<p><strong>API</strong> : <a href="https://github.com/CS2103-AY1819S1-T12-1/main/tree/master/src/main/java/seedu/address/model/Model.java"><code>Model.java</code></a></p>
 </div>
 <div class="paragraph">
-<p>The <code>ModelManager</code> which implements the interface <code>Model</code> (Figure 8):</p>
+<p>As per the diagram above, <code>ModelManager</code> implements the <code>Model</code> interface, which:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -517,7 +520,7 @@ Note how the event is propagated through the <code>EventsCenter</code> to the <c
 <p>stores a <code>UserPref</code> object that represents the user&#8217;s preferences.</p>
 </li>
 <li>
-<p>stores the a list of expenses.</p>
+<p>stores a list of expenses.</p>
 </li>
 <li>
 <p>exposes an unmodifiable <code>ObservableList&lt;Expense&gt;</code> that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.</p>
@@ -534,10 +537,10 @@ Note how the event is propagated through the <code>EventsCenter</code> to the <c
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-To better adhere to the paradigms of OOP, we can store a <code>Tag</code> list in <code>Expense Tracker</code>, which <code>Expense</code> can
-reference. This
-would allow <code>Expense
-Tracker</code> to only require one <code>Tag</code> object per unique <code>Tag</code>, instead of each <code>Expense</code> needing their own <code>Tag</code> object. An example of how such a model may look like is given below.<br>
+To better adhere to the paradigms of OOP, we could store a <code>Tag</code> list in <code>Expense Tracker</code>, which <code>Expense</code> can
+reference. This allows <code>Expense Tracker</code> to only require one <code>Tag</code> object per unique <code>Tag</code>,
+instead of each <code>Expense</code> needing their own <code>Tag</code> object. This is planned to be implemented in future releases.
+An example of how such a model may look like is given below.<br>
 <br>
 <span class="image"><img src="images/BetterOopModelComponentClassDiagram.png" alt="BetterOopModelComponentClassDiagram" width="800"></span>
 </td>
@@ -551,16 +554,13 @@ Tracker</code> to only require one <code>Tag</code> object per unique <code>Tag<
 <div class="content">
 <img src="images/StorageClassDiagram.png" alt="StorageClassDiagram" width="800">
 </div>
-<div class="title">Figure 9. Structure of the Storage Component</div>
+<div class="title">Figure 8. Structure of the Storage Component</div>
 </div>
 <div class="paragraph">
-<p>The <strong><em>Structure of the Storage Component</em></strong> given above shows the relationships between classes in the storage component.</p>
+<p><strong>API</strong> : <a href="https://github.com/CS2103-AY1819S1-T12-1/main/tree/master/src/main/java/seedu/address/storage/Storage.java"><code>Storage.java</code></a></p>
 </div>
 <div class="paragraph">
-<p><strong>API</strong> : <a href="https://github.com/CS2103-AY1819S1-T12-1/main/src/main/java/seedu/address/storage/Storage.java"><code>Storage.java</code></a></p>
-</div>
-<div class="paragraph">
-<p>The <code>Storage</code> component,</p>
+<p>As per the diagram above, <code>StorageManager</code> implements the <code>Storage</code> interface, which:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -568,13 +568,13 @@ Tracker</code> to only require one <code>Tag</code> object per unique <code>Tag<
 <p>can save <code>UserPref</code> objects in json format and read it back.</p>
 </li>
 <li>
-<p>can save the Expense Tracker data in xml format and read it back.</p>
+<p>can save Expense Tracker data in xml format and read it back.</p>
 </li>
 <li>
 <p>can read multiple xml format files with separate Expense Tracker data from a folder.</p>
 </li>
 <li>
-<p>XmlAdaptedPassword is stored as a SHA-256 hash of the original password.</p>
+<p>stores XmlAdaptedPassword as a SHA-256 hash of the original password.</p>
 </li>
 </ul>
 </div>
@@ -593,18 +593,224 @@ Tracker</code> to only require one <code>Tag</code> object per unique <code>Tag<
 <div class="paragraph">
 <p>This section describes some noteworthy details on how certain features are implemented.</p>
 </div>
-<div class="paragraph">
-<p>//// end::undoredo[]</p>
-</div>
 <div class="sect2">
-<h3 id="user-accounts-system"><a class="link" href="#user-accounts-system">4.1. User Accounts System</a></h3>
-<div class="paragraph">
-<p>The user accounts system allows multiple users to use the Expense Tracker on the same computer without interfering with each other&#8217;s data. It also includes an optional password system that allows users to protect their expense tracker information from being viewed or altered by others.</p>
-</div>
+<h3 id="undo-redo-feature"><a class="link" href="#undo-redo-feature">4.1. Undo/Redo feature</a></h3>
 <div class="sect3">
 <h4 id="current-implementation"><a class="link" href="#current-implementation">4.1.1. Current Implementation</a></h4>
 <div class="paragraph">
-<p>On initialization, the <code>MainApp</code> class loads all xml files within the data folder according to the path in <code>UserPrefs</code>. The data is loaded by <code>MainApp#initModelManager(Storage, UserPref)</code>.</p>
+<p>The undo/redo mechanism is facilitated by <code>VersionedExpenseTracker</code>.
+It extends <code>ExpenseTracker</code> with an undo/redo history, stored internally as an <code>expenseTrackerStateList</code> and <code>currentStatePointer</code>.
+Additionally, it implements the following operations:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>VersionedExpenseTracker#commit()</code>&#8201;&#8212;&#8201;Saves the current Expense Tracker state in its history.</p>
+</li>
+<li>
+<p><code>VersionedExpenseTracker#undo()</code>&#8201;&#8212;&#8201;Restores the previous Expense Tracker state from its history.</p>
+</li>
+<li>
+<p><code>VersionedExpenseTracker#redo()</code>&#8201;&#8212;&#8201;Restores a previously undone Expense Tracker state from its history.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>These operations are exposed in the <code>Model</code> interface as <code>Model#commitExpenseTracker()</code>, <code>Model#undoExpenseTracker()</code> and <code>Model#redoExpenseTracker()</code> respectively.</p>
+</div>
+<div class="paragraph">
+<p>Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.</p>
+</div>
+<div class="paragraph">
+<p>Step 1. The user launches the application for the first time. <code>VersionedExpenseTracker</code> will be initialized with the initial Expense Tracker state, and <code>currentStatePointer</code> pointing to that single Expense Tracker state.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/UndoRedoStartingStateListDiagram.png" alt="UndoRedoStartingStateListDiagram" width="800">
+</div>
+<div class="title">Figure 9. Step 1 of undo/redo mechanism</div>
+</div>
+<div class="paragraph">
+<p>Step 2. The user executes <code>delete 5</code> command to delete the 5th expense in Expense Tracker. The <code>delete</code> command calls <code>Model#commitExpenseTracker()</code>, causing the modified state of Expense Tracker after the <code>delete 5</code> command executes to be saved in <code>expenseTrackerStateList</code>, and <code>currentStatePointer</code> is shifted to the newly inserted Expense Tracker state.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/UndoRedoNewCommand1StateListDiagram.png" alt="UndoRedoNewCommand1StateListDiagram" width="800">
+</div>
+<div class="title">Figure 10. Step 2 of undo/redo mechanism</div>
+</div>
+<div class="paragraph">
+<p>Step 3. The user executes <code>add n/David &#8230;&#8203;</code> to add a new expense. The <code>add</code> command also calls <code>Model#commitExpenseTracker()</code>, causing another modified Expense Tracker state to be saved into <code>expenseTrackerStateList</code>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/UndoRedoNewCommand2StateListDiagram.png" alt="UndoRedoNewCommand2StateListDiagram" width="800">
+</div>
+<div class="title">Figure 11. Step 3 of undo/redo mechanism</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If a command fails its execution, it will not call <code>Model#commitExpenseTracker()</code>, so Expense Tracker state will not be saved into <code>expenseTrackerStateList</code>.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Step 4. The user now decides that adding the expense was a mistake, and decides to undo that action by executing the <code>undo</code> command. The <code>undo</code> command will call <code>Model#undoExpenseTracker()</code>, which will shift <code>currentStatePointer</code> once to the left, pointing it to the previous Expense Tracker state, and restores Expense Tracker to that state.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/UndoRedoExecuteUndoStateListDiagram.png" alt="UndoRedoExecuteUndoStateListDiagram" width="800">
+</div>
+<div class="title">Figure 12. Step 4 of undo/redo mechanism</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If <code>currentStatePointer</code> is at index 0, pointing to the initial Expense Tracker state, then there are no previous Expense Tracker states to restore. The <code>undo</code> command uses <code>Model#canUndoExpenseTracker()</code> to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The following sequence diagram shows how the undo operation works:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/UndoRedoSequenceDiagram.png" alt="UndoRedoSequenceDiagram" width="800">
+</div>
+<div class="title">Figure 13. Sequence Diagram for undo operation</div>
+</div>
+<div class="paragraph">
+<p>The <code>redo</code> command does the opposite&#8201;&#8212;&#8201;it calls <code>Model#redoExpenseTracker()</code>, which shifts <code>currentStatePointer</code> once to the right, pointing to the previously undone state, and restores Expense Tracker to that state.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If <code>currentStatePointer</code> is at index <code>expenseTrackerStateList.size() - 1</code>, pointing to the latest Expense Tracker state, then there are no undone Expense Tracker states to restore. The <code>redo</code> command uses <code>Model#canRedoExpenseTracker()</code> to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Step 5. The user then decides to execute the command <code>list</code>. Commands that do not modify Expense Tracker, such as <code>list</code>, will usually not call <code>Model#commitExpenseTracker()</code>, <code>Model#undoExpenseTracker()</code> or <code>Model#redoExpenseTracker()</code>. Thus, <code>expenseTrackerStateList</code> remains unchanged.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/UndoRedoNewCommand3StateListDiagram.png" alt="UndoRedoNewCommand3StateListDiagram" width="800">
+</div>
+<div class="title">Figure 14. Step 5 of undo/redo mechanism</div>
+</div>
+<div class="paragraph">
+<p>Step 6. The user executes <code>clear</code>, which calls <code>Model#commitExpenseTracker()</code>. Since <code>currentStatePointer</code> is not pointing at the end of <code>expenseTrackerStateList</code>, all Expense Tracker states after <code>currentStatePointer</code> will be purged. We designed it this way because it no longer makes sense to redo the <code>add n/David &#8230;&#8203;</code> command. This is the behavior that most modern desktop applications follow.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/UndoRedoNewCommand4StateListDiagram.png" alt="UndoRedoNewCommand4StateListDiagram" width="800">
+</div>
+<div class="title">Figure 15. Step 6 of undo/redo mechanism</div>
+</div>
+<div class="paragraph">
+<p>The following activity diagram summarizes what happens when a user executes a new command:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/UndoRedoActivityDiagram.png" alt="UndoRedoActivityDiagram" width="650">
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations"><a class="link" href="#design-considerations">4.1.2. Design Considerations</a></h4>
+<div class="sect4">
+<h5 id="aspect-how-undo-redo-executes"><a class="link" href="#aspect-how-undo-redo-executes">Aspect: How undo &amp; redo executes</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> Saves the entire Expense Tracker.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Easy to implement.</p>
+</li>
+<li>
+<p>Cons: May have performance issues in terms of memory usage.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> Individual command knows how to undo/redo by itself.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Will use less memory (e.g. for <code>delete</code>, just save the expense being deleted).</p>
+</li>
+<li>
+<p>Cons: We must ensure that the implementation of each individual command are correct.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="aspect-data-structure-to-support-the-undo-redo-commands"><a class="link" href="#aspect-data-structure-to-support-the-undo-redo-commands">Aspect: Data structure to support the undo/redo commands</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> Use a list to store the history of Expense Tracker states.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.</p>
+</li>
+<li>
+<p>Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both <code>HistoryManager</code> and <code>VersionedExpenseTracker</code>.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> Use <code>HistoryManager</code> for undo/redo</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.</p>
+</li>
+<li>
+<p>Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as <code>HistoryManager</code> now needs to do two different things.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="user-accounts-system"><a class="link" href="#user-accounts-system">4.2. User Accounts System</a></h3>
+<div class="paragraph">
+<p>The user accounts system allows multiple users to use Expense Tracker on the same computer without interfering with each other&#8217;s data. It also includes an optional password system that allows users to protect their Expense Tracker information from being viewed or altered by others.</p>
+</div>
+<div class="sect3">
+<h4 id="current-implementation-2"><a class="link" href="#current-implementation-2">4.2.1. Current Implementation</a></h4>
+<div class="paragraph">
+<p>On initialization, <code>MainApp</code> class loads all xml files within the data folder according to the path in <code>UserPrefs</code>. The data is loaded by <code>MainApp#initModelManager(Storage, UserPref)</code>.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -626,19 +832,19 @@ Tracker</code> to only require one <code>Tag</code> object per unique <code>Tag<
 <div class="ulist">
 <ul>
 <li>
-<p><code>Model#loadUserData(Username, Password)</code>&#8201;&#8212;&#8201;Logs in to the user with the input Username and Password and loads the associated data into the <code>Model</code>. Returns true if the password matches the user&#8217;s password, else the user is not logged into and false is returned</p>
+<p><code>Model#loadUserData(Username, Password)</code>&#8201;&#8212;&#8201;Logs in to the user with the input Username and Password and loads the associated data into <code>Model</code>. Returns true if the password matches the user&#8217;s password, else the user is not logged into and false is returned</p>
 </li>
 <li>
-<p><code>Model#unloadUserData()</code>&#8201;&#8212;&#8201;Unselects the user in the <code>Model</code></p>
+<p><code>Model#unloadUserData()</code>&#8201;&#8212;&#8201;Unselects the user in <code>Model</code></p>
 </li>
 <li>
-<p><code>Model#isUserExists(Username)</code>&#8201;&#8212;&#8201;Checks if a user with the input Username exists in the <code>Model</code></p>
+<p><code>Model#isUserExists(Username)</code>&#8201;&#8212;&#8201;Checks if a user with the input Username exists in <code>Model</code></p>
 </li>
 <li>
-<p><code>Model#addUser(Username)</code>&#8201;&#8212;&#8201;Adds a new user with the given Username to the <code>Model</code></p>
+<p><code>Model#addUser(Username)</code>&#8201;&#8212;&#8201;Adds a new user with the given Username to <code>Model</code></p>
 </li>
 <li>
-<p><code>Model#hasSelectedUser()</code>&#8201;&#8212;&#8201;Checks if a user is currently logged in in the <code>Model</code></p>
+<p><code>Model#hasSelectedUser()</code>&#8201;&#8212;&#8201;Checks if a user is currently logged in in <code>Model</code></p>
 </li>
 </ul>
 </div>
@@ -684,7 +890,7 @@ Tracker</code> to only require one <code>Tag</code> object per unique <code>Tag<
 <div class="content">
 <img src="images/implementation/ReadAllExpensesSequenceDiagram.png" alt="ReadAllExpensesSequenceDiagram" width="800">
 </div>
-<div class="title">Figure 10. Sequence diagram of the <code>StorageManager#readAllExpenses(Path)</code> method</div>
+<div class="title">Figure 16. Sequence diagram of the <code>StorageManager#readAllExpenses(Path)</code> method</div>
 </div>
 <div class="paragraph">
 <p>Below is an example usage scenario and how the Sign Up and Login system behaves at each step after the application is launched.</p>
@@ -695,7 +901,7 @@ Tracker</code> to only require one <code>Tag</code> object per unique <code>Tag<
 <p>The user executes the command <code>signup john</code> to create a user with the <code>Username</code> john</p>
 </li>
 <li>
-<p>The <code>signup</code> command calls <code>Model#addUser(Username)</code> which adds the user <code>john</code> to the <code>Model</code>. The operation is successful as <code>john</code> does not break any of the <code>Username</code> constraints and does not already exist in the Model.</p>
+<p>The <code>signup</code> command calls <code>Model#addUser(Username)</code> which adds the user <code>john</code> to <code>Model</code>. The operation is successful as <code>john</code> does not break any of the <code>Username</code> constraints and does not already exist in the Model.</p>
 </li>
 <li>
 <p>The user then executes the command <code>login u/john</code> to log in to his user account</p>
@@ -704,27 +910,27 @@ Tracker</code> to only require one <code>Tag</code> object per unique <code>Tag<
 <p>The <code>login</code> command calls <code>loadUserData(Username, Password)</code> with a null password as a password was not provided. The method is executed successfully as the user <code>john</code> has no password set.</p>
 </li>
 <li>
-<p>The selected data in the <code>Model</code> is switched to <code>john&#8217;s and an `UserLoggedInEvent</code> is raised for the <code>UI</code> to show `john&#8217;s Expense Tracker data</p>
+<p>The selected data in <code>Model</code> is switched to <code>john&#8217;s and an `UserLoggedInEvent</code> is raised for <code>UI</code> to show `john&#8217;s Expense Tracker data</p>
 </li>
 </ol>
 </div>
 <div class="paragraph">
-<p>Below is the UML sequence diagram that shows how the <code>SignUpCommand</code> works.</p>
+<p>Below is the UML sequence diagram that shows how <code>SignUpCommand</code> works.</p>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="images/implementation/SignUpCommandSequenceDiagram.png" alt="SignUpCommandSequenceDiagram" width="800">
 </div>
-<div class="title">Figure 11. Sequence diagram showing how <code>SignUpCommand</code> works</div>
+<div class="title">Figure 17. Sequence diagram showing how <code>SignUpCommand</code> works</div>
 </div>
 <div class="paragraph">
-<p>Below is the UML sequence diagram that shows how the <code>LoginCommand</code> works.</p>
+<p>Below is the UML sequence diagram that shows how <code>LoginCommand</code> works.</p>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="images/implementation/LoginCommandSequenceDiagram.png" alt="LoginCommandSequenceDiagram" width="800">
 </div>
-<div class="title">Figure 12. Sequence diagram showing how <code>LoginCommand</code> works</div>
+<div class="title">Figure 18. Sequence diagram showing how <code>LoginCommand</code> works</div>
 </div>
 <div class="paragraph">
 <p>Below is an example usage scenario and how the Password system behaves at each step after the he/she is logged in.</p>
@@ -743,17 +949,17 @@ Tracker</code> to only require one <code>Tag</code> object per unique <code>Tag<
 </ol>
 </div>
 <div class="paragraph">
-<p>Below is the UML sequence diagram that shows how the <code>SetPasswordCommand</code> works.</p>
+<p>Below is the UML sequence diagram that shows how <code>SetPasswordCommand</code> works.</p>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="images/implementation/SetPasswordCommandSequenceDiagram.png" alt="SetPasswordCommandSequenceDiagram" width="800">
 </div>
-<div class="title">Figure 13. Sequence diagram showing how <code>SetPasswordCommand</code> works</div>
+<div class="title">Figure 19. Sequence diagram showing how <code>SetPasswordCommand</code> works</div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations"><a class="link" href="#design-considerations">4.1.2. Design Considerations</a></h4>
+<h4 id="design-considerations-2"><a class="link" href="#design-considerations-2">4.2.2. Design Considerations</a></h4>
 <div class="sect4">
 <h5 id="aspect-storage-of-separate-user-data"><a class="link" href="#aspect-storage-of-separate-user-data">Aspect: Storage of Separate User Data</a></h5>
 <div class="ulist">
@@ -792,11 +998,11 @@ Tracker</code> to only require one <code>Tag</code> object per unique <code>Tag<
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Alternative 1 (current choice):</strong> Loading of User data is only done on initialization of the Expense Tracker</p>
+<p><strong>Alternative 1 (current choice):</strong> Loading of User data is only done on initialization of Expense Tracker</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: Ability to switch user accounts quickly after the Expense Tracker is loaded as all users are already loaded into memory</p>
+<p>Pros: Ability to switch user accounts quickly after Expense Tracker is loaded as all users are already loaded into memory</p>
 </li>
 <li>
 <p>Cons: External changes to the data files after initialization will not be reflected may be overwritten</p>
@@ -823,13 +1029,13 @@ Tracker</code> to only require one <code>Tag</code> object per unique <code>Tag<
 </div>
 </div>
 <div class="sect2">
-<h3 id="statistics"><a class="link" href="#statistics">4.2. Statistics</a></h3>
+<h3 id="statistics"><a class="link" href="#statistics">4.3. Statistics</a></h3>
 <div class="paragraph">
 <p>The implementation of the Statistics function can be divided into two parts - preparation and execution.
 Given below is an example usage scenario and an explanation of how the statistics mechanism behaves at each step.</p>
 </div>
 <div class="sect3">
-<h4 id="preparation"><a class="link" href="#preparation">4.2.1. Preparation</a></h4>
+<h4 id="preparation"><a class="link" href="#preparation">4.3.1. Preparation</a></h4>
 <div class="paragraph">
 <p>In the preparation phase, the program parses the command for statistics, prepares filters used by the model
 and posts events in <code>EventsCenter</code>.
@@ -839,7 +1045,7 @@ Below is the UML sequence diagram and a step-by-step explanation of the preparat
 <div class="content">
 <img src="images/implementation/StatsCommandSequenceDiagram.png" alt="StatsCommandSequenceDiagram" width="800">
 </div>
-<div class="title">Figure 14. Sequence diagram of the preparation stage in the statistics mechanism</div>
+<div class="title">Figure 20. Sequence diagram of the preparation stage in the statistics mechanism</div>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -848,8 +1054,8 @@ Below is the UML sequence diagram and a step-by-step explanation of the preparat
 to create a <code>StatsCommand</code> object with the two extracted parameters. The <code>StatsCommand</code> object is returned to <code>LogicManager</code>.</p>
 </li>
 <li>
-<p><code>LogicManager</code> then calls <code>StatsCommand#execute()</code>, which updates the <code>Predicate</code> and <code>StatsMode</code> in <code>ModelManager and
-also posts a `ShowStatsRequestEvent</code> and <code>SwapLeftPanelEvent</code> event to the <code>EventsCenter</code>.</p>
+<p><code>LogicManager</code> then calls <code>StatsCommand#execute()</code>, which updates <code>Predicate</code> and <code>StatsMode</code> in <code>ModelManager and
+also posts a `ShowStatsRequestEvent</code> and <code>SwapLeftPanelEvent</code> event to <code>EventsCenter</code>.</p>
 </li>
 </ol>
 </div>
@@ -859,7 +1065,7 @@ also posts a `ShowStatsRequestEvent</code> and <code>SwapLeftPanelEvent</code> e
 </div>
 </div>
 <div class="sect3">
-<h4 id="execution"><a class="link" href="#execution">4.2.2. Execution</a></h4>
+<h4 id="execution"><a class="link" href="#execution">4.3.2. Execution</a></h4>
 <div class="paragraph">
 <p>In the execution phase, the program handles the events posted by <code>StatsCommand</code> by
 processing and retrieving the data to be displayed and finally displaying it.
@@ -869,7 +1075,7 @@ Below is the UML sequence diagram and a step-by-step explanation of the executio
 <div class="content">
 <img src="images/implementation/StatsUiSequenceDiagram.png" alt="StatsUiSequenceDiagram" width="800">
 </div>
-<div class="title">Figure 15. Sequence diagram of the execution stage in the statistics mechanism</div>
+<div class="title">Figure 21. Sequence diagram of the execution stage in the statistics mechanism</div>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -880,7 +1086,7 @@ and passes the data as parameters by calling
 </li>
 <li>
 <p><code>Logic#getExpenseStats()</code> gets the filtered expense list by calling <code>Model#getExpenseStats()</code>, which returns
-an unmodifiable <code>ObservableList</code>, only containing only expenses in the last 7 days, as per the <code>Predicate</code>, and sorted by date.
+an unmodifiable <code>ObservableList</code>, only containing only expenses in the last 7 days, as per <code>Predicate</code>, and sorted by date.
 <code>Logic#getExpenseStats()</code> then organises the data into a <code>LinkedHashMap&lt;String, Double&gt;</code>, where the key value pair represents
 the x and y values of the chart. In this case, <code>StatsMode</code> is set to TIME, which results in a x,y values of date and cost.
 If <code>StatsMode</code> is set to CATEGORY, the x,y values will be set to category and cost.</p>
@@ -905,9 +1111,9 @@ which informs the user that there are no expenditures</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-2"><a class="link" href="#design-considerations-2">4.2.3. Design Considerations</a></h4>
+<h4 id="design-considerations-3"><a class="link" href="#design-considerations-3">4.3.3. Design Considerations</a></h4>
 <div class="sect4">
-<h5 id="aspect-how-to-handle-statistic-data-and-parameters"><a class="link" href="#aspect-how-to-handle-statistic-data-and-parameters">Aspect: How to handle statistic data and parameters</a></h5>
+<h5 id="aspect-how-to-handle-statistics-data-and-parameters"><a class="link" href="#aspect-how-to-handle-statistics-data-and-parameters">Aspect: How to handle statistics data and parameters</a></h5>
 <div class="ulist">
 <ul>
 <li>
@@ -924,7 +1130,7 @@ which informs the user that there are no expenditures</p>
 </div>
 </li>
 <li>
-<p><strong>Alternative 2:</strong> Create Statistics object which contains data and all the parameters.</p>
+<p><strong>Alternative 2 (planned for future releases):</strong> Create Statistics object which contains data and all the parameters.</p>
 <div class="ulist">
 <ul>
 <li>
@@ -940,7 +1146,7 @@ which informs the user that there are no expenditures</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="aspect-how-to-pass-statistic-data-and-parameters-from-command-to-ui"><a class="link" href="#aspect-how-to-pass-statistic-data-and-parameters-from-command-to-ui">Aspect: How to pass statistic data and parameters from Command to UI</a></h5>
+<h5 id="aspect-how-to-pass-statistics-data-and-parameters-from-command-to-ui"><a class="link" href="#aspect-how-to-pass-statistics-data-and-parameters-from-command-to-ui">Aspect: How to pass statistics data and parameters from Command to UI</a></h5>
 <div class="ulist">
 <ul>
 <li>
@@ -964,7 +1170,7 @@ which informs the user that there are no expenditures</p>
 <p>Pros: Less method calls. Easier to read.</p>
 </li>
 <li>
-<p>Cons: Not in aligned with architecture. Need to consider application startup when there are no events posted.</p>
+<p>Cons: Not in alignment with architecture. Need to consider application startup when there are no events posted.</p>
 </li>
 </ul>
 </div>
@@ -975,7 +1181,7 @@ which informs the user that there are no expenditures</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="find"><a class="link" href="#find">4.3. Find</a></h3>
+<h3 id="find"><a class="link" href="#find">4.4. Find</a></h3>
 <div class="paragraph">
 <p>Below is the UML sequence diagram and a step-by-step explanation of an example usage scenario.</p>
 </div>
@@ -983,7 +1189,7 @@ which informs the user that there are no expenditures</p>
 <div class="content">
 <img src="images/implementation/FindCommandSequenceDiagram.png" alt="FindCommandSequenceDiagram" width="800">
 </div>
-<div class="title">Figure 16. Sequence diagram of find mechanism</div>
+<div class="title">Figure 22. Sequence diagram of find mechanism</div>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -1018,7 +1224,7 @@ and returned to <code>LogicManager</code>.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="mass-edit"><a class="link" href="#mass-edit">4.4. Mass Edit</a></h3>
+<h3 id="mass-edit"><a class="link" href="#mass-edit">4.5. Mass Edit</a></h3>
 <div class="paragraph">
 <p>Below is the UML sequence diagram and a step-by-step explanation of an example usage scenario.</p>
 </div>
@@ -1026,7 +1232,7 @@ and returned to <code>LogicManager</code>.</p>
 <div class="content">
 <img src="images/implementation/MassEditCommandSequenceDiagram.png" alt="MassEditCommandSequenceDiagram" width="800">
 </div>
-<div class="title">Figure 17. Sequence diagram of mass edit mechanism</div>
+<div class="title">Figure 23. Sequence diagram of mass edit mechanism</div>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -1062,9 +1268,9 @@ A <code>CommandResult</code> is then created and returned to <code>LogicManager<
 </div>
 </div>
 <div class="sect2">
-<h3 id="user-interface-redesign"><a class="link" href="#user-interface-redesign">4.5. User Interface Redesign</a></h3>
+<h3 id="user-interface-redesign"><a class="link" href="#user-interface-redesign">4.6. User Interface Redesign</a></h3>
 <div class="paragraph">
-<p>The UI has been redesigned to implement the following UI elements required for the Expense Tracker:</p>
+<p>The UI has been redesigned to implement the following UI elements required for Expense Tracker:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -1086,7 +1292,7 @@ A <code>CommandResult</code> is then created and returned to <code>LogicManager<
 <p>Animations will also be incorporated into the UI elements for a better user experience.</p>
 </div>
 <div class="sect3">
-<h4 id="budget-panel"><a class="link" href="#budget-panel">4.5.1. Budget Panel</a></h4>
+<h4 id="budget-panel"><a class="link" href="#budget-panel">4.6.1. Budget Panel</a></h4>
 <div class="paragraph">
 <p>The <code>totalBudget</code> panel consists of 3 UI elements:</p>
 </div>
@@ -1126,7 +1332,7 @@ A <code>CommandResult</code> is then created and returned to <code>LogicManager<
 </div>
 </li>
 <li>
-<p>The user executes the command <code>add n/Lunch $/30.00 c/Food</code>. As the <code>'add</code> command modifies the <code>totalBudget</code> and
+<p>The user executes the command <code>add n/Lunch $/30.00 c/Food</code>. As the <code>'add</code> command modifies <code>totalBudget</code> and
 expenses, <code>AddCommand#execute()</code> will post a <code>UpdateBudgetPanelEvent</code> event to the EventsCenter.</p>
 <div class="admonitionblock note">
 <table>
@@ -1135,7 +1341,7 @@ expenses, <code>AddCommand#execute()</code> will post a <code>UpdateBudgetPanelE
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-If a command fails its execution, the <code>UpdateBudgetPanelEvent</code> will not be posted.
+If a command fails its execution, <code>UpdateBudgetPanelEvent</code> will not be posted.
 </td>
 </tr>
 </table>
@@ -1164,7 +1370,7 @@ If the updated percentage is more than 1.0, <code>BudgetPanel#budgetBar</code> p
 </li>
 <li>
 <p>A call to 'BudgetPanel#incrementKeyFrames()` is made to create the incrementing animation for <code>BudgetPanel#expenseDisplay</code>. The total time for this animation is 0.5 seconds, and consists of 10 <code>KeyFrame</code> objects. With this information, the amount to increment <code>BudgetPanel#expenseDisplay</code> by each <code>KeyFrame</code> can be calculated.
-<code>BudgetPanel#updateExpenseDisplay()</code> is called to increment the <code>BudgetPanel#expenseDisplay</code>.</p>
+<code>BudgetPanel#updateExpenseDisplay()</code> is called to increment <code>BudgetPanel#expenseDisplay</code>.</p>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -1172,7 +1378,7 @@ If the updated percentage is more than 1.0, <code>BudgetPanel#budgetBar</code> p
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>BudgetPanel#incrementKeyFrames()</code> handles the animation for both the <code>BudgetPanel#budgetDisplay</code> and <code>BudgetPanel#expenseDisplay</code> at the same time.
+<code>BudgetPanel#incrementKeyFrames()</code> handles the animation for both <code>BudgetPanel#budgetDisplay</code> and <code>BudgetPanel#expenseDisplay</code> at the same time.
 </td>
 </tr>
 </table>
@@ -1207,16 +1413,16 @@ Similarly, if the user has gone from over budget to under budget, the color of
 <div class="content">
 <img src="images/implementation/BudgetPanelSequenceDiagram.png" alt="BudgetPanelSequenceDiagram" width="800">
 </div>
-<div class="title">Figure 18. Sequence diagram of the <code>BudgetPanel</code> update</div>
+<div class="title">Figure 24. Sequence diagram of the <code>BudgetPanel</code> update</div>
 </div>
 <div class="sect4">
-<h5 id="design-considerations-3"><a class="link" href="#design-considerations-3">Design Considerations</a></h5>
+<h5 id="design-considerations-4"><a class="link" href="#design-considerations-4">Design Considerations</a></h5>
 <div class="sect5">
 <h6 id="aspect-which-library-to-implement-animation"><a class="link" href="#aspect-which-library-to-implement-animation">Aspect: Which library to implement animation</a></h6>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Alternative 1 (current choice):</strong> Use the <code>Timeline</code> and <code>KeyFrame</code> class</p>
+<p><strong>Alternative 1 (current choice):</strong> Use <code>Timeline</code> and <code>KeyFrame</code> classes</p>
 <div class="ulist">
 <ul>
 <li>
@@ -1229,14 +1435,14 @@ Similarly, if the user has gone from over budget to under budget, the color of
 </div>
 </li>
 <li>
-<p><strong>Alternative 2:</strong> Use the <code>Transition</code> class</p>
+<p><strong>Alternative 2:</strong> Use <code>Transition</code> class</p>
 <div class="ulist">
 <ul>
 <li>
 <p>Pros: The class is specialized, and thus has built-in methods to create better animations For example, <code>EASE-BOTH</code> can be used to cause the transition to accelerate at different points for a better effect)</p>
 </li>
 <li>
-<p>Cons: Does not work for certain desired effects, such as the 'incrementing' effect required for the <code>Text</code> elements of the <code>BudgetPanel</code>.</p>
+<p>Cons: Does not work for certain desired effects, such as the 'incrementing' effect required for <code>Text</code> elements of <code>BudgetPanel</code>.</p>
 </li>
 </ul>
 </div>
@@ -1247,7 +1453,7 @@ Similarly, if the user has gone from over budget to under budget, the color of
 </div>
 </div>
 <div class="sect3">
-<h4 id="notification-system"><a class="link" href="#notification-system">4.5.2. Notification System</a></h4>
+<h4 id="notification-system"><a class="link" href="#notification-system">4.6.2. Notification System</a></h4>
 <div class="paragraph">
 <p>The Notification System is comprised of 3 features:
 * <code>Notification</code> - An abstract method that consists of a <code>header</code>, <code>type</code> and <code>body</code>. There are two types of <code>Notification</code>,
@@ -1266,7 +1472,7 @@ Similarly, if the user has gone from over budget to under budget, the color of
 </li>
 <li>
 <p>A call to <code>NotificationHandler#isTimeToSendTip</code> is made upon login. In turn, a check is made to see if it has
-been a day since the last <code>TipNotification</code> has been sent. If so, a new <code>TipNotification</code> is added to the <code>NotificationHandler#internalList</code> via a call to <code>NotificationPanel#addNotification</code>.</p>
+been a day since the last <code>TipNotification</code> has been sent. If so, a new <code>TipNotification</code> is added to <code>NotificationHandler#internalList</code> via a call to <code>NotificationPanel#addNotification</code>.</p>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -1303,14 +1509,14 @@ the new <code>Notification</code>.</p>
 </ol>
 </div>
 <div class="paragraph">
-<p>Given below is an example scenario of how the <code>NotificationCommand</code> functions:
-. The user executes <code>notification n/warning t/off</code>. THe command is received by the <code>ExpenseTrackerParser</code>.</p>
+<p>Given below is an example scenario of how <code>NotificationCommand</code> functions:
+. The user executes <code>notification n/warning t/off</code>. THe command is received by <code>ExpenseTrackerParser</code>.</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
 <p>A call to <code>NotificationCommand#parse</code> is made, which creates a <code>NotificationCommandDescriptor</code> object with the two
-extracted parameters <code>warning</code> and <code>off</code>. A <code>NotificationCommand</code> is returned to the <code>LogicManager</code>.</p>
+extracted parameters <code>warning</code> and <code>off</code>. A <code>NotificationCommand</code> is returned to <code>LogicManager</code>.</p>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -1347,9 +1553,9 @@ The <code>n/</code> parameter can be omitted. In this case, all types of notific
 </div>
 </div>
 <div class="sect2">
-<h3 id="budget"><a class="link" href="#budget">4.6. Budget</a></h3>
+<h3 id="budget"><a class="link" href="#budget">4.7. Budget</a></h3>
 <div class="sect3">
-<h4 id="current-implementation-2"><a class="link" href="#current-implementation-2">4.6.1. Current Implementation</a></h4>
+<h4 id="current-implementation-3"><a class="link" href="#current-implementation-3">4.7.1. Current Implementation</a></h4>
 <div class="paragraph">
 <p>The budget feature allows the user to set a budget for their expenses.
 If the user&#8217;s total expenses exceeds their budget, a warning will be shown to the user.</p>
@@ -1360,13 +1566,13 @@ If the user&#8217;s total expenses exceeds their budget, a warning will be shown
 <div class="sect4">
 <h5 id="setting-a-budget"><a class="link" href="#setting-a-budget">Setting a Budget</a></h5>
 <div class="paragraph">
-<p>Given below is a sequence diagram and step by step explanation of how the expense tracker executes when a user sets a budget</p>
+<p>Given below is a sequence diagram and step by step explanation of how Expense Tracker executes when a user sets a budget</p>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="images/implementation/BudgetCommandSequenceDiagram.png" alt="BudgetCommandSequenceDiagram" width="800">
 </div>
-<div class="title">Figure 19. Sequence diagram of a user setting a budget.</div>
+<div class="title">Figure 25. Sequence diagram of a user setting a budget.</div>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -1383,7 +1589,7 @@ If the user&#8217;s total expenses exceeds their budget, a warning will be shown
 </li>
 <li>
 <p><code>LogicManager</code> then calls <code>SetBudgetCommand#execute()</code>, which calls <code>ModelManager#modifyMaximumBudget</code> to update the
-maximum budget of the expense tracker.</p>
+maximum budget of Expense Tracker.</p>
 </li>
 <li>
 <p><code>LogicManager</code> will then call <code>EventsCenter#post()</code> to update the UI, displaying the updated budget.</p>
@@ -1399,8 +1605,8 @@ maximum budget of the expense tracker.</p>
 <div class="paragraph">
 <p>Every time a user logs in, <code>Model#loadUserData()</code> is called and  the application will check if the user has set a time
 where the
-current expenses will reset (recurrence time). If it is not set, the expense tracker will issue a notification. Else, the
-expense tracker will track the set recurrence time against the time now. If it exceeds, current expenses will be reset. Else,
+current expenses will reset (recurrence time). If it is not set, Expense Tracker will issue a notification. Else,
+Expense Tracker will track the set recurrence time against the time now. If it exceeds, current expenses will be reset. Else,
 nothing will be done.</p>
 </div>
 <div class="ulist">
@@ -1415,13 +1621,13 @@ be set to <code>currentTime</code> + <code>recurrenceFrequency</code>.</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>Given below is a sequence diagram and step by step explanation of how the expense tracker executes when a user sets a recurrence frequency.</p>
+<p>Given below is a sequence diagram and step by step explanation of how Expense Tracker executes when a user sets a recurrence frequency.</p>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="images/implementation/SetRecurringBudgetCommandSequenceDiagram.png" alt="SetRecurringBudgetCommandSequenceDiagram" width="800">
 </div>
-<div class="title">Figure 20. Sequence diagram of a user setting a recurrence frequency.</div>
+<div class="title">Figure 26. Sequence diagram of a user setting a recurrence frequency.</div>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -1497,7 +1703,7 @@ method to add a <code>Budget</code> to a <code>Category</code>.</p>
 <div class="paragraph">
 <p>There is an area for the app to display notifications and additional information to the users beside the usual
 area below the command box. This is particularly useful to the <strong>Budget</strong> feature as budgets should not obstruct the
-usage of the expense tracker, but rather provide helpful information. For example, if a user exceeds his total budget
+usage of Expense Tracker, but rather provide helpful information. For example, if a user exceeds his total budget
  after
  adding an expense, a warning would be displayed in the <strong>Notification center</strong> instead of the area below the command
  box, replacing the success message of adding an expense and confusing the user.</p>
@@ -1505,10 +1711,10 @@ usage of the expense tracker, but rather provide helpful information. For exampl
 </div>
 </div>
 <div class="sect3">
-<h4 id="alternatives-considered"><a class="link" href="#alternatives-considered">4.6.2. Alternatives considered</a></h4>
+<h4 id="alternatives-considered"><a class="link" href="#alternatives-considered">4.7.2. Alternatives considered</a></h4>
 <div class="paragraph">
 <p>Recurrence check was initially implemented via events. Every time <code>ModelManager#loadUserData()</code> is called, an event
-will be sent to the <code>EventBus</code> to be dispatched to an event handler implemented in <code>Budget</code>. However, after heavy
+will be sent to <code>EventBus</code> to be dispatched to an event handler implemented in <code>Budget</code>. However, after heavy
 consideration, the recurrence check should only be called whenever <code>loadUserData()</code> is called, and never anywhere
 else. Therefore, it should be more closely coupled with <code>loadUserData()</code> instead of being an event that can be posted
  from anywhere inside the application.</p>
@@ -1516,14 +1722,14 @@ else. Therefore, it should be more closely coupled with <code>loadUserData()</co
 </div>
 </div>
 <div class="sect2">
-<h3 id="logging"><a class="link" href="#logging">4.7. Logging</a></h3>
+<h3 id="logging"><a class="link" href="#logging">4.8. Logging</a></h3>
 <div class="paragraph">
 <p>We are using <code>java.util.logging</code> package for logging. The <code>LogsCenter</code> class is used to manage the logging levels and logging destinations.</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">Section 4.8, &#8220;Configuration&#8221;</a>)</p>
+<p>The logging level can be controlled using the <code>logLevel</code> setting in the configuration file (See <a href="#Implementation-Configuration">[Implementation-Configuration]</a>)</p>
 </li>
 <li>
 <p>The <code>Logger</code> for a class can be obtained using <code>LogsCenter.getLogger(Class)</code> which will log messages according to the specified logging level</p>
@@ -1552,17 +1758,23 @@ else. Therefore, it should be more closely coupled with <code>loadUserData()</co
 </li>
 </ul>
 </div>
-</div>
-<div class="sect2">
-<h3 id="Implementation-Configuration"><a class="link" href="#Implementation-Configuration">4.8. Configuration</a></h3>
-<div class="paragraph">
-<p>Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: <code>config.json</code>).</p>
+<div id="Implementation-Configuration" class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Certain properties of the application can be controlled (e.g App name, logging level) through the <code>config.json</code> file.
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="documentation"><a class="link" href="#documentation">5. Documentation</a></h2>
+<h2 id="documentation-2"><a class="link" href="#documentation-2">5. Documentation</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>We use asciidoc for writing documentation.</p>
@@ -1609,7 +1821,7 @@ Alternatively, you can download the AsciiDoc plugin for IntelliJ, which allows y
 <p>Go to your generated HTML files in the <code>build/docs</code> folder, right click on them and select <code>Open with</code> &#8594; <code>Google Chrome</code>.</p>
 </li>
 <li>
-<p>Within Chrome, click on the <code>Print</code> option in Chrome&#8217;s menu, or press <span class="keyseq"><kbd>Ctrl</kbd>+<kbd>P</kbd></span> to open up the print window. A menu looking
+<p>Click on the <code>Print</code> option in Chrome&#8217;s menu, or press <span class="keyseq"><kbd>Ctrl</kbd>+<kbd>P</kbd></span> to open up the print window. A menu looking
 like the figure below should show up.</p>
 </li>
 </ol>
@@ -1618,7 +1830,7 @@ like the figure below should show up.</p>
 <div class="content">
 <img src="images/chrome_save_as_pdf.png" alt="chrome save as pdf" width="300">
 </div>
-<div class="title">Figure 21. Saving documentation as PDF files in Chrome</div>
+<div class="title">Figure 27. Saving documentation as PDF files in Chrome</div>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -1631,7 +1843,7 @@ like the figure below should show up.</p>
 <div class="sect2">
 <h3 id="Docs-SiteWideDocSettings"><a class="link" href="#Docs-SiteWideDocSettings">5.4. Site-wide Documentation Settings</a></h3>
 <div class="paragraph">
-<p>The <a href="https://github.com/CS2103-AY1819S1-T12-1/main/build.gradle"><code>build.gradle</code></a> file specifies some project-specific <a href="https://asciidoctor.org/docs/user-manual/#attributes">asciidoc attributes</a>
+<p>The <a href="https://github.com/CS2103-AY1819S1-T12-1/main/tree/master/build.gradle"><code>build.gradle</code></a> file specifies some project-specific <a href="https://asciidoctor.org/docs/user-manual/#attributes">asciidoc attributes</a>
  which affects how all documentation files within this project are rendered. These attributes are described in the table below:</p>
 </div>
 <table class="tableblock frame-all grid-all spread">
@@ -1747,11 +1959,11 @@ Attributes left unset in <code>.adoc</code> files will use their <strong>default
 <div class="sect2">
 <h3 id="site-template"><a class="link" href="#site-template">5.6. Site Template</a></h3>
 <div class="paragraph">
-<p>The files in <a href="https://github.com/CS2103-AY1819S1-T12-1/main/docs/stylesheets"><code>docs/stylesheets</code></a> are the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS">CSS stylesheets</a> of the site.
+<p>The files in <a href="https://github.com/CS2103-AY1819S1-T12-1/main/tree/master/docs/stylesheets"><code>docs/stylesheets</code></a> are the <a href="https://developer.mozilla.org/en-US/docs/Web/CSS">CSS stylesheets</a> of the site.
 You can modify them to change some properties of the site&#8217;s design.</p>
 </div>
 <div class="paragraph">
-<p>The files in <a href="https://github.com/CS2103-AY1819S1-T12-1/main/docs/templates"><code>docs/templates</code></a> controls the rendering of <code>.adoc</code> files into HTML5.
+<p>The files in <a href="https://github.com/CS2103-AY1819S1-T12-1/main/tree/master/docs/templates"><code>docs/templates</code></a> controls the rendering of <code>.adoc</code> files into HTML5.
 These template files are written in a mixture of <a href="https://www.ruby-lang.org">Ruby</a> and <a href="http://slim-lang.com">Slim</a>.</p>
 </div>
 <div class="admonitionblock warning">
@@ -1762,7 +1974,7 @@ These template files are written in a mixture of <a href="https://www.ruby-lang.
 </td>
 <td class="content">
 <div class="paragraph">
-<p>Modifying the template files in <a href="https://github.com/CS2103-AY1819S1-T12-1/main/docs/templates"><code>docs/templates</code></a> requires some knowledge and experience with Ruby and Asciidoctor&#8217;s API.
+<p>Modifying the template files in <a href="https://github.com/CS2103-AY1819S1-T12-1/main/tree/master/docs/templates"><code>docs/templates</code></a> requires some knowledge and experience with Ruby and Asciidoctor&#8217;s API.
 You should only modify them if you need greater control over the site&#8217;s layout than what stylesheets can provide.
 The SE-EDU team does not provide support for modified template files.</p>
 </div>
@@ -1796,10 +2008,9 @@ The most reliable way to run tests is the 3rd one. The first two methods might f
 <div class="paragraph">
 <p><strong>Method 1: Using IntelliJ JUnit test runner</strong></p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>To run all tests, carry out the following steps:</p>
+<div class="paragraph">
+<p>To run all tests, carry out the following steps:<br></p>
+</div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -1810,9 +2021,9 @@ The most reliable way to run tests is the 3rd one. The first two methods might f
 </li>
 </ol>
 </div>
-</li>
-<li>
-<p>To run a subset of tests, carry out the following steps:</p>
+<div class="paragraph">
+<p>To run a subset of tests, carry out the following steps:<br></p>
+</div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -1823,16 +2034,12 @@ The most reliable way to run tests is the 3rd one. The first two methods might f
 </li>
 </ol>
 </div>
-</li>
-</ul>
-</div>
 <div class="paragraph">
 <p><strong>Method 2: Using Gradle</strong></p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>To use Gradle to run tests, carry out the following steps:</p>
+<div class="paragraph">
+<p>To use Gradle to run tests, carry out the following steps:<br></p>
+</div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -1842,9 +2049,6 @@ The most reliable way to run tests is the 3rd one. The first two methods might f
 <p>If you are on windows, enter the command <code>gradlew clean allTests</code>, otherwise enter <code>./gradlew clean allTests</code> instead</p>
 </li>
 </ol>
-</div>
-</li>
-</ul>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1865,10 +2069,9 @@ See <a href="UsingGradle.html">UsingGradle.adoc</a> for more info on how to run 
 <p>Using the <a href="https://github.com/TestFX/TestFX">TestFX</a> library, our GUI tests can be run in the <em>headless</em> mode.
 In the headless mode, GUI tests do not show up on the screen. That means the developer can do other things on the Computer while the tests are running.</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>To run tests in headless mode, carry out the following steps:</p>
+<div class="paragraph">
+<p>To run tests in headless mode, carry out the following steps:<br></p>
+</div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -1879,40 +2082,37 @@ In the headless mode, GUI tests do not show up on the screen. That means the dev
 </li>
 </ol>
 </div>
-</li>
-</ul>
-</div>
 </div>
 <div class="sect2">
 <h3 id="types-of-tests"><a class="link" href="#types-of-tests">6.2. Types of tests</a></h3>
 <div class="paragraph">
-<p>We have two main types of tests:</p>
+<p>There are two main types of tests:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>GUI Tests</strong> - These are tests involving the GUI. They include,</p>
+<p><strong>GUI Tests</strong> - These are tests involving the GUI. They include:</p>
 <div class="ulist">
 <ul>
 <li>
-<p><em>System Tests</em> that test the entire App by simulating user actions on the GUI. These are in the <code>systemtests</code> package.</p>
+<p><em>System Tests</em> which test the entire App by simulating user actions on the GUI. These are in the <code>systemtests</code> package.</p>
 </li>
 <li>
-<p><em>Unit tests</em> that test the individual components. These are in <code>seedu.address.ui</code> package.</p>
+<p><em>Unit tests</em> which test the individual components. These are in <code>seedu.address.ui</code> package.</p>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p><strong>Non-GUI Tests</strong> - These are tests not involving the GUI. They include,</p>
+<p><strong>Non-GUI Tests</strong> - These are tests not involving the GUI. They include:</p>
 <div class="ulist">
 <ul>
 <li>
-<p><em>Unit tests</em> targeting the lowest level methods/classes.<br>
+<p><em>Unit tests</em> which target the lowest level methods/classes.<br>
 e.g. <code>seedu.address.commons.StringUtilTest</code></p>
 </li>
 <li>
-<p><em>Integration tests</em> that are checking the integration of multiple code units (those code units are assumed to be working).<br>
+<p><em>Integration tests</em> which check the integration of multiple code units (those code units are assumed to be working).<br>
 e.g. <code>seedu.address.storage.StorageManagerTest</code></p>
 </li>
 <li>
@@ -1960,7 +2160,7 @@ e.g. <code>seedu.address.logic.LogicManagerTest</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="continuous-integration"><a class="link" href="#continuous-integration">7.2. Continuous Integration</a></h3>
+<h3 id="continuous-integration-2"><a class="link" href="#continuous-integration-2">7.2. Continuous Integration</a></h3>
 <div class="paragraph">
 <p>We use <a href="https://travis-ci.org/">Travis CI</a> and <a href="https://www.appveyor.com/">AppVeyor</a> to perform <em>Continuous Integration</em> on our projects. See <a href="UsingTravis.html">UsingTravis.adoc</a> and <a href="UsingAppVeyor.html">UsingAppVeyor.adoc</a> for more details.</p>
 </div>
@@ -1985,7 +2185,7 @@ e.g. <code>seedu.address.logic.LogicManagerTest</code></p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Update the version number in <a href="https://github.com/CS2103-AY1819S1-T12-1/main/src/main/java/seedu/address/MainApp.java"><code>MainApp.java</code></a>.</p>
+<p>Update the version number in <a href="https://github.com/CS2103-AY1819S1-T12-1/main/tree/master/src/main/java/seedu/address/MainApp.java"><code>MainApp.java</code></a>.</p>
 </li>
 <li>
 <p>Generate a JAR file <a href="UsingGradle.html#creating-the-jar-file">using Gradle</a>.</p>
@@ -2006,8 +2206,8 @@ for more details.</p>
 <p>Expense Tracker depends on many third-party libraries. e.g. We use <a href="http://wiki.fasterxml.com/JacksonHome">Jackson library</a> for XML parsing in Expense Tracker.
 Below are different ways to manage these <em>dependencies</em>:</p>
 </div>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
+<div class="ulist">
+<ul>
 <li>
 <p>Use Gradle to manage these <em>dependencies</em>. Gradle can download the dependencies automatically. (this is better than other alternatives)<br></p>
 </li>
@@ -2017,7 +2217,7 @@ Below are different ways to manage these <em>dependencies</em>:</p>
 <li>
 <p>Require developers to download those libraries manually (this creates extra work for developers)</p>
 </li>
-</ol>
+</ul>
 </div>
 </div>
 </div>
@@ -2031,16 +2231,19 @@ Below are different ways to manage these <em>dependencies</em>:</p>
 <div class="ulist">
 <ul>
 <li>
-<p>has a need to manage a significant number of contacts</p>
+<p>is currently a student</p>
 </li>
 <li>
-<p>prefer desktop apps over other types</p>
+<p>has a need to manage a significant number of expenses</p>
 </li>
 <li>
-<p>can type fast</p>
+<p>wants to track how much they are spending</p>
 </li>
 <li>
-<p>prefers typing over mouse input</p>
+<p>prefers desktop apps over other types</p>
+</li>
+<li>
+<p>can type fast and prefers typing over mouse input</p>
 </li>
 <li>
 <p>is reasonably comfortable using CLI apps</p>
@@ -2048,7 +2251,7 @@ Below are different ways to manage these <em>dependencies</em>:</p>
 </ul>
 </div>
 <div class="paragraph">
-<p><strong>Value proposition</strong>: manage contacts faster than a typical mouse/GUI driven app</p>
+<p><strong>Value proposition</strong>: manage expenses faster than a typical mouse/GUI driven app</p>
 </div>
 </div>
 </div>
@@ -2106,47 +2309,79 @@ Below are different ways to manage these <em>dependencies</em>:</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">forgetful user</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">receive a notification about my budge twhen the application boots up</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">be reminded of how
-much I have spent and can spend.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">user</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">exit the application with a keyboard command</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">exit the application conveniently without reaching for my mouse/touchpad</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">user</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">search by date, category, tag and cost</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">find my expenses more easily</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">forgetful user</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">receive a notification about my budget when the application boots up</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">be reminded of how
+much I have spent and can spend.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">impulsive spender</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">set my maximum budget over a certain period of time</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">know when I am or about to spend
-over my `totalBudget</p></td>
+over my total budget</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">user who has a limited budget</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">see how much I have spent in each category of expense</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">have a clearer understanding of
+where I am spending my money</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">user who is keeping a monthly budget</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">be able to have reminders of how much I have spent during the month</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">better keep within my budget</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">user who has a limited budget</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">view my expenses over a certain period of time</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">learn from my past endeavours and better manage my `totalBudget</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">learn from my past endeavours and better manage my total budget</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">user who has a limited budget</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">see my expnses based on their category</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">learn what I spend my money on and better manage by budget</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">user who wants to save money</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">separate my expenses into different categories</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ee where am I spending more money on and where my expenses go and cut them accordingly</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">see where am I spending more money on and where my expenses go and cut them accordingly</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">user who shares a computer</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">add new account/log in to own account</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">use the application on the same computer as someone else</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">user who shares a computer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">have my account protected by a password</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ensure that no other user can modify my financial information through the application</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>* *</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">user who has a monthly allowance</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">set my budget based on my monthly allowance</p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">user who shares a computer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">encrypt my financial information</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">so that other users of the computer cannot simply view my
+financial information by opening the data files</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>* *</code></p></td>
@@ -2154,18 +2389,33 @@ over my `totalBudget</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">add recurring expenses</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">do not need to key in the same type of expenditure every month</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">forgetful user</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">search with partial keywords</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">search without remembering the exact keywords</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">careless user</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">edit multiple expenses after filtering</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">save time when I make mny mistakes when adding expenses</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">advanced user</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">encrypt and decrypt strings</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">edit the encrypted data file directly</p></td>
+</tr>
 </tbody>
 </table>
-<div class="paragraph">
-<p><em>{More to be added}</em></p>
-</div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="use-cases"><a class="link" href="#use-cases">Appendix C: Use Cases</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>(For all use cases below, the <strong>System</strong> is the <code>Expense Tracker</code> and the <strong>Actor</strong> is the <code>user</code>, unless specified otherwise)</p>
+<p>(For all use cases below, the <strong>System</strong> is <code>Expense Tracker</code> and the <strong>Actor</strong> is the <code>user</code>, unless specified otherwise)</p>
 </div>
 <h3 id="use-case-add-expenditure" class="discrete">Use case: Add expenditure</h3>
 <div class="paragraph">
@@ -2217,7 +2467,7 @@ over my `totalBudget</p></td>
 <p>User keys in command to delete a given expenditure.</p>
 </li>
 <li>
-<p>Once deleted successfully, expense tracker shows a success message.</p>
+<p>Once deleted successfully, Expense Tracker shows a success message.</p>
 </li>
 <li>
 <p>The deleted expenditure is deleted from the UI</p>
@@ -2326,7 +2576,7 @@ over my `totalBudget</p></td>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>User requests to log in to expense tracker</p>
+<p>User requests to log in to Expense Tracker</p>
 </li>
 <li>
 <p>Expense tracker prompts user to enter username</p>
@@ -2387,7 +2637,7 @@ Use case ends</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>User requests to logout of the expense tracker</p>
+<p>User requests to logout of Expense Tracker</p>
 </li>
 <li>
 <p>Expense trackers shows success message and logs user out of account</p>
@@ -2586,8 +2836,28 @@ Use case ends</p>
 </dd>
 </dl>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="instructions-for-manual-testing"><a class="link" href="#instructions-for-manual-testing">Appendix F: Instructions for Manual Testing</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Given below are instructions to test the app manually.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+These instructions only provide a starting point for testers to work on; testers are expected to do more <em>exploratory</em> testing.
+</td>
+</tr>
+</table>
+</div>
 <div class="sect2">
-<h3 id="launch-and-shutdown"><a class="link" href="#launch-and-shutdown">E.1. Launch and Shutdown</a></h3>
+<h3 id="launch-and-shutdown"><a class="link" href="#launch-and-shutdown">F.1. Launch and Shutdown</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -2604,20 +2874,6 @@ Expected: Shows the GUI with a set of sample contacts. The window size may not b
 </ol>
 </div>
 </li>
-<li>
-<p>Saving window preferences</p>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
-<li>
-<p>Resize the window to an optimum size. Move the window to a different location. Close the window.</p>
-</li>
-<li>
-<p>Re-launch the app by double-clicking the jar file.<br>
-Expected: The most recent window size and location is retained.</p>
-</li>
-</ol>
-</div>
-</li>
 </ol>
 </div>
 <div class="paragraph">
@@ -2625,7 +2881,7 @@ Expected: The most recent window size and location is retained.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="deleting-a-expense"><a class="link" href="#deleting-a-expense">E.2. Deleting a expense</a></h3>
+<h3 id="deleting-a-expense"><a class="link" href="#deleting-a-expense">F.2. Deleting a expense</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -2657,7 +2913,7 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="saving-data"><a class="link" href="#saving-data">E.3. Saving data</a></h3>
+<h3 id="saving-data"><a class="link" href="#saving-data">F.3. Saving data</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -2677,4 +2933,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-09 15:00:40 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-10 09:05:13 UTC</div></div></div></body></html>

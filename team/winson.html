@@ -383,7 +383,7 @@ If the user&#8217;s total expenses exceeds their budget, a warning will be shown
 <div class="sect4">
 <h5 id="setting-a-budget"><a class="link" href="#setting-a-budget">Setting a Budget</a></h5>
 <div class="paragraph">
-<p>Given below is a sequence diagram and step by step explanation of how the expense tracker executes when a user sets a budget</p>
+<p>Given below is a sequence diagram and step by step explanation of how Expense Tracker executes when a user sets a budget</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -406,7 +406,7 @@ If the user&#8217;s total expenses exceeds their budget, a warning will be shown
 </li>
 <li>
 <p><code>LogicManager</code> then calls <code>SetBudgetCommand#execute()</code>, which calls <code>ModelManager#modifyMaximumBudget</code> to update the
-maximum budget of the expense tracker.</p>
+maximum budget of Expense Tracker.</p>
 </li>
 <li>
 <p><code>LogicManager</code> will then call <code>EventsCenter#post()</code> to update the UI, displaying the updated budget.</p>
@@ -422,8 +422,8 @@ maximum budget of the expense tracker.</p>
 <div class="paragraph">
 <p>Every time a user logs in, <code>Model#loadUserData()</code> is called and  the application will check if the user has set a time
 where the
-current expenses will reset (recurrence time). If it is not set, the expense tracker will issue a notification. Else, the
-expense tracker will track the set recurrence time against the time now. If it exceeds, current expenses will be reset. Else,
+current expenses will reset (recurrence time). If it is not set, Expense Tracker will issue a notification. Else,
+Expense Tracker will track the set recurrence time against the time now. If it exceeds, current expenses will be reset. Else,
 nothing will be done.</p>
 </div>
 <div class="ulist">
@@ -438,7 +438,7 @@ be set to <code>currentTime</code> + <code>recurrenceFrequency</code>.</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>Given below is a sequence diagram and step by step explanation of how the expense tracker executes when a user sets a recurrence frequency.</p>
+<p>Given below is a sequence diagram and step by step explanation of how Expense Tracker executes when a user sets a recurrence frequency.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -520,7 +520,7 @@ method to add a <code>Budget</code> to a <code>Category</code>.</p>
 <div class="paragraph">
 <p>There is an area for the app to display notifications and additional information to the users beside the usual
 area below the command box. This is particularly useful to the <strong>Budget</strong> feature as budgets should not obstruct the
-usage of the expense tracker, but rather provide helpful information. For example, if a user exceeds his total budget
+usage of Expense Tracker, but rather provide helpful information. For example, if a user exceeds his total budget
  after
  adding an expense, a warning would be displayed in the <strong>Notification center</strong> instead of the area below the command
  box, replacing the success message of adding an expense and confusing the user.</p>
@@ -531,7 +531,7 @@ usage of the expense tracker, but rather provide helpful information. For exampl
 <h4 id="alternatives-considered"><a class="link" href="#alternatives-considered">Alternatives considered</a></h4>
 <div class="paragraph">
 <p>Recurrence check was initially implemented via events. Every time <code>ModelManager#loadUserData()</code> is called, an event
-will be sent to the <code>EventBus</code> to be dispatched to an event handler implemented in <code>Budget</code>. However, after heavy
+will be sent to <code>EventBus</code> to be dispatched to an event handler implemented in <code>Budget</code>. However, after heavy
 consideration, the recurrence check should only be called whenever <code>loadUserData()</code> is called, and never anywhere
 else. Therefore, it should be more closely coupled with <code>loadUserData()</code> instead of being an event that can be posted
  from anywhere inside the application.</p>
@@ -539,4 +539,4 @@ else. Therefore, it should be more closely coupled with <code>loadUserData()</co
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-09 15:00:41 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-10 09:05:13 UTC</div></div></div></body></html>

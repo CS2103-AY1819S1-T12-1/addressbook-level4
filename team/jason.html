@@ -386,12 +386,12 @@ Sets the current user&#8217;s password as "pass123", provided that the current p
 <div class="sect2">
 <h3 id="user-accounts-system"><a class="link" href="#user-accounts-system">User Accounts System</a></h3>
 <div class="paragraph">
-<p>The user accounts system allows multiple users to use the Expense Tracker on the same computer without interfering with each other&#8217;s data. It also includes an optional password system that allows users to protect their expense tracker information from being viewed or altered by others.</p>
+<p>The user accounts system allows multiple users to use Expense Tracker on the same computer without interfering with each other&#8217;s data. It also includes an optional password system that allows users to protect their Expense Tracker information from being viewed or altered by others.</p>
 </div>
 <div class="sect3">
 <h4 id="current-implementation"><a class="link" href="#current-implementation">Current Implementation</a></h4>
 <div class="paragraph">
-<p>On initialization, the <code>MainApp</code> class loads all xml files within the data folder according to the path in <code>UserPrefs</code>. The data is loaded by <code>MainApp#initModelManager(Storage, UserPref)</code>.</p>
+<p>On initialization, <code>MainApp</code> class loads all xml files within the data folder according to the path in <code>UserPrefs</code>. The data is loaded by <code>MainApp#initModelManager(Storage, UserPref)</code>.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -413,19 +413,19 @@ Sets the current user&#8217;s password as "pass123", provided that the current p
 <div class="ulist">
 <ul>
 <li>
-<p><code>Model#loadUserData(Username, Password)</code>&#8201;&#8212;&#8201;Logs in to the user with the input Username and Password and loads the associated data into the <code>Model</code>. Returns true if the password matches the user&#8217;s password, else the user is not logged into and false is returned</p>
+<p><code>Model#loadUserData(Username, Password)</code>&#8201;&#8212;&#8201;Logs in to the user with the input Username and Password and loads the associated data into <code>Model</code>. Returns true if the password matches the user&#8217;s password, else the user is not logged into and false is returned</p>
 </li>
 <li>
-<p><code>Model#unloadUserData()</code>&#8201;&#8212;&#8201;Unselects the user in the <code>Model</code></p>
+<p><code>Model#unloadUserData()</code>&#8201;&#8212;&#8201;Unselects the user in <code>Model</code></p>
 </li>
 <li>
-<p><code>Model#isUserExists(Username)</code>&#8201;&#8212;&#8201;Checks if a user with the input Username exists in the <code>Model</code></p>
+<p><code>Model#isUserExists(Username)</code>&#8201;&#8212;&#8201;Checks if a user with the input Username exists in <code>Model</code></p>
 </li>
 <li>
-<p><code>Model#addUser(Username)</code>&#8201;&#8212;&#8201;Adds a new user with the given Username to the <code>Model</code></p>
+<p><code>Model#addUser(Username)</code>&#8201;&#8212;&#8201;Adds a new user with the given Username to <code>Model</code></p>
 </li>
 <li>
-<p><code>Model#hasSelectedUser()</code>&#8201;&#8212;&#8201;Checks if a user is currently logged in in the <code>Model</code></p>
+<p><code>Model#hasSelectedUser()</code>&#8201;&#8212;&#8201;Checks if a user is currently logged in in <code>Model</code></p>
 </li>
 </ul>
 </div>
@@ -482,7 +482,7 @@ Sets the current user&#8217;s password as "pass123", provided that the current p
 <p>The user executes the command <code>signup john</code> to create a user with the <code>Username</code> john</p>
 </li>
 <li>
-<p>The <code>signup</code> command calls <code>Model#addUser(Username)</code> which adds the user <code>john</code> to the <code>Model</code>. The operation is successful as <code>john</code> does not break any of the <code>Username</code> constraints and does not already exist in the Model.</p>
+<p>The <code>signup</code> command calls <code>Model#addUser(Username)</code> which adds the user <code>john</code> to <code>Model</code>. The operation is successful as <code>john</code> does not break any of the <code>Username</code> constraints and does not already exist in the Model.</p>
 </li>
 <li>
 <p>The user then executes the command <code>login u/john</code> to log in to his user account</p>
@@ -491,12 +491,12 @@ Sets the current user&#8217;s password as "pass123", provided that the current p
 <p>The <code>login</code> command calls <code>loadUserData(Username, Password)</code> with a null password as a password was not provided. The method is executed successfully as the user <code>john</code> has no password set.</p>
 </li>
 <li>
-<p>The selected data in the <code>Model</code> is switched to <code>john&#8217;s and an `UserLoggedInEvent</code> is raised for the <code>UI</code> to show `john&#8217;s Expense Tracker data</p>
+<p>The selected data in <code>Model</code> is switched to <code>john&#8217;s and an `UserLoggedInEvent</code> is raised for <code>UI</code> to show `john&#8217;s Expense Tracker data</p>
 </li>
 </ol>
 </div>
 <div class="paragraph">
-<p>Below is the UML sequence diagram that shows how the <code>SignUpCommand</code> works.</p>
+<p>Below is the UML sequence diagram that shows how <code>SignUpCommand</code> works.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -505,7 +505,7 @@ Sets the current user&#8217;s password as "pass123", provided that the current p
 <div class="title">Figure 2. Sequence diagram showing how <code>SignUpCommand</code> works</div>
 </div>
 <div class="paragraph">
-<p>Below is the UML sequence diagram that shows how the <code>LoginCommand</code> works.</p>
+<p>Below is the UML sequence diagram that shows how <code>LoginCommand</code> works.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -530,7 +530,7 @@ Sets the current user&#8217;s password as "pass123", provided that the current p
 </ol>
 </div>
 <div class="paragraph">
-<p>Below is the UML sequence diagram that shows how the <code>SetPasswordCommand</code> works.</p>
+<p>Below is the UML sequence diagram that shows how <code>SetPasswordCommand</code> works.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -579,11 +579,11 @@ Sets the current user&#8217;s password as "pass123", provided that the current p
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Alternative 1 (current choice):</strong> Loading of User data is only done on initialization of the Expense Tracker</p>
+<p><strong>Alternative 1 (current choice):</strong> Loading of User data is only done on initialization of Expense Tracker</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Pros: Ability to switch user accounts quickly after the Expense Tracker is loaded as all users are already loaded into memory</p>
+<p>Pros: Ability to switch user accounts quickly after Expense Tracker is loaded as all users are already loaded into memory</p>
 </li>
 <li>
 <p>Cons: External changes to the data files after initialization will not be reflected may be overwritten</p>
@@ -610,4 +610,4 @@ Sets the current user&#8217;s password as "pass123", provided that the current p
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-09 15:00:41 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-10 09:05:13 UTC</div></div></div></body></html>

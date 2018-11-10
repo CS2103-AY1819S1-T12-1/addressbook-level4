@@ -256,8 +256,8 @@ Below is the UML sequence diagram and a step-by-step explanation of the preparat
 to create a <code>StatsCommand</code> object with the two extracted parameters. The <code>StatsCommand</code> object is returned to <code>LogicManager</code>.</p>
 </li>
 <li>
-<p><code>LogicManager</code> then calls <code>StatsCommand#execute()</code>, which updates the <code>Predicate</code> and <code>StatsMode</code> in <code>ModelManager and
-also posts a `ShowStatsRequestEvent</code> and <code>SwapLeftPanelEvent</code> event to the <code>EventsCenter</code>.</p>
+<p><code>LogicManager</code> then calls <code>StatsCommand#execute()</code>, which updates <code>Predicate</code> and <code>StatsMode</code> in <code>ModelManager and
+also posts a `ShowStatsRequestEvent</code> and <code>SwapLeftPanelEvent</code> event to <code>EventsCenter</code>.</p>
 </li>
 </ol>
 </div>
@@ -288,7 +288,7 @@ and passes the data as parameters by calling
 </li>
 <li>
 <p><code>Logic#getExpenseStats()</code> gets the filtered expense list by calling <code>Model#getExpenseStats()</code>, which returns
-an unmodifiable <code>ObservableList</code>, only containing only expenses in the last 7 days, as per the <code>Predicate</code>, and sorted by date.
+an unmodifiable <code>ObservableList</code>, only containing only expenses in the last 7 days, as per <code>Predicate</code>, and sorted by date.
 <code>Logic#getExpenseStats()</code> then organises the data into a <code>LinkedHashMap&lt;String, Double&gt;</code>, where the key value pair represents
 the x and y values of the chart. In this case, <code>StatsMode</code> is set to TIME, which results in a x,y values of date and cost.
 If <code>StatsMode</code> is set to CATEGORY, the x,y values will be set to category and cost.</p>
@@ -315,7 +315,7 @@ which informs the user that there are no expenditures</p>
 <div class="sect3">
 <h4 id="design-considerations"><a class="link" href="#design-considerations">Design Considerations</a></h4>
 <div class="sect4">
-<h5 id="aspect-how-to-handle-statistic-data-and-parameters"><a class="link" href="#aspect-how-to-handle-statistic-data-and-parameters">Aspect: How to handle statistic data and parameters</a></h5>
+<h5 id="aspect-how-to-handle-statistics-data-and-parameters"><a class="link" href="#aspect-how-to-handle-statistics-data-and-parameters">Aspect: How to handle statistics data and parameters</a></h5>
 <div class="ulist">
 <ul>
 <li>
@@ -332,7 +332,7 @@ which informs the user that there are no expenditures</p>
 </div>
 </li>
 <li>
-<p><strong>Alternative 2:</strong> Create Statistics object which contains data and all the parameters.</p>
+<p><strong>Alternative 2 (planned for future releases):</strong> Create Statistics object which contains data and all the parameters.</p>
 <div class="ulist">
 <ul>
 <li>
@@ -348,7 +348,7 @@ which informs the user that there are no expenditures</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="aspect-how-to-pass-statistic-data-and-parameters-from-command-to-ui"><a class="link" href="#aspect-how-to-pass-statistic-data-and-parameters-from-command-to-ui">Aspect: How to pass statistic data and parameters from Command to UI</a></h5>
+<h5 id="aspect-how-to-pass-statistics-data-and-parameters-from-command-to-ui"><a class="link" href="#aspect-how-to-pass-statistics-data-and-parameters-from-command-to-ui">Aspect: How to pass statistics data and parameters from Command to UI</a></h5>
 <div class="ulist">
 <ul>
 <li>
@@ -372,7 +372,7 @@ which informs the user that there are no expenditures</p>
 <p>Pros: Less method calls. Easier to read.</p>
 </li>
 <li>
-<p>Cons: Not in aligned with architecture. Need to consider application startup when there are no events posted.</p>
+<p>Cons: Not in alignment with architecture. Need to consider application startup when there are no events posted.</p>
 </li>
 </ul>
 </div>
@@ -383,4 +383,4 @@ which informs the user that there are no expenditures</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-09 15:00:41 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-10 09:05:13 UTC</div></div></div></body></html>
