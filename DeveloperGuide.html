@@ -192,7 +192,7 @@ This will generate all resources required by the application and tests.</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Run <code>seedu.address.MainApp</code> and try a few commands</p>
+<p>Run <code>seedu.expensetracker.MainApp</code> and try a few commands</p>
 </li>
 <li>
 <p><a href="#Testing">Run the tests</a> and ensure that they all pass.</p>
@@ -342,7 +342,7 @@ Having both Travis and AppVeyor ensures your App works on both Unix-based platfo
 quick overview for each component</p>
 </div>
 <div class="paragraph">
-<p><code>Main</code> has only one class called <a href="https://github.com/CS2103-AY1819S1-T12-1/main/tree/master/src/main/java/seedu/address/MainApp.java"><code>MainApp</code></a>. It is responsible for:</p>
+<p><code>Main</code> has only one class called <a href="https://github.com/CS2103-AY1819S1-T12-1/main/tree/master/src/main/java/seedu/expensetracker/MainApp.java"><code>MainApp</code></a>. It is responsible for:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -448,7 +448,7 @@ Note how the event is propagated through <code>EventsCenter</code> to <code>Stor
 <p>As per the diagram above, <code>UI</code> consists of a <code>MainWindow</code> that is made up of parts e.g.<code>CommandBox</code>, <code>ResultDisplay</code>, <code>ExpenseListPanel</code>, <code>StatusBarFooter</code>, <code>BrowserPanel</code> etc. All these, including <code>MainWindow</code>, inherit from the abstract <code>UiPart</code> class.</p>
 </div>
 <div class="paragraph">
-<p><code>UI</code> uses JavaFx UI framework. The layout of these UI parts are defined in matching <code>.fxml</code> files that are in <code>src/main/resources/view</code> folder. For example, the layout of the <a href="https://github.com/CS2103-AY1819S1-T12-1/main/tree/master/src/main/java/seedu/address/ui/MainWindow.java"><code>MainWindow</code></a> is specified in <a href="https://github.com/CS2103-AY1819S1-T12-1/main/tree/master/src/main/resources/view/MainWindow.fxml"><code>MainWindow.fxml</code></a></p>
+<p><code>UI</code> uses JavaFx UI framework. The layout of these UI parts are defined in matching <code>.fxml</code> files that are in <code>src/main/resources/view</code> folder. For example, the layout of the <a href="https://github.com/CS2103-AY1819S1-T12-1/main/tree/master/src/main/java/seedu/expensetracker/ui/MainWindow.java"><code>MainWindow</code></a> is specified in <a href="https://github.com/CS2103-AY1819S1-T12-1/main/tree/master/src/main/resources/view/MainWindow.fxml"><code>MainWindow.fxml</code></a></p>
 </div>
 <div class="paragraph">
 <p>Below lists other functions that <code>UI</code> carries out:</p>
@@ -477,7 +477,7 @@ Note how the event is propagated through <code>EventsCenter</code> to <code>Stor
 </div>
 <div class="paragraph">
 <p><strong>API</strong> :
-<a href="https://github.com/CS2103-AY1819S1-T12-1/main/tree/master/src/main/java/seedu/address/logic/Logic.java"><code>Logic.java</code></a></p>
+<a href="https://github.com/CS2103-AY1819S1-T12-1/main/tree/master/src/main/java/seedu/expensetracker/logic/Logic.java"><code>Logic.java</code></a></p>
 </div>
 <div class="paragraph">
 <p>As per the diagram above, <code>Logic</code> uses <code>ExpenseTrackerParser</code> to parse user commands.
@@ -506,7 +506,7 @@ The result of the command execution is encapsulated as a <code>CommandResult</co
 <div class="title">Figure 7. Structure of the Model Component</div>
 </div>
 <div class="paragraph">
-<p><strong>API</strong> : <a href="https://github.com/CS2103-AY1819S1-T12-1/main/tree/master/src/main/java/seedu/address/model/Model.java"><code>Model.java</code></a></p>
+<p><strong>API</strong> : <a href="https://github.com/CS2103-AY1819S1-T12-1/main/tree/master/src/main/java/seedu/expensetracker/model/Model.java"><code>Model.java</code></a></p>
 </div>
 <div class="paragraph">
 <p>As per the diagram above, <code>ModelManager</code> implements the <code>Model</code> interface, which:</p>
@@ -554,7 +554,7 @@ An example of how such a model may look like is given below.<br>
 <div class="title">Figure 8. Structure of the Storage Component</div>
 </div>
 <div class="paragraph">
-<p><strong>API</strong> : <a href="https://github.com/CS2103-AY1819S1-T12-1/main/tree/master/src/main/java/seedu/address/storage/Storage.java"><code>Storage.java</code></a></p>
+<p><strong>API</strong> : <a href="https://github.com/CS2103-AY1819S1-T12-1/main/tree/master/src/main/java/seedu/expensetracker/storage/Storage.java"><code>Storage.java</code></a></p>
 </div>
 <div class="paragraph">
 <p>As per the diagram above, <code>StorageManager</code> implements the <code>Storage</code> interface, which:</p>
@@ -579,7 +579,7 @@ An example of how such a model may look like is given below.<br>
 <div class="sect2">
 <h3 id="Design-Commons"><a class="link" href="#Design-Commons">3.6. Common classes</a></h3>
 <div class="paragraph">
-<p>Classes used by multiple components are in the <code>seedu.addressbook.commons</code> package.</p>
+<p>Classes used by multiple components are in the <code>seedu.expensetracker.commons</code> package.</p>
 </div>
 </div>
 </div>
@@ -2379,7 +2379,7 @@ In the headless mode, GUI tests do not show up on the screen. That means the dev
 <p><em>System Tests</em> which test the entire App by simulating user actions on the GUI. These are in the <code>systemtests</code> package.</p>
 </li>
 <li>
-<p><em>Unit tests</em> which test the individual components. These are in <code>seedu.address.ui</code> package.</p>
+<p><em>Unit tests</em> which test the individual components. These are in <code>seedu.expensetracker.ui</code> package.</p>
 </li>
 </ul>
 </div>
@@ -2390,15 +2390,15 @@ In the headless mode, GUI tests do not show up on the screen. That means the dev
 <ul>
 <li>
 <p><em>Unit tests</em> which target the lowest level methods/classes.<br>
-e.g. <code>seedu.address.commons.StringUtilTest</code></p>
+e.g. <code>seedu.expensetracker.commons.StringUtilTest</code></p>
 </li>
 <li>
 <p><em>Integration tests</em> which check the integration of multiple code units (those code units are assumed to be working).<br>
-e.g. <code>seedu.address.storage.StorageManagerTest</code></p>
+e.g. <code>seedu.expensetracker.storage.StorageManagerTest</code></p>
 </li>
 <li>
 <p>Hybrids of unit and integration tests. These test are checking multiple code units as well as how the are connected together.<br>
-e.g. <code>seedu.address.logic.LogicManagerTest</code></p>
+e.g. <code>seedu.expensetracker.logic.LogicManagerTest</code></p>
 </li>
 </ul>
 </div>
@@ -2466,7 +2466,7 @@ e.g. <code>seedu.address.logic.LogicManagerTest</code></p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Update the version number in <a href="https://github.com/CS2103-AY1819S1-T12-1/main/tree/master/src/main/java/seedu/address/MainApp.java"><code>MainApp.java</code></a>.</p>
+<p>Update the version number in <a href="https://github.com/CS2103-AY1819S1-T12-1/main/tree/master/src/main/java/seedu/expensetracker/MainApp.java"><code>MainApp.java</code></a>.</p>
 </li>
 <li>
 <p>Generate a JAR file <a href="UsingGradle.html#creating-the-jar-file">using Gradle</a>.</p>
@@ -3328,7 +3328,7 @@ over my budget</p></td>
 <div class="ulist">
 <ul>
 <li>
-<p>2a.Expense Tracker detects error in the entered data.</p>
+<p>3a.Expense Tracker detects error in the entered data.</p>
 <div class="ulist">
 <ul>
 <li>
@@ -3341,7 +3341,7 @@ over my budget</p></td>
 </div>
 </li>
 <li>
-<p>2a.Expense Tracker detects that specified user does not exist.</p>
+<p>3a.Expense Tracker detects that specified user does not exist.</p>
 <div class="ulist">
 <ul>
 <li>
@@ -3354,11 +3354,11 @@ over my budget</p></td>
 </div>
 </li>
 <li>
-<p>2a. Expense Tracker detects that the password is incorrect.</p>
+<p>3a. Expense Tracker detects that the password is incorrect.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>2a1. Expense tracker informs the user that the entered password is incorrect.</p>
+<p>3a1. Expense tracker informs the user that the entered password is incorrect.</p>
 </li>
 <li>
 <p>Use case ends</p>
@@ -3948,4 +3948,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-11 15:53:55 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-11 17:22:11 UTC</div></div></div></body></html>
