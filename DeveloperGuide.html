@@ -35,7 +35,7 @@
 <li><a href="#find">4.4. Find</a></li>
 <li><a href="#mass-edit">4.5. Mass Edit</a></li>
 <li><a href="#user-interface-redesign">4.6. User Interface Redesign</a></li>
-<li><a href="#budget">4.7. Budget</a></li>
+<li><a href="#budgeting">4.7. Budgeting</a></li>
 <li><a href="#logging">4.8. Logging</a></li>
 </ul>
 </li>
@@ -1553,18 +1553,28 @@ The <code>n/</code> parameter can be omitted. In this case, all types of notific
 </div>
 </div>
 <div class="sect2">
-<h3 id="budget"><a class="link" href="#budget">4.7. Budget</a></h3>
+<h3 id="budgeting"><a class="link" href="#budgeting">4.7. Budgeting</a></h3>
+<div class="paragraph">
+<p>The budget feature allows the user to set a budget for their expenses.</p>
+</div>
+<div class="paragraph">
+<p>Available spending is defined as the total amount of expenses you can add before you exceed your budget.</p>
+</div>
+<div class="paragraph">
+<p>If the user&#8217;s spending exceeds their available spending for the budget, a warning like the image below will be shown
+ to the user.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/Overbudget.JPG" alt="Overbudget" width="790">
+</div>
+<div class="title">Figure 25. Warning that is shown when a user adds an expense which results in the user exceeding the budget.</div>
+</div>
+<div class="paragraph">
+<p>The current implementation for budgeting and its related features are described below.</p>
+</div>
 <div class="sect3">
-<h4 id="current-implementation-3"><a class="link" href="#current-implementation-3">4.7.1. Current Implementation</a></h4>
-<div class="paragraph">
-<p>The budget feature allows the user to set a budget for their expenses.
-If the user&#8217;s total expenses exceeds their budget, a warning will be shown to the user.</p>
-</div>
-<div class="paragraph">
-<p>The current implementation for budget tracking is described as below.</p>
-</div>
-<div class="sect4">
-<h5 id="setting-a-budget"><a class="link" href="#setting-a-budget">Setting a Budget</a></h5>
+<h4 id="setting-a-budget"><a class="link" href="#setting-a-budget">4.7.1. Setting a Budget</a></h4>
 <div class="paragraph">
 <p>Given below is a sequence diagram and step by step explanation of how Expense Tracker executes when a user sets a budget</p>
 </div>
@@ -1572,7 +1582,7 @@ If the user&#8217;s total expenses exceeds their budget, a warning will be shown
 <div class="content">
 <img src="images/implementation/BudgetCommandSequenceDiagram.png" alt="BudgetCommandSequenceDiagram" width="800">
 </div>
-<div class="title">Figure 25. Sequence diagram of a user setting a budget.</div>
+<div class="title">Figure 26. Sequence diagram of a user setting a budget.</div>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -1600,34 +1610,62 @@ maximum budget of Expense Tracker.</p>
 </ol>
 </div>
 </div>
-<div class="sect4">
-<h5 id="setting-a-recurring-budget"><a class="link" href="#setting-a-recurring-budget">Setting a recurring Budget</a></h5>
+<div class="sect3">
+<h4 id="setting-a-recurring-budget"><a class="link" href="#setting-a-recurring-budget">4.7.2. Setting a recurring Budget</a></h4>
 <div class="paragraph">
 <p>Every time a user logs in, <code>Model#loadUserData()</code> is called and  the application will check if the user has set a time
-where the
-current expenses will reset (recurrence time). If it is not set, Expense Tracker will issue a notification. Else,
-Expense Tracker will track the set recurrence time against the time now. If it exceeds, current expenses will be reset. Else,
-nothing will be done.</p>
+when the
+available spending will reset (recurrence time). If it is not set, Expense Tracker will issue a notification. Else,
+Expense Tracker will track the set recurrence time against the time now. If it exceeds, available spending will be
+reset, else nothing will be done.</p>
 </div>
+<div class="sect4">
+<h5 id="setting-the-recurrence-frequency"><a class="link" href="#setting-the-recurrence-frequency">Setting the recurrence frequency</a></h5>
 <div class="ulist">
 <ul>
 <li>
 <p>Recurrence time is set by <code>setRecurrenceFrequency()</code>. If it has not been set before, the next recurrence time will
-be set to <code>currentTime</code> + <code>recurrenceFrequency</code>.</p>
-</li>
-<li>
-<p>If it has already been set, the timing will be updated on the next occurrence time</p>
+be set to <code>currentTime</code> + <code>recurrenceFrequency</code>. This is shown in the code snippet below.</p>
 </li>
 </ul>
 </div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>public void setRecurrenceFrequency(long seconds) {
+        this.numberOfSecondsToRecurAgain = seconds;
+        this.nextRecurrence = LocalDateTime.now().plusSeconds(seconds);
+    }</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>If it has already been set, the timing will be updated on the next occurrence time. This is shown in the code
+snippet below.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>if (LocalDateTime.now().isAfter(this.nextRecurrence)) {
+        this.previousRecurrence = LocalDateTime.now();
+        this.nextRecurrence = LocalDateTime.now().plusSeconds(this.numberOfSecondsToRecurAgain);
+        // rest of the implementation
+    {</code></pre>
+</div>
+</div>
 <div class="paragraph">
-<p>Given below is a sequence diagram and step by step explanation of how Expense Tracker executes when a user sets a recurrence frequency.</p>
+<p>Given below is a sequence diagram
+and step by step explanation of how Expense Tracker executes when a user sets a recurrence frequency.</p>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="images/implementation/SetRecurringBudgetCommandSequenceDiagram.png" alt="SetRecurringBudgetCommandSequenceDiagram" width="800">
 </div>
-<div class="title">Figure 26. Sequence diagram of a user setting a recurrence frequency.</div>
+<div class="title">Figure 27. Sequence diagram of a user setting a recurrence frequency.</div>
+</div>
+<div class="paragraph">
+<p>Steps of the command execution are as follows:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -1664,11 +1702,58 @@ method to update the time when the next expenses of <code>totalBudget</code> is 
 </div>
 </div>
 <div class="sect4">
-<h5 id="setting-a-budget-by-category"><a class="link" href="#setting-a-budget-by-category">Setting a Budget by Category</a></h5>
+<h5 id="resetting-available-spending"><a class="link" href="#resetting-available-spending">Resetting available spending.</a></h5>
+<div class="paragraph">
+<p>Every time the user logs in, Expense Tracker will check if the available spending should be reset. Sequence diagram
+of available spending resetting is given below.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/implementation/RecurrenceFrequencySequenceDiagram.png" alt="RecurrenceFrequencySequenceDiagram" width="900">
+</div>
+<div class="title">Figure 28. Sequence diagram of a user setting a recurrence frequency.</div>
+</div>
+<div class="paragraph">
+<p>Execution steps of resetting available spending are as follows:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>User logs in</p>
+</li>
+<li>
+<p><code>login</code> command executes in the <code>Logic</code>, which calls <code>Logic#execute()</code> to execute the command on the <code>Model</code></p>
+</li>
+<li>
+<p><code>Model</code> calls <code>Model#checkBudgetRestart()</code>, which in turn calls <code>TotalBudget#checkBudgetRetart()</code> to check if the
+available spending is to be reset.</p>
+</li>
+<li>
+<p><code>TotalBudget#checkBudgetRestart()</code> either return <code>NOT_SET</code> or <code>SPENDING_RESET</code>, which will add their respective
+notifications. It will also return <code>DO_NOTHING</code>, which will results in <code>Model</code> to continue its execution.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="setting-a-budget-by-category"><a class="link" href="#setting-a-budget-by-category">4.7.3. Setting a Budget by Category</a></h4>
 <div class="paragraph">
 <p>An extension to the budget feature, this allows the user to divide their budget based on categories. Users can
 allocate parts of their budget to certain categories.
-If the user&#8217;s total expenses for a Category exceeds their Category Budget, a warning will be shown to the user.</p>
+If the user&#8217;s expenses for a <code>Category</code> exceeds the available spending for their <code>CategoryBudget</code>, a warning will be
+shown
+ to the user.</p>
+</div>
+<div class="paragraph">
+<p>Given below is a sequence diagram
+and step by step explanation of how Expense Tracker executes when a user sets a <code>CategoryBudget</code>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/implementation/SetCategoryBudgetSequenceDiagram.png" alt="SetCategoryBudgetSequenceDiagram" width="900">
+</div>
+<div class="title">Figure 29. Sequence diagram of a user setting <code>CategoryBudget</code>.</div>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -1693,31 +1778,75 @@ is created and returned to <code>LogicManager</code>.</p>
 </li>
 <li>
 <p><code>LogicManager</code> then calls <code>AddCategoryBudgetCommand#execute()</code>,which calls <code>ModelManager#setCategoryBudget()</code>
-method to add a <code>Budget</code> to a <code>Category</code>.</p>
+method to add a <code>CategoryBudget</code>.</p>
 </li>
 </ol>
 </div>
-</div>
 <div class="sect4">
-<h5 id="notification-center-proposed"><a class="link" href="#notification-center-proposed">Notification center (Proposed)</a></h5>
+<h5 id="setting-budgets-for-different-time-frames-proposed"><a class="link" href="#setting-budgets-for-different-time-frames-proposed">Setting budgets for different time frames (Proposed)</a></h5>
 <div class="paragraph">
-<p>There is an area for the app to display notifications and additional information to the users beside the usual
-area below the command box. This is particularly useful to the <strong>Budget</strong> feature as budgets should not obstruct the
-usage of Expense Tracker, but rather provide helpful information. For example, if a user exceeds his total budget
- after
- adding an expense, a warning would be displayed in the <strong>Notification center</strong> instead of the area below the command
- box, replacing the success message of adding an expense and confusing the user.</p>
+<p>Users can now set budgets for different time frames. For example, a user can have a monthly budget and a weekly budget.
+This is to allow a user to segment his spending by weeks. A benefit to this is that even if the user has spent over
+the budget for this week, he could potentially spend lesser to make up for his overspending. This allows for expense
+tracking as it allows for more leeway in how a person could spend. This is illustrated by the images below.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/budgetOfTheWeek.PNG" alt="budgetOfTheWeek" width="800">
+</div>
+<div class="title">Figure 30. Diagram of a weekly budget</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/budgetOfTheMonth.png" alt="budgetOfTheMonth" width="800">
+</div>
+<div class="title">Figure 31. Diagram of a monthly budget.</div>
+</div>
+<div class="paragraph">
+<p>The first image above shows that the user has spent over his budget for the week, whilst the second image shows that
+the
+user still has available spending for the month.</p>
 </div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="alternatives-considered"><a class="link" href="#alternatives-considered">4.7.2. Alternatives considered</a></h4>
+<h4 id="design-considerations-5"><a class="link" href="#design-considerations-5">4.7.4. Design Considerations</a></h4>
 <div class="paragraph">
-<p>Recurrence check was initially implemented via events. Every time <code>ModelManager#loadUserData()</code> is called, an event
-will be sent to <code>EventBus</code> to be dispatched to an event handler implemented in <code>Budget</code>. However, after heavy
-consideration, the recurrence check should only be called whenever <code>loadUserData()</code> is called, and never anywhere
-else. Therefore, it should be more closely coupled with <code>loadUserData()</code> instead of being an event that can be posted
- from anywhere inside the application.</p>
+<p>This section provides alternative design patterns that we have considered for features relating to budgeting.</p>
+</div>
+<div class="sect4">
+<h5 id="aspect-how-recurrence-is-checked"><a class="link" href="#aspect-how-recurrence-is-checked">Aspect: How recurrence is checked</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> Calling of method when the user logs in</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Closely coupled with logging in.</p>
+</li>
+<li>
+<p>Cons: Encapsulation sacrificed due to close coupling with other classes and methods.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> Dispatching an event every time the user logs in</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Easy to implement</p>
+</li>
+<li>
+<p>Cons: Possible for other implementations to cause a recurrence check. As the recurrence check is closely tied to
+logging in, this should not be possible</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
 </div>
 </div>
 </div>
@@ -1830,7 +1959,7 @@ like the figure below should show up.</p>
 <div class="content">
 <img src="images/chrome_save_as_pdf.png" alt="chrome save as pdf" width="300">
 </div>
-<div class="title">Figure 27. Saving documentation as PDF files in Chrome</div>
+<div class="title">Figure 32. Saving documentation as PDF files in Chrome</div>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -2933,4 +3062,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-10 16:07:06 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-11 10:37:23 UTC</div></div></div></body></html>
