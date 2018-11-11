@@ -289,7 +289,7 @@ Additionally, it implements the following operations:</p>
 <div class="title">Figure 2. Step 2 of undo/redo mechanism</div>
 </div>
 <div class="paragraph">
-<p>Step 3. The user executes <code>add n/David &#8230;&#8203;</code> to add a new expense. The <code>add</code> command also calls <code>Model#commitExpenseTracker()</code>, causing another modified Expense Tracker state to be saved into <code>expenseTrackerStateList</code>.</p>
+<p>Step 3. The user executes <code>add n/Lunch&#8230;&#8203;</code> to add a new expense. The <code>add</code> command also calls <code>Model#commitExpenseTracker()</code>, causing another modified Expense Tracker state to be saved into <code>expenseTrackerStateList</code>.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -364,7 +364,7 @@ If <code>currentStatePointer</code> is at index <code>expenseTrackerStateList.si
 <div class="title">Figure 6. Step 5 of undo/redo mechanism</div>
 </div>
 <div class="paragraph">
-<p>Step 6. The user executes <code>clear</code>, which calls <code>Model#commitExpenseTracker()</code>. Since <code>currentStatePointer</code> is not pointing at the end of <code>expenseTrackerStateList</code>, all Expense Tracker states after <code>currentStatePointer</code> will be purged. We designed it this way because it no longer makes sense to redo the <code>add n/David &#8230;&#8203;</code> command. This is the behavior that most modern desktop applications follow.</p>
+<p>Step 6. The user executes <code>clear</code>, which calls <code>Model#commitExpenseTracker()</code>. Since <code>currentStatePointer</code> is not pointing at the end of <code>expenseTrackerStateList</code>, all Expense Tracker states after <code>currentStatePointer</code> will be purged. We designed it this way because it no longer makes sense to redo the <code>add n/Lunch &#8230;&#8203;</code> command. This is the behavior that most modern desktop applications follow.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -461,4 +461,4 @@ If <code>currentStatePointer</code> is at index <code>expenseTrackerStateList.si
 <p><em>{Optionally, you may include other projects in your portfolio.}</em></p>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-11 10:37:22 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-11 10:37:52 UTC</div></div></div></body></html>
