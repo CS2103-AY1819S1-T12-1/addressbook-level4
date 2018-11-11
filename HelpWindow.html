@@ -40,7 +40,7 @@
 <li><a href="#undoing-previous-command-code-undo-code">5.15. Undoing previous command : <code>undo</code></a></li>
 <li><a href="#redoing-the-previously-undone-command-code-redo-code">5.16. Redoing the previously undone command : <code>redo</code></a></li>
 <li><a href="#StatsCommand">5.17. Showing expense statistics: <code>stats</code></a></li>
-<li><a href="#toggling-notifications-code-notification-code">5.18. Toggling Notifications: <code>notification</code></a></li>
+<li><a href="#NotificationCommand">5.18. Toggling Notifications: <code>notification</code></a></li>
 <li><a href="#clearing-all-entries-code-clear-code">5.19. Clearing all entries : <code>clear</code></a></li>
 <li><a href="#exiting-the-program-code-exit-code">5.20. Exiting the program : <code>exit</code></a></li>
 <li><a href="#encrypting-text-using-your-password-code-encrypt-code">5.21. Encrypting text using your password : <code>encrypt</code></a></li>
@@ -118,7 +118,7 @@ e.g. typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> wil
 <h2 id="user-interface"><a class="link" href="#user-interface">4. User Interface</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>After logging in, the interface looks something like this:</p>
+<p>After logging in, the interface will display as such:</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -132,15 +132,31 @@ e.g. typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> wil
 <div class="sect2">
 <h3 id="left-panel"><a class="link" href="#left-panel">4.1. Left Panel</a></h3>
 <div class="paragraph">
-<p>This is the portion highlighted by the red box. There are two modes to this panel, Expense List mode and Statistics Panel mode.
-You are able to change to the Expense List mode by using the <code>list</code> command and Statistics Mode
-by using the <code>stats</code> command.<br>
-See <a href="#ListCommand"><code>list</code></a> and <a href="#StatsCommand"><code>stats</code></a> commands for more details on these commands.</p>
+<p>This component is highlighted by the red box. There are two modes to this panel:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Expense List mode</p>
+</li>
+<li>
+<p>Statistics Panel mode</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>You are able swap between Expense List mode and Statistics Panel mode by using the <code>list</code> command and
+ <code>stats</code> command, respectively.</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>See &lt;&lt;ListCommand,`list`&gt;&gt; and &lt;&lt;StatsCommand, `stats`&gt;&gt; commands for more details on these commands.</pre>
+</div>
 </div>
 <div class="sect3">
 <h4 id="expense-list-mode"><a class="link" href="#expense-list-mode">4.1.1. Expense List mode</a></h4>
 <div class="paragraph">
-<p>In Expense List mode, the Left Panel shows the list of expenses which looks similar to the figure below.</p>
+<p>In Expense List mode, the Left Panel displays the list of all expenses, as shown below:</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -149,33 +165,26 @@ See <a href="#ListCommand"><code>list</code></a> and <a href="#StatsCommand"><co
 <div class="title">Figure 3. Left Panel in Expense List mode</div>
 </div>
 <div class="paragraph">
-<p>When commands which alter the Expense List such as <code>find</code> and <code>list</code> are used, they change which expenses will be shown.</p>
+<p>Commands that alter the Expense List, such as <code>find</code> and <code>list</code>, will change the expenses that are shown.</p>
 </div>
-<div class="paragraph">
-<p>See <a href="#FindCommand"><code>find</code></a> and <a href="#ListCommand"><code>list</code></a> commands for more details.</p>
+<div class="literalblock">
+<div class="content">
+<pre>See &lt;&lt;FindCommand, `find`&gt;&gt; and &lt;&lt;ListCommand, `list`&gt;&gt; commands for more details.</pre>
 </div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
+</div>
 <div class="paragraph">
 <p>Each expense has an index number next to the expense name. These are relevant to the <code>delete</code> and <code>edit</code> commands.</p>
 </div>
-<div class="paragraph">
-<p>See <a href="#DeleteCommand"><code>delete</code></a> and <a href="#EditCommand"><code>edit</code></a> commands for more details.</p>
+<div class="literalblock">
+<div class="content">
+<pre>See &lt;&lt;DeleteCommand, `delete`&gt;&gt; and &lt;&lt;EditCommand, `edit`&gt;&gt; commands for more details.</pre>
 </div>
-</td>
-</tr>
-</table>
 </div>
 </div>
 <div class="sect3">
 <h4 id="statistics-panel-mode"><a class="link" href="#statistics-panel-mode">4.1.2. Statistics Panel mode</a></h4>
 <div class="paragraph">
-<p>In Statistics Panel mode, the Left Panel shows statistics about expenses which looks similar to the figure below.</p>
+<p>In Statistics Panel mode, the Left Panel contains upper and lower sections, similar to what is shown below:</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -184,24 +193,35 @@ See <a href="#ListCommand"><code>list</code></a> and <a href="#StatsCommand"><co
 <div class="title">Figure 4. Left Panel in Statistics Panel mode</div>
 </div>
 <div class="paragraph">
-<p>In the top half, statistics about your expenses are shown. These can be changed by the <code>stats</code> command.
-See <a href="#StatsCommand"><code>stats</code></a> command for more details.</p>
+<p>The upper section displays statistical information about expenses.</p>
 </div>
 <div class="paragraph">
-<p>In the bottom half, all the category budgets you set using the <code>setCategoryBudget</code> command can be seen.
-See <a href="#SetCategoryBudgetCommand"><code>setCategoryBudget</code></a> command for more details.</p>
+<p>The type of statistics shown can be changed via the <code>stats</code> command.</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>See &lt;&lt;StatsCommand, `stats`&gt;&gt; command for more details.</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The lower section shows four of the category budgets that have been set using the <code>setCategoryBudget</code> command.</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>See &lt;&lt;SetCategoryBudgetCommand, `setCategoryBudget`&gt;&gt; command for more details.</pre>
+</div>
 </div>
 </div>
 </div>
 <div class="sect2">
 <h3 id="budget-tracker"><a class="link" href="#budget-tracker">4.2. Budget Tracker</a></h3>
 <div class="paragraph">
-<p>This is the portion highlighted by the blue box.</p>
+<p>This component is highlighted by the blue box.</p>
 </div>
 <div class="paragraph">
 <p>The Budget Tracker shows information about your total expenditure and
 the budget which you set using the <code>setBudget</code> command.
-See <a href="#SetBudgetCommand"><code>setBudget</code></a> command for more details.</p>
+ See <a href="#SetBudgetCommand"><code>setBudget</code></a> command for more details.</p>
 </div>
 </div>
 <div class="sect2">
@@ -210,31 +230,55 @@ See <a href="#SetBudgetCommand"><code>setBudget</code></a> command for more deta
 <p>This is the portion highlighted by the green box.</p>
 </div>
 <div class="paragraph">
-<p>The Notifications Panel is where any notifications will appear. These include warnings about your expenditure and
+<p>The Notifications Panel is where any automated notifications will appear. These include warnings about your expenditure and
 saving tips that you should consider.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The Notification Panel will only display a maximum of 10 notifications. If the Notification Panel is full, the oldest notification will be replaced by the newest notification.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>You can toggle notifications on and off with the <code>notification</code> command.
+ See <a href="#NotificationCommand"><code>notification</code></a> command for more details.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="command-box-and-console"><a class="link" href="#command-box-and-console">4.4. Command Box and Console</a></h3>
 <div class="paragraph">
-<p>This is the portion highlighted by the yellow box.</p>
+<p>This component is highlighted by the yellow box.</p>
 </div>
 <div class="paragraph">
 <p>The Command Box is where the "Enter command here&#8230;&#8203;" is located. To enter a command in the Command Box, use your mouse
 and click anywhere within the box, then proceed to type a command.<br></p>
 </div>
 <div class="paragraph">
-<p>The Console is where any success and error messages, relevant to the most recent command entered, will appear.</p>
+<p>The Console displays any success and error messages that is relevant to the most recent command entered.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="menu-bar"><a class="link" href="#menu-bar">4.5. Menu Bar</a></h3>
 <div class="paragraph">
-<p>This is the portion highlighted by the orange box.</p>
+<p>This component is highlighted by the orange box.</p>
 </div>
 <div class="paragraph">
-<p>The menu bar contains two submenus, which allows you to either exit the application or to open the help window.
-These have the same effect as using the commands <code>exit</code> and <code>help</code> respectively.</p>
+<p>The menu bar contains two submenus, "file" and "help".</p>
+</div>
+<div class="paragraph">
+<p>Click on "file" to reveal a dropdown containing the option "exit". Clicking on "exit" will close the application.
+Entering the command <code>exit</code> into the Command Box achieves the same outcome.</p>
+</div>
+<div class="paragraph">
+<p>Click on "help" to reveal a dropdown containing the option "help". Clicking on "help", or pressing the <code>F1</code> key on your
+keyboard, will open a Help Window.
+Entering the command <code>help</code> into the Command Box achieves the same outcome.</p>
 </div>
 </div>
 </div>
@@ -1203,16 +1247,52 @@ Shows the expense statistics for the past 3 months as a pie chart showing expens
 </div>
 </div>
 <div class="sect2">
-<h3 id="toggling-notifications-code-notification-code"><a class="link" href="#toggling-notifications-code-notification-code">5.18. Toggling Notifications: <code>notification</code></a></h3>
+<h3 id="NotificationCommand"><a class="link" href="#NotificationCommand">5.18. Toggling Notifications: <code>notification</code></a></h3>
 <div class="paragraph">
 <p>Toggles the ability of <code>Expense Tracker</code> to send notifications.</p>
 </div>
 <div class="paragraph">
-<p>There are three notification types to toggle: Warning` and Tip, which can be indicated by <code>warning</code> or <code>tip</code> respectively in the <code>NOTIFICATION_TYPE</code> parameter.<br>
-To toggle both, omit <code>NOTIFICATION_TYPE</code>.</p>
+<p>There are two types of notification to toggle:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Warning - Referenced by <code>warning</code> as the <code>NOTIFICATION_TYPE</code> parameter. These notifications will be sent when you are over
+or about to go over your budget.</p>
+</li>
+</ol>
 </div>
 <div class="paragraph">
-<p>There are two toggle options, <code>on</code> and <code>off</code>, which can be indication by 'on' or 'off' respectively in the <code>TOGGLE_OPTION</code> parameter. <code>TOGGLE_OPTION</code> is required.</p>
+<p>As shown below, Tip type Notifications can be indicated by exclamation mark image displayed along with the notification:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/userguide/warningExample.png" alt="warningExample" width="790">
+</div>
+<div class="title">Figure 10. Example of a Warning Type Notification</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Tip - Referenced by typing <code>tip</code> as the <code>NOTIFICATION_TYPE</code> parameter. These notifications are saving tips that will be sent
+when you log onto an account on a new day.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>As shown below, Tip type Notifications can be indicated by light bulb image displayed along with the notification:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/userguide/tipExample.png" alt="tipExample" width="790">
+</div>
+<div class="title">Figure 11. Example of a Tip Type Notification</div>
+</div>
+<div class="paragraph">
+<p>There are two toggle options, <code>on</code> and <code>off</code>, which can be indicated by 'on' or 'off' respectively in the <code>TOGGLE_OPTION</code> parameter.</p>
+</div>
+<div class="paragraph">
+<p>'TOGGLE_OPTION` is a required parameter. <code>NOTIFICATION_TYPE</code> can be omitted.</p>
 </div>
 <div class="paragraph">
 <p>Format: <code>notification n/NOTIFICATION_TYPE t/TOGGLE_OPTION</code></p>
@@ -1573,6 +1653,9 @@ e.g. <code>notification n/tip t/off</code></p>
 <p><code>stats</code>:  <code>su</code></p>
 </li>
 <li>
+<p><code>notification</code>: <code>n</code></p>
+</li>
+<li>
 <p><code>clear</code>: <code>c</code></p>
 </li>
 <li>
@@ -1581,4 +1664,4 @@ e.g. <code>notification n/tip t/off</code></p>
 </ul>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-11 10:37:52 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-11 15:53:55 UTC</div></div></div></body></html>

@@ -35,8 +35,9 @@
 <li><a href="#find">4.4. Find</a></li>
 <li><a href="#mass-edit">4.5. Mass Edit</a></li>
 <li><a href="#user-interface-redesign">4.6. User Interface Redesign</a></li>
-<li><a href="#budgeting">4.7. Budgeting</a></li>
-<li><a href="#logging">4.8. Logging</a></li>
+<li><a href="#notification-system">4.7. Notification System</a></li>
+<li><a href="#budgeting">4.8. Budgeting</a></li>
+<li><a href="#logging">4.9. Logging</a></li>
 </ul>
 </li>
 <li><a href="#documentation-2">5. Documentation</a>
@@ -68,11 +69,7 @@
 </li>
 <li><a href="#product-scope">Appendix A: Product Scope</a></li>
 <li><a href="#user-stories">Appendix B: User Stories</a></li>
-<li><a href="#use-cases">Appendix C: Use Cases</a>
-<ul class="sectlevel2">
-<li><a href="#use-case-clear">C.1. Use case: Clear</a></li>
-</ul>
-</li>
+<li><a href="#use-cases">Appendix C: Use Cases</a></li>
 <li><a href="#non-functional-requirements">Appendix D: Non Functional Requirements</a></li>
 <li><a href="#glossary">Appendix E: Glossary</a></li>
 <li><a href="#instructions-for-manual-testing">Appendix F: Instructions for Manual Testing</a>
@@ -1289,12 +1286,14 @@ A <code>CommandResult</code> is then created and returned to <code>LogicManager<
 </ul>
 </div>
 <div class="paragraph">
-<p>Animations will also be incorporated into the UI elements for a better user experience.</p>
+<p>Animations have been incorporated into the UI elements for a better user experience. We will look at the implementation of <code>BudgetPanel</code>,
+which is the most extensive.</p>
 </div>
-<div class="sect3">
-<h4 id="budget-panel"><a class="link" href="#budget-panel">4.6.1. Budget Panel</a></h4>
 <div class="paragraph">
-<p>The <code>totalBudget</code> panel consists of 3 UI elements:</p>
+<p><strong>Budget Panel</strong></p>
+</div>
+<div class="paragraph">
+<p>The <code>Budget</code> panel consists of 4 UI elements:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -1305,13 +1304,16 @@ A <code>CommandResult</code> is then created and returned to <code>LogicManager<
 <p><code>BudgetPanel#budgetDisplay</code> – A <code>Text</code> element that displays the user’s monthly budget cap.</p>
 </li>
 <li>
+<p><code>BudgetPanel#percentageDisplay</code> - A <code>TextFlow</code> objects that manages <code>BudgetPanel#budgetDisplay</code> and <code>BudgetPanel#expenseDisplay</code>.</p>
+</li>
+<li>
 <p><code>BudgetPanel#budgetBar</code> – A <code>progressBar</code> element that visually presents the percentage of the current
 <code>totalBudget</code> cap that has been used.</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>Given below is an example scenario of how <code>BudgetPanel</code> is updated:</p>
+<p>Given below are the steps of an example scenario of how <code>BudgetPanel</code> is updated:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -1348,7 +1350,7 @@ If a command fails its execution, <code>UpdateBudgetPanelEvent</code> will not b
 </div>
 </li>
 <li>
-<p>The <code>UpdateBudgetPanelEvent</code> event is handled by <code>BudgetPanel#handleBudgetPanelEvent()</code>, which calls <code>BudgetPanel#update()</code>.</p>
+<p>The <code>UpdateBudgetPanelEvent</code> event is handled by <code>MainWindow#handleBudgetPanelEvent()</code>, which calls <code>BudgetPanel#update()</code>.</p>
 </li>
 <li>
 <p><code>BudgetPanel#update()</code> calls <code>BudgetPanel#animateBudgetPanel()</code>, which creates a new <code>Timeline</code> object.</p>
@@ -1369,8 +1371,9 @@ If the updated percentage is more than 1.0, <code>BudgetPanel#budgetBar</code> p
 </div>
 </li>
 <li>
-<p>A call to 'BudgetPanel#incrementKeyFrames()` is made to create the incrementing animation for <code>BudgetPanel#expenseDisplay</code>. The total time for this animation is 0.5 seconds, and consists of 10 <code>KeyFrame</code> objects. With this information, the amount to increment <code>BudgetPanel#expenseDisplay</code> by each <code>KeyFrame</code> can be calculated.
-<code>BudgetPanel#updateExpenseDisplay()</code> is called to increment <code>BudgetPanel#expenseDisplay</code>.</p>
+<p>A call to 'BudgetPanel#addTextAnimationKeyFrames()` is made to add the <code>KeyFrame</code> objects required to create the incrementing animation for <code>BudgetPanel#expenseDisplay</code>. The total time for this animation is 0.5 seconds, and consists of 10 <code>KeyFrame</code> objects.
+With this information, the amount to increment <code>BudgetPanel#expenseDisplay</code> by in each <code>KeyFrame</code> can be calculated.
+ <code>BudgetPanel#updateExpenseDisplay()</code> is called to increment the <code>BudgetPanel#expenseDisplay</code>.</p>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -1378,11 +1381,15 @@ If the updated percentage is more than 1.0, <code>BudgetPanel#budgetBar</code> p
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>BudgetPanel#incrementKeyFrames()</code> handles the animation for both <code>BudgetPanel#budgetDisplay</code> and <code>BudgetPanel#expenseDisplay</code> at the same time.
+<code>BudgetPanel#addTextAnimationKeyFrames()</code> handles the incrementing animation for both the <code>BudgetPanel#budgetDisplay</code> and <code>BudgetPanel#expenseDisplay</code> at the same time.
 </td>
 </tr>
 </table>
 </div>
+</li>
+<li>
+<p>For each <code>KeyFrame</code>, 'BudgetPanel#addTextAnimationKeyFrames()` also makes a call to <code>BudgetPanel#alterTextSize()</code>. This method checks the height of <code>BudgetPanel#percentageDisplay</code>. If said height is
+different from <code>BudgetPanel#percentageDisplay#maxHeight</code>, <code>BudgetPanel#percentageDisplay</code> will be rescaled accordingly such that its new width matches <code>BudgetPanel#percentageDisplay#maxHeight</code>.</p>
 </li>
 <li>
 <p><code>Timeline#playFromStart()</code> is called to execute the animation.</p>
@@ -1415,27 +1422,27 @@ Similarly, if the user has gone from over budget to under budget, the color of
 </div>
 <div class="title">Figure 24. Sequence diagram of the <code>BudgetPanel</code> update</div>
 </div>
+<div class="sect3">
+<h4 id="design-considerations-4"><a class="link" href="#design-considerations-4">4.6.1. Design Considerations</a></h4>
 <div class="sect4">
-<h5 id="design-considerations-4"><a class="link" href="#design-considerations-4">Design Considerations</a></h5>
-<div class="sect5">
-<h6 id="aspect-which-library-to-implement-animation"><a class="link" href="#aspect-which-library-to-implement-animation">Aspect: Which library to implement animation</a></h6>
+<h5 id="aspect-choosing-which-library-to-use-for-animation-implementation"><a class="link" href="#aspect-choosing-which-library-to-use-for-animation-implementation">Aspect: Choosing which library to use for animation implementation</a></h5>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Alternative 1 (current choice):</strong> Use <code>Timeline</code> and <code>KeyFrame</code> classes</p>
+<p><strong>Alternative 1 (current choice):</strong> Use <code>Timeline</code> and <code>KeyFrame</code> classes.</p>
 <div class="ulist">
 <ul>
 <li>
 <p>Pros: More flexible; Able to create the animation frame by frame.</p>
 </li>
 <li>
-<p>Cons: Animations tricks and effects will require manual tweaking for the intented effect.</p>
+<p>Cons: Animations tricks and effects will require manual tweaking for the intended effect.</p>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p><strong>Alternative 2:</strong> Use <code>Transition</code> class</p>
+<p><strong>Alternative 2:</strong> Use the <code>Transition</code> class</p>
 <div class="ulist">
 <ul>
 <li>
@@ -1450,29 +1457,131 @@ Similarly, if the user has gone from over budget to under budget, the color of
 </ul>
 </div>
 </div>
+<div class="sect4">
+<h5 id="aspect-implementation-of-code-text-code-elements"><a class="link" href="#aspect-implementation-of-code-text-code-elements">Aspect: Implementation of <code>Text</code> elements</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (Initial Choice):</strong> Use two <code>Label</code> objects; one to display <code>currentExpenses</code> and another to display <code>budgetCap</code>.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Allows the implementation of separate text color changing and animation.</p>
+</li>
+<li>
+<p>Cons: Difficult to keep both text objects centralized in relation to the <code>budgetBar</code>, especially if <code>currentExpenses</code> or <code>budgetCap</code> are large numbers.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> Use one <code>Text</code> object to display both <code>currentExpenses</code> and <code>budgetCap</code>.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Easy to centralize the <code>Text</code> object with <code>budgetbar</code>.</p>
+</li>
+<li>
+<p>Cons: Implementation of animation was messy and tedious. <code>JavaFX</code> also does not support multiple colors for a single <code>Text</code> object.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 3 (Current Choice):</strong> Wrap two <code>Text</code> objects in a <code>TextFlow</code> object</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Easy to centralize the <code>Text</code> objects by taking advantage of the properties of <code>TextFlow</code>. Allows the implementation of separate text color changing and animation.</p>
+</li>
+<li>
+<p>Cons: Does not solve the issue of decentralization when <code>currentExpenses</code> or <code>budgetCap</code> are large numbers.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
 </div>
 </div>
-<div class="sect3">
-<h4 id="notification-system"><a class="link" href="#notification-system">4.6.2. Notification System</a></h4>
+<div class="sect4">
+<h5 id="aspect-solving-the-issue-of-code-textflow-code-positioning-when-code-currentexpenses-code-or-code-budgetcap-code-are-large-numbers"><a class="link" href="#aspect-solving-the-issue-of-code-textflow-code-positioning-when-code-currentexpenses-code-or-code-budgetcap-code-are-large-numbers">Aspect: Solving the issue of <code>TextFlow</code> positioning when <code>currentExpenses</code> or <code>budgetCap</code> are large numbers.</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1:</strong> During the budget update, manipulate the font size of both <code>Text</code> objects when the <code>TextFlow</code> object reaches a certain height.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: -</p>
+</li>
+<li>
+<p>Cons: Difficult to adjust the fonts of both <code>Text</code> objects such that the final font size is neither too large nor too short.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2: </strong> Manipulate the scale of the <code>TextFlow</code> object such that it always maintains a predetermined width.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: A solution that is simple and easy to implement.</p>
+</li>
+<li>
+<p>Cons: In the case of very large numbers, the <code>TextFlow</code> object is shrunk down to a point where the text in non-legible. However,
+we assume that the average user who is seriously using <code>ExpenseTracker</code> will not set  <code>currentExpenses</code> or <code>budgetCap</code> to such large numbers.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="notification-system"><a class="link" href="#notification-system">4.7. Notification System</a></h3>
 <div class="paragraph">
-<p>The Notification System is comprised of 3 features:
-* <code>Notification</code> - An abstract method that consists of a <code>header</code>, <code>type</code> and <code>body</code>. There are two types of <code>Notification</code>,
-<code>TipNotification</code> and <code>WarningNotification</code>.
-* <code>NotificationPanel</code> <code>and NotificationCard</code> - Lists the notifications that have been sent to the user.
-* <code>NotificationHandler</code> - Handles the storing and logic of notifications.
-* <code>NotificationCommand</code> - Allows the user to toggle what type of notifications they wish to receive.</p>
+<p>The Notification System is comprised of the following classes:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>Notification</code> - An abstract class that consists of a <code>header</code>, <code>type</code> and <code>body</code>. There are two types of <code>Notification</code>,
+<code>TipNotification</code> and <code>WarningNotification</code>.</p>
+</li>
+<li>
+<p><code>NotificationPanel</code> <code>and NotificationCard</code> - UI elements that displays the list the notifications that have been sent to the user.</p>
+</li>
+<li>
+<p><code>NotificationHandler</code> - Manages the list of notifications.</p>
+</li>
+<li>
+<p><code>NotificationCommand</code> - Allows the user to toggle what type of notifications they wish to receive.</p>
+</li>
+<li>
+<p><code>NotificationHandler</code> - Handles the storage and creation of <code>Notification</code> objects.</p>
+</li>
+<li>
+<p><code>XmlAdaptedNotificationHandler</code>, <code>JsonTipsStorage</code> and <code>XmlAdaptedNotificationHandler</code> -  Manages the saving and reading on Notifications.</p>
+</li>
+<li>
+<p><code>Tips</code> - Reads and stores <code>Tip</code> objects in a list.</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
-<p>Given below is an example scenario of how the Notification System functions:</p>
+<p>Given below are the steps of an example scenario of how the Notification System functions:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>The user launches the application for the first time. A new <code>NotificationHandler</code> is instantiated.</p>
+<p>The user launches the application for the first time. A new <code>NotificationHandler</code> is instantiated. A new <code>Tips</code> is instantiated, and a call
+to <code>JsonTipsStorage#readTips</code> is made to read a list of <code>Tip</code> objects from a JSON file.</p>
 </li>
 <li>
-<p>A call to <code>NotificationHandler#isTimeToSendTip</code> is made upon login. In turn, a check is made to see if it has
-been a day since the last <code>TipNotification</code> has been sent. If so, a new <code>TipNotification</code> is added to <code>NotificationHandler#internalList</code> via a call to <code>NotificationPanel#addNotification</code>.</p>
+<p>A call to <code>NotificationHandler#isTimeToSendTip()</code> is made upon login. In turn, a check is made to see if it has
+been a day since the last <code>TipNotification</code> has been sent. If so, a new <code>TipNotification</code> is added to the <code>NotificationHandler#internalList</code> via a call to <code>NotificationPanel#addNotification()</code>.</p>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -1487,8 +1596,8 @@ If this is the user&#8217;s first time logging into their account, a new <code>T
 </div>
 </li>
 <li>
-<p>The user executes the command <code>add n/Lunch $/30.00 c/Food</code>. The <code>add</code> command calls <code>NotificationHandler#isTimeToSendWarning</code> to check if the user is nearing or over their budget.
-If the user is nearing or approaching their budget, a <code>WarningNotification</code> is added to <code>NotificationHandler#internalList</code> via a call to <code>NotificationPanel#addNotification</code>.</p>
+<p>The user executes the command <code>add n/Lunch $/30.00 c/Food</code>. The <code>add</code> command calls <code>NotificationHandler#isTimeToSendWarning()</code> to check if the user is nearing or over their budget.
+If the user is nearing or approaching their budget, a <code>WarningNotification</code> is added to <code>NotificationHandler#internalList</code> via a call to <code>NotificationPanel#addNotification()</code>.</p>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -1496,7 +1605,7 @@ If the user is nearing or approaching their budget, a <code>WarningNotification<
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-The same procedure is carried out if the user execute an <code>edit</code> command.
+The same procedure is carried out if the user executes an <code>edit</code> command.
 </td>
 </tr>
 </table>
@@ -1524,7 +1633,7 @@ extracted parameters <code>warning</code> and <code>off</code>. A <code>Notifica
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-The <code>n/</code> parameter can be omitted. In this case, all types of notifications will be affected by the toggle.
+The <code>n/</code> suffix and parameter can be omitted. In this case, all types of notifications will be affected by the toggle.
 </td>
 </tr>
 </table>
@@ -1540,9 +1649,9 @@ The <code>n/</code> parameter can be omitted. In this case, all types of notific
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
- If <code>notification n/tip t/on</code> was executed, <code>NotificationHandler#toggleTipNotifications</code> would be called to set <code>NotificationHandler#isTipEnabled</code>
+ If <code>notification n/tip t/on</code> was executed, <code>NotificationHandler#toggleTipNotifications()</code> would be called to set <code>NotificationHandler#isTipEnabled</code>
  to <code>true</code>.
- If`notification t/on` was executed, <code>NotificationHandler#toggleBothNotifications</code> will be called instead.
+ If`notification t/on` was executed, <code>NotificationHandler#toggleBothNotifications()</code> will be called instead.
 </td>
 </tr>
 </table>
@@ -1550,10 +1659,53 @@ The <code>n/</code> parameter can be omitted. In this case, all types of notific
 </li>
 </ol>
 </div>
+<div class="paragraph">
+<p>The following sequence diagram shows the process of executing a <code>NotificationCommand</code>:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/implementation/NotificationCommandSequenceDiagram.png" alt="NotificationCommandSequenceDiagram" width="800">
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations-5"><a class="link" href="#design-considerations-5">4.7.1. Design Considerations</a></h4>
+<div class="sect4">
+<h5 id="aspect-storing-of-tips"><a class="link" href="#aspect-storing-of-tips">Aspect: Storing of Tips</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1:</strong> Code the tips as a list of <code>String</code> object in a class.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Easy to implement.</p>
+</li>
+<li>
+<p>Cons: Changes to the list might impact the base code and testing results.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2 (Current Choice):</strong> Read a set of predetermined tips from a JSON file.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Allows for easy configuration of tips that will not impact the base code.</p>
+</li>
+<li>
+<p>Cons: More tedious to implement, as the given <code>JsonUtil</code> does not have a method to read an array from a JSON file.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="budgeting"><a class="link" href="#budgeting">4.7. Budgeting</a></h3>
+<h3 id="budgeting"><a class="link" href="#budgeting">4.8. Budgeting</a></h3>
 <div class="paragraph">
 <p>The budget feature allows the user to set a budget for their expenses.</p>
 </div>
@@ -1574,7 +1726,7 @@ The <code>n/</code> parameter can be omitted. In this case, all types of notific
 <p>The current implementation for budgeting and its related features are described below.</p>
 </div>
 <div class="sect3">
-<h4 id="setting-a-budget"><a class="link" href="#setting-a-budget">4.7.1. Setting a Budget</a></h4>
+<h4 id="setting-a-budget"><a class="link" href="#setting-a-budget">4.8.1. Setting a Budget</a></h4>
 <div class="paragraph">
 <p>Given below is a sequence diagram and step by step explanation of how Expense Tracker executes when a user sets a budget</p>
 </div>
@@ -1611,7 +1763,7 @@ maximum budget of Expense Tracker.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="setting-a-recurring-budget"><a class="link" href="#setting-a-recurring-budget">4.7.2. Setting a recurring Budget</a></h4>
+<h4 id="setting-a-recurring-budget"><a class="link" href="#setting-a-recurring-budget">4.8.2. Setting a recurring Budget</a></h4>
 <div class="paragraph">
 <p>Every time a user logs in, <code>Model#loadUserData()</code> is called and  the application will check if the user has set a time
 when the
@@ -1737,7 +1889,7 @@ notifications. It will also return <code>DO_NOTHING</code>, which will results i
 </div>
 </div>
 <div class="sect3">
-<h4 id="setting-a-budget-by-category"><a class="link" href="#setting-a-budget-by-category">4.7.3. Setting a Budget by Category</a></h4>
+<h4 id="setting-a-budget-by-category"><a class="link" href="#setting-a-budget-by-category">4.8.3. Setting a Budget by Category</a></h4>
 <div class="paragraph">
 <p>An extension to the budget feature, this allows the user to divide their budget based on categories. Users can
 allocate parts of their budget to certain categories.
@@ -1810,7 +1962,7 @@ user still has available spending for the month.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-5"><a class="link" href="#design-considerations-5">4.7.4. Design Considerations</a></h4>
+<h4 id="design-considerations-6"><a class="link" href="#design-considerations-6">4.8.4. Design Considerations</a></h4>
 <div class="paragraph">
 <p>This section provides alternative design patterns that we have considered for features relating to budgeting.</p>
 </div>
@@ -1851,7 +2003,7 @@ logging in, this should not be possible</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="logging"><a class="link" href="#logging">4.8. Logging</a></h3>
+<h3 id="logging"><a class="link" href="#logging">4.9. Logging</a></h3>
 <div class="paragraph">
 <p>We are using <code>java.util.logging</code> package for logging. The <code>LogsCenter</code> class is used to manage the logging levels and logging destinations.</p>
 </div>
@@ -2414,21 +2566,46 @@ Below are different ways to manage these <em>dependencies</em>:</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">new user who might forget how to use commands</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">be notified of the correct usage of commands that I format wrongly</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">correct my mistake quickly and easily.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">user who wants to track their expenses</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">add a new expense</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">have the app keep track of my expenses</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">clumsy user</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">delete inaccurately added expenditure</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">have an accurate recording of my expenditures and budget</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">impulsive spender</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">set my maximum budget over a certain period of time</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">know when I am or about to spend
+over my budget</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">clumsy user</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">edit inaccurately added expenditure</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">have an accurate recording of my expenditures and budget</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">user who want to group expenditures of different categories together</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">add tags to an expense</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">find specific expenses in a later date.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">user who wants more information about their spending habits</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">search for recorded expenses by category, date or cost</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">reflect and learn from my past experiences.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">user who wants more information about their spending habits</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">have a visual representation of the statistical information about my spending habits</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">reflect and learn from my past experience.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">user who has trouble with overspending</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">have clear visual warnings or indicators when I am about to spend over my budget</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">better manage my spending and keep within my current budget.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
@@ -2438,54 +2615,33 @@ Below are different ways to manage these <em>dependencies</em>:</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">clumsy typer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">delete inaccurately added expenditures</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">have an accurate recording of my expenditures and budget</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">clumsy typer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">edit inaccurately added expenditures</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">have an accurate recording of my expenditures and budget</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">user who shares their computer with others</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">have my own login account</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">keep my expenditure information separate from other users'.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">user</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">exit the application with a keyboard command</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">exit the application conveniently without reaching for my mouse/touchpad</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">user</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">search by date, category, tag and cost</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">find my expenses more easily</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">forgetful user</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">receive a notification about my budget when the application boots up</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">be reminded of how
-much I have spent and can spend.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">impulsive spender</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">set my maximum budget over a certain period of time</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">know when I am or about to spend
-over my total budget</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">user who has a limited budget</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">see how much I have spent in each category of expense</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">have a clearer understanding of
-where I am spending my money</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">user who is keeping a monthly budget</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">be able to have reminders of how much I have spent during the month</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">better keep within my budget</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">user who has a limited budget</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">user who has a problem with overspending</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">view my expenses over a certain period of time</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">learn from my past endeavours and better manage my total budget</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">user who has a limited budget</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">see my expnses based on their category</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">learn what I spend my money on and better manage by budget</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">learn from my past endeavours and better manage my budget</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
@@ -2495,46 +2651,93 @@ where I am spending my money</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">user who shares a computer</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">add new account/log in to own account</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">use the application on the same computer as someone else</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">user who is worried about privacy</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">remove all expenditure information from the application</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">comfortable knowing that my information has been completely erased.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">user who shares a computer</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">have my account protected by a password</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ensure that no other user can modify my financial information through the application</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">clumsy user</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">be able to undo or redo my commands</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">easily fix my mistakes.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>* *</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">user who shares a computer</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">encrypt my financial information</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">so that other users of the computer cannot simply view my
-financial information by opening the data files</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">user who wants their expenditure information to be private</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">secure my account with a password</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ensure that no one can easily access my private information.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>* *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">user who has been using the application for a long time</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">look at statistical information from past months</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">reflect and learn from my past experience.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">user who has a monthly allowance</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">set my budget based on my monthly allowance</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">use the application with greater convienience.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">clumsy typer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">edit multiple incorrect expenditures that require the same type of edit</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">have an accurate recording of my expenditures and budget</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">user who spends too much in certain categories of expenses</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">set a budget for specific expenses</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">be aware of how much I am spending in a specific cate</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">advanced user</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">use short-form versions of commands</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">use the application with greater efficiency.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">user who wants their expenditure information to be private</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">be able to encrypt my data</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">so that I can protect my private information from anyone who opens the data file.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">user who does not know much about saving money</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">to be provided tips on how to save money</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">better manage my expenses in the future.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>*</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">user who spends on the same things frequently</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">add recurring expenses</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">do not need to key in the same type of expenditure every month</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* *</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">forgetful user</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">search with partial keywords</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">search without remembering the exact keywords</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* *</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">careless user</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">edit multiple expenses after filtering</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">save time when I make mny mistakes when adding expenses</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>*</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">advanced user</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">encrypt and decrypt strings</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">edit the encrypted data file directly</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">edit the data file directly.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>*</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">user that works in public areas</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">have secret categories for my expenses that only show when I want to</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">so that I can protect my private information.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>*</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">clumsy typer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">delete multiple inaccurately added expenditures</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">have an accurate recording of my expenditures and budget</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>*</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">user that often uses iBanking</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">be able to open iBanking within the application</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">so that I can reference my expenditure information when keying in my expenditures.</p></td>
 </tr>
 </tbody>
 </table>
@@ -2553,13 +2756,13 @@ financial information by opening the data files</p></td>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>User adds expenditure record</p>
+<p>User keys in command to add a given expenditure.</p>
 </li>
 <li>
-<p>Once validated, ExpenseTracker shows success message and details of the expenditure</p>
+<p>Expense Tracker adds specified expenditure.</p>
 </li>
 <li>
-<p>If expenditure causes <code>totalBudget</code> to be below a certain threshold, show a warning message to the user</p>
+<p>ExpenseTracker displays a success message.</p>
 <div class="paragraph">
 <p>Use case ends.</p>
 </div>
@@ -2567,19 +2770,45 @@ financial information by opening the data files</p></td>
 </ol>
 </div>
 <div class="paragraph">
-<p><strong>Exceptions</strong></p>
+<p><strong>Extensions</strong></p>
 </div>
-<div class="ulist none">
-<ul class="none">
+<div class="ulist">
+<ul>
 <li>
-<p>2a. Invalid data given</p>
-<div class="ulist none">
-<ul class="none">
+<p>1a.Expense Tracker detects error in the entered data.</p>
+<div class="ulist">
+<ul>
 <li>
-<p>2a1.Error message shown</p>
-<div class="paragraph">
+<p>1a1. Expense Tracker informs user of the error.</p>
+</li>
+<li>
 <p>Use case ends.</p>
+</li>
+</ul>
 </div>
+</li>
+<li>
+<p>1b.Expense Tracker detects that the user has gone over budget.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>1b1. Expense Tracker sends warning to the user.</p>
+</li>
+<li>
+<p>Use Case ends.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>1c.Expense Tracker detects that the user has nearly gone budget.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>1b1. Expense Tracker sends warning to the user that they have almost gone over budget.</p>
+</li>
+<li>
+<p>Use Case ends.</p>
 </li>
 </ul>
 </div>
@@ -2596,13 +2825,318 @@ financial information by opening the data files</p></td>
 <p>User keys in command to delete a given expenditure.</p>
 </li>
 <li>
-<p>Once deleted successfully, Expense Tracker shows a success message.</p>
+<p>Expense Tracker deletes specified expenditure.</p>
 </li>
 <li>
-<p>The deleted expenditure is deleted from the UI</p>
+<p>Expense Tracker displays a success message.</p>
+<div class="paragraph">
+<p>Use case ends</p>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Extensions</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>1a.Expense Tracker detects error in the entered data.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>1a1. Expense Tracker informs user of the error.</p>
 </li>
 <li>
-<p>The delete expenditure is deleted from the text file database.</p>
+<p>Use case ends.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>1a.Expense Tracker cannot find specified expenditure.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>1a1. Expense Tracker informs user that it cannot find the specified expenditure.</p>
+</li>
+<li>
+<p>Use case ends.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<h3 id="use-case-edit-expenditure" class="discrete">Use case: Edit expenditure</h3>
+<div class="paragraph">
+<p><strong>MSS</strong></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>User keys in command to edit a given expenditure.</p>
+</li>
+<li>
+<p>Expense Tracker edits the specified information of the specified expenditure.</p>
+</li>
+<li>
+<p>Expense Tracker displays a success message.</p>
+<div class="paragraph">
+<p>Use case ends</p>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Extensions</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>1a.Expense Tracker detects error in the entered data.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>1a1. Expense Tracker informs user of the error.</p>
+</li>
+<li>
+<p>Use case ends.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>1a.Expense Tracker cannot find specified expenditure.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>1a1. Expense Tracker informs user that it cannot find the specified expenditure.</p>
+</li>
+<li>
+<p>Use case ends.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<h3 id="use-case-mass-edit-expenditure" class="discrete">Use case: Mass edit expenditure</h3>
+<div class="paragraph">
+<p><strong>MSS</strong></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>User keys in command to find specific expenses from the list of all expenses.</p>
+</li>
+<li>
+<p>Expense Tracker displays the specified expenses.</p>
+</li>
+<li>
+<p>User keys in command to perform a mass edit on the list of expenses.</p>
+</li>
+<li>
+<p>Expense Tracker mass edits the specified information of the specified expenditure.</p>
+<div class="paragraph">
+<p>Use case ends</p>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Extensions</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>1a.Expense Tracker detects error in the entered data.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>1a1. Expense Tracker informs user of the error.</p>
+</li>
+<li>
+<p>Use case ends.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>3a.Expense Tracker detects error in the entered data.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>3a1. Expense Tracker informs user of the error.</p>
+</li>
+<li>
+<p>Use case ends.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>3a.Expense Tracker cannot find specified expenditures.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>3a1. Expense Tracker informs user that it cannot find the specified expenditures.</p>
+</li>
+<li>
+<p>Use case ends.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<h3 id="use-case-set-budget" class="discrete">Use case: Set budget</h3>
+<div class="paragraph">
+<p><strong>MSS</strong></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>User keys in command to set a budget cap.</p>
+</li>
+<li>
+<p>Expense Tracker updates the current budget cap.</p>
+</li>
+<li>
+<p>Expense tracker displays a success message.</p>
+<div class="paragraph">
+<p>Use case ends</p>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Extensions</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>1a.Expense Tracker detects error in the entered data.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>1a1. Expense Tracker inform user of the error.</p>
+</li>
+<li>
+<p>Use case ends.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<h3 id="use-case-set-a-recurring-budget" class="discrete">Use case: Set a recurring budget</h3>
+<div class="paragraph">
+<p><strong>MSS</strong></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>User key in command to set a monthly recurring budget.</p>
+</li>
+<li>
+<p>Expense Tracker sets the specified budget to reoccur after the specified time.</p>
+</li>
+<li>
+<p>User logs into the account on a new day.</p>
+</li>
+<li>
+<p>Expense Tracker detects that the specified period of time has passed.</p>
+</li>
+<li>
+<p>Expense Tracker resets the budget.</p>
+<div class="paragraph">
+<p>Use case ends</p>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Extensions</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>1a.Expense Tracker detects error in the entered data.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>1a1. Expense Tracker inform user of the error.</p>
+</li>
+<li>
+<p>Use case ends.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>4a.Expense Tracker detects that the specified period of time has not passed.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Use case ends.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<h3 id="use-case-set-a-category-budget" class="discrete">Use case: Set a category budget</h3>
+<div class="paragraph">
+<p><strong>MSS</strong></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>User key in command to set a budget for a specific category.</p>
+</li>
+<li>
+<p>Expense Tracker sets the specified budget to the specified category.</p>
+</li>
+<li>
+<p>Expense Tracker displays success message.</p>
+<div class="paragraph">
+<p>Use case ends</p>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Extensions</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>1a.Expense Tracker detects error in the entered data.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>1a1. Expense Tracker inform user of the error.</p>
+</li>
+<li>
+<p>Use case ends.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<h3 id="use-case-signup-for-an-account" class="discrete">Use case: Signup for an account</h3>
+<div class="paragraph">
+<p><strong>MSS</strong></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>User keys in command to signup for an account.</p>
+</li>
+<li>
+<p>Expense Tracker creates a new account with the specified username.</p>
 <div class="paragraph">
 <p>Use case ends</p>
 </div>
@@ -2612,115 +3146,47 @@ financial information by opening the data files</p></td>
 <div class="paragraph">
 <p><strong>Exceptions</strong></p>
 </div>
-<div class="ulist none">
-<ul class="none">
+<div class="ulist">
+<ul>
 <li>
-<p>2a. Expenditure does not exist.</p>
-<div class="ulist none">
-<ul class="none">
+<p>1a.Expense Tracker detects error in the entered data.</p>
+<div class="ulist">
+<ul>
 <li>
-<p>2a1. Error message shown to the user.</p>
-<div class="paragraph">
-<p>Use case ends</p>
+<p>1a1. Expense Tracker informs user of the error.</p>
+</li>
+<li>
+<p>Use case ends.</p>
+</li>
+</ul>
 </div>
+</li>
+<li>
+<p>1a.Expense Tracker that an account of that username already exists.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>1a1. Expense Tracker informs user that the username has been taken.</p>
+</li>
+<li>
+<p>Use case ends.</p>
 </li>
 </ul>
 </div>
 </li>
 </ul>
 </div>
-<h3 id="use-case-set-code-totalbudget-code" class="discrete">Use case: Set <code>totalBudget</code></h3>
+<h3 id="use-case-login-without-password" class="discrete">Use case: Login without password</h3>
 <div class="paragraph">
 <p><strong>MSS</strong></p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>User requests to set <code>totalBudget</code></p>
+<p>User keys in command to login to an account.</p>
 </li>
 <li>
-<p>Expense tracker prompts user to key in <code>totalBudget</code></p>
-</li>
-<li>
-<p>User keys in <code>totalBudget</code> value</p>
-</li>
-<li>
-<p>Expense tracker prompts and updates budgets</p>
-<div class="paragraph">
-<p>Use case ends</p>
-</div>
-<div class="paragraph">
-<p><strong>Extensions</strong></p>
-</div>
-<div class="ulist none">
-<ul class="none">
-<li>
-<p>2a. Budget is already set</p>
-<div class="ulist none">
-<ul class="none">
-<li>
-<p>2a1. Expense tracker prompts user the previously set <code>totalBudget</code> and asks if user wants to continue</p>
-</li>
-<li>
-<p>2a2. User confirmed that he/she wants to continue</p>
-<div class="paragraph">
-<p>Use case resumes step 2</p>
-</div>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-</li>
-</ol>
-</div>
-<h3 id="use-case-view-monthly-expenditure" class="discrete">Use case: View monthly expenditure</h3>
-<div class="paragraph">
-<p><strong>MSS</strong></p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>User requests to view monthly expenditure</p>
-</li>
-<li>
-<p>Expense tracker prompts user to key in month</p>
-</li>
-<li>
-<p>User keys in month</p>
-</li>
-<li>
-<p>Expense tracker prompts and shows the expenditure for the month</p>
-<div class="paragraph">
-<p>Use case ends</p>
-</div>
-</li>
-</ol>
-</div>
-<h3 id="use-case-log-in" class="discrete">Use case: Log in</h3>
-<div class="paragraph">
-<p><strong>MSS</strong></p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>User requests to log in to Expense Tracker</p>
-</li>
-<li>
-<p>Expense tracker prompts user to enter username</p>
-</li>
-<li>
-<p>User enters username</p>
-</li>
-<li>
-<p>Expense tracker prompts user to enter password</p>
-</li>
-<li>
-<p>User enters password</p>
-</li>
-<li>
-<p>User is successfully logged in</p>
+<p>Expense Tracker logs user into account.</p>
 <div class="paragraph">
 <p>Use case ends</p>
 </div>
@@ -2730,181 +3196,327 @@ financial information by opening the data files</p></td>
 <div class="paragraph">
 <p><strong>Exceptions</strong></p>
 </div>
-<div class="ulist none">
-<ul class="none">
+<div class="ulist">
+<ul>
 <li>
-<p>4a. The username keyed in by the user does not exist</p>
-<div class="ulist none">
-<ul class="none">
+<p>1a.Expense Tracker detects error in the entered data.</p>
+<div class="ulist">
+<ul>
 <li>
-<p>4a1. Expense tracker prompts the user that the username does not exist</p>
-<div class="paragraph">
+<p>1a1. Expense Tracker informs user of the error.</p>
+</li>
+<li>
+<p>Use case ends.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>1a.Expense Tracker detects that specified user does not exist.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>1a1. Expense Tracker informs user that user does not exist</p>
+</li>
+<li>
+<p>Use case ends.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>1a. Expense Tracker detects that the account is password-protected.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>1a1. Expense tracker informs the user that a password is required.</p>
+</li>
+<li>
 <p>Use case ends</p>
-</div>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>6a. The password keyed in by the user is incorrect</p>
-<div class="ulist none">
-<ul class="none">
-<li>
-<p>6a1. Expense tracker prompts the user that the password is incorrect.
-*
-Use case ends</p>
 </li>
 </ul>
 </div>
 </li>
 </ul>
 </div>
-<h3 id="use-case-logout" class="discrete">Use case: Logout</h3>
+<h3 id="use-case-login-without-password-2" class="discrete">Use case: Login without password</h3>
 <div class="paragraph">
 <p><strong>MSS</strong></p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>User requests to logout of Expense Tracker</p>
+<p>User keys in command to login to an account.</p>
 </li>
 <li>
-<p>Expense trackers shows success message and logs user out of account</p>
+<p>Expense Tracker logs user into account.</p>
+<div class="paragraph">
+<p>Use case ends</p>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Exceptions</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>1a.Expense Tracker detects error in the entered data.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>1a1. Expense Tracker informs user of the error.</p>
+</li>
+<li>
+<p>Use case ends.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>1a.Expense Tracker detects that specified user does not exist.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>1a1. Expense Tracker informs user that user does not exist</p>
+</li>
+<li>
+<p>Use case ends.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>1a. Expense Tracker detects that the account is password-protected.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>1a1. Expense tracker informs the user that a password is required.</p>
 </li>
 <li>
 <p>Use case ends</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<h3 id="use-case-login-with-password" class="discrete">Use case: Login with password</h3>
+<div class="paragraph">
+<p><strong>MSS</strong></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>User keys in command to login to an account.</p>
+</li>
+<li>
+<p>User also enters password of account.</p>
+</li>
+<li>
+<p>Expense Tracker logs user into account.</p>
+<div class="paragraph">
+<p>Use case ends</p>
+</div>
 </li>
 </ol>
 </div>
 <div class="paragraph">
 <p><strong>Extensions</strong></p>
 </div>
-<div class="ulist none">
-<ul class="none">
+<div class="ulist">
+<ul>
 <li>
-<p>2a. User is not logged in</p>
-<div class="ulist none">
-<ul class="none">
+<p>2a.Expense Tracker detects error in the entered data.</p>
+<div class="ulist">
+<ul>
 <li>
-<p>2a1. Expense tracker prompts user that they are not yet logged in</p>
-<div class="paragraph">
-<p>Use case ends</p>
+<p>2a1. Expense Tracker informs user of the error.</p>
+</li>
+<li>
+<p>Use case ends.</p>
+</li>
+</ul>
 </div>
+</li>
+<li>
+<p>2a.Expense Tracker detects that specified user does not exist.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>2a1. Expense Tracker informs user that user does not exist</p>
+</li>
+<li>
+<p>Use case ends.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>2a. Expense Tracker detects that the password is incorrect.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>2a1. Expense tracker informs the user that the entered password is incorrect.</p>
+</li>
+<li>
+<p>Use case ends</p>
 </li>
 </ul>
 </div>
 </li>
 </ul>
 </div>
-<div class="sect2">
-<h3 id="use-case-clear"><a class="link" href="#use-case-clear">C.1. Use case: Clear</a></h3>
+<h3 id="use-case-set-password" class="discrete">Use case: Set password</h3>
 <div class="paragraph">
 <p><strong>MSS</strong></p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>User requests to clear his recorded expenses and <code>totalBudget</code></p>
+<p>User keys in command to set a password.</p>
 </li>
 <li>
-<p>Expense trackers shows a confirmation message</p>
+<p>Expense Tracker sets the password for the account that is currently logged into to the specified password</p>
 </li>
 <li>
-<p>Expense tracker deletes all information about the current user’s <code>totalBudget</code> and expenses</p>
-<div class="paragraph">
-<p>Use case ends</p>
-</div>
+<p>Expense Tracker displays a success message</p>
 </li>
 </ol>
 </div>
-<h3 id="use-case-filter" class="discrete">Use Case: Filter</h3>
+<div class="paragraph">
+<p><strong>Extensions</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>1a.Expense Tracker detects error in the entered data.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>1a1. Expense Tracker informs user of the error.</p>
+</li>
+<li>
+<p>Use case ends.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>1a.Expense Tracker detects that the user is not logged in.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>1a1. Expense Tracker informs user that they need to log into an account.</p>
+</li>
+<li>
+<p>Use case ends.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<h3 id="use-case-clear" class="discrete">Use case: Clear</h3>
 <div class="paragraph">
 <p><strong>MSS</strong></p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Expense tracker has already shown the lists of expenditures</p>
+<p>User keys in command to clear information from an account.</p>
 </li>
 <li>
-<p>User requests to filter by some predefined field</p>
+<p>Expense tracker deletes all information about the current user’s expenses.</p>
 </li>
 <li>
-<p>Expense tracker filters out expenditures not applicable to the filter</p>
+<p>Expense Tracker displays a success message.</p>
 <div class="paragraph">
 <p>Use case ends</p>
 </div>
 </li>
 </ol>
 </div>
-<h3 id="use-case-notification-on" class="discrete">Use case: Notification On</h3>
+<h3 id="use-case-find-expenses" class="discrete">Use Case: Find Expenses</h3>
 <div class="paragraph">
 <p><strong>MSS</strong></p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>User keys in the command to turn on notifications</p>
+<p>User keys in command to find specific expenses from the list of all expenses.</p>
 </li>
 <li>
-<p>Expense tracker already has a <code>totalBudget</code> set.</p>
+<p>Expense Tracker displays the specified expenses.</p>
 </li>
 <li>
-<p>Add expenses until the <code>totalBudget</code> has been exceeded</p>
-</li>
-<li>
-<p>Expense tracker will detect that the <code>totalBudget</code> has been exceeded</p>
-</li>
-<li>
-<p>Expense tracker will show a visible notification to alert the user that the <code>totalBudget</code> has been exceeded</p>
+<p>Expense Tracker displays a success message.</p>
 <div class="paragraph">
 <p>Use case ends</p>
 </div>
 </li>
 </ol>
 </div>
-<h3 id="use-case-notification-off" class="discrete">Use case: Notification Off</h3>
+<div class="paragraph">
+<p><strong>Extensions</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>1a.Expense Tracker detects error in the entered data.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>1a1. Expense Tracker informs user of the error.</p>
+</li>
+<li>
+<p>Use case ends.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<h3 id="use-case-toggle-notification" class="discrete">Use case: Toggle Notification</h3>
 <div class="paragraph">
 <p><strong>MSS</strong></p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>User keys in command to turn off notifications</p>
+<p>User keys in command to toggle on or off automated notifications.</p>
 </li>
 <li>
-<p>Notifications no longer show whenever the set <code>totalBudget</code> has been exceeded.</p>
+<p>Expense Tracker toggles automated notifications to the specified status.</p>
 </li>
 <li>
-<p>Any notification that is currently showing will be hidden from the user.</p>
+<p>Expense Tracker displays a success message.</p>
 <div class="paragraph">
 <p>Use case ends</p>
 </div>
 </li>
 </ol>
 </div>
-<h3 id="use-case-set-recurring-expenditure" class="discrete">Use case: Set recurring expenditure</h3>
 <div class="paragraph">
-<p><strong>MSS</strong></p>
+<p><strong>Extensions</strong></p>
 </div>
-<div class="olist arabic">
-<ol class="arabic">
+<div class="ulist">
+<ul>
 <li>
-<p>User key in command to set recurring expenses for an expense that was already keyed in</p>
+<p>1a.Expense Tracker detects error in the entered data.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>1a1. Expense Tracker informs user of the error.</p>
 </li>
 <li>
-<p>Expense tracker prompts the user to key in which expense and the frequency of recurrence.</p>
+<p>Use case ends.</p>
 </li>
-<li>
-<p>User keys in the index of the expenditure to set as recurring expense and the frequency</p>
-</li>
-<li>
-<p>Expense tracker adds the expense automatically every time the set amount of time passes.</p>
-<div class="paragraph">
-<p>Use case ends</p>
+</ul>
 </div>
 </li>
-</ol>
+</ul>
 </div>
 <h3 id="use-case-view-statistics" class="discrete">Use case: View statistics</h3>
 <div class="paragraph">
@@ -2913,10 +3525,13 @@ Use case ends</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>User keys in command to view the information and statistics of his weekly/monthly/yearly <code>totalBudget</code></p>
+<p>User keys in command to view the statistics of his expenditure information from a specified period of time.</p>
 </li>
 <li>
-<p>Programs loads a window consisting of visual information displaying the relevant information</p>
+<p>Expense Tracker displays the statistics of the specified information.</p>
+</li>
+<li>
+<p>Expense Tracker displays success message.</p>
 <div class="paragraph">
 <p>Use case ends</p>
 </div>
@@ -2924,8 +3539,279 @@ Use case ends</p>
 </ol>
 </div>
 <div class="paragraph">
-<p><em>{More to be added}</em></p>
+<p><strong>Extensions</strong></p>
 </div>
+<div class="ulist">
+<ul>
+<li>
+<p>1a.Expense Tracker detects error in the entered data.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>1a1. Expense Tracker informs user of the error.</p>
+</li>
+<li>
+<p>Use case ends.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<h3 id="use-case-open-help-window" class="discrete">Use case: Open Help Window</h3>
+<div class="paragraph">
+<p><strong>MSS</strong></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>User keys in command to open Help Window.</p>
+</li>
+<li>
+<p>Expense Tracker opens a Help Window.</p>
+</li>
+<li>
+<p>Expense Tracker displays success message.</p>
+<div class="paragraph">
+<p>Use case ends</p>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Extensions</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>1a.Expense Tracker detects that a Help window has already been open.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Use case resumes from step 3.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<h3 id="use-case-redo-command" class="discrete">Use case: Redo Command</h3>
+<div class="paragraph">
+<p><strong>MSS</strong></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>User keys in command to redo an undone command.</p>
+</li>
+<li>
+<p>Expense Tracker redoes the undone command.</p>
+</li>
+<li>
+<p>Expense Tracker displays success message.</p>
+<div class="paragraph">
+<p>Use case ends</p>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Extensions</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>1a.Expense Tracker detects that are no commands to redo.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>1a1. Expense Tracker informs user that are no commands to redo.</p>
+</li>
+<li>
+<p>Use case ends.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<h3 id="use-case-undo-command" class="discrete">Use case: Undo Command</h3>
+<div class="paragraph">
+<p><strong>MSS</strong></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>User keys in command to undo a previous command.</p>
+</li>
+<li>
+<p>Expense Tracker undoes previous command.</p>
+<div class="paragraph">
+<p>Use case ends</p>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Extensions</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>1a.Expense Tracker detects that are no commands to undo.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>1a1. Expense Tracker informs user that are no commands to undo.</p>
+</li>
+<li>
+<p>Use case ends.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<h3 id="use-case-list" class="discrete">Use case: List</h3>
+<div class="paragraph">
+<p><strong>MSS</strong></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>User keys in command to list expenses.</p>
+</li>
+<li>
+<p>Expense Tracker displays the list of all recorded expenses.</p>
+<div class="paragraph">
+<p>Use case ends</p>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Extensions</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>1a.Expense Tracker detects error in the entered data.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>1a1. Expense Tracker informs user of the error.</p>
+</li>
+<li>
+<p>Use case ends.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<h3 id="use-case-encrypt" class="discrete">Use case: Encrypt</h3>
+<div class="paragraph">
+<p><strong>MSS</strong></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>User keys in command to encrypt a specified string.</p>
+</li>
+<li>
+<p>Expense Tracker encrypts the specified string with the user&#8217;s encryption key.</p>
+<div class="paragraph">
+<p>Use case ends</p>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Extensions</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>1a.Expense Tracker detects error in the entered data.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>1a1. Expense Tracker informs user of the error.</p>
+</li>
+<li>
+<p>Use case ends.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<h3 id="use-case-decrypt" class="discrete">Use case: Decrypt</h3>
+<div class="paragraph">
+<p><strong>MSS</strong></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>User keys in command to decrypt a specified encrypted string.</p>
+</li>
+<li>
+<p>Expense Tracker decrypts the specified string with the user&#8217;s encryption key.</p>
+<div class="paragraph">
+<p>Use case ends</p>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Extensions</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>1a.Expense Tracker detects error in the entered data.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>1a1. Expense Tracker informs user of the error.</p>
+</li>
+<li>
+<p>Use case ends.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>1a.Expense Tracker detects that the specified string was not encrypted with the user&#8217;s encryption key.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>1a1. Expense Tracker informs user that the specified string was not encrypted with the user&#8217;s encryption key.</p>
+</li>
+<li>
+<p>Use case ends.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<h3 id="use-case-exit-expense-tracker" class="discrete">Use case: Exit Expense Tracker</h3>
+<div class="paragraph">
+<p><strong>MSS</strong></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>User keys in command to exit out of Expense Tracker.</p>
+</li>
+<li>
+<p>Expense Tracker shuts down.</p>
+<div class="paragraph">
+<p>Use case ends</p>
+</div>
+</li>
+</ol>
 </div>
 </div>
 </div>
@@ -3062,4 +3948,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-11 10:37:52 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-11 15:53:55 UTC</div></div></div></body></html>
