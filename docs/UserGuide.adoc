@@ -788,9 +788,9 @@ e.g. `delete 3`
 * *Find* : `find [n/NAME] [c/CATEGORY] [$/COST:COST] [t/TAG] [d/DATE:DATE]` +
 e.g. `find c/School`
 * *List* : `list`
-* *Set `totalBudget`* : `setBudget` +
+* *Set budget for Expense Tracker* : `setBudget` +
 e.g. `setBudget 20.00`
-* *Set recurring frequency for `totalBudget`*: `setRecurrenceFrequency [hrs/HOURS] [min/MINUTES] [sec/SECONDS]` +
+* *Set recurring frequency for the budget*: `setRecurrenceFrequency [hrs/HOURS] [min/MINUTES] [sec/SECONDS]` +
 * *Set category budgets* : `setCategoryBudget c/CATEGORY b/BUDGET` +
 * *History* : `history`
 * *Undo* : `undo`

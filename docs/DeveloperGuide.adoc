@@ -1874,8 +1874,6 @@ Use case ends
 .  Should be able to hold up to 1000 expenses without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
-_{More to be added}_
-
 [appendix]
 == Glossary
 
@@ -2069,9 +2067,9 @@ one expense. +
 .. Test case: `setPassword n/password11 o/password1`
    Expected: A message indicating that the password has been changed is shown.
 
-=== Encrypt and Decrypt `Strings`
+=== Encrypting and Decrypting `String`&#8217;s
 
-. Encrypt and decrypt `String`s
+. Encrypting and Decrypting a `String`
 .. Prerequisites: Already logged into a user account
 .. Test case: `encrypt this is a test string`, and then use `decrypt STRING` where `STRING` is the encrypted `String` obtained from the first command.
    Expected: A message indicating that the decrypted `String` is `this is a test string` is shown.
@@ -2083,7 +2081,7 @@ one expense. +
 .. Prerequisites: User must be logged in. Preferably, there should be expenses in Expense Tracker with varying dates,
 categories and costs.
 
-.. Test case: `stats` +  (defaults to periodAmount = 7, period = day, mode = time)
+.. Test case: `stats` (defaults to periodAmount = 7, period = day, mode = time)
    Expected: Statistics Panel will be shown (if not already showing). Expense Tracker will attempt to display statistics in
    a *bar chart* for expenses in the last 7 days, starting from the current day, aggregated by day.
    If there are no expenses in the last 7 days, a message will be shown saying that there are no expenses.
@@ -2203,5 +2201,5 @@ Test cases should be performed one after the other.
 
 . Mass edit expenses that are not in the ExpenseTracker
 .. Prerequisites: Logged in to an account and the targeted expenses do not exist in the account.
-.. Test case: `massedit (ny keywords that would not direct to existing expenses) \-> (any edited field)` +
+.. Test case: `massedit (any keywords that would not direct to existing expenses) \-> (any edited field)` +
    Expected: No expense is shown on expense list panel. "No expense is found by the keywords." is shown as status message.

@@ -48,11 +48,11 @@ filtering is one of the most frequently used commands in this application.
 * *Other contributions*:
 
 ** Community:
-*** Report bugs for other teams(examples: https://github.com/CS2103-AY1819S1-W16-2/main/issues/209[1],
+*** Reported bugs for other teams(examples: https://github.com/CS2103-AY1819S1-W16-2/main/issues/209[1],
 https://github.com/CS2103-AY1819S1-W16-2/main/issues/211[2])
 
 ** Documentation:
-*** Update Architecture and Dev Op sections of Developer Guide: https://github.com/CS2103-AY1819S1-T12-1/main/pull/91[#91]
+*** Updated Architecture and Dev Op sections of Developer Guide: https://github.com/CS2103-AY1819S1-T12-1/main/pull/91[#91]
 
 
 == Contributions to the User Guide
@@ -68,7 +68,7 @@ To use `find` command, simply enter the command in correct format and the desire
 on the expense list panel. The diagram below illustrates the effect of `find` command.
 
 .Diagram to show the effect of find command
-image::FindCommandExampleDiagram.png[width="600"]
+image::FindCommandExampleDiagram.png[width="800"]
 
 include::../UserGuide.adoc[tag=find2]
 
@@ -79,7 +79,7 @@ edited command will be shown on the expense list panel. The diagram below illust
 the effect of `massedit` command.
 
 .Diagram to show the effect of massedit command
-image::MassEditCommandExampleDiagram.png[width="600"]
+image::MassEditCommandExampleDiagram.png[width="800"]
 
 include::../UserGuide.adoc[tag=massedit2]
 
