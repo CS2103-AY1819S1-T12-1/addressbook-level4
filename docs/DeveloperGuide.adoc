@@ -2160,8 +2160,6 @@ Test cases should be performed one after the other.
 "1000.00%"
 .. Test case: `setCategoryBudget c/Food b/25.00` +
     Expected: The bottommost text of the first `CategoryIcon` should now update to display "100.00%".
-.. Test case: `setCategoryBudget c/Food b/25.00` +
-   Expected: The bottommost text of the first `CategoryIcon` should now update to display "100.00%".
 .. Test case: `setCategoryBudget c/Fees b/10.00` + `setCategoryBudget c/Bus b/10.00` + `setCategoryBudget c/Bills b/10.00` +
    Expected: Four of the five added `CategoryIcon` objects should be displayed in `CategoryPanel`.
 
