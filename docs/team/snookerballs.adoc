@@ -40,7 +40,7 @@ of financial applications.
 *Highlights*
 
 * Creativity and many design considerations were required to get the *Expense Tracker* GUI to look and function as I had envisioned.
-* Additional features animation and dynamic changing of text color were also implemented for the GUI for improved visual feedback.
+* Additional features such as animation and dynamic changing of text color were also implemented for the GUI for improved visual feedback.
 * The implementation of the Notification System, in particular, was challenging as it involved making additions and modifications to all components of *Expense Tracker*.
 
 *Minor enhancements*:

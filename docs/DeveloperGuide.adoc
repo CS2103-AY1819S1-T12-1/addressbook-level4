@@ -2140,7 +2140,7 @@ categories and costs.
 
 . Updating the Budget Panel
 
-.. Prerequisites: Create a new account using `signup x` where x is any valid username and login to said account using `login u/x`.
+.. Prerequisites: Create a new account using `signup x` where x is any valid username and login to said account using `login u/x`.run
 Test cases should be performed one after the other.
 .. Test case: `add n/test c/test $/4.00` +
    Expected: `BudgetPanel#budgetBar` should be updated . `BudgetPanel#expenseDisplay` should be updated to display "$4.00".
