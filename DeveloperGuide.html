@@ -74,11 +74,11 @@
 <li><a href="#glossary">Appendix E: Glossary</a></li>
 <li><a href="#instructions-for-manual-testing">Appendix F: Instructions for Manual Testing</a>
 <ul class="sectlevel2">
-<li><a href="#setting-a-budget-2">F.1. Setting a budget</a></li>
-<li><a href="#setting-a-recurrence-frequency">F.2. Setting a recurrence frequency</a></li>
-<li><a href="#setting-a-category-budget">F.3. Setting a category budget</a></li>
-<li><a href="#sign-up-for-an-account">F.4. Sign up for an account</a></li>
-<li><a href="#log-in-to-an-account">F.5. Log in to an account</a></li>
+<li><a href="#sign-up-for-an-account">F.1. Sign up for an account</a></li>
+<li><a href="#log-in-to-an-account">F.2. Log in to an account</a></li>
+<li><a href="#setting-a-budget-2">F.3. Setting a budget</a></li>
+<li><a href="#setting-a-recurrence-frequency">F.4. Setting a recurrence frequency</a></li>
+<li><a href="#setting-a-category-budget">F.5. Setting a category budget</a></li>
 <li><a href="#set-password-for-current-user">F.6. Set password for current user</a></li>
 <li><a href="#encrypt-and-decrypt-code-strings-code">F.7. Encrypt and Decrypt <code>Strings</code></a></li>
 <li><a href="#showing-statistics">F.8. Showing statistics</a></li>
@@ -4259,7 +4259,101 @@ over my budget</p></td>
 <p>Given below are instructions to test the app manually.</p>
 </div>
 <div class="sect2">
-<h3 id="setting-a-budget-2"><a class="link" href="#setting-a-budget-2">F.1. Setting a budget</a></h3>
+<h3 id="sign-up-for-an-account"><a class="link" href="#sign-up-for-an-account">F.1. Sign up for an account</a></h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Sign up for an account</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: The application has been opened successfully and there are no other user accounts other than the sample user.</p>
+</li>
+<li>
+<p>Test case: <code>signup tom</code><br>
+Expected: A message is shown to indicate that the user <code>tom</code> has been created successfully.</p>
+</li>
+<li>
+<p>Test case: <code>signup tom doe</code><br>
+Expected: A message is shown to indicate that the USERNAME is invalid and shows the criteria for a valid USERNAME.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Sign up for an account with an existing Username</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: There exists a user account with <code>Username</code> <code>tom</code></p>
+</li>
+<li>
+<p>Test case: <code>signup tom</code><br>
+Expected: A message is shown to indicate that the user already exists.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="log-in-to-an-account"><a class="link" href="#log-in-to-an-account">F.2. Log in to an account</a></h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Log in to an account with no password</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: There exists a user account with <code>Username</code> <code>tom</code> which has no <code>Password</code> set. There does not exist a user account with <code>Username</code> <code>jon</code>.</p>
+</li>
+<li>
+<p>Test case: <code>login u/tom</code>
+Expected: The UI expands (if it has not already been) to show <code>tom</code> Expense Tracker information and a message shown to indicate that <code>tom</code> has successfully logged in.</p>
+</li>
+<li>
+<p>Test case: <code>login u/tom p/password1</code>
+Expected: The UI expands (if it has not already been) to show <code>tom</code> Expense Tracker information and a message shown to indicate that <code>tom</code> has successfully logged in.</p>
+</li>
+<li>
+<p>Test case: <code>login u/jon</code>
+Expected: A message that indicates that the user <code>jon</code> does not exist is shown.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Log in to an account with a password</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: There exists a user account with <code>Username</code> <code>tom</code> which has <code>Password</code> set as <code>password1</code>.</p>
+</li>
+<li>
+<p>Test case: <code>login u/tom</code>
+Expected: A message that indicates that the input password is incorrect is shown.</p>
+</li>
+<li>
+<p>Test case: <code>login u/tom p/password2</code>
+Expected: A message that indicates that the input password is incorrect is shown.</p>
+</li>
+<li>
+<p>Test case: <code>login u/tom p/password1</code>
+Expected: The UI expands (if it has not already been) to show <code>tom</code> Expense Tracker information and a message shown to indicate that <code>tom</code> has successfully logged in.</p>
+</li>
+<li>
+<p>Test case: <code>login u/jon</code>
+Expected: A message that indicates that the user <code>jon</code> does not exist is shown.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="setting-a-budget-2"><a class="link" href="#setting-a-budget-2">F.3. Setting a budget</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -4316,7 +4410,7 @@ informing the user that adding this expense results in the budget exceeding is s
 </div>
 </div>
 <div class="sect2">
-<h3 id="setting-a-recurrence-frequency"><a class="link" href="#setting-a-recurrence-frequency">F.2. Setting a recurrence frequency</a></h3>
+<h3 id="setting-a-recurrence-frequency"><a class="link" href="#setting-a-recurrence-frequency">F.4. Setting a recurrence frequency</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -4371,7 +4465,7 @@ Expected: Budget not updated, expenses not deleted, nothing changes.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="setting-a-category-budget"><a class="link" href="#setting-a-category-budget">F.3. Setting a category budget</a></h3>
+<h3 id="setting-a-category-budget"><a class="link" href="#setting-a-category-budget">F.5. Setting a category budget</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -4425,100 +4519,6 @@ Expected: Status message shown is similar to <code>add</code> command. Budget is
 informing the user that adding this expense results in the budget exceeding is shown.</p>
 </li>
 </ul>
-</div>
-</li>
-</ol>
-</div>
-</div>
-<div class="sect2">
-<h3 id="sign-up-for-an-account"><a class="link" href="#sign-up-for-an-account">F.4. Sign up for an account</a></h3>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Sign up for an account</p>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
-<li>
-<p>Prerequisites: The application has been opened successfully and there are no other user accounts other than the sample user.</p>
-</li>
-<li>
-<p>Test case: <code>signup tom</code><br>
-Expected: A message is shown to indicate that the user <code>tom</code> has been created successfully.</p>
-</li>
-<li>
-<p>Test case: <code>signup tom doe</code><br>
-Expected: A message is shown to indicate that the USERNAME is invalid and shows the criteria for a valid USERNAME.</p>
-</li>
-</ol>
-</div>
-</li>
-<li>
-<p>Sign up for an account with an existing Username</p>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
-<li>
-<p>Prerequisites: There exists a user account with <code>Username</code> <code>tom</code></p>
-</li>
-<li>
-<p>Test case: <code>signup tom</code><br>
-Expected: A message is shown to indicate that the user already exists.</p>
-</li>
-</ol>
-</div>
-</li>
-</ol>
-</div>
-</div>
-<div class="sect2">
-<h3 id="log-in-to-an-account"><a class="link" href="#log-in-to-an-account">F.5. Log in to an account</a></h3>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Log in to an account with no password</p>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
-<li>
-<p>Prerequisites: There exists a user account with <code>Username</code> <code>tom</code> which has no <code>Password</code> set. There does not exist a user account with <code>Username</code> <code>jon</code>.</p>
-</li>
-<li>
-<p>Test case: <code>login u/tom</code>
-Expected: The UI expands (if it has not already been) to show <code>tom</code> Expense Tracker information and a message shown to indicate that <code>tom</code> has successfully logged in.</p>
-</li>
-<li>
-<p>Test case: <code>login u/tom p/password1</code>
-Expected: The UI expands (if it has not already been) to show <code>tom</code> Expense Tracker information and a message shown to indicate that <code>tom</code> has successfully logged in.</p>
-</li>
-<li>
-<p>Test case: <code>login u/jon</code>
-Expected: A message that indicates that the user <code>jon</code> does not exist is shown.</p>
-</li>
-</ol>
-</div>
-</li>
-<li>
-<p>Log in to an account with a password</p>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
-<li>
-<p>Prerequisites: There exists a user account with <code>Username</code> <code>tom</code> which has <code>Password</code> set as <code>password1</code>.</p>
-</li>
-<li>
-<p>Test case: <code>login u/tom</code>
-Expected: A message that indicates that the input password is incorrect is shown.</p>
-</li>
-<li>
-<p>Test case: <code>login u/tom p/password2</code>
-Expected: A message that indicates that the input password is incorrect is shown.</p>
-</li>
-<li>
-<p>Test case: <code>login u/tom p/password1</code>
-Expected: The UI expands (if it has not already been) to show <code>tom</code> Expense Tracker information and a message shown to indicate that <code>tom</code> has successfully logged in.</p>
-</li>
-<li>
-<p>Test case: <code>login u/jon</code>
-Expected: A message that indicates that the user <code>jon</code> does not exist is shown.</p>
-</li>
-</ol>
 </div>
 </li>
 </ol>
@@ -4662,7 +4662,7 @@ If there are no expenses in the last 7 months, a message will be shown saying th
 <p>Prerequisites: Create a new account using <code>signup x</code> where x is any valid username. Test cases should be performed one after the other.</p>
 </li>
 <li>
-<p>Test case: <code>login x</code>, where x is the username of the new account.
+<p>Test case: <code>login u/x</code>, where x is the username of the new account.
 Expected: Two notifications should appear in the the `NotificationPanel`list. The topmost notification should contain a saving tip. The bottommost notification should containing a warning
  to the user that their recurrence time has not been set.</p>
 </li>
@@ -4697,7 +4697,7 @@ Expected: Similar to previous.</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>Prerequisites: Set the budget to $10.00 by using entering <code>setBudget 10.00</code>. Test cases should be performed one after the other.</p>
+<p>Prerequisites: User must be logged in. Set the budget to $10.00 by using entering <code>setBudget 10.00</code>. Test cases should be performed one after the other.</p>
 </li>
 <li>
 <p>Test case: <code>notification n/warning t/on</code> + <code>add n/test c/test $/11.00</code>.
@@ -4740,7 +4740,7 @@ Expected: Similar to previous.</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>Prerequisites: Create a new account using <code>signup x</code> where x is any valid username and login to said account using <code>login x</code>.
+<p>Prerequisites: Create a new account using <code>signup x</code> where x is any valid username and login to said account using <code>login u/x</code>.
 Test cases should be performed one after the other.</p>
 </li>
 <li>
@@ -4773,7 +4773,7 @@ Expected: <code>BudgetPanel#budgetBar</code> should be updated. <code>BudgetPane
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>Prerequisites: Create a new account using <code>signup x</code> where x is any valid username and login to said account using <code>login x</code>.
+<p>Prerequisites: Create a new account using <code>signup x</code> where x is any valid username and login to said account using <code>login u/x</code>.
 Test cases should be performed one after the other.</p>
 </li>
 <li>
@@ -4898,4 +4898,4 @@ Expected: No expense is shown on expense list panel. "No expense is found by the
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 14:10:34 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 14:16:35 UTC</div></div></div></body></html>
