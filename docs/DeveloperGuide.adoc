@@ -2109,7 +2109,7 @@ categories and costs.
 . Updating the Notification Panel
 
 .. Prerequisites: Create a new account using `signup x` where x is any valid username. Test cases should be performed one after the other.
-.. Test case: `login x`, where x is the username of the new account.
+.. Test case: `login u/x`, where x is the username of the new account.
    Expected: Two notifications should appear in the the `NotificationPanel`list. The topmost notification should contain a saving tip. The bottommost notification should containing a warning
     to the user that their recurrence time has not been set.
 .. Test case: `add n/test c/test $/27.00`.
@@ -2125,7 +2125,7 @@ categories and costs.
 
 . Toggling Notifications On and Off
 
-.. Prerequisites: Set the budget to $10.00 by using entering `setBudget 10.00`. Test cases should be performed one after the other.
+.. Prerequisites: User must be logged in. Set the budget to $10.00 by using entering `setBudget 10.00`. Test cases should be performed one after the other.
 .. Test case: `notification n/warning t/on` + `add n/test c/test $/11.00`.
    Expected: A notification should appear on the the `NotificationPanel` containing a warning that you are over budget.
 .. Test case: `notification n/warning t/off` + `add n/test c/test $/11.00`.
@@ -2145,7 +2145,7 @@ categories and costs.
 
 . Updating the Budget Panel
 
-.. Prerequisites: Create a new account using `signup x` where x is any valid username and login to said account using `login x`.
+.. Prerequisites: Create a new account using `signup x` where x is any valid username and login to said account using `login u/x`.
 Test cases should be performed one after the other.
 .. Test case: `add n/test c/test $/4.00`
    Expected: `BudgetPanel#budgetBar` should be updated . `BudgetPanel#expenseDisplay` should be updated to display "$4.00".
@@ -2160,7 +2160,7 @@ Test cases should be performed one after the other.
 === Category Panel
 
 . Updating the Category Panel
-.. Prerequisites: Create a new account using `signup x` where x is any valid username and login to said account using `login x`.
+.. Prerequisites: Create a new account using `signup x` where x is any valid username and login to said account using `login u/x`.
 Test cases should be performed one after the other.
 .. Test case: `setBudget 100.00` + `setCategoryBudget c/Food b/50.00` + `add n/test c/Food $/25.00` + `stats`
 .. Expected: A new `CategoryIcon` should appear in the `CagtegoryPanel`. The upper text should display "Food" and the lower text should display
