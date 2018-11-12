@@ -25,7 +25,7 @@
 <ul class="sectlevel2">
 <li><a href="#signing-up-a-user-code-signup-code">5.1. Signing up a user : <code>signup</code></a></li>
 <li><a href="#logging-in-as-an-existing-user-code-login-code">5.2. Logging in as an existing user : <code>login</code></a></li>
-<li><a href="#setting-a-password-for-the-current-user-code-setpassword-code">5.3. Setting a password for the current user : <code>setpassword</code></a></li>
+<li><a href="#setting-a-password-for-the-current-user-code-setpassword-code">5.3. Setting a password for the current user : <code>setPassword</code></a></li>
 <li><a href="#viewing-help-code-help-code">5.4. Viewing help : <code>help</code></a></li>
 <li><a href="#adding-an-expense-code-add-code">5.5. Adding an expense: <code>add</code></a></li>
 <li><a href="#EditCommand">5.6. Editing an expense : <code>edit</code></a></li>
@@ -462,12 +462,12 @@ regardless of whether a PASSWORD has been provided</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="setting-a-password-for-the-current-user-code-setpassword-code"><a class="link" href="#setting-a-password-for-the-current-user-code-setpassword-code">5.3. Setting a password for the current user : <code>setpassword</code></a></h3>
+<h3 id="setting-a-password-for-the-current-user-code-setpassword-code"><a class="link" href="#setting-a-password-for-the-current-user-code-setpassword-code">5.3. Setting a password for the current user : <code>setPassword</code></a></h3>
 <div class="paragraph">
 <p>Sets a new password for the user which is currently logged in.</p>
 </div>
 <div class="paragraph">
-<p>Format: <code>setpassword n/NEW_PASSWORD [o/OLD_PASSWORD]</code></p>
+<p>Format: <code>setPassword n/NEW_PASSWORD [o/OLD_PASSWORD]</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -477,11 +477,11 @@ regardless of whether a PASSWORD has been provided</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>setpassword n/pass123</code><br>
+<p><code>setPassword n/pass123</code><br>
 Sets the current user&#8217;s password as "pass123", provided that there is no previously set password</p>
 </li>
 <li>
-<p><code>setpassword n/pass123 o/password1</code><br>
+<p><code>setPassword n/pass123 o/password1</code><br>
 Sets the current user&#8217;s password as "pass123", provided that the current password is "password1"</p>
 </li>
 </ul>
@@ -1524,8 +1524,8 @@ e.g. <code>signup username123</code></p>
 e.g. <code>login u/username123 p/password1</code></p>
 </li>
 <li>
-<p><strong>Set Password</strong> : <code>setpassword n/NEW_PASSWORD [o/OLD_PASSWORD]</code><br>
-e.g. <code>setpassword n/pass1 o/passold</code></p>
+<p><strong>Set Password</strong> : <code>setPassword n/NEW_PASSWORD [o/OLD_PASSWORD]</code><br>
+e.g. <code>setPassword n/pass1 o/passold</code></p>
 </li>
 <li>
 <p><strong>Help</strong> : <code>help</code></p>
@@ -1611,7 +1611,7 @@ e.g. <code>notification n/tip t/off</code></p>
 <p><code>login</code>: <code>li</code></p>
 </li>
 <li>
-<p><code>setpassword</code>: <code>sp</code></p>
+<p><code>setPassword</code>: <code>sp</code></p>
 </li>
 <li>
 <p><code>help</code>: <code>h</code></p>
@@ -1664,4 +1664,4 @@ e.g. <code>notification n/tip t/off</code></p>
 </ul>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 05:56:10 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 08:08:12 UTC</div></div></div></body></html>
