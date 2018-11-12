@@ -5,9 +5,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 
-import seedu.address.model.Model;
-import seedu.address.model.exceptions.NoUserSelectedException;
-import seedu.address.model.expense.Expense;
+import seedu.expensetracker.model.Model;
+import seedu.expensetracker.model.exceptions.NoUserSelectedException;
+import seedu.expensetracker.model.expense.Expense;
 
 /**
  * Contains helper methods to set up {@code Model} for testing.

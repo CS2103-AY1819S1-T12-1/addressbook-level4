@@ -1,0 +1,59 @@
+package seedu.expensetracker.storage;
+
+import javax.xml.bind.annotation.XmlValue;
+
+import seedu.expensetracker.commons.exceptions.IllegalValueException;
+import seedu.expensetracker.model.encryption.EncryptedTag;
+
+/**
+ * JAXB-friendly adapted version of the Tag.
+ */
+public class XmlAdaptedTag {
+
+    @XmlValue
+    private String tagName;
+
+    /**
+     * Constructs an XmlAdaptedTag.
+     * This is the no-arg constructor that is required by JAXB.
+     */
+    public XmlAdaptedTag() {}
+
+    /**
+     * Constructs a {@code XmlAdaptedTag} with the given {@code tagName}.
+     */
+    public XmlAdaptedTag(String tagName) {
+        this.tagName = tagName;
+    }
+
+    /**
+     * Converts a given Tag into this class for JAXB use.
+     *
+     * @param source future changes to this will not affect the created
+     */
+    public XmlAdaptedTag(EncryptedTag source) {
+        tagName = source.getEncryptedString();
+    }
+
+    /**
+     * Converts this jaxb-friendly adapted tag object into the model's Tag object.
+     *
+     * @throws IllegalValueException if there were any data constraints violated in the adapted expense
+     */
+    public EncryptedTag toModelType() throws IllegalValueException {
+        return new EncryptedTag(tagName);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof XmlAdaptedTag)) {
+            return false;
+        }
+
+        return tagName.equals(((XmlAdaptedTag) other).tagName);
+    }
+}

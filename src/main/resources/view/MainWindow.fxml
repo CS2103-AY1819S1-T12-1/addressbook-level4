@@ -13,7 +13,7 @@
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
          minWidth="900" minHeight="800" onCloseRequest="#handleExit">
   <icons>
-    <Image url="@/images/address_book_32.png" />
+    <Image url="@/images/expense_tracker_32.png" />
   </icons>
   <scene>
     <Scene>
@@ -35,7 +35,7 @@
         <StackPane VBox.vgrow="NEVER" fx:id="titlePlaceholder">
         </StackPane>
 
-        <SplitPane fx:id="splitPane" prefHeight="500" minHeight="500" SplitPane.resizableWithParent="true">
+        <SplitPane fx:id="splitPane" prefHeight="500" minHeight="500" SplitPane.resizableWithParent="true" VBox.vgrow = "ALWAYS" >
           <VBox fx:id="leftPanel" prefHeight="500" minHeight="500" minWidth="440" prefWidth="440"  SplitPane.resizableWithParent="true" VBox.vgrow="ALWAYS">
             <StackPane fx:id="leftPanelPlaceholder" prefHeight="500" SplitPane.resizableWithParent="true" VBox.vgrow="ALWAYS"/>
           </VBox>
@@ -56,8 +56,7 @@
         <StackPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder"
                    prefWidth="900" prefHeight="150">
         </StackPane>
-
-        <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
+        <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" prefHeight="100"/>
       </VBox>
     </Scene>
   </scene>

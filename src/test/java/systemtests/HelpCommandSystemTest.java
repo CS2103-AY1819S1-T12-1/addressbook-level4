@@ -3,18 +3,18 @@ package systemtests;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EXPENSE;
-import static seedu.address.ui.testutil.GuiTestAssert.assertExpenseListMatching;
+import static seedu.expensetracker.testutil.TypicalIndexes.INDEX_FIRST_EXPENSE;
+import static seedu.expensetracker.ui.testutil.GuiTestAssert.assertExpenseListMatching;
 
 import org.junit.Test;
 
 import guitests.GuiRobot;
 import guitests.guihandles.HelpWindowHandle;
-import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.SelectCommand;
-import seedu.address.model.exceptions.NoUserSelectedException;
-import seedu.address.ui.StatusBarFooter;
+import seedu.expensetracker.logic.commands.DeleteCommand;
+import seedu.expensetracker.logic.commands.HelpCommand;
+import seedu.expensetracker.logic.commands.SelectCommand;
+import seedu.expensetracker.model.exceptions.NoUserSelectedException;
+import seedu.expensetracker.ui.StatusBarFooter;
 
 /**
  * A system test class for the help window, which contains interaction with other UI components.

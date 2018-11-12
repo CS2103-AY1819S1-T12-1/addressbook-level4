@@ -1,0 +1,84 @@
+= Jaime Chow Wen Juan - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: ExpenseTracker
+
+---
+
+== Overview
+
+Expense Tracker is the secure, efficient financial application for the keyboard enthusiast. Boasting such features as daily tips,
+statistics, expense management and budget setting, Expense Tracker provides users with the necessary tools to become a better saver.
+
+This portfolio is a documentation of my contributions to Expense Tracker. Morphed from the https://github.com/nus-cs2103-AY1819S1/addressbook-level4[AddressBook application],
+Expense Tracker was created for an NUS software Engineering module (CS2103T). The constraints for the project are described https://nus-cs2103-ay1819s1.github.io/cs2103-website/admin/project-constraints.html[here].
+
+== Summary of contributions
+
+*Major Enhancement:* Implementation of GUI elements for newly added features
+
+*What It Does*
+
+* Displays the user's expenditure information on the GUI. This includes their notifications, monthly budget, monthly expenses and budgets for categories.
+The Notification System in particular was entirely implemented by me. The feature generates and displays daily saving tips and warnings
+if the user is about to spend or have spent over their budget.
+
+*Justification*
+
+* A well-designed and responsive user interface is able to maximize user experience and allows `Expense Tracker` to stand out amongst the sea
+of financial applications.
+
+* I predict that there will be a subset of users who use `Expense Tracker` because they have trouble maintaining a budget. The Notification System was
+ implemented to help said users by monitoring their budget management and providing general knowledge about saving money.
+
+*Highlights*
+
+* Creativity and many design considerations were required to get the Expense Tracker GUI to look and function as I had envisioned.
+* Additional features animation and dynamic changing of text color were also implemented for the GUI for improved visual feedback.
+* The implementation of the Notification System, in particular, was challenging as it involved making additions and modifications to all components of Expense Tracker.
+
+*Minor enhancements*:
+
+* Implemented the `notification` command that allows users to toggle the option for automated notification sending.
+* Completely overhauled the CSS styling of the application.
+* Implemented other minor animations to existing features such a fade-in effect of GUI elements upon login.
+* Implemented panel switching. The leftmost panel of the GUI can swap between statistical information and the list of expenses.
+* Added color to `Tags`.
+
+*Code contributed*: https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=jaime&sort=displayName&since=2018-09-12&until=2018-11-02&timeframe=day&reverse=false&repoSort=true[Reposense Compilation]
+
+*Other contributions*:
+
+** Documentation:
+*** Updated the `Notification` component section of the User Guide: https://github.com/CS2103-AY1819S1-T12-1/main/pull/187[#187]
+*** Updated the `Use Case`, `User Stories` and `User Interface` component section of the Developer Guide: https://github.com/CS2103-AY1819S1-T12-1/main/pull/187[#187], https://github.com/CS2103-AY1819S1-T12-1/main/pull/75/files[#75]
+*** Made changes to the Developer Guide. Improved language, updated images and edited diagrams: https://github.com/CS2103-AY1819S1-T12-1/main/pull/187[#187], https://github.com/CS2103-AY1819S1-T12-1/main/pull/75/files[#75], https://github.com/CS2103-AY1819S1-T12-1/main/pull/194[#194]
+
+*** Report bugs for other teams: https://github.com/CS2103-AY1819S1-F10-2/main/issues/217[#217], https://github.com/CS2103-AY1819S1-F10-2/main/issues/234[#234],
+https://github.com/CS2103-AY1819S1-F10-2/main/issues/201[#201], https://github.com/CS2103-AY1819S1-F10-2/main/issues/221[#227], https://github.com/CS2103-AY1819S1-F10-2/main/issues/212[#212]
+
+** Community:
+*** Reviewed PRs (with non-trivial review comments):
+https://github.com/CS2103-AY1819S1-T12-1/main/pull/110[#110], https://github.com/CS2103-AY1819S1-T12-1/main/pull/175[#175],
+https://github.com/CS2103-AY1819S1-T12-1/main/pull/182[#182], https://github.com/CS2103-AY1819S1-T12-1/main/pull/191[#191]
+
+== Contributions to the User Guide
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=notification]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=userinterfaceredesign]
+
+
+

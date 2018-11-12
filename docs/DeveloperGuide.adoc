@@ -13,71 +13,72 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/CS2103-AY1819S1-T12-1/main
+:repoURL: https://github.com/CS2103-AY1819S1-T12-1/main/tree/master
 
 By: `Team T12-1`      Since: `Oct 2018`      Licence: `MIT`
 
 == Introduction
 
-The Expense Tracker application is a desktop application which enables users to track their expenses.
-The application features both a Command Line Interface (CLI) and a Graphical User Interface (GUI) which provides users
-with the efficiency of the CLI while still having the benefits of a GUI. +
+Expense Tracker is a desktop application that you can use to track your expenses. Expense Tracker provides you
+with features such as setting a budget and expense statistics, which help you stay within your budget.
 
-This application was morphed from https://github.com/se-edu/addressbook-level4[AddressBook-Level4], developed by https://github.com/se-edu/[se-edu]
+The *Expense Tracker Developer Guide* contains all the information you need to start development on Expense Tracker. It
+also includes information about the overall architecture and implementation of various features in Expense Tracker.
+Whether this is your first project or your 37th project, this guide will help you to start contribute to Expense Tracker.
+Jump to <<Setting up, Setting up>> to start setting up your environment.
 
-
-== Setting up
+== Set Up
 
 '''
-Follow the guide in this section below to start development on ExpenseTracker
+Follow the steps in the section below to start development on Expense Tracker
 
 '''
 
 === Prerequisites
 
-. *https://www.oracle.com/technetwork/java/javase/downloads/java-archive-javase9-3934878.html[JDK `9`]* or later
+You will need to ensure that you have these two programs installed on your computer:
+
+. *https://www.oracle.com/technetwork/java/javase/downloads/java-archive-javase9-3934878.html[Java Development Kit (JDK) `9`]*
 
 +
 [WARNING]
 JDK `10` on Windows will fail to run tests in <<UsingGradle#Running-Tests, headless mode>> due to a https://github.com/javafxports/openjdk-jfx/issues/66[JavaFX bug].
-Windows developers are highly recommended to use JDK `9`.
+Therefore we highly recommended you to use JDK `9`.
 
-. *IntelliJ* IDE
+. An Integrated Development Environment (IDE). We recommend using https://www.jetbrains.com/idea/[*IntelliJ*] as
+instructions related to the IDE in this guide assume the use of IntelliJ
 +
 [NOTE]
-IntelliJ by default has Gradle and JavaFx plugins installed. +
-Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable them.
+IntelliJ has Gradle and JavaFx plugins installed by default, which are both used in the development of Expense Tracker.
+If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable them. +
 
 
-=== Setting up the project in your computer
-*To set up the project:*
+=== The Project
+Follow these steps to set up the project:
 
-. Fork this repo and clone the fork to your computer
+. Fork this repo and clone the fork to your computer, in a folder of your choice.
 . Open IntelliJ (if you are not in the https://i.stack.imgur.com/cQnLl.png[welcome screen], click `File` > `Close
-Project` to close
- the
-existing project dialog first)
+Project` to close the existing project dialog first).
 
 . Click `Configure` > `Project Defaults` > `Project Structure`
 . Click `New...` and find the directory of the JDK
 . Click `Import Project`
-. Locate the `build.gradle` file and select it. Click `OK`
+. Locate the `build.gradle` file in the project folder and select it. Click `OK`
 . Click `Open as Project`
 . Click `OK` to accept the default settings
 . Open a console and run the command `gradlew processResources` (Mac/Linux: `./gradlew processResources`). It should finish with the `BUILD SUCCESSFUL` message. +
 This will generate all resources required by the application and tests.
 
-=== Verifying the setup
-*To verify that you have successfully set the project up:*
+In order to verify that you have successfully set the project up:
 
-. Run the `seedu.address.MainApp` and try a few commands
+. Run `seedu.expensetracker.MainApp` and try a few commands
 . <<Testing,Run the tests>> and ensure that they all pass.
 
-=== Configurations to apply before writing code
+=== Configurations
 
 The following lists configurations that should be applied before writing code:
 
-==== Configuring the coding style
+==== Coding style
 
 This project follows https://github.com/oss-generic/process/blob/master/docs/CodingStandards.adoc[oss-generic coding
 standards]. IntelliJ's default style is mostly compliant but it uses a different import order from ours. To rectify:
@@ -89,17 +90,26 @@ standards]. IntelliJ's default style is mostly compliant but it uses a different
 * For `Class count to use import with '\*'` and `Names count to use static import with '*'`: Set to `999` to prevent IntelliJ from contracting the import statements
 * For `Import Layout`: The order is `import static all other imports`, `import java.\*`, `import javax.*`, `import org.\*`, `import com.*`, `import all other imports`. Add a `<blank line>` between each `import`
 
-Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> document to configure Intellij to check style-compliance as you write code.
+Optionally, you can follow the instructions in the <<UsingCheckstyle#, UsingCheckstyle.adoc>> document to configure Intellij to check style-compliance as you write code.
 
-==== Updating documentation to match your fork
+==== Documentation
 
-If you plan to develop this fork as a separate product (instead of contributing to expense tracker), you should do the following:
+If you plan to develop this fork as a separate product (instead of contributing to Expense Tracker), you should do the following:
 
 . Configure the <<Docs-SiteWideDocSettings, site-wide documentation settings>> in link:{repoURL}/build.gradle[`build.gradle`], such as the `site-name`, to suit your own project.
 
 . Replace the URL in the attribute `repoURL` in link:{repoURL}/docs/DeveloperGuide.adoc[`DeveloperGuide.adoc`] and link:{repoURL}/docs/UserGuide.adoc[`UserGuide.adoc`] with the URL of your fork.
 
-==== Setting up CI
+[NOTE]
+See <<Implementation-Configuration>> for more configurations to set if you wish to develop this fork as a separate product
+
+[TIP]
+In the Developer Guide, many diagrams are used to illustrate various components of Expense tracker. These are created using `.pptx`
+files used which can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder. To update a diagram, modify the diagram
+in the relevant pptx file, select the all objects of the diagram, right click and choose `Save as picture`. You can then
+save the image in the link:{repoURL}/docs/images/[images] folder, and use them in the Developer Guide.
+
+==== Continuous Integration
 
 Set up Travis to perform Continuous Integration (CI) for your fork. See <<UsingTravis#, UsingTravis.adoc>> to learn how to set it up.
 
@@ -114,41 +124,33 @@ Optionally, you can set up AppVeyor as a second CI (see <<UsingAppVeyor#, UsingA
 [NOTE]
 Having both Travis and AppVeyor ensures your App works on both Unix-based platforms and Windows-based platforms (Travis is Unix-based and AppVeyor is Windows-based)
 
-=== Before coding
 
-Before you start coding, get a sense of the overall design by reading <<Design-Architecture>>.
+'''
+Now you're all set to start coding! If you want to get a sense of the overall design, take some time to read up on the
+<<Design-Architecture, design>> of the application.
+
+'''
 
 == Design
 
 [[Design-Architecture]]
-=== Architecture
-
-[discrete]
-==== Overview of Architecture
+=== Overview of Architecture
 
 .Architecture Diagram
 image::Architecture.png[width="600"]
 
-The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
+The *_Architecture Diagram_* given above explains the high-level design of Expense Tracker. Given below is a
+quick overview for each component
 
-[TIP]
-The `.pptx` files used to create diagrams in this document can be found in the link:{repoURL}/docs/diagrams/[diagrams] folder. To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose `Save as picture`.
+`Main` has only one class called link:{repoURL}/src/main/java/seedu/expensetracker/MainApp.java[`MainApp`]. It is responsible for:
 
-`Main` has only one class called link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp`]. It is responsible for,
+* Initialising the components in the correct sequence and connecting them up with each other when the app is launched.
+* Shutting down the components and invoking cleanup methods where necessary when the app is shut down.
 
-* At app launch: Initializes the components in the correct sequence, and connects them up with each other.
-* At shut down: Shuts down the components and invokes cleanup method where necessary.
-
-<<Design-Commons,*`Commons`*>> represents a collection of classes used by multiple other components. Two of those classes play important roles at the architecture level.
-
-* `EventsCenter` : This class (written using https://github.com/google/guava/wiki/EventBusExplained[Google's Event Bus library]) is used by components to communicate with other components using events (i.e. a form of _Event Driven_ design)
-* `LogsCenter` : Used by many classes to write log messages to the App's log file.
+<<Design-Commons,*`Commons`*>> represents a collection of classes used by multiple other components.
 
 `Logic` is the command executor. It defines its API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
-Read <<Design-Logic,*`Logic`*>> for more details. Its class diagram is given below:
-
-.Class Diagram of the Logic Component
-image::LogicClassDiagram.png[width="800"]
+Read <<Design-Logic,*`Logic`*>> for more details.
 
 `UI` is responsible for the UI of the App. It defines its API in the `Ui.java` interface and exposes its functionality using the `UiManager.java` class.
 Read <<Design-Ui,*`UI`*>> for more details.
@@ -156,28 +158,30 @@ Read <<Design-Ui,*`UI`*>> for more details.
 `Model` holds the data of the App in-memory. It defines its API in the `Model.java` interface and exposes its functionality using the `ModelManager.java` class.
 Read <<Design-Model,*`Model`*>> for more details.
 
-`Storage` reads data from, and writes data to, the hard disk.It defines its API in the `Storage.java` interface and exposes its functionality using the `StorageManager.java` class.
+`Storage` reads data from, and writes data to, the hard disk. It defines its API in the `Storage.java` interface and exposes its functionality using the `StorageManager.java` class.
 Read <<Design-Storage,*`Storage`*>> for more details.
 
 [discrete]
-==== Events-Driven nature of the design
+[[Event-driven]]
+==== Events-Driven Design
 
-The Expense Tracker's architecture style is events-driven style. Here is an illustration of how this architecture works.
-The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the command `delete 1`.
+Expense Tracker's architecture style is an events-driven style. To illustrate how the architecture works, we will use
+the scenario of a user issuing the command 'delete 1'.
+The _Sequence Diagram_ below shows the first part of component interaction once the command is given.
 
 .Component interactions for `delete 1` command (part 1)
 image::SDforDeletePerson.png[width="800"]
 
 [NOTE]
-Note how the `Model` simply raises a `ExpenseTrackerChangedEvent` when the Expense Tracker data are changed, instead of asking the `Storage` to save the updates to the hard disk.
+Note how `Model` simply raises an `ExpenseTrackerChangedEvent` when there is a change in the data, instead of asking `Storage` to save the updates to the hard disk.
 
-The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time.
+The _Sequence Diagram_ below shows how `EventsCenter` reacts to that event, which eventually results in the updates being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time.
 
 .Component interactions for `delete 1` command (part 2)
 image::SDforDeletePersonEventHandling.png[width="800"]
 
 [NOTE]
-Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct coupling between components.
+Note how the event is propagated through `EventsCenter` to `Storage` and `UI` without `Model` having to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct coupling between components.
 
 The sections below give more details of each component.
 
@@ -189,14 +193,14 @@ image::UiClassDiagram.png[width="800"]
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `ExpenseListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class.
+As per the diagram above, `UI` consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `ExpenseListPanel`, `StatusBarFooter`, `BrowserPanel` etc. All these, including `MainWindow`, inherit from the abstract `UiPart` class.
 
-The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/address/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
+`UI` uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in `src/main/resources/view` folder. For example, the layout of the link:{repoURL}/src/main/java/seedu/expensetracker/ui/MainWindow.java[`MainWindow`] is specified in link:{repoURL}/src/main/resources/view/MainWindow.fxml[`MainWindow.fxml`]
 
-The `UI` component,
+Below lists other functions that `UI` carries out:
 
-* Executes user commands using the `Logic` component.
-* Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
+* Executes user commands using `Logic`.
+* Binds itself to some data in `Model` so that the UI can auto-update when data in `Model` changes.
 * Responds to events raised from various parts of the App and updates the UI accordingly.
 
 [[Design-Logic]]
@@ -207,40 +211,39 @@ The `UI` component,
 image::LogicClassDiagram.png[width="800"]
 
 *API* :
-link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+link:{repoURL}/src/main/java/seedu/expensetracker/logic/Logic.java[`Logic.java`]
 
-*  `Logic` uses the `ExpenseTrackerParser` class to parse user commands.
-*  This results in a `Command` object which is executed by the `LogicManager`.
-*  The command execution can affect the `Model` (e.g. adding a expense) and/or raise events.
-*  The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
+As per the diagram above, `Logic` uses `ExpenseTrackerParser` to parse user commands.
+This results in a `Command` object which is executed by `LogicManager`. +
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
+The execution of certain commands can affect `Model`, like adding a expense, and/or raise events, like the `stats` command.
+The result of the command execution is encapsulated as a `CommandResult` object which is passed back to `UI`.
 
-.Interactions Inside the Logic Component for the `delete 1` Command
+Given below is the _Sequence Diagram_ for interactions within `Logic` for `execute("delete 1")` API call.
+
+.Interactions Inside the Logic Component for `delete 1` Command
 image::DeletePersonSdForLogic.png[width="800"]
 
 [[Design-Model]]
 === Model component
 
 .Structure of the Model Component
-image::UpdatedModelComponentClassDiagram.png[width="800"]
+image::ModelClassDiagram.png[width="1366"]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
+*API* : link:{repoURL}/src/main/java/seedu/expensetracker/model/Model.java[`Model.java`]
 
-The `ModelManager` which implements the interface `Model` (Figure 8):
+As per the diagram above, `ModelManager` implements the `Model` interface, which:
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the a list of expenses.
+* stores a list of expenses of a single user.
+* stores encrypted lists of expenses of each users.
 * exposes an unmodifiable `ObservableList<Expense>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
 [NOTE]
-To better adhere to the paradigms of OOP, we can store a `Tag` list in `Expense Tracker`, which `Expense` can
-reference. This
-would allow `Expense
-Tracker` to only require one `Tag` object per unique `Tag`, instead of each `Expense` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:BetterOopModelComponentClassDiagram.png[width="800"]
+To better adhere to the paradigms of OOP, we could store a `Tag` list in `Expense Tracker`, which `Expense` can
+reference. This allows `Expense Tracker` to only require one `Tag` object per unique `Tag`,
+instead of each `Expense` needing their own `Tag` object. This is planned to be implemented in future releases.
 
 [[Design-Storage]]
 === Storage component
@@ -248,174 +251,242 @@ image:BetterOopModelComponentClassDiagram.png[width="800"]
 .Structure of the Storage Component
 image::StorageClassDiagram.png[width="800"]
 
-The *_Structure of the Storage Component_* given above shows the relationships between classes in the storage component.
+*API* : link:{repoURL}/src/main/java/seedu/expensetracker/storage/Storage.java[`Storage.java`]
 
-*API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
-
-The `Storage` component,
+As per the diagram above, `StorageManager` implements the `Storage` interface, which:
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Expense Tracker data in xml format and read it back.
+* can save Expense Tracker data in xml format and read it back.
 * can read multiple xml format files with separate Expense Tracker data from a folder.
-* XmlAdaptedPassword is stored as a SHA-256 hash of the original password.
+* stores XmlAdaptedPassword as a SHA-256 hash of the original password.
 
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Two classes in `Commons` play important roles at the architecture level:
+
+* `EventsCenter` : This class (written using https://github.com/google/guava/wiki/EventBusExplained[Google's Event Bus library]) is used by components to communicate with other components using events.
+See <<Event-driven, Event-Driven Design>> from more details.
+* `LogsCenter` : This class is used by components to write log messages to Expense Tracker's log file.
+
+`Commons` also contains utility and exception classes which can be used by components.
+See the link:{repoURL}/src/main/java/seedu/expensetracker/commons/util[`Utilities`]
+and link:{repoURL}/src/main/java/seedu/expensetracker/commons/exceptions[`Exceptions`]
+folders for all the utility and exception classes available.
 
 == Implementation
 
 This section describes some noteworthy details on how certain features are implemented.
 
 // tag::undoredo[]
-//=== Undo/Redo feature
-//==== Current Implementation
-//
-//The undo/redo mechanism is facilitated by `VersionedExpenseTracker`.
-//It extends `ExpenseTracker` with an undo/redo history, stored internally as an `expenseTrackerStateList` and `currentStatePointer`.
-//Additionally, it implements the following operations:
-//
-//* `VersionedExpenseTracker#commit()` -- Saves the current expense tracker state in its history.
-//* `VersionedExpenseTracker#undo()` -- Restores the previous expense tracker state from its history.
-//* `VersionedExpenseTracker#redo()` -- Restores a previously undone expense tracker state from its history.
-//
-//These operations are exposed in the `Model` interface as `Model#commitExpenseTracker()`, `Model#undoExpenseTracker()` and `Model#redoExpenseTracker()` respectively.
-//
-//Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
-//
-//Step 1. The user launches the application for the first time. The `VersionedExpenseTracker` will be initialized with the initial expense tracker state, and the `currentStatePointer` pointing to that single expense tracker state.
-//
-//image::UndoRedoStartingStateListDiagram.png[width="800"]
-//
-//Step 2. The user executes `delete 5` command to delete the 5th expense in the expense tracker. The `delete` command calls `Model#commitExpenseTracker()`, causing the modified state of the expense tracker after the `delete 5` command executes to be saved in the `expenseTrackerStateList`, and the `currentStatePointer` is shifted to the newly inserted expense tracker state.
-//
-//image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
-//
-//Step 3. The user executes `add n/David ...` to add a new expense. The `add` command also calls `Model#commitExpenseTracker()`, causing another modified expense tracker state to be saved into the `expenseTrackerStateList`.
-//
-//image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
-//
-//[NOTE]
-//If a command fails its execution, it will not call `Model#commitExpenseTracker()`, so the expense tracker state will not be saved into the `expenseTrackerStateList`.
-//
-//Step 4. The user now decides that adding the expense was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoExpenseTracker()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous expense tracker state, and restores the expense tracker to that state.
-//
-//image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
-//
-//[NOTE]
-//If the `currentStatePointer` is at index 0, pointing to the initial expense tracker state, then there are no previous expense tracker states to restore. The `undo` command uses `Model#canUndoExpenseTracker()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
-//
-//The following sequence diagram shows how the undo operation works:
-//
-//image::UndoRedoSequenceDiagram.png[width="800"]
-//
-//The `redo` command does the opposite -- it calls `Model#redoExpenseTracker()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the expense tracker to that state.
-//
-//[NOTE]
-//If the `currentStatePointer` is at index `expenseTrackerStateList.size() - 1`, pointing to the latest expense tracker state, then there are no undone expense tracker states to restore. The `redo` command uses `Model#canRedoExpenseTracker()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-//
-//Step 5. The user then decides to execute the command `list`. Commands that do not modify the expense tracker, such as `list`, will usually not call `Model#commitExpenseTracker()`, `Model#undoExpenseTracker()` or `Model#redoExpenseTracker()`. Thus, the `expenseTrackerStateList` remains unchanged.
-//
-//image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
-//
-//Step 6. The user executes `clear`, which calls `Model#commitExpenseTracker()`. Since the `currentStatePointer` is not pointing at the end of the `expenseTrackerStateList`, all expense tracker states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
-//
-//image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
-//
-//The following activity diagram summarizes what happens when a user executes a new command:
-//
-//image::UndoRedoActivityDiagram.png[width="650"]
-//
-//==== Design Considerations
-//
-//===== Aspect: How undo & redo executes
-//
-//* **Alternative 1 (current choice):** Saves the entire expense tracker.
-//** Pros: Easy to implement.
-//** Cons: May have performance issues in terms of memory usage.
-//* **Alternative 2:** Individual command knows how to undo/redo by itself.
-//** Pros: Will use less memory (e.g. for `delete`, just save the expense being deleted).
-//** Cons: We must ensure that the implementation of each individual command are correct.
-//
-//===== Aspect: Data structure to support the undo/redo commands
-//
-//* **Alternative 1 (current choice):** Use a list to store the history of expense tracker states.
-//** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-//** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedExpenseTracker`.
-//* **Alternative 2:** Use `HistoryManager` for undo/redo
-//** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-//** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-//// end::undoredo[]
+=== Undo/Redo feature
+==== Current Implementation
 
-//tag::useraccounts[]
+The undo/redo mechanism is facilitated by `VersionedExpenseTracker`.
+It extends `ExpenseTracker` with an undo/redo history, stored internally as an `expenseTrackerStateList` and `currentStatePointer`.
+Additionally, it implements the following operations:
 
-=== User Accounts System
-The user accounts system allows multiple users to use the Expense Tracker on the same computer without interfering with each other's data. It also includes an optional password system that allows users to protect their expense tracker information from being viewed or altered by others.
+* `VersionedExpenseTracker#commit()` -- Saves the current Expense Tracker state in its history.
+* `VersionedExpenseTracker#undo()` -- Restores the previous Expense Tracker state from its history.
+* `VersionedExpenseTracker#redo()` -- Restores a previously undone Expense Tracker state from its history.
+
+These operations are exposed in the `Model` interface as `Model#commitExpenseTracker()`, `Model#undoExpenseTracker()` and `Model#redoExpenseTracker()` respectively.
+
+Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
+
+Step 1. The user launches the application for the first time. `VersionedExpenseTracker` will be initialized with the initial Expense Tracker state, and `currentStatePointer` pointing to that single Expense Tracker state.
+
+.Step 1 of undo/redo mechanism
+image::UndoRedoStartingStateListDiagram.png[width="800"]
+
+Step 2. The user executes `delete 5` command to delete the 5th expense in Expense Tracker. The `delete` command calls `Model#commitExpenseTracker()`, causing the modified state of Expense Tracker after the `delete 5` command executes to be saved in `expenseTrackerStateList`, and `currentStatePointer` is shifted to the newly inserted Expense Tracker state.
+
+.Step 2 of undo/redo mechanism
+image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
+
+Step 3. The user executes `add n/Lunch...` to add a new expense. The `add` command also calls `Model#commitExpenseTracker()`, causing another modified Expense Tracker state to be saved into `expenseTrackerStateList`.
+
+.Step 3 of undo/redo mechanism
+image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
+
+[NOTE]
+If a command fails its execution, it will not call `Model#commitExpenseTracker()`, so Expense Tracker state will not be saved into `expenseTrackerStateList`.
+
+Step 4. The user now decides that adding the expense was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoExpenseTracker()`, which will shift `currentStatePointer` once to the left, pointing it to the previous Expense Tracker state, and restores Expense Tracker to that state.
+
+.Step 4 of undo/redo mechanism
+image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
+
+[NOTE]
+If `currentStatePointer` is at index 0, pointing to the initial Expense Tracker state, then there are no previous Expense Tracker states to restore. The `undo` command uses `Model#canUndoExpenseTracker()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+
+The following sequence diagram shows how the undo operation works:
+
+.Sequence Diagram for undo operation
+image::UndoRedoSequenceDiagram.png[width="800"]
+
+The `redo` command does the opposite -- it calls `Model#redoExpenseTracker()`, which shifts `currentStatePointer` once to the right, pointing to the previously undone state, and restores Expense Tracker to that state.
+
+[NOTE]
+If `currentStatePointer` is at index `expenseTrackerStateList.size() - 1`, pointing to the latest Expense Tracker state, then there are no undone Expense Tracker states to restore. The `redo` command uses `Model#canRedoExpenseTracker()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+
+Step 5. The user then decides to execute the command `list`. Commands that do not modify Expense Tracker, such as `list`, will usually not call `Model#commitExpenseTracker()`, `Model#undoExpenseTracker()` or `Model#redoExpenseTracker()`. Thus, `expenseTrackerStateList` remains unchanged.
+
+.Step 5 of undo/redo mechanism
+image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
+
+Step 6. The user executes `clear`, which calls `Model#commitExpenseTracker()`. Since `currentStatePointer` is not pointing at the end of `expenseTrackerStateList`, all Expense Tracker states after `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/Lunch ...` command. This is the behavior that most modern desktop applications follow.
+
+.Step 6 of undo/redo mechanism
+image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
+
+The following activity diagram summarizes what happens when a user executes a new command:
+
+image::UndoRedoActivityDiagram.png[width="650"]
+
+==== Design Considerations
+
+===== Aspect: How undo & redo executes
+
+* **Alternative 1 (current choice):** Saves the entire Expense Tracker.
+** Pros: Easy to implement.
+** Cons: May have performance issues in terms of memory usage.
+* **Alternative 2:** Individual command knows how to undo/redo by itself.
+** Pros: Will use less memory (e.g. for `delete`, just save the expense being deleted).
+** Cons: We must ensure that the implementation of each individual command are correct.
+
+===== Aspect: Data structure to support the undo/redo commands
+
+* **Alternative 1 (current choice):** Use a list to store the history of Expense Tracker states.
+** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
+** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedExpenseTracker`.
+* **Alternative 2:** Use `HistoryManager` for undo/redo
+** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
+** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
+// end::undoredo[]
+//tag::security[]
+//tag::security1[]
+
+=== Data Security
+The Expense Tracker ensures the security of users' data through the user accounts system and data encryption.
+
+The user accounts system allows multiple users to use Expense Tracker on the same computer without interfering with each other's data. It also includes an optional password system that allows users to protect their Expense Tracker information from being viewed or altered by others.
+
+The encryption system ensures all expense data (excluding budget) is encrypted within the xml storage files.
 
 ==== Current Implementation
-On initialization, the `MainApp` class loads all xml files within the data folder according to the path in `UserPrefs`. The data is loaded by `MainApp#initModelManager(Storage, UserPref)`.
+On initialization, `MainApp` class loads all xml files within the data folder according to the path in `UserPrefs`. The data is loaded by `MainApp#initModelManager(Storage, UserPref)`.
 [NOTE]
 ====
-An xml data file not be loaded if the username value is not the same as the filename (ignoring file extension).
+The username value will be forced to match the name of the xml data filename (ignoring file extentions).
 ====
+//end::security1[]
+//tag::modelsecurity[]
+This feature is facilitated by newly added methods in the Model interface which now supports the following operations:
 
-This system is facilitated by newly added methods in the Model interface which now supports the following operations:
+* `Model#loadUserData(Username, Password)` -- Logs in to the user with the input `Username` and `Password` and loads the associated data into `Model`. Returns true if the `Password` matches the user's `Password`, else the user is not logged into and false is returned
+* `Model#unloadUserData()` -- Unselects the user in `Model`
+* `Model#isUserExists(Username)` -- Checks if a user with the input `Username` exists in `Model`
+* `Model#addUser(Username)` -- Adds a new user with the given `Username` to `Model`
+* `Model#hasSelectedUser()` -- Checks if a user is currently logged in in `Model`
+* `Model#setPassword(Password, String)` -- Changes the `Password` of the user that is currently logged in. Requires the new password as a `Password` object and as a plain text `String`.
+* `Model#isMatchPassword(Password)` -- Checks if the input `Password` matches the name
+* `Model#encryptString(String)` -- Encrypts the input `String` using the currently logged in user's encryption key
+* `Model#decryptString(String)` -- Decrypts the input `String` using the currently logged in user's encryption key.
+//end::modelsecurity[]
+//tag::security2[]
+When implementing methods in `ModelManager` that requires a user to already be logged in, one can use `ModelManager#requireUserSelected()`, which throws a checked `NoUserSelectedException` if there is no logged in user. I.e your method should look like this:
 
-* `Model#loadUserData(Username, Password)` -- Logs in to the user with the input Username and Password and loads the associated data into the `Model`. Returns true if the password matches the user's password, else the user is not logged into and false is returned
-* `Model#unloadUserData()` -- Unselects the user in the `Model`
-* `Model#isUserExists(Username)` -- Checks if a user with the input Username exists in the `Model`
-* `Model#addUser(Username)` -- Adds a new user with the given Username to the `Model`
-* `Model#hasSelectedUser()` -- Checks if a user is currently logged in in the `Model`
+.New method example
+[source,java]
+----
+@Override
+public void methodName() throws NoUserSelectedException {
+    requireUserSelected();
+    // Rest of the method body...
+}
+----
 
 The classes `Username` and `Password` have also been implemented and have the following noteworthy characteristics:
 
-* Two `Username` classes are equivalent if and only if the internal username String are equivalent (case-insensitive).
-* `Username` cannot be constructed with a String containing any of the following characters: _" > < : \ / | ? *_
-* When a `Password` class is constructed with plain text, the password is hashed before being stored as an internal String in the `Password` object
+* Two `Username` classes are equivalent if and only if the internal username `String` are equivalent (case-insensitive).
+* `Username` cannot be constructed with a `String` containing a white space or any of the following characters: _" > < : \ / | ? *_
+* When a `Password` class is constructed with plain text, the password is hashed using SHA-256 before being stored as an internal `String` in the `Password` object
 * `Password` is only valid if the plain text form is at least 6 characters long
+//end::security2[]
+Utility methods related to data encryption are implemented in the `EncryptionUtil` class, which includes the following methods:
+
+* `EncryptionUtil#decryptString(String, String)` -- Decrypts a `String` with by using the input encryption key
+* `EncryptionUtil#encryptString(String, String)` -- Encrypts a `String` with by using the input encryption key
+* `EncryptionUtil#createEncryptionKey(String)` -- Creates a 128-bit encryption key using the input plain text password `String`. Equivalent passwords will always map to equivalent keys.
+* `EncryptionUtil#encryptExpense(Expense, String)` -- Creates an `EncryptedExpense` instance of the given `Expense` by encrypting its data using the given encryption key
+* `EncryptionUtil#encryptTracker(ExpenseTracker)` -- Creates an `EncryptedExpenseTracker` instance of the given `ExpenseTracker` by encrypting it using its encryption key. This is always called when sending users' data to `Storage` for saving.
+//tag::security3[]
+Encrypted versions of the `ExpenseTracker` and most of the classes it contains were implemented. These classes have their class names prepended with `Encrypted` and are shown in the class diagram below:
+
+.Class diagram for `Enrypted` classes
+image::implementation/EncryptionClassDiagram.png[width="1024"]
+
+The following are other noteworthy details of the implementation for data encryption:
+
+* Users' expense data are encrypted using `AES` encryption with a 128-bit `MurmurHash` of their plain text password as the encryption key. These are not stored anywhere in the data files to ensure the security of their data.
+* The encrypted information is stored in new classes to ensure that encrypted data is not used before decryption.
+* The encrypted information has to be stored in `Model` as the encryption key will only be known at runtime when a user logs in with his/her correct `Password`.
+* Each Encrypted class will know how to decrypt itself into its decrypted equivalent. e.g `EncryptedExpenseField#decrypt(String)` uses the input `String` as an encryption key to decrypt itself into a `ExpenseField`.
 
 Below is an example usage scenario and how the User Account System behaves at each step when the application is launched.
 
 . The user launches the application and the directory path in the UserPref points at the _data_ folder
-. The method `StorageManager#readAllExpenses(Path)` is called by the MainApp and the method loads all the xml data files in the _data_ folder and returns the loaded data as a `Map<Username, ReadOnlyAddressBook>` with the `Username` of the user data as the key and the user data as a `ReadOnlyExpenseTracker` as the value to the MainApp class.
+. The method `StorageManager#readAllExpenses(Path)` is called by the MainApp and the method loads all the xml data files in the _data_ folder and returns the loaded data as a `Map<Username, EncryptedExpensetracker>` with the `Username` of the user data as the key and the user data as an `EncryptedExpenseTracker` as the value to the MainApp class.
 . A `Model` instance will then be initialized using the previously mentioned `Map` of user data.
 
 Below is the UML sequence diagram of the `StorageManager#readAllExpenses(Path)` method mentioned.
 
 .Sequence diagram of the `StorageManager#readAllExpenses(Path)` method
-image::implementation/ReadAllExpensesSequenceDiagram.png[width="800"]
+image::implementation/ReadAllExpensesSequenceDiagram.png[width="450"]
 
 Below is an example usage scenario and how the Sign Up and Login system behaves at each step after the application is launched.
 
 . The user executes the command `signup john` to create a user with the `Username` john
-. The `signup` command calls `Model#addUser(Username)` which adds the user `john` to the `Model`. The operation is successful as `john` does not break any of the `Username` constraints and does not already exist in the Model.
+. The `signup` command calls `Model#addUser(Username)` which adds the user `john` to `Model`. The operation is successful as `john` does not break any of the `Username` constraints and does not already exist in the Model.
 . The user then executes the command `login u/john` to log in to his user account
-. The `login` command calls `loadUserData(Username, Password)` with a null password as a password was not provided. The method is executed successfully as the user `john` has no password set.
-. The selected data in the `Model` is switched to `john`'s and an `UserLoggedInEvent` is raised for the `UI` to show `john`'s Expense Tracker data
-
-Below is the UML sequence diagram that shows how the `SignUpCommand` works.
+. The `login` command calls the `LoginCredentials(Username, String)` constructor with a null `String` password as a password was not provided.
+. The `login` command then calls `Model#loadUserData(LoginCredentials)` with the `LoginCredentials` instance created in the previous step. The method is executed successfully as the user `john` has no password set.
+. `john`&#8217;s data that is stored as `EncryptedExpenseTracker` is decrypted using the `EncryptedExpenseTracker#decryptTracker(String)` using an encryption key generated from `john`&#8217;s password (In this case an empty `String` is used as the password since `john`&#8217;s account has no password).
+. The selected data in `Model` is switched to `john`&#8217;s and an `UserLoggedInEvent` is raised for `UI` to show `john`&#8217;s Expense Tracker data
+//end::security3[]
+Below is the UML sequence diagram that shows how `SignUpCommand` works.
 
 .Sequence diagram showing how `SignUpCommand` works
 image::implementation/SignUpCommandSequenceDiagram.png[width="800"]
-
-Below is the UML sequence diagram that shows how the `LoginCommand` works.
+//tag::security4[]
+Below is the UML sequence diagram that shows how `LoginCommand` works.
 
 .Sequence diagram showing how `LoginCommand` works
 image::implementation/LoginCommandSequenceDiagram.png[width="800"]
 
 Below is an example usage scenario and how the Password system behaves at each step after the he/she is logged in.
 
-. The user is already logged in to the account `john` with an existing password `password1` and executes the command `setpassword o/password1 n/password2` to change his password to `password2`
-. The `setpassword` command calls the `Model#setPassword(Password)` method since the given old password matches his existing password and `password2` does not violate any password constraints
-. The `Model#setPassword(Password)` changes `john`'s account password to `password2`
+. The user is already logged in to the account `john` with an existing password `password1` and executes the command `setPassword o/password1 n/password2` to change his password to `password2`
+. The `setPassword` command calls the `Model#setPassword(Password)` method since the given old password matches his existing password and `password2` does not violate any password constraints
+. The `Model#setPassword(Password)` method changes `john`&#8217;s account password to `password2`
+. `john`&#8217;s expense data gets encrypted using a new encryption key generated from the `String` `password2`. This also applies in future whenever it is saved to the data file.
 
-Below is the UML sequence diagram that shows how the `SetPasswordCommand` works.
+Below is the UML sequence diagram that shows how `SetPasswordCommand` works.
 
 .Sequence diagram showing how `SetPasswordCommand` works
 image::implementation/SetPasswordCommandSequenceDiagram.png[width="800"]
 
 ==== Design Considerations
+===== Aspect: Loading of User Data
+
+* **Alternative 1 (current choice):** Loading of User data is only done on initialization of Expense Tracker
+** Pros: Ability to switch user accounts quickly after Expense Tracker is loaded as all users are already loaded into memory
+** Cons: External changes to the data files after initialization will not be reflected may be overwritten
+* **Alternative 2:** User data is loaded only when the user attempts to log in
+** Pros: Unnecessary data is not kept in memory so memory space is not wasted
+** Cons: The Model or Logic component will have to depend on the Storage component as the login command will require the Storage to load and return the user's data.
+// end::security4[]
 ===== Aspect: Storage of Separate User Data
 
 * **Alternative 1 (current choice):** Save each user's data into a seperate xml file
@@ -424,22 +495,13 @@ image::implementation/SetPasswordCommandSequenceDiagram.png[width="800"]
 * **Alternative 2:** Save all the separated user data in a single xml data file
 ** Pros: Relatively easier to implement. ExpenseTracker already loads data from a single xml data file so less work has to be done to change the storage structure
 ** Cons: Users will be unable to easily transfer their individual data to another computer
-
-===== Aspect: Loading of User Data
-
-* **Alternative 1 (current choice):** Loading of User data is only done on initialization of the Expense Tracker
-** Pros: Ability to switch user accounts quickly after the Expense Tracker is loaded as all users are already loaded into memory
-** Cons: External changes to the data files after initialization will not be reflected may be overwritten
-* **Alternative 2:** User data is loaded only when the user attempts to log in
-** Pros: Unnecessary data is not kept in memory so memory space is not wasted
-** Cons: Increase degree of coupling between the Logic, Model and Storage components as the login command will require the Storage to load and return the user's data.
-// end::useraccounts[]
+//end::security[]
 
 // tag::statistics[]
 === Statistics
 
-The implementation of the Statistics function can be divided into two parts - preparation and execution.
-Given below is an example usage scenario and an explanation of how the statistics mechanism behaves at each step.
+The implementation of the Statistics function can be divided into two phases - preparation and execution.
+Given below is an explanation of how the statistics mechanism behaves at each phase.
 
 ==== Preparation
 In the preparation phase, the program parses the command for statistics, prepares filters used by the model
@@ -447,72 +509,108 @@ and posts events in `EventsCenter`.
 Below is the UML sequence diagram and a step-by-step explanation of the preparation stage.
 
 .Sequence diagram of the preparation stage in the statistics mechanism
-image::implementation/StatsCommandSequenceDiagram.png[width="800"]
+image::implementation/StatsPreparationSequenceDiagram.png[]
 
-. User enters command `stats n/7 p/d m/t`. The command is received by `ExpenseTrackerParser`, which calls `StatsCommandParser#parse()`
-to create a `StatsCommand` object with the two extracted parameters. The `StatsCommand` object is returned to `LogicManager`.
+. User enters command `stats` command e.g. `stats n/7 p/d m/t`. The command is received by `ExpenseTrackerParser`, which calls
+creates `StatsCommand` and calls `StatsCommandParser#parse()` to create `StatsCommand`.
 
-. `LogicManager` then calls `StatsCommand#execute()`, which updates the `Predicate` and `StatsMode` in `ModelManager and
-also posts a `ShowStatsRequestEvent` and `SwapLeftPanelEvent` event to the `EventsCenter`.
+. If no parameters are provided by the user, `StatsCommand#StatsCommand()` is called to create `StatsCommand` with the
+default parameters of `periodAmount` as `7`, `period` as `d` and `mode` as `t`. Otherwise,
+`StatsCommand#StatsCommand(periodAmount, period, mode)` is called to create `StatsCommand` with the specified parameters.
 
-In this example, `Predicate` is set to filter out expenses which have dates within the last 7 days and
-`StatsPeriod` is set to TIME, which will be used later to have the UI display a bar chart instead of a pie chart.
+. `StatsCommand` checks if the parameters are valid. If any parameter is invalid, an exception will be raised and a
+message will be displayed to the user. Otherwise, the parameters are stored in instance variables and
+`StatsCommand` is returned to `LogicManager`.
+
+. `LogicManager` then calls `StatsCommand#execute()`, which updates `expensePredicate`, `statsMode`, `statsPeriod` and
+`periodAmount` in `ModelManager`, which are variables in `ModelManager` relevant for statistics.
+`StatsCommand#execute()` also posts `ShowStatsRequestEvent` and `SwapLeftPanelEvent` events to `EventsCenter`.
 
 ==== Execution
-In the execution phase, the program handles the events posted by `StatsCommand` by
+In the execution phase, the program handles `ShowStatsRequestEvent` posted by `StatsCommand` by
 processing and retrieving the data to be displayed and finally displaying it.
 Below is the UML sequence diagram and a step-by-step explanation of the execution stage.
 
 .Sequence diagram of the execution stage in the statistics mechanism
-image::implementation/StatsUiSequenceDiagram.png[width="800"]
+image::implementation/StatsExecutionSequenceDiagram.png[width="500"]
 
 . The `ShowStatsRequestEvent` event is handled by `MainWindow#handleShowStatsEvent()`, which calls 'StatisticsPanel#setData()'
 and passes the data as parameters by calling
 `Logic#getExpenseStats()`, `Logic#getStatsPeriod()`, `Logic#getStatsMode()` and `Logic#getPeriodAmount()`.
 
 . `Logic#getExpenseStats()` gets the filtered expense list by calling `Model#getExpenseStats()`, which returns
-an unmodifiable `ObservableList`, only containing only expenses in the last 7 days, as per the `Predicate`, and sorted by date.
-`Logic#getExpenseStats()` then organises the data into a `LinkedHashMap<String, Double>`, where the key value pair represents
-the x and y values of the chart. In this case, `StatsMode` is set to TIME, which results in a x,y values of date and cost.
-If `StatsMode` is set to CATEGORY, the x,y values will be set to category and cost.
+an unmodifiable `ObservableList`, only containing only expenses in the last 7 days, as per `ModelManager#expensePredicate`, and sorted by date.
 
+. `Logic#getExpenseStats()` then organises the data into a `LinkedHashMap<String, Double>`, where the key value pair represents
+the data series of the chart. If `StatsMode` is set to TIME, the key and value pair represents date and cost.
+If `StatsMode` is set to CATEGORY, the key value pair represents category and cost. Regardless of mode, the values are
+cumulative and is implemented using the algorithm in the following code snippet, using the example of category mode:
++
+```
+LinkedHashMap<String, Double> stats = new LinkedHashMap<>();
+for (Expense e : expenseList) {
+    String category;
+    category = e.getCategory().categoryName;
+
+    if (stats.containsKey(category)) {
+        stats.put(
+                category,
+                stats.get(category) + e.getCost().getCostValue()
+        );
+    } else {
+        stats.put(category, e.getCost().getCostValue());
+    }
+}
+```
 . `Logic#getStatsPeriod()`, `Logic#getStatsMode()` and `Logic#getPeriodAmount()` gets their respective data
  by calling the method of the same name in `Model`.
 
 . Once the parameters are passed into `StatisticsPanel#setData()`, `StackPane#getChildren()#clear()` is called to clear
-any display elements in `StackPane`.
+any display elements in `StackPane`. Then there are three scenarios which could happen:
 
-. In this case, `StatsMode` is set to TIME, which results in `StatisticsPanel#setTimeBasedData()` to be called, which
-generates a Bar Chart and calls `StackPane#getChildren()#add()`, which adds it to `StackPane`.
-If `StatsMode` is set to CATEGORY, which results in `StatisticsPanel#setCategoryBasedData()` to be called, which
-generates a Pie Chart and calls `StackPane#getChildren()#add()`, which adds it to `StackPane`.
-If the data received is empty, a `Text` object is generated and `StackPane#getChildren()#add()` is called,
+.. If the data received is empty, a `Text` object is generated and `StackPane#getChildren()#add()` is called,
 which informs the user that there are no expenditures
+.. If `StatsMode` is set to TIME, `StatisticsPanel#setTimeBasedData()` will be called, which
+generates a Bar Chart and calls `StackPane#getChildren()#add()`, which adds it to `StackPane`.
+.. If `StatsMode` is set to CATEGORY, `StatisticsPanel#setCategoryBasedData()` will be called, which
+generates a Pie Chart and calls `StackPane#getChildren()#add()`, which adds it to `StackPane`.
+
+All of these steps from the preparation and execution phase result in the Statistics Panel of Expense Tracker showing
+either a bar chart or a pie chart like the ones in the diagram below:
+
+.Example bar and pie charts for Statistics Panel
+image::StatsCharts.png[]
 
 ==== Design Considerations
 
-===== Aspect: How to handle statistic data and parameters
+===== Aspect: How to handle statistics data and parameters
 
 * **Alternative 1 (current choice):** Data and each parameter is handled as separate objects
 ** Pros: Easy to implement.
 ** Cons: Need to call multiple methods to get parameters
-* **Alternative 2:** Create Statistics object which contains data and all the parameters.
+* **Alternative 2 (planned for future releases):** Create Statistics object which contains data and all the parameters.
 ** Pros: More scalable. Less method calls to get parameters.
 ** Cons: None
 
-===== Aspect: How to pass statistic data and parameters from Command to UI
+===== Aspect: How to pass statistics data and parameters from Command to UI
 
 * **Alternative 1 (current choice):** UI gets all data and parameters from `Logic`, which gets data from `Model`.
 ** Pros: Easy to implement. Aligned with architecture.
 ** Cons: A lot of method calls
 * **Alternative 2:** Pass data and parameters through event
 ** Pros: Less method calls. Easier to read.
-** Cons: Not in aligned with architecture. Need to consider application startup when there are no events posted.
+** Cons: Not in alignment with architecture. Need to consider application startup when there are no events posted.
 // end::statistics[]
 
 // tag::find[]
 === Find
 
+This feature allows users to filter out specific expenses by entering multiple keywords.
+Only the expenses which contain all the keywords will be shown on the expense list panel.
+
+This implementation is under `Logic` and `Model` Components.
+
+==== Current Implementation
 Below is the UML sequence diagram and a step-by-step explanation of an example usage scenario.
 
 .Sequence diagram of find mechanism
@@ -521,7 +619,7 @@ image::implementation/FindCommandSequenceDiagram.png[width="800"]
 . User enters command `find n/Have Lunch f/Food d/01-01-2018:03-01-2018`. The command is received by `ExpenseTrackerParser`,
 which then creates a `FindCommandParser` Object and calls `FindCommandParser#parse()` method.
 
-. `FindCommandParser#parse()` method calls `ArgumentTokenizer#tokenize()` to tokenize the input String into keywords and store them in
+. `FindCommandParser#parse()` method calls `ArgumentTokenizer#tokenize()` to tokenize the input `String` into keywords and store them in
 an `ArgumentMultimap` Object.
 
 . `FindCommandParser#parse()` method then calls `ParserUtil#ensureKeywordsAreValid()` method. If any
@@ -539,20 +637,39 @@ new predicate.
 . Then the expense list panel will show a new set of expenses according to the keywords. A `CommandResult` is then created
 and returned to `LogicManager`.
 
+==== Design Consideration
+
+This feature can be implemented in different ways in terms of how the target expenses are found.
+The alternative ways of implementation are shown below.
+
+===== Aspect: How to filter out targeted expenses
+* **Alternative 1 (current choice):** Check through all expenses and select those with all the keywords
+** Pros: Easy to implement. No need to change original architecture.
+** Cons: Time-consuming. Tend to take longer time when there is a large number of expenses.
+* **Alternative 2:** Store expenses in separate files and only check the relevant files while filtering.
+** Pros: More efficient. No need to check every expense.
+** Cons: Need to change the original architecture of storage.
+
 // end::find[]
 
 // tag::massedit[]
 === Mass Edit
 
+This feature allows users to edit multiple expenses at the same time. Users need to enter the keywords to identify the
+targeted expenses as well as the fields they would like to edit.
+
+This implementation is under `Logic` and `Model` components.
+
+==== Current implementation
 Below is the UML sequence diagram and a step-by-step explanation of an example usage scenario.
 
 .Sequence diagram of mass edit mechanism
 image::implementation/MassEditCommandSequenceDiagram.png[width="800"]
 
-. User enters command `massedit c/school -> c/work d/01-01-2018`. The command is received by `ExpenseTrackerParser`,
+. User enters command `massedit c/school \-> c/work d/01-01-2018`. The command is received by `ExpenseTrackerParser`,
   which then creates a `MassEditCommandParser` Object and calls `MassEditCommandParser#parse()` method.
 
-. `MassEditCommandParser#parse()` method calls `ArgumentTokenizer#tokenize()` to tokenize the input String into keywords and store them in
+. `MassEditCommandParser#parse()` method calls `ArgumentTokenizer#tokenize()` to tokenize the input `String` into keywords and store them in
 two `ArgumentMultimap` Objects.
 
 . `MassEditCommandParser#parse()` method then create a `ExpenseContainsKeywordsPredicate` Object. Then it calls `EditExpenseDescriptor#createEditExpenseDescriptor()` method to create an
@@ -564,141 +681,216 @@ two `ArgumentMultimap` Objects.
 . `LogicManager` then calls `MassEditCommand#execute()`,which calls `Model#updateFilteredExpenseList()`
 method to update the predicate of FilterList<Expense>. `Model#getFilteredExpenseList()` is called to return the FilterList<Expense>.
 
-. A loop starts and for each `Expense` in the FilterList<Expense>, `EditExpenseDescriptor#createEditedExpense()` is called to create an edited Expense object.
+. All the `Expense` in the FilterList<Expense> are then added to a new list.
+A loop starts and for each `Expense` in the list, `EditExpenseDescriptor#createEditedExpense()` is called to create an edited Expense object.
 Then `Model#updateExpense` is called to replace the original `Expense` with edited `Expense`.
 
-. When loop ends, `Model#updateFilteredExpenseList()` is called again to show the edit `Expense` to the user.
+. When loop ends, `Model#updateFilteredExpenseList()` is called to show the edit `Expense` to the user.
 A `CommandResult` is then created and returned to `LogicManager`.
+
+==== Design Consideration
+
+This feature can be implemented in different ways in terms of how the target expenses are edited.
+The alternative ways of implementation are shown below.
+
+===== Aspect: How to Edit the targeted expenses
+* **Alternative 1(current choice):** Filter out the targeted expenses and replace them with edited expenses.
+** Pros: Easy to implement. Align with current architecture.
+** Cons: Time-consuming. Tend to take longer time when there is a large number of expenses.
+* **Alternative 2:** Store expenses in separate files. When the expenses are edited, move them
+to another file according to the edited fields.
+** Pros: Easy to identify the targeted expenses by checking relevant files. No need to check every expense.
+** Cons: Need to change original architecture of storage. May need to create new files during edition.
 
 // end::massedit[]
 
-// tag::UserInterfaceRedesign[]
+// tag::userinterfaceredesign[]
+
 === User Interface Redesign
 
-The UI has been redesigned to implement the following UI elements required for the Expense Tracker:
+The UI has been redesigned to implement the following UI elements required for Expense Tracker:
 
 * Budget Panel
 * Statistics Panel
 * Notifications Panel
 * Categories Panel
 
-Animations will also be incorporated into the UI elements for a better user experience.
+.Before and After shots of the UI
+image::UiChange.png[width="600"]
 
-==== Budget Panel
+As an example of how the new UI elements were implemented, we will examine the implementation of `BudgetPanel`.
 
-The `totalBudget` panel consists of 3 UI elements:
+==== The Budget Panel
+
+`BudgetPanel` consists of 4 UI elements:
 
 *	`BudgetPanel#expenseDisplay` – A `Text` element that displays the user’s current expenses.
 *	`BudgetPanel#budgetDisplay` – A `Text` element that displays the user’s monthly budget cap.
+*   `BudgetPanel#percentageDisplay` - A `TextFlow` objects that manages `BudgetPanel#budgetDisplay` and `BudgetPanel#expenseDisplay`.
 *	`BudgetPanel#budgetBar` – A `progressBar` element that visually presents the percentage of the current
 `totalBudget` cap that has been used.
 
-Given below is an example scenario of how `BudgetPanel` is updated:
+Given below are the steps of an example scenario of how `BudgetPanel` is updated:
 
 . The user launches the application and signs up for a new account. The `MainWindow` creates a new `BudgetPanel`, which elements are initialized as follows:
 * `BudgetPanel#expenseDisplay` is green and set to "$0.00".
 * `BudgetPanel#budgetDisplay` is set to "/ $28.00", with $28.00 being the default `totalBudget`.
 * `BudgetPanel#budgetBar` is green and at 0% progress.
 
-. The user executes the command `add n/Lunch $/30.00 c/Food`. As the `'add` command modifies the `totalBudget` and
+. The user executes the command `add n/Lunch $/30.00 c/Food`. As the `'add` command modifies budget and
 expenses, `AddCommand#execute()` will post a `UpdateBudgetPanelEvent` event to the EventsCenter.
 [NOTE]
-If a command fails its execution, the `UpdateBudgetPanelEvent` will not be posted.
+If a command fails its execution, or does not affect budget or expenses,`UpdateBudgetPanelEvent` will not be posted.
 
-. The `UpdateBudgetPanelEvent` event is handled by `BudgetPanel#handleBudgetPanelEvent()`, which calls `BudgetPanel#update()`.
+. The `UpdateBudgetPanelEvent` event is handled by `MainWindow#handleBudgetPanelEvent()`, which calls `BudgetPanel#update()`.
 
 . `BudgetPanel#update()` calls `BudgetPanel#animateBudgetPanel()`, which creates a new `Timeline` object.
 
-. Two `KeyFrame` objects are added to the Timeline that smooths the transition of the `BudgetPanel#budgetBar` progress percentage from 0% to the updated percentage.
+. Two `KeyFrame` objects are added to `Timeline`, creating the animation `BudgetPanel#budgetBar` that transits the `BudgetPanel#budgetBar#progress` to the updated number.
 [NOTE]
-If the updated percentage is more than 1.0, `BudgetPanel#budgetBar` progress percentage will be set to 1.0. Barring oversights, the progress percentage should never fall below 0.0.
+If the updated percentage is more than 1.0, `BudgetPanel#budgetBar#progress` will be set to 1.0. Barring oversights, it should never fall below 0.0.
 
-. A call to 'BudgetPanel#incrementKeyFrames()` is made to create the incrementing animation for `BudgetPanel#expenseDisplay`. The total time for this animation is 0.5 seconds, and consists of 10 `KeyFrame` objects. With this information, the amount to increment `BudgetPanel#expenseDisplay` by each `KeyFrame` can be calculated.
- `BudgetPanel#updateExpenseDisplay()` is called to increment the `BudgetPanel#expenseDisplay`.
+. A call to 'BudgetPanel#addTextAnimationKeyFrames()` is made to add the `KeyFrame` objects required to create the incrementing animation for `BudgetPanel#expenseDisplay` and `BudgetPanel#budgetCapDisplay`.
+ In each `KeyFrame`, `BudgetPanel#updateExpenseDisplay()` and  `BudgetPanel#updateBudgetCapDisplay()` is called to increment the `BudgetPanel#expenseDisplay` and `BudgetPanel#budgetCapDisplay` respectively.
 [NOTE]
-`BudgetPanel#incrementKeyFrames()` handles the animation for both the `BudgetPanel#budgetDisplay` and `BudgetPanel#expenseDisplay` at the same time.
+The number of `KeyFrame` objects and the time interval between each `KeyFrame` has been predetermined.
 
-. `Timeline#playFromStart()` is called to execute the animation.
+. A call is also made to `BudgetPanel#alterTextSize()` in each `KeyFrame`. This method checks the height of `BudgetPanel#percentageDisplay`. If said height is
+different from `BudgetPanel#percentageDisplay#maxHeight`, `BudgetPanel#percentageDisplay` will be rescaled accordingly such that its new width is equal to `BudgetPanel#percentageDisplay#maxHeight`.
 
-. `BudgetPanel#update()` also calls `BudgetPanel#setBudgetUiColors()`. The method detects that the user has gone
-over budget, and changes the color of `BudgetPanel#expenseDisplay` and `BudgetPanel#budgetBar` from green to red.
+. A call to `Timeline#playFromStart()` is made to execute the animations.
+
+. A call is also made concurrently to `BudgetPanel#setBudgetUiColors()`. If `BudgetPanel#expenseDisplay` is larger than `BudgetPanel#budgetCapDisplay`, the color of `BudgetPanel#expenseDisplay`
+and `BudgetPanel#budgetBar` changes to red, indicating that the user is over budget.
 [NOTE]
 Similarly, if the user has gone from over budget to under budget, the color of
-'BudgetPanel#expenseDisplay` and `BudgetPanel#budgetBar` should change from red to green.
+'BudgetPanel#expenseDisplay` and `BudgetPanel#budgetBar` changes to green.
 
 The following sequence diagram shows the process of updating the `BudgetPanel` UI elements:
 
 .Sequence diagram of the `BudgetPanel` update
-image::implementation/BudgetPanelSequenceDiagram.png[width="800"]
+image::implementation/BudgetPanelSequenceDiagram.png[width="600"]
 
-===== Design Considerations
-====== Aspect: Which library to implement animation
+==== Design Considerations
+===== Aspect: Choosing which library to use for animation implementation
 
-* **Alternative 1 (current choice):** Use the `Timeline` and `KeyFrame` class
+* **Alternative 1 (current choice):** Use `Timeline` and `KeyFrame` classes.
 ** Pros: More flexible; Able to create the animation frame by frame.
-** Cons: Animations tricks and effects will require manual tweaking for the intented effect.
+** Cons: More tedious. Animations effects will require manual addition of `KeyFrame` objects for the intended effect.
 * **Alternative 2:** Use the `Transition` class
 ** Pros: The class is specialized, and thus has built-in methods to create better animations For example, `EASE-BOTH` can be used to cause the transition to accelerate at different points for a better effect)
-** Cons: Does not work for certain desired effects, such as the 'incrementing' effect required for the `Text` elements of the `BudgetPanel`.
+** Cons: Does not work for certain desired effects, such as the 'incrementing' effect required for `Text` elements of `BudgetPanel`.
 
-==== Notification System
-The Notification System is comprised of 3 features:
-* `Notification` - An abstract method that consists of a `header`, `type` and `body`. There are two types of `Notification`,
+===== Aspect: Implementation of `Text` elements
+* **Alternative 1 (Initial Choice):** Use two `Label` objects; one to display `currentExpenses` and another to display `budgetCap`.
+** Pros: Allows the implementation of separate text color changing and animation.
+** Cons: Difficult to keep both text objects centralized in relation to the `budgetBar`, especially if `currentExpenses` or `budgetCap` are large numbers.
+
+* **Alternative 2:** Use one `Text` object to display both `currentExpenses` and `budgetCap`.
+** Pros: Easy to centralize the `Text` object with `budgetbar`.
+** Cons: Implementation of animation was messy and tedious. `JavaFX` also does not support multiple colors for a single `Text` object.
+
+* **Alternative 3 (Current Choice):** Wrap two `Text` objects in a `TextFlow` object
+** Pros: Easy to centralize the `Text` objects by taking advantage of the properties of `TextFlow`. Allows the implementation of separate text color changing and animation.
+** Cons: Does not solve the issue of decentralized text when `currentExpenses` or `budgetCap` are large numbers.
+
+===== Aspect: Solving the issue of `TextFlow` positioning when `currentExpenses` or `budgetCap` are large numbers.
+* **Alternative 1:** During the budget update, manipulate the font size of both `Text` objects when the `TextFlow` object reaches a certain height.
+** Pros: -
+** Cons: Difficult to adjust the fonts of both `Text` objects such that the final font size is neither too large nor too short.
+
+* **Alternative 2: ** Manipulate the scale of the `TextFlow` object such that it always maintains a predetermined width.
+** Pros: A solution that is simple and easy to implement.
+** Cons: In the case of very large numbers, the `TextFlow` object is shrunk down to a point where the text in non-legible. However,
+we assume that the average user who is seriously using `ExpenseTracker` will not set `currentExpenses` or `budgetCap` to such large numbers.
+
+=== Notification System
+The Notification System is comprised of the following classes:
+
+* `Notification` - An abstract class that consists of a `header`, `type` and `body`. There are two types of `Notification`,
 `TipNotification` and `WarningNotification`.
-* `NotificationPanel` `and NotificationCard` - Lists the notifications that have been sent to the user.
-* `NotificationHandler` - Handles the storing and logic of notifications.
+* `NotificationPanel` `and NotificationCard` - UI elements that displays the list the notifications that have been sent to the user.
+* `NotificationHandler` - Manages the list of notifications.
 * `NotificationCommand` - Allows the user to toggle what type of notifications they wish to receive.
+* `NotificationHandler` - Handles the storage and creation of `Notification` objects.
+* `Tips` - Reads and stores `Tip` objects in a list.
+* `XmlAdaptedNotificationHandler`, `JsonTipsStorage` and `XmlAdaptedNotificationHandler` -  Manages the saving and reading on `Notification` and `Tip` objects.
 
-Given below is an example scenario of how the Notification System functions:
+==== Adding a Notification
 
-. The user launches the application for the first time. A new `NotificationHandler` is instantiated.
+Given below are the steps of an example scenario of how the Notification System functions:
 
-. A call to `NotificationHandler#isTimeToSendTip` is made upon login. In turn, a check is made to see if it has
-been a day since the last `TipNotification` has been sent. If so, a new `TipNotification` is added to the `NotificationHandler#internalList` via a call to `NotificationPanel#addNotification`.
+. The user launches the application for the first time. A new `NotificationHandler` is instantiated. A new `Tips` object is instantiated, and a call
+to `JsonTipsStorage#readTips` is made to read a list of `Tip` objects from a JSON file.
+
+. A call to `NotificationHandler#isTimeToSendTip()` is made upon login. In turn, a check is made to see if it has
+been 24 hours since the last `TipNotification` has been sent. It also checks if `NotificationHandler#isTipEnabled` is `true. If both conditions are met, a new `TipNotification` is added to the `NotificationHandler#internalList` via a call to `NotificationPanel#addTipNotification()`.
 [NOTE]
 If this is the user's first time logging into their account, a new `TipNotification` will be sent.
 
-. The user executes the command `add n/Lunch $/30.00 c/Food`. The `add` command calls `NotificationHandler#isTimeToSendWarning` to check if the user is nearing or over their budget.
-If the user is nearing or approaching their budget, a `WarningNotification` is added to `NotificationHandler#internalList` via a call to `NotificationPanel#addNotification`.
+. The user executes the command `add n/Lunch $/30.00 c/Food`. The `add` command calls `NotificationHandler#isTimeToSendWarning()` to check if the user is nearing or over their budget.
+It also checks if `NotificationPanel#isWarningEnabled` is `true`. If both conditions are met, a `WarningNotification` is added to `NotificationHandler#internalList` via a call to `NotificationPanel#addWarningNotification()`.
 [NOTE]
-The same procedure is carried out if the user execute an `edit` command.
+The same procedure is carried out if the user executes an `edit` command.
 
 . If the size of `NotificationHandler#internalList` reaches 11 or more, the oldest `Notification` in the list is then replaced with
 the new `Notification`.
 
-Given below is an example scenario of how the `NotificationCommand` functions:
-. The user executes `notification n/warning t/off`. THe command is received by the `ExpenseTrackerParser`.
+==== Executing Notification Command
 
-.  A call to `NotificationCommand#parse` is made, which creates a `NotificationCommandDescriptor` object with the two
-extracted parameters `warning` and `off`. A `NotificationCommand` is returned to the `LogicManager`.
+Given below is an example scenario of how `NotificationCommand` functions:
+. The user executes `notification n/warning t/off`. THe command is received by `ExpenseTrackerParser`.
+
+. A call to `NotificationCommand#parse` is made, which creates a `NotificationCommandDescriptor` object with the two
+extracted parameters `warning` and `off`. A `NotificationCommand` is returned to `LogicManager`.
 [NOTE]
-The `n/` parameter can be omitted. In this case, all types of notifications will be affected by the toggle.
+The `n/` suffix and parameter can be omitted. In this case, all types of notifications will be affected by the toggle.
 
-. `LogicManager` then calls `NotificationCommand#execute`, which calls `NotificationHandler#toggleWarningNotifications` to set
+. `LogicManager` then calls `NotificationCommand#execute()`, which calls `NotificationHandler#toggleWarningNotifications()` to set
 `NotificationPanel#isWarningEnabled` to `false`.
 [NOTE]
- If `notification n/tip t/on` was executed, `NotificationHandler#toggleTipNotifications` would be called to set `NotificationHandler#isTipEnabled`
+ If `notification n/tip t/on` was executed, `NotificationHandler#toggleTipNotifications()` would be called to set `NotificationHandler#isTipEnabled`
  to `true`.
- If`notification t/on` was executed, `NotificationHandler#toggleBothNotifications` will be called instead.
+[NOTE]
+ If `notification t/on` was executed, `NotificationHandler#toggleBothNotifications()` will be called instead to set both `NotificationHandler#isTipEnabled` and
+`NotificationPanel#isWarningEnabled`.
 
+The following sequence diagram shows the process of executing a `NotificationCommand`:
 
-// end::userInterfaceRedesign[]
+image::implementation/NotificationCommandSequenceDiagram.png[width="600"]
 
-// tag::budget[]
+==== Design Considerations
+===== Aspect: Storing of Tips
+* **Alternative 1:** Code the tips as a list of `String` object in a class.
+** Pros: Easy to implement.
+** Cons: Changes to the list might impact the base code and testing results.
 
-=== Budget
-==== Current Implementation
-The budget feature allows the user to set a budget for a specific time period.
-If the user's total spending exceeds their budget in the specified time period, a warning will be shown to the user.
+* **Alternative 2 (Current Choice):** Read a set of predetermined tips from a JSON file.
+** Pros: Allows for easy configuration of tips that will not impact the base code.
+** Cons: More tedious to implement, as the given `JsonUtil` does not have a method to read an array from a JSON file.
 
-The current implementation for `totalBudget` tracking is described as below.
+// end::userinterfaceredesign[]
 
-===== Setting a budget
+// tag::budgetPart1[]
 
-Given below is a sequence diagram and step by step explanation of how the expense tracker executes when a user sets a budget
+=== Budgeting
+
+This group of features allows the user to set budgets for their expenses.
+
+Available spending is defined as the total
+amount of expenses you can add before you exceed your budget. If the user's spending exceeds their available spending
+ for the budget, a <<UserGuide#over-budget-warning, warning>> will be shown
+ to the user.
+
+The current implementation for budgeting and its related features are described in the sections below.
+
+==== Setting a Budget
+This feature allows the user to set a budget for Expense tracker.
+
+Given below is a sequence diagram and step by step explanation of how Expense Tracker executes when a user sets a budget
 
 .Sequence diagram of a user setting a budget.
-image::implementation/BudgetCommandSequenceDiagram.png[width="800"]
+image::implementation/BudgetCommandSequenceDiagram.png[width="700"]
 
 . User enters command `setBudget 2.00`.
 . The command is received by `ExpenseTrackerParser`, which then creates a `SetBudgetCommandParser` Object and calls
@@ -706,33 +898,50 @@ image::implementation/BudgetCommandSequenceDiagram.png[width="800"]
 . `SetBudgetCommandParser#parse()` will then return a `budget` of `double` type. It will then create a
 `SetBudgetCommand` Object with `budget` as a parameter would be created and returned to `LogicManager`.
 . `LogicManager` then calls `SetBudgetCommand#execute()`, which calls `ModelManager#modifyMaximumBudget` to update the
- maximum budget of the expense tracker.
+ maximum budget of Expense Tracker.
 . `LogicManager` will then call `EventsCenter#post()` to update the UI, displaying the updated budget.
-. The budget is then updated.
 
 
-===== Recurring budget
+==== Setting a recurring Budget
+This feature allows the user's available spending to reset every user defined frequency.
 
-Every time a user logs in, `Model#loadUserData()` is called and  the application will check if the user has set a time
-where the
-current spending will reset (recurrence time). If it is not set, the expense tracker will issue a notification. Else, the
-expense tracker will track the set recurrence time against the time now. If it exceeds, current spending will be reset. Else,
-nothing will be done.
+The implementation for this feature is describe in the two sections below.
 
-* Recurrence time is set by `setRecurrenceFrequency()`. If it has not been set before, the next recurrence time will
-be set to `currentTime` + `recurrenceFrequency`.
-* If it has already been set, the timing will be updated on the next occurrence time
+===== Setting the recurrence frequency
+This section explains the implementations of `setRecurrenceFrequency` command.
 
-Given below is a sequence diagram and step by step explanation of how the expense tracker executes when a user sets a recurrence frequency.
+* Recurrence time is set by `setRecurrenceFrequency`. If it has not been set before, the next recurrence time will
+be set to `currentTime` + `recurrenceFrequency`. This is shown in the code snippet below.
+```
+public void setRecurrenceFrequency(long seconds) {
+        this.numberOfSecondsToRecurAgain = seconds;
+        this.nextRecurrence = LocalDateTime.now().plusSeconds(seconds);
+    }
+```
+* If it has already been set, the timing will be updated on the next occurrence time. This is shown in the code
+snippet below.
+```
+if (LocalDateTime.now().isAfter(this.nextRecurrence)) {
+        this.previousRecurrence = LocalDateTime.now();
+        this.nextRecurrence = LocalDateTime.now().plusSeconds(this.numberOfSecondsToRecurAgain);
+        // rest of the implementation
+    {
+```
+//end::budgetPart1[]
+[[recc-seq-diag]]
+Given below is a sequence diagram
+and step by step explanation of how Expense Tracker executes when a user sets a recurrence frequency.
 
 .Sequence diagram of a user setting a recurrence frequency.
 image::implementation/SetRecurringBudgetCommandSequenceDiagram.png[width="800"]
+
+Steps of the command execution are as follows:
 
 . User enters command `setRecurrenceFrequency min/1`. The command is received by `ExpenseTrackerParser`
 
 . `ExpenseTrackerParser` will then create a `SetRecurringBudgetCommandParser` Object and calls `SetRecurringBudgetCommandParser#parse()` method.
 
-. `SetRecurringBudgetCommandParser#parse()` method calls `ArgumentTokenizer#tokenize()` to tokenize the input String into keywords and store them in
+. `SetRecurringBudgetCommandParser#parse()` method calls `ArgumentTokenizer#tokenize()` to tokenize the input `String` into keywords and store them in
 an `ArgumentMultimap` Object.
 
 . `SetRecurringBudgetCommandParser#parse()` method then calls `SetRecurringBudgetCommandParser#areAnyPrefixesPresent()`
@@ -748,9 +957,50 @@ returned to
 `LogicManager`.
 
 . `LogicManager` then calls `SetRecurringBudgetCommand#execute()`,which calls `ModelManager#setRecurrenceFrequency()`
-method to update the time when the next spendings of `totalBudget` is reset.
+method to update the time when the next expenses of `totalBudget` is reset.
 
-===== Budget by Category
+//tag::budgetPart2[]
+===== Resetting available spending.
+
+This section explains the implementations of the recurring budget.
+
+Every time the user logs in, Expense Tracker will check if the available spending should be reset. Sequence diagram
+of available spending resetting is given below.
+
+.Sequence diagram of a user setting a recurrence frequency.
+image::implementation/RecurrenceFrequencySequenceDiagram.png[width="600"]
+
+Execution steps of resetting available spending are as follows:
+
+. User logs in, which causes the `login` command to execute in `Logic`. `Logic` calls `Logic#execute()` to
+execute the command on the `Model`.
+
+. `login` command executes in the `Logic`, which calls `Logic#execute()` to execute the command on `Model`
+
+. `Model` calls `Model#checkBudgetRestart()`, which in turn calls `TotalBudget#checkBudgetRetart()` to check if the
+available spending is to be reset.
+
+. `TotalBudget#checkBudgetRestart()` either return `NOT_SET` or `SPENDING_RESET`, which will add their respective
+notifications. It will also return `DO_NOTHING`, which will results in `Model` to continue its execution.
+
+//end::budgetPart2[]
+
+[[Budget-Category]]
+==== Setting a Budget by Category
+
+An extension to the budget feature, this feature allows the user to divide their budget based on categories. Users can
+allocate parts of their budget to certain categories.
+If the user's expenses for a `Category` exceeds the available spending for their `CategoryBudget`, a warning will be
+shown
+ to the user.
+
+Given below is a sequence diagram
+and step by step explanation of how Expense Tracker executes when a user sets a `CategoryBudget`.
+
+.Sequence diagram of a user setting `CategoryBudget`.
+image::implementation/SetCategoryBudgetSequenceDiagram.png[width="900"]
+
+
 . User enters command `setCategoryBudget c/School b/2.00`. The command is received by `ExpenseTrackerParser`
 
 . `ExpenseTrackerParser` will then create a `AddCategoryBudgetCommandParser` Object and calls
@@ -766,24 +1016,47 @@ method. If any of the keywords are missing, `ParseException` will be thrown.
  is created and returned to `LogicManager`.
 
 . `LogicManager` then calls `AddCategoryBudgetCommand#execute()`,which calls `ModelManager#setCategoryBudget()`
-method to add a `Budget` to a `Category`.
+method to add a `CategoryBudget`.
 
-===== Notification center (Proposed)
-There is an area for the app to display notifications and additional information to the users beside the usual
-area below the command box. This is particularly useful to the *Budget* feature as budgets should not obstruct the
-usage of the expense tracker, but rather provide helpful information. For example, if a user exceeds his total budget
- after
- adding an expense, a warning would be displayed in the *Notification center* instead of the area below the command
- box, replacing the success message of adding an expense and confusing the user.
+// tag::budgetPart3[]
 
-==== Alternatives considered
-Recurrence check was initially implemented via events. Every time `ModelManager#loadUserData()` is called, an event
-will be sent to the `EventBus` to be dispatched to an event handler implemented in `Budget`. However, after heavy
-consideration, the recurrence check should only be called whenever `loadUserData()` is called, and never anywhere
-else. Therefore, it should be more closely coupled with `loadUserData()` instead of being an event that can be posted
- from anywhere inside the application.
+===== Setting budgets for different time frames (Proposed)
+Users can now set budgets for different time frames. For example, a user can have a monthly and weekly budget.
+This is to allow a user to segment his spending by weeks. Thus, even if the user has spent over
+the budget for this week, he could potentially spend lesser in the next week to make up for his overspending and keep
+ within his budget for the month. This is
+illustrated by the images below.
 
-// end::budget[]
+[.clearfix]
+--
+[.left]
+.Diagram of a weekly budget
+image::budgetOfTheWeek.png[width="200"]
+
+[.left]
+.Diagram of a monthly budget.
+image::budgetOfTheMonth.png[width="200"]
+--
+
+The first image shows that the user has spent over his budget for the week, while the second image shows that
+the user still has available spending for the month.
+
+==== Design Considerations
+
+This section provides alternative design patterns that we have considered for features relating to budgeting.
+
+===== Aspect: How recurrence is checked
+
+* **Alternative 1 (current choice):** Calling of method when the user logs in
+** Pros: Closely coupled with logging in.
+** Cons: Encapsulation sacrificed due to close coupling with other classes and methods.
+* **Alternative 2:** Dispatching an event every time the user logs in
+** Pros: Easy to implement
+** Cons: Possible for other implementations to cause a recurrence check. As the recurrence check is closely tied to
+logging in, this should not be possible
+
+
+// end::budgetPart3[]
 
 === Logging
 
@@ -801,16 +1074,15 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 * `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
 
 [[Implementation-Configuration]]
-=== Configuration
-
-Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: `config.json`).
+[NOTE]
+Certain properties of the application can be controlled (e.g App name, logging level) through the `config.json` file.
 
 == Documentation
 
 We use asciidoc for writing documentation.
 
 [NOTE]
-We chose asciidoc over Markdown because asciidoc, although a bit more complex than Markdown, provides more flexibility in formatting.
+We chose asciidoc over Markdown because asciidoc, although a bit more complex than Markdown, provides more flexibility for formatting.
 
 === Editing Documentation
 
@@ -829,7 +1101,7 @@ Here are the steps to convert the project documentation files to PDF format.
 
 .  Follow the instructions in <<UsingGradle#rendering-asciidoc-files, UsingGradle.adoc>> to convert the AsciiDoc files in the `docs/` directory to HTML format.
 .  Go to your generated HTML files in the `build/docs` folder, right click on them and select `Open with` -> `Google Chrome`.
-.  Within Chrome, click on the `Print` option in Chrome's menu, or press kbd:[Ctrl+P] to open up the print window. A menu looking
+.  Click on the `Print` option in Chrome's menu, or press kbd:[Ctrl+P] to open up the print window. A menu looking
 like the figure below should show up.
 
 .Saving documentation as PDF files in Chrome
@@ -920,21 +1192,24 @@ The SE-EDU team does not provide support for modified template files.
 There are three ways to run tests.
 
 [TIP]
-The most reliable way to run tests is the 3rd one. The first two methods might fail some GUI tests due to platform/resolution-specific idiosyncrasies.
+Method 3 is the most reliable way to run tests. The first two methods might fail some GUI tests due to platform/resolution-specific idiosyncrasies.
 
 *Method 1: Using IntelliJ JUnit test runner*
 
-* To run all tests, carry out the following steps:
+To run all tests, carry out the following steps: +
+
 . Right-click on the `src/test/java` folder
 . Click on `Run 'All Tests'` on the menu that appears
 
-* To run a subset of tests, carry out the following steps:
+To run a subset of tests, carry out the following steps: +
+
 . Right-click on a test package, test class, or a test
 . Click on `Run 'TEST'`, where TEST is the name of the test package, class or method you are intending to test
 
 *Method 2: Using Gradle*
 
-* To use Gradle to run tests, carry out the following steps:
+To use Gradle to run tests, carry out the following steps: +
+
 . Open a console
 . If you are on windows, enter the command `gradlew clean allTests`, otherwise enter `./gradlew clean allTests` instead
 
@@ -946,24 +1221,25 @@ See <<UsingGradle#, UsingGradle.adoc>> for more info on how to run tests using G
 Using the https://github.com/TestFX/TestFX[TestFX] library, our GUI tests can be run in the _headless_ mode.
 In the headless mode, GUI tests do not show up on the screen. That means the developer can do other things on the Computer while the tests are running.
 
-* To run tests in headless mode, carry out the following steps:
+To run tests in headless mode, carry out the following steps: +
+
 . Open a console
 . If you are on windows, enter the command `gradlew clean headless allTests`, otherwise enter `./gradlew clean headless allTests` instead
 
 === Types of tests
 
-We have two main types of tests:
+There are two main types of tests:
 
-*  *GUI Tests* - These are tests involving the GUI. They include,
-** _System Tests_ that test the entire App by simulating user actions on the GUI. These are in the `systemtests` package.
-** _Unit tests_ that test the individual components. These are in `seedu.address.ui` package.
-*  *Non-GUI Tests* - These are tests not involving the GUI. They include,
-**  _Unit tests_ targeting the lowest level methods/classes. +
-e.g. `seedu.address.commons.StringUtilTest`
-**  _Integration tests_ that are checking the integration of multiple code units (those code units are assumed to be working). +
-e.g. `seedu.address.storage.StorageManagerTest`
+*  *GUI Tests* - These are tests involving the GUI. They include:
+** _System Tests_ which test the entire App by simulating user actions on the GUI. These are in the `systemtests` package.
+** _Unit tests_ which test the individual components. These are in `seedu.expensetracker.ui` package.
+*  *Non-GUI Tests* - These are tests not involving the GUI. They include:
+**  _Unit tests_ which target the lowest level methods/classes. +
+e.g. `seedu.expensetracker.commons.StringUtilTest`
+**  _Integration tests_ which check the integration of multiple code units (those code units are assumed to be working). +
+e.g. `seedu.expensetracker.storage.StorageManagerTest`
 **  Hybrids of unit and integration tests. These test are checking multiple code units as well as how the are connected together. +
-e.g. `seedu.address.logic.LogicManagerTest`
+e.g. `seedu.expensetracker.logic.LogicManagerTest`
 
 
 === Troubleshooting Testing
@@ -995,7 +1271,7 @@ We use https://www.netlify.com/[Netlify] to see a preview of how the HTML versio
 
 Follow the steps below to create a new release:
 
-.  Update the version number in link:{repoURL}/src/main/java/seedu/address/MainApp.java[`MainApp.java`].
+.  Update the version number in link:{repoURL}/src/main/java/seedu/expensetracker/MainApp.java[`MainApp.java`].
 .  Generate a JAR file <<UsingGradle#creating-the-jar-file, using Gradle>>.
 .  Tag the repo with the version number. e.g. `v0.1`
 .  Create a new release using GitHub and upload the JAR file you created. See https://help.github.com/articles/creating-releases/
@@ -1006,22 +1282,23 @@ for more details.
 Expense Tracker depends on many third-party libraries. e.g. We use http://wiki.fasterxml.com/JacksonHome[Jackson library] for XML parsing in Expense Tracker.
 Below are different ways to manage these _dependencies_:
 
-a. Use Gradle to manage these _dependencies_. Gradle can download the dependencies automatically. (this is better than other alternatives) +
-b. Include those libraries in the repo (this bloats the repo size) +
-c. Require developers to download those libraries manually (this creates extra work for developers)
+* Use Gradle to manage these _dependencies_. Gradle can download the dependencies automatically. (this is better than other alternatives) +
+* Include those libraries in the repo (this bloats the repo size) +
+* Require developers to download those libraries manually (this creates extra work for developers)
 
 [appendix]
 == Product Scope
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
+* is currently a student
+* has a need to manage a significant number of expenses
+* wants to track how much they are spending
+* prefers desktop apps over other types
+* can type fast and prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: manage expenses faster than a typical mouse/GUI driven app
 
 [appendix]
 == User Stories
@@ -1033,233 +1310,563 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user who wants to track their spending |add a new expense |have the app keep track of my expenses
+|`* * *` |new user who might forget how to use commands |be notified of the correct usage of commands that I format wrongly |correct my mistake quickly and easily.
 
-|`* * *` |clumsy user |delete inaccurately added expenditure |have an accurate recording of my expenditures and budget
+|`* * *` |user who wants to track their expenses |add a new expense |have the app keep track of my expenses
 
-|`* * *` |clumsy user |edit inaccurately added expenditure |have an accurate recording of my expenditures and budget
+|`* * *` |impulsive spender |set my maximum budget over a certain period of time |know when I am or about to spend
+over my budget
+
+|`* * *` |user who want to group expenditures of different categories together |add tags to an expense | find specific expenses in a later date.
+
+|`* * *` |user who wants more information about their spending habits |search for recorded expenses by category, date or cost | reflect and learn from my past experiences.
+
+|`* * *` |user who wants more information about their spending habits | have a visual representation of the statistical information about my spending habits | reflect and learn from my past experience.
+
+|`* * *` |user who has trouble with overspending | have clear visual warnings or indicators when I am about to spend over my budget| better manage my spending and keep within my current budget.
 
 |`* * *` |user |have my expenditures saved after closing the app |keep track of my expenditures without having to key in my information again
 
-|`* * *` |forgetful user |receive a notification about my budge twhen the application boots up |be reminded of how
-much I have spent and can spend.
+|`* * *` |clumsy typer |delete inaccurately added expenditures |have an accurate recording of my expenditures and budget
+
+|`* * *` |clumsy typer |edit inaccurately added expenditures |have an accurate recording of my expenditures and budget
+
+|`* * *` |user who shares their computer with others | have my own login account | keep my expenditure information separate from other users'.
 
 |`* * *` |user |exit the application with a keyboard command | exit the application conveniently without reaching for my mouse/touchpad
 
-|`* * *` |impulsive spender |set my maximum budget over a certain period of time |know when I am or about to spend
-over my `totalBudget
+|`* * *` |user who has a problem with overspending|view my expenses over a certain period of time |learn from my past endeavours and better manage my budget
 
-|`* * *` |user who has a limited budget|view my expenses over a certain period of time |learn from my past endeavours and better manage my `totalBudget
+|`* * *` |user who wants to save money |separate my expenses into different categories| see where am I spending more money on and where my expenses go and cut them accordingly
 
-|`* * *` |user who wants to save money |separate my expenses into different categories| ee where am I spending more money on and where my expenses go and cut them accordingly
+|`* * *` |user who is worried about privacy |remove all expenditure information from the application| comfortable knowing that my information has been completely erased.
 
-|`* *`| user who shares a computer |add new account/log in to own account |use the application on the same computer as someone else
+|`* * *` |clumsy user | be able to undo or redo my commands |easily fix my mistakes.
 
-|`* *` |user who has a monthly allowance |set my budget based on my monthly allowance |
+|`* *` |user who wants their expenditure information to be private | secure my account with a password | ensure that no one can easily access my private information.
 
-|`* *` |user who spends on the same things frequently |add recurring expenses |do not need to key in the same type of expenditure every month
+|`* *` |user who has been using the application for a long time | look at statistical information from past months | reflect and learn from my past experience.
+
+|`* *` |user who has a monthly allowance |set my budget based on my monthly allowance | use the application with greater convienience.
+
+|`* *` |clumsy typer |edit multiple incorrect expenditures that require the same type of edit |have an accurate recording of my expenditures and budget
+
+|`* *` |user who spends too much in certain categories of expenses |set a budget for specific expenses | be aware of how much I am spending in a specific cate
+
+|`* *` |advanced user |use short-form versions of commands | use the application with greater efficiency.
+
+|`* *` |user who wants their expenditure information to be private |be able to encrypt my data | so that I can protect my private information from anyone who opens the data file.
+
+|`* *` |user who does not know much about saving money |to be provided tips on how to save money |better manage my expenses in the future.
+
+|`*` |user who spends on the same things frequently |add recurring expenses |do not need to key in the same type of expenditure every month
+
+|`*` |advanced user |encrypt and decrypt strings | edit the data file directly.
+
+|`*` |user that works in public areas |have secret categories for my expenses that only show when I want to| so that I can protect my private information.
+
+|`*` |clumsy typer |delete multiple inaccurately added expenditures |have an accurate recording of my expenditures and budget
+
+|`*` |user that often uses iBanking |be able to open iBanking within the application| so that I can reference my expenditure information when keying in my expenditures.
+
 |=======================================================================
-
-_{More to be added}_
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `Expense Tracker` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is `Expense Tracker` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
+
 === Use case: Add expenditure
-
-
 *MSS*
 
-
-1. User adds expenditure record
-2. Once validated, ExpenseTracker shows success message and details of the expenditure
-3. If expenditure causes `totalBudget` to be below a certain threshold, show a warning message to the user
+1. User keys in command to add a given expenditure.
+2. Expense Tracker adds specified expenditure.
+3. ExpenseTracker displays a success message.
 +
 Use case ends.
 
-*Exceptions*
+*Extensions*
 
-[none]
-* 2a. Invalid data given
-+
-[none]
-** 2a1.Error message shown
-+
-Use case ends.
+* 1a.Expense Tracker detects error in the entered data.
+    ** 1a1. Expense Tracker informs user of the error.
+    ** Use case ends.
+
+* 1b.Expense Tracker detects that the user has gone over budget.
+    ** 1b1. Expense Tracker sends warning to the user.
+    ** Use Case ends.
+
+* 1c.Expense Tracker detects that the user has nearly gone budget.
+    ** 1b1. Expense Tracker sends warning to the user that they have almost gone over budget.
+    ** Use Case ends.
+
+* 1d.Expense Tracker detects that the user is not logged into an account.
+    ** 1d1. Expense Tracker informs user that they are not logged into any user.
+    ** Use case ends.
 
 [discrete]
+
 === Use case: Delete expenditure
 
 *MSS*
 
 1. User keys in command to delete a given expenditure.
-2. Once deleted successfully, expense tracker shows a success message.
-3. The deleted expenditure is deleted from the UI
-4. The delete expenditure is deleted from the text file database.
+2. Expense Tracker deletes specified expenditure.
+3. Expense Tracker displays a success message.
 +
 Use case ends
-
-
-*Exceptions*
-[none]
-* 2a. Expenditure does not exist.
-[none]
-** 2a1. Error message shown to the user.
-+
-Use case ends
-
-[discrete]
-=== Use case: Set `totalBudget`
-
-*MSS*
-
-1. User requests to set `totalBudget`
-2. Expense tracker prompts user to key in `totalBudget`
-3. User keys in `totalBudget` value
-4. Expense tracker prompts and updates budgets
-+
-Use case ends
-[none]
-*Extensions*
-[none]
-* 2a. Budget is already set
-[none]
-** 2a1. Expense tracker prompts user the previously set `totalBudget` and asks if user wants to continue
-** 2a2. User confirmed that he/she wants to continue
-+
-Use case resumes step 2
-
-[discrete]
-=== Use case: View monthly expenditure
-
-*MSS*
-
-1. User requests to view monthly expenditure
-2. Expense tracker prompts user to key in month
-3. User keys in month
-4. Expense tracker prompts and shows the expenditure for the month
-+
-Use case ends
-
-[discrete]
-=== Use case: Log in
-
-*MSS*
-
-1. User requests to log in to expense tracker
-2. Expense tracker prompts user to enter username
-3. User enters username
-4. Expense tracker prompts user to enter password
-5. User enters password
-6. User is successfully logged in
-+
-Use case ends
-
-*Exceptions*
-[none]
-* 4a. The username keyed in by the user does not exist
-[none]
-** 4a1. Expense tracker prompts the user that the username does not exist
-+
-Use case ends
-[none]
-* 6a. The password keyed in by the user is incorrect
-[none]
-** 6a1. Expense tracker prompts the user that the password is incorrect.
-*
-Use case ends
-
-[discrete]
-=== Use case: Logout
-
-*MSS*
-
-1. User requests to logout of the expense tracker
-2. Expense trackers shows success message and logs user out of account
-3. Use case ends
 
 *Extensions*
-[none]
-* 2a. User is not logged in
-[none]
-** 2a1. Expense tracker prompts user that they are not yet logged in
+
+* 1a.Expense Tracker detects error in the entered data.
+    ** 1a1. Expense Tracker informs user of the error.
+    ** Use case ends.
+
+* 1b.Expense Tracker cannot find specified expenditure.
+    ** 1b1. Expense Tracker informs user that it cannot find the specified expenditure.
+    ** Use case ends.
+
+
+* 1c.Expense Tracker detects that the user is not logged into an account.
+    ** 1c1. Expense Tracker informs user that they are not logged into any user.
+    ** Use case ends.
+
+[discrete]
+
+=== Use case: Edit expenditure
+
+*MSS*
+
+1. User keys in command to edit a given expenditure.
+2. Expense Tracker edits the specified information of the specified expenditure.
+3. Expense Tracker displays a success message.
 +
 Use case ends
+
+*Extensions*
+
+* 1a.Expense Tracker detects error in the entered data.
+    ** 1a1. Expense Tracker informs user of the error.
+    ** Use case ends.
+
+* 1b.Expense Tracker cannot find specified expenditure.
+    ** 1b1. Expense Tracker informs user that it cannot find the specified expenditure.
+    ** Use case ends.
+
+
+* 1c.Expense Tracker detects that the user is not logged into an account.
+    ** 1c1. Expense Tracker informs user that they are not logged into any user.
+    ** Use case ends.
+
+[discrete]
+
+=== Use case: Mass edit expenditure
+
+*MSS*
+
+1. User keys in command to find specific expenses from the list of all expenses.
+2. Expense Tracker displays the specified expenses.
+3. User keys in command to perform a mass edit on the list of expenses.
+4. Expense Tracker mass edits the specified information of the specified expenditure.
++
+Use case ends
+
+
+*Extensions*
+
+* 1a.Expense Tracker detects error in the entered data.
+    ** 1a1. Expense Tracker informs user of the error.
+    ** Use case ends.
+
+* 1b.Expense Tracker detects that the user is not logged into an account.
+    ** 1b1. Expense Tracker informs user that they are not logged into any user.
+    ** Use case ends.
+
+* 3a.Expense Tracker detects error in the entered data.
+    ** 3a1. Expense Tracker informs user of the error.
+    ** Use case ends.
+
+* 3a.Expense Tracker cannot find specified expenditures.
+    ** 3a1. Expense Tracker informs user that it cannot find the specified expenditures.
+    ** Use case ends.
+
+[discrete]
+
+=== Use case: Set budget
+
+*MSS*
+
+1. User keys in command to set a budget cap.
+2. Expense Tracker updates the current budget cap.
+3. Expense tracker displays a success message.
++
+Use case ends
+
+*Extensions*
+
+* 1a.Expense Tracker detects error in the entered data.
+    ** 1a1. Expense Tracker inform user of the error.
+    ** Use case ends.
+
+* 1b.Expense Tracker detects that the user is not logged into an account.
+    ** 1b1. Expense Tracker informs user that they are not logged into any user.
+    ** Use case ends.
+
+[discrete]
+
+=== Use case: Set a recurring budget
+
+*MSS*
+
+1. User key in command to set a monthly recurring budget.
+2. Expense Tracker sets the specified budget to reoccur after the specified time.
+3. User logs into the account on a new day.
+4. Expense Tracker detects that the specified period of time has passed.
+5. Expense Tracker resets the budget.
++
+Use case ends
+
+*Extensions*
+
+* 1a.Expense Tracker detects error in the entered data.
+    ** 1a1. Expense Tracker inform user of the error.
+    ** Use case ends.
+
+* 1b.Expense Tracker detects that the user is not logged into an account.
+    ** 1b1. Expense Tracker informs user that they are not logged into any user.
+    ** Use case ends.
+
+* 4a.Expense Tracker detects that the specified period of time has not passed.
+    ** Use case ends.
+
+[discrete]
+
+=== Use case: Set a category budget
+
+*MSS*
+
+1. User key in command to set a budget for a specific category.
+2. Expense Tracker sets the specified budget to the specified category.
+3. Expense Tracker displays success message.
++
+Use case ends
+
+*Extensions*
+
+* 1a.Expense Tracker detects error in the entered data.
+    ** 1a1. Expense Tracker inform user of the error.
+    ** Use case ends.
+
+* 1b.Expense Tracker detects that the user is not logged into an account.
+    ** 1b1. Expense Tracker informs user that they are not logged into any user.
+    ** Use case ends.
+
+[discrete]
+
+=== Use case: Signup for an account
+
+*MSS*
+
+1. User keys in command to signup for an account.
+2. Expense Tracker creates a new account with the specified username.
++
+Use case ends
+
+*Exceptions*
+
+* 1a.Expense Tracker detects error in the entered data.
+    ** 1a1. Expense Tracker informs user of the error.
+    ** Use case ends.
+
+* 1a.Expense Tracker that an account of that username already exists.
+    ** 1a1. Expense Tracker informs user that the username has been taken.
+    ** Use case ends.
+
+[discrete]
+
+=== Use case: Login without password
+
+*MSS*
+
+1. User keys in command to login to an account.
+2. Expense Tracker logs user into account.
++
+Use case ends
+
+*Exceptions*
+
+* 1a.Expense Tracker detects error in the entered data.
+    ** 1a1. Expense Tracker informs user of the error.
+    ** Use case ends.
+
+* 1a.Expense Tracker detects that specified user does not exist.
+    ** 1a1. Expense Tracker informs user that user does not exist
+    ** Use case ends.
+
+* 1a. Expense Tracker detects that the account is password-protected.
+** 1a1. Expense tracker informs the user that a password is incorrect.
+** Use case ends
+
+[discrete]
+
+=== Use case: Login with password
+
+*MSS*
+
+1. User keys in command to login to an account.
+2. User also enters password of account.
+3. Expense Tracker logs user into account.
++
+Use case ends
+
+*Extensions*
+
+* 3a.Expense Tracker detects error in the entered data.
+    ** 2a1. Expense Tracker informs user of the error.
+    ** Use case ends.
+
+* 3a.Expense Tracker detects that specified user does not exist.
+    ** 2a1. Expense Tracker informs user that user does not exist
+    ** Use case ends.
+
+* 3a. Expense Tracker detects that the password is incorrect.
+** 3a1. Expense tracker informs the user that the entered password is incorrect.
+** Use case ends
+
+[discrete]
+
+=== Use case: Set password
+
+*MSS*
+
+1. User keys in command to set a password.
+2. Expense Tracker sets the password for the account that is currently logged into to the specified password
+3. Expense Tracker displays a success message
+
+*Extensions*
+
+* 1a.Expense Tracker detects error in the entered data.
+    ** 1a1. Expense Tracker informs user of the error.
+    ** Use case ends.
+
+
+* 1b.Expense Tracker detects that the user is not logged in.
+    ** 1b1. Expense Tracker informs user that they need to log into an account.
+    ** Use case ends.
+
+* 1c.Expense Tracker detects that the user is not logged into an account.
+    ** 1c1. Expense Tracker informs user that they are not logged into any user.
+    ** Use case ends.
+
 [discrete]
 
 === Use case: Clear
 
 *MSS*
 
-1. User requests to clear his recorded expenses and `totalBudget`
-2. Expense trackers shows a confirmation message
-3. Expense tracker deletes all information about the current user’s `totalBudget` and expenses
+1. User keys in command to clear information from an account.
+2. Expense tracker deletes all information about the current user’s expenses.
+3. Expense Tracker displays a success message.
 +
 Use case ends
 
+* 1b.Expense Tracker detects that the user is not logged into an account.
+    ** 1b1. Expense Tracker informs user that they are not logged into any user.
+    ** Use case ends.
+
 [discrete]
-=== Use Case: Filter
+
+=== Use Case: Find Expenses
+*MSS*
+
+1. User keys in command to find specific expenses from the list of all expenses.
+2. Expense Tracker displays the specified expenses.
+3. Expense Tracker displays a success message.
++
+Use case ends
+
+*Extensions*
+
+* 1a.Expense Tracker detects error in the entered data.
+    ** 1a1. Expense Tracker informs user of the error.
+    ** Use case ends.
+
+* 1b.Expense Tracker detects that the user is not logged into an account.
+    ** 1b1. Expense Tracker informs user that they are not logged into any user.
+    ** Use case ends.
+
+[discrete]
+
+=== Use case: Toggle Notification
 
 *MSS*
 
-1. Expense tracker has already shown the lists of expenditures
-2. User requests to filter by some predefined field
-3. Expense tracker filters out expenditures not applicable to the filter
+1. User keys in command to toggle on or off automated notifications.
+2. Expense Tracker toggles automated notifications to the specified status.
+3. Expense Tracker displays a success message.
 +
 Use case ends
 
-[discrete]
-=== Use case: Notification On
+*Extensions*
 
-*MSS*
+* 1a.Expense Tracker detects error in the entered data.
+    ** 1a1. Expense Tracker informs user of the error.
+    ** Use case ends.
 
-1. User keys in the command to turn on notifications
-2. Expense tracker already has a `totalBudget` set.
-3. Add expenses until the `totalBudget` has been exceeded
-4. Expense tracker will detect that the `totalBudget` has been exceeded
-5. Expense tracker will show a visible notification to alert the user that the `totalBudget` has been exceeded
-+
-Use case ends
+* 1b.Expense Tracker detects that the user is not logged into an account.
+    ** 1b1. Expense Tracker informs user that they are not logged into any user.
+    ** Use case ends.
 
 [discrete]
-=== Use case: Notification Off
 
-*MSS*
-
-1. User keys in command to turn off notifications
-2. Notifications no longer show whenever the set `totalBudget` has been exceeded.
-3. Any notification that is currently showing will be hidden from the user.
-+
-Use case ends
-
-[discrete]
-=== Use case: Set recurring expenditure
-
-*MSS*
-
-1. User key in command to set recurring expenses for an expense that was already keyed in
-2. Expense tracker prompts the user to key in which expense and the frequency of recurrence.
-3. User keys in the index of the expenditure to set as recurring expense and the frequency
-4. Expense tracker adds the expense automatically every time the set amount of time passes.
-+
-Use case ends
-
-[discrete]
 === Use case: View statistics
 
 *MSS*
 
-1. User keys in command to view the information and statistics of his weekly/monthly/yearly `totalBudget`
-2. Programs loads a window consisting of visual information displaying the relevant information
+1. User keys in command to view the statistics of his expenditure information from a specified period of time.
+2. Expense Tracker displays the statistics of the specified information.
+3. Expense Tracker displays success message.
 +
 Use case ends
 
-_{More to be added}_
+*Extensions*
+
+* 1a.Expense Tracker detects error in the entered data.
+    ** 1a1. Expense Tracker informs user of the error.
+    ** Use case ends.
+
+* 1b.Expense Tracker detects that the user is not logged into an account.
+    ** 1b1. Expense Tracker informs user that they are not logged into any user.
+    ** Use case ends.
+
+[discrete]
+
+=== Use case: Open Help Window
+*MSS*
+
+1. User keys in command to open Help Window.
+2. Expense Tracker opens a Help Window.
+3. Expense Tracker displays success message.
++
+Use case ends
+
+*Extensions*
+
+* 1a.Expense Tracker detects that a Help window has already been open.
+    ** Use case resumes from step 3.
+
+[discrete]
+
+=== Use case: Redo Command
+*MSS*
+
+1. User keys in command to redo an undone command.
+2. Expense Tracker redoes the undone command.
+3. Expense Tracker displays success message.
++
+Use case ends
+
+*Extensions*
+
+* 1a.Expense Tracker detects that are no commands to redo.
+    ** 1a1. Expense Tracker informs user that are no commands to redo.
+    ** Use case ends.
+
+* 1b.Expense Tracker detects that the user is not logged into an account.
+    ** 1b1. Expense Tracker informs user that they are not logged into any user.
+    ** Use case ends.
+
+[discrete]
+
+=== Use case: Undo Command
+*MSS*
+
+1. User keys in command to undo a previous command.
+2. Expense Tracker undoes previous command.
++
+Use case ends
+
+*Extensions*
+
+* 1a.Expense Tracker detects that are no commands to undo.
+    ** 1a1. Expense Tracker informs user that are no commands to undo.
+    ** Use case ends.
+
+* 1b.Expense Tracker detects that the user is not logged into an account.
+    ** 1b1. Expense Tracker informs user that they are not logged into any user.
+    ** Use case ends.
+
+[discrete]
+
+=== Use case: List
+*MSS*
+
+1. User keys in command to list expenses.
+2. Expense Tracker displays the list of all recorded expenses.
++
+Use case ends
+
+*Extensions*
+
+* 1a.Expense Tracker detects error in the entered data.
+    ** 1a1. Expense Tracker informs user of the error.
+    ** Use case ends.
+
+* 1b.Expense Tracker detects that the user is not logged into an account.
+    ** 1b1. Expense Tracker informs user that they are not logged into any user.
+    ** Use case ends.
+
+[discrete]
+
+=== Use case: Encrypt
+*MSS*
+
+1. User keys in command to encrypt a specified string.
+2. Expense Tracker encrypts the specified `String` with the user's encryption key.
++
+Use case ends
+
+*Extensions*
+
+* 1a.Expense Tracker detects that the user is not logged into an account.
+    ** 1a1. Expense Tracker informs user that they are not logged into any user.
+    ** Use case ends.
+
+[discrete]
+
+=== Use case: Decrypt
+*MSS*
+
+1. User keys in command to decrypt a specified encrypted string.
+2. Expense Tracker decrypts the specified `String` with the user's encryption key.
++
+Use case ends
+
+*Extensions*
+
+* 1a.Expense Tracker detects that the specified string was not encrypted with the user's encryption key.
+    ** 1a1. Expense Tracker informs user that the specified string was not encrypted with the user's encryption key.
+    ** Use case ends.
+
+* 1b.Expense Tracker detects that the user is not logged into an account.
+    ** 1b1. Expense Tracker informs user that they are not logged into any user.
+    ** Use case ends.
+
+[discrete]
+
+=== Use case: Exit Expense Tracker
+*MSS*
+
+1. User keys in command to exit out of Expense Tracker.
+2. Expense Tracker shuts down.
++
+Use case ends
+
+[discrete]
 
 [appendix]
+
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
@@ -1294,48 +1901,306 @@ A contact detail that is not meant to be shared with others
 //* ...
 //* ...
 
-//[appendix]
-//== Instructions for Manual Testing
-//
-//Given below are instructions to test the app manually.
-//
-//[NOTE]
-//These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
+[appendix]
+== Instructions for Manual Testing
 
-=== Launch and Shutdown
+Given below are instructions to test the app manually.
 
-. Initial launch
+=== Setting a budget
 
-.. Download the jar file and copy into an empty folder
-.. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+. Setting a budget no matter what is listed.
 
-. Saving window preferences
+** Test case: `setBudget 2.00` +
+    Expected: Budget is set to $2.00. Current spendings update to the total costs of all expenses recorded. UI updates
+    accordingly.
+** Test case: `setBudget 0.00` +
+    Expected: Error message of no negative values being allowed is shown. Budget is not set. UI does not update.
+** Test case: `setBudget -1.00`+
+    Expected: Similar to previous
+** Test case: `setBudget 1` +
+    Expected: Budget is not set. Error details stating that the a valid budget consists of {int}.{digit}{digit} is
+    shown in the status message. UI is not updated.
+** Testcase: `setBudget x` where x is not a number` +
+    Expected: Budget is not set. Error message informing user of incorrect syntax is shown in the status message. UI is
+    not updated.
 
-.. Resize the window to an optimum size. Move the window to a different location. Close the window.
-.. Re-launch the app by double-clicking the jar file. +
-   Expected: The most recent window size and location is retained.
+** Other incorrect delete commands to try: `setBudget`, `setBudget x` where x is not a number with 2 decimal places.
+    Expected: Similar to previous
 
-_{ more test cases ... }_
+. Adding an expense after budget has been set
 
-=== Deleting a expense
+** Test case: Add a valid expense that does not cause the budget to exceed. +
+    Expected: Status message shown is similar to `add` command. Budget is updated. UI is updated.
 
-. Deleting a expense while all expenses are listed
+** Test case: Add a valid expense that causes the budget to exceed. +
+    Expected: Status message shown is similar to `add` command. Budget is updated. UI is updated. Notification
+    informing the user that adding this expense results in the budget exceeding is shown.
 
-.. Prerequisites: List all expenses using the `list` command. Multiple expenses in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No expense is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
+
+=== Setting a recurrence frequency
+
+. Setting the recurrence frequency.
+
+** Test case: `setRecurrenceFrequency sec/1` +
+    Expected: Recurrence frequency is set. Message showing that the recurrence frequency being set to 1 seconds is
+    shown.
+
+** Test case: `setRecurrenceFrequency hrs/1` +
+    Expected: Recurrence frequency is set. Message showing that the recurrence frequency being set to 3600 seconds is shown.
+
+** Test case: `setRecurrenceFrequency 1` +
+    Expected: Recurrence frequency is not set. Error details are shown in
+    the status message.
+
+** Other incorrect recurrence frequency commands to try: `setRecurrenceFrequency`, `setRecurrenceFrequency x` where x
+ is a number without tags. +
+ Expected: Similar to previous.
+
+. Budget is restarted after the set recurrence frequency.
+
+** Prerequisite: Tester is in the application.
+
+** Test case: Close the application. Open the application and login to the same account. +
+    Expected: Budget not updated, expenses not deleted, nothing changes.
+
+** Test case: Apply the command `setRecurrenceFrequency sec/1`. Close the application. Login to the same account. +
+    Expected: Budget is now reset ($0/{initial budget}). Expenses not deleted. UI updates accordingly.
+
+** Test case: Apply the command `setRecurrenceFrequency hr/1`. Close the application. Login to the same account. +
+    Expected: Budget not updated, expenses not deleted, nothing changes.
+
+=== Setting a category budget
+
+. Setting the Category Budget
+
+** Test case: `setCategoryBudget c/NEW_CATEGORY b/2.00` where `NEW_CATEGORY` is a category not used by any expense. +
+    Expected: Category Budget is set. Message showing that the Category budget is set is shown. Icon showing the
+    category and its budget appears.
+
+** Test case: `setCategoryBudget c/OLD_CATEGORY b/2.00` where `OLD_CATEGORY` is a Category already used by at least
+one expense. +
+    Expected: Similar to previous
+
+** Test case: `setCategoryBudget c/INVALID_CATEGORY b/2.00`, where `INVALID_CATEGORY` is an invalid Category. +
+    Expected. Category Budget is not set. Error message displayed would be similar to when a user tries to add an
+    expense with an invalid Category.
+
+** Test case: `setCategoryBudget c/test b/INVALID_BUDGET`, where `INVALID_CATEGORY` is an invalid Category. +
+    Expected. Category Budget is not set. Error message displayed would be similar to when a user tries to add an
+    expense with an invalid Budget.
+
+** Test case: `setCategoryBudget` +
+    Expected: Category Budget not set. Error details are shown in
+    the status message.
+
+** Other incorrect commands to try: `setCategoryBudget x` where x an alphanumeric without valid tags,
+`setCatgoryBudget c/VALID_CATEGORY`, `setCategoryBudget b/VALID_BUDGET`. +
+    Expected: Similar to above.
+
+. Adding an expense after Category budget has been set
+
+** Test case: Add a valid expense that does not cause the Category budget to exceed. +
+    Expected: Status message shown is similar to `add` command. Budget is updated. UI is updated.
+
+** Test case: Add a valid expense that causes the Category budget to exceed, but not the total budget. +
+    Expected: Status message shown is similar to `add` command. Budget is updated. UI is updated. Notification
+    informing the user that adding this expense results in the budget exceeding is shown.
+
+=== Sign up for an account
+
+. Sign up for an account
+
+.. Prerequisites: The application has been opened successfully and there are no other user accounts other than the sample user.
+.. Test case: `signup tom` +
+   Expected: A message is shown to indicate that the user `tom` has been created successfully.
+.. Test case: `signup tom doe` +
+   Expected: A message is shown to indicate that the USERNAME is invalid and shows the criteria for a valid USERNAME.
+
+. Sign up for an account with an existing Username
+
+.. Prerequisites: There exists a user account with `Username` `tom`
+.. Test case: `signup tom` +
+   Expected: A message is shown to indicate that the user already exists.
+
+=== Log in to an account
+
+. Log in to an account with no password
+
+.. Prerequisites: There exists a user account with `Username` `tom` which has no `Password` set. There does not exist a user account with `Username` `jon`.
+.. Test case: `login u/tom`
+   Expected: The UI expands (if it has not already been) to show `tom` Expense Tracker information and a message shown to indicate that `tom` has successfully logged in.
+.. Test case: `login u/tom p/password1`
+   Expected: The UI expands (if it has not already been) to show `tom` Expense Tracker information and a message shown to indicate that `tom` has successfully logged in.
+.. Test case: `login u/jon`
+   Expected: A message that indicates that the user `jon` does not exist is shown.
+
+. Log in to an account with a password
+.. Prerequisites: There exists a user account with `Username` `tom` which has `Password` set as `password1`.
+.. Test case: `login u/tom`
+   Expected: A message that indicates that the input password is incorrect is shown.
+.. Test case: `login u/tom p/password2`
+   Expected: A message that indicates that the input password is incorrect is shown.
+.. Test case: `login u/tom p/password1`
+   Expected: The UI expands (if it has not already been) to show `tom` Expense Tracker information and a message shown to indicate that `tom` has successfully logged in.
+.. Test case: `login u/jon`
+   Expected: A message that indicates that the user `jon` does not exist is shown.
+
+== Set password for current user
+
+. Set password for a user with no previously set password #1
+
+.. Prerequisites: Already logged into user with no previously set password.
+.. Test case: `setPassword n/pass word`
+   Expected: A message with valid password constraints is shown.
+.. Test case: `setPassword n/pass`
+   Expected: A message with valid password constraints is shown.
+.. Test case: `setPassword n/password`
+   Expected: A message indicating that the password has been changed is shown.
+
+. Set password for a user with no previously set password #2
+.. Prerequisites: Already logged into user with no previously set password.
+.. Test case: `setPassword o/passsss n/password1`
+   Expected: A message indicating that the password has been changed is shown.
+
+. Set password for a user with a previously set password
+.. Prerequisites: Already logged into user with `Password` set as `password1`.
+.. Test case: `setPassword n/password11`
+   Expected: A message indicating that the old password is incorrect is shown.
+.. Test case: `setPassword n/password11 o/password2`
+   Expected: A message indicating that the old password is incorrect is shown.
+.. Test case: `setPassword n/password11 o/password1`
+   Expected: A message indicating that the password has been changed is shown.
+
+=== Encrypt and Decrypt `Strings`
+
+. Encrypt and decrypt `String`s
+.. Prerequisites: Already logged into a user account
+.. Test case: `encrypt this is a test string`, and then use `decrypt STRING` where `STRING` is the encrypted `String` obtained from the first command.
+   Expected: A message indicating that the decrypted `String` is `this is a test string` is shown.
+
+=== Showing statistics
+
+. Showing statistics based on expenses in Expense Tracker
+
+.. Prerequisites: User must be logged in. Preferably, there should be expenses in Expense Tracker with varying dates,
+categories and costs.
+
+.. Test case: `stats` +  (defaults to periodAmount = 7, period = day, mode = time)
+   Expected: Statistics Panel will be shown (if not already showing). Expense Tracker will attempt to display statistics in
+   a *bar chart* for expenses in the last 7 days, starting from the current day, aggregated by day.
+   If there are no expenses in the last 7 days, a message will be shown saying that there are no expenses.
+
+.. Test case: `stats n/7 p/d m/t` +  (defaults to periodAmount = 7, period = day, mode = time)
+   Expected: Exactly the same as above.
+
+.. Test case: `stats n/7 p/m m/t` (periodAmount = 7, period = month, mode = time) +
+   Expected: Statistics Panel will be shown (if not already showing). Expense Tracker will attempt to display statistics in
+   a *bar chart* for expenses in the last 7 months, starting from the current month, aggregated by month.
+   If there are no expenses in the last 7 months, a message will be shown saying that there are no expenses.
+
+.. Test case: `stats n/7 p/m m/c` (periodAmount = 7, period = month, mode = category) +
+   Expected: Statistics Panel will be shown (if not already showing). Expense Tracker will attempt to display statistics in
+   a *pie chart* for expenses in the last 7 months, starting from the current month, aggregated by category.
+   If there are no expenses in the last 7 months, a message will be shown saying that there are no expenses.
+
+=== Notification Panel
+
+. Updating the Notification Panel
+
+.. Prerequisites: Create a new account using `signup x` where x is any valid username.
+.. Test case: `login x`, where x is the username of the new account.
+   Expected: Two notifications should appear in the the `NotificationPanel`list. The topmost notification should contain a saving tip. The bottommost notification should containing a warning
+    to the user that their recurrence time has not been set.
+.. Test case: `add n/test c/test $/27.00`.
+   Expected: A notification should appear at the top of the  `NotificationPanel` containing a warning to the user that they are about to go over budget.
+.. Additional command to try: `edit 1 $/27.50`
+   Expected: Similar to previous.
+.. Test case: `add n/test c/test $/28.50`.
+   Expected: A notification should appear at the top of the `NotificationPanel` containing a warning to the user that they are over budget.
+.. Additional command to try: `edit 1 $/29.00`
    Expected: Similar to previous.
 
-_{ more test cases ... }_
+=== Toggling Notifications
 
-=== Saving data
+. Toggling Notifications On and Off
 
-. Dealing with missing/corrupted data files
+.. Prerequisites: Set the budget to $10.00 by using entering `setBudget 10.00`.
+.. Test case: `notification n/warning t/on` + `add n/test c/test $/11.00`.
+   Expected: A notification should appear on the the `NotificationPanel` containing a warning that you are over budget.
+.. Test case: `notification n/warning t/off` + `add n/test c/test $/11.00`.
+   Expected: No new notifications should appear on the `NotificationPanel`.
+.. Test case: `notification n/tip t/on`
+   Expected: 24 hours after the previous tip was sent, a notification should appear on the the `NotificationPanel` containing a saving tip.
+.. Test case: `notification n/tip t/off`
+   Expected: No new notifications containing saving tips should appear after any length of time.
+.. Test case: `notification` +
+   Expected: Error details shown in the status message.
+.. Other incorrect delete commands to try: `notification x` where x is any input,
+   `notification n/x t/on` where x is any input other than `tip` or `warning`, `notification n/warning t/x` where
+   x is any input other than `on` or `off`.
+   Expected: Similar to previous.
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+=== Budget Panel
 
-_{ more test cases ... }_
+. Updating the Budget Panel
+
+.. Prerequisites: Create a new account using `signup x` where x is any valid username and login to said account using `login x`.
+.. Test case: `add n/test c/test $/4.00`
+   Expected: `BudgetPanel#budgetBar` should be updated . `BudgetPanel#expenseDisplay` should be updated to display "$4.00".
+   Both of these elements should be colored green.
+.. Test case: `add n/test c/test $/40.00`
+   Expected: `BudgetPanel#budgetBar` should be updated. `BudgetPanel#expenseDisplay` should be updated to display "$40.00".
+                Both of these elements should be colored red.
+.. Test case: `setBudget $/1000.00`
+   Expected: `BudgetPanel#budgetBar` should be updated. `BudgetPanel#budgetCapDisplay` should be updated to display "$1000.00".
+   `BudgetPanel#expenseDisplay` and `BudgetPanel#budgetBar` should be colored green.
+
+=== Category Panel
+
+. Updating the Category Panel
+.. Prerequisites: Create a new account using `signup x` where x is any valid username and login to said account using `login x`.
+.. Test case: `setBudget 100.00` + `setCategoryBudget c/Food b/50.00` + `add n/test c/Food $/25.00` + `stats`
+.. Expected: A new `CategoryIcon` should appear in the `CagtegoryPanel`. The upper text should display "Food" and the lower text should display
+"50.00%"
+.. Test case: `setCategoryBudget c/New b/00.00` + `add n/test c/New $/10.00` + `stats`
+.. Expected: A new `CategoryIcon` should appear in the `CagtegoryPanel`. The upper text should display "New" and the lower text should display
+"1000.00%"
+.. Test case: `setCategoryBudget c/Food b/25.00`
+.. Expected: The bottommost text of the first `CategoryIcon` should now update to display "100.00%".
+.. Test case: `setCategoryBudget c/Food b/25.00`
+.. Expected: The bottommost text of the first `CategoryIcon` should now update to display "100.00%".
+.. Test case: `setCategoryBudget c/Fees b/10.00` + `setCategoryBudget c/Bus b/10.00` + `setCategoryBudget c/Bills b/10.00`
+.. Expected: Four of the five added `CategoryIcon` objects should be displayed in `CategoryPanel`.
+
+=== Find expenses
+
+. Find expenses that are in the ExpenseTracker
+.. Prerequisites: Logged in to an account and the targeted expenses exist in the account.
+.. Test case: `find n/lunch` +
+   Expected: The expenses with name "lunch" are shown on the expense list panel. Number of expenses
+   found is shown as the status message.
+.. Test case: `find c/food $/1.00:2.00` +
+   Expected: The expenses under "food" category with cost between 1.00 and 2.00(inclusive) are shown on
+   the expense list panel. Number of expense found is shown as the status message.
+
+. Find expenses that are not in the ExpenseTracker
+.. Prerequisites: Logged in to an account and the targeted expenses do not exist in the account.
+.. Test case: `find (any keywords that would not direct to existing expenses)`
+   Expected: No expense is shown on expense list panel. "0 expenses listed!" is shown as
+   status message.
+
+=== Mass edit expenses
+
+. Mass edit expenses that are in the ExpenseTracker
+.. Prerequisites: Logged in to an account and the targeted expenses exist in the account.
+.. Test case: `massedit c/school \-> c/food` +
+   Expected: Edits all the expenses in the "school" category to have their categories changed to "food" and the edited
+   expenses are shown on the screen. Success message is shown as status message.
+.. Test case: `massedit n/School fee d/01-10-2018:03-10-2018 \-> t/books` +
+   Expected: Edits all the expenses which have names containing "School", with dates between "01-10-2018" and "03-10-2018", to have their tags changed to "book". The
+   edited expenses are shown as status message.
+
+. Mass edit expenses that are not in the ExpenseTracker
+.. Prerequisites: Logged in to an account and the targeted expenses do not exist in the account.
+.. Test case: `massedit (ny keywords that would not direct to existing expenses) \-> (any edited field)` +
+   Expected: No expense is shown on expense list panel. "No expense is found by the keywords." is shown as status message.

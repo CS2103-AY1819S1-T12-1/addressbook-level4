@@ -9,14 +9,15 @@ import org.testfx.api.FxToolkit;
 
 import guitests.guihandles.MainWindowHandle;
 import javafx.stage.Stage;
-import seedu.address.TestApp;
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.ReadOnlyExpenseTracker;
-import seedu.address.model.exceptions.InvalidDataException;
-import seedu.address.model.exceptions.NonExistentUserException;
-import seedu.address.model.user.LoginInformation;
-import seedu.address.testutil.TypicalExpenses;
+
+import seedu.expensetracker.TestApp;
+import seedu.expensetracker.commons.exceptions.IllegalValueException;
+import seedu.expensetracker.logic.LoginCredentials;
+import seedu.expensetracker.logic.parser.exceptions.ParseException;
+import seedu.expensetracker.model.ReadOnlyExpenseTracker;
+import seedu.expensetracker.model.exceptions.InvalidDataException;
+import seedu.expensetracker.model.exceptions.NonExistentUserException;
+import seedu.expensetracker.testutil.TypicalExpenses;
 
 /**
  * Contains helper methods that system tests require.
@@ -64,7 +65,7 @@ public class SystemTestSetupHelper {
         try {
             FxToolkit.setupFixture(() -> {
                 try {
-                    testApp.getActualModel().loadUserData(new LoginInformation(TypicalExpenses.SAMPLE_USERNAME, null));
+                    testApp.getActualModel().loadUserData(new LoginCredentials(TypicalExpenses.SAMPLE_USERNAME, null));
                 } catch (NonExistentUserException | InvalidDataException | ParseException e) {
                     Assert.fail(e.getMessage());
                 }

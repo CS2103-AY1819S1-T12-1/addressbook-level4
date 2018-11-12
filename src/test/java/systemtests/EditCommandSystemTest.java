@@ -4,49 +4,48 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
-import static seedu.address.logic.commands.CommandTestUtil.CATEGORY_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.CATEGORY_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.COST_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.COST_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.DATE_DESC_1990;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_CATEGORY_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_CATEGORY_GAME;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_COST_GAME;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_GAME;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_IPHONE;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_EXPENSES;
-import static seedu.address.testutil.TypicalExpenses.GAME;
-import static seedu.address.testutil.TypicalExpenses.IPHONE;
-import static seedu.address.testutil.TypicalExpenses.KEYWORD_MATCHING_BUY;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EXPENSE;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_EXPENSE;
+import static seedu.expensetracker.logic.commands.CommandTestUtil.CATEGORY_DESC_GAME;
+import static seedu.expensetracker.logic.commands.CommandTestUtil.CATEGORY_DESC_IPHONE;
+import static seedu.expensetracker.logic.commands.CommandTestUtil.COST_DESC_GAME;
+import static seedu.expensetracker.logic.commands.CommandTestUtil.COST_DESC_IPHONE;
+import static seedu.expensetracker.logic.commands.CommandTestUtil.DATE_DESC_1990;
+import static seedu.expensetracker.logic.commands.CommandTestUtil.INVALID_CATEGORY_DESC;
+import static seedu.expensetracker.logic.commands.CommandTestUtil.INVALID_COST_DESC;
+import static seedu.expensetracker.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
+import static seedu.expensetracker.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
+import static seedu.expensetracker.logic.commands.CommandTestUtil.NAME_DESC_GAME;
+import static seedu.expensetracker.logic.commands.CommandTestUtil.NAME_DESC_IPHONE;
+import static seedu.expensetracker.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
+import static seedu.expensetracker.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
+import static seedu.expensetracker.logic.commands.CommandTestUtil.VALID_CATEGORY_GAME;
+import static seedu.expensetracker.logic.commands.CommandTestUtil.VALID_COST_GAME;
+import static seedu.expensetracker.logic.commands.CommandTestUtil.VALID_NAME_GAME;
+import static seedu.expensetracker.logic.commands.CommandTestUtil.VALID_NAME_IPHONE;
+import static seedu.expensetracker.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.expensetracker.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.expensetracker.model.Model.PREDICATE_SHOW_ALL_EXPENSES;
+import static seedu.expensetracker.testutil.TypicalExpenses.GAME;
+import static seedu.expensetracker.testutil.TypicalExpenses.IPHONE;
+import static seedu.expensetracker.testutil.TypicalExpenses.KEYWORD_MATCHING_BUY;
+import static seedu.expensetracker.testutil.TypicalIndexes.INDEX_FIRST_EXPENSE;
+import static seedu.expensetracker.testutil.TypicalIndexes.INDEX_SECOND_EXPENSE;
 
 import org.junit.Test;
 
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.UndoCommand;
-import seedu.address.model.Model;
-import seedu.address.model.exceptions.NoUserSelectedException;
-import seedu.address.model.expense.Category;
-import seedu.address.model.expense.Cost;
-import seedu.address.model.expense.Expense;
-import seedu.address.model.expense.Name;
-import seedu.address.model.tag.Tag;
-import seedu.address.testutil.ExpenseBuilder;
-import seedu.address.testutil.ExpenseUtil;
+import seedu.expensetracker.commons.core.Messages;
+import seedu.expensetracker.commons.core.index.Index;
+import seedu.expensetracker.commons.exceptions.IllegalValueException;
+import seedu.expensetracker.logic.commands.EditCommand;
+import seedu.expensetracker.logic.commands.RedoCommand;
+import seedu.expensetracker.logic.commands.UndoCommand;
+import seedu.expensetracker.model.Model;
+import seedu.expensetracker.model.exceptions.NoUserSelectedException;
+import seedu.expensetracker.model.expense.Category;
+import seedu.expensetracker.model.expense.Cost;
+import seedu.expensetracker.model.expense.Expense;
+import seedu.expensetracker.model.expense.Name;
+import seedu.expensetracker.model.tag.Tag;
+import seedu.expensetracker.testutil.ExpenseBuilder;
 
 public class EditCommandSystemTest extends ExpenseTrackerSystemTest {
 
@@ -59,8 +58,8 @@ public class EditCommandSystemTest extends ExpenseTrackerSystemTest {
          * field -> edited
          */
         Index index = INDEX_FIRST_EXPENSE;
-        String command = " " + EditCommand.COMMAND_WORD + "  " + index.getOneBased() + "  " + NAME_DESC_BOB + "  "
-                + CATEGORY_DESC_BOB + " " + COST_DESC_BOB + " " + TAG_DESC_HUSBAND + " ";
+        String command = " " + EditCommand.COMMAND_WORD + "  " + index.getOneBased() + "  " + NAME_DESC_IPHONE + "  "
+                + CATEGORY_DESC_IPHONE + " " + COST_DESC_IPHONE + " " + TAG_DESC_HUSBAND + " ";
         Expense editedExpense = new ExpenseBuilder(IPHONE).withTags(VALID_TAG_HUSBAND).build();
         assertCommandSuccess(command, index, editedExpense);
         /* Case: undo editing the last expense in the list -> last expense restored */
@@ -74,24 +73,52 @@ public class EditCommandSystemTest extends ExpenseTrackerSystemTest {
                 getModel().getFilteredExpenseList().get(INDEX_FIRST_EXPENSE.getZeroBased()), editedExpense);
         assertCommandSuccess(command, model, expectedResultMessage);
         /* Case: edit a expense with new values same as existing values -> edited */
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + CATEGORY_DESC_BOB
-                + COST_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_IPHONE + CATEGORY_DESC_IPHONE
+                + COST_DESC_IPHONE + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandSuccess(command, index, IPHONE);
         /* Case: edit a expense with new values same as another expense's values but with different name -> edited */
         assertTrue(getModel().getExpenseTracker().getExpenseList().contains(IPHONE));
         index = INDEX_SECOND_EXPENSE;
         assertNotEquals(getModel().getFilteredExpenseList().get(index.getZeroBased()), IPHONE);
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + CATEGORY_DESC_BOB
-                + COST_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_GAME + CATEGORY_DESC_IPHONE
+                + COST_DESC_IPHONE + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         editedExpense = new ExpenseBuilder(IPHONE).withName(VALID_NAME_GAME).build();
+        assertCommandSuccess(command, index, editedExpense);
+
+        /* Case: edit a expense with new values same as another expense's values -> edited */
+        assertTrue(getModel().getExpenseTracker().getExpenseList().contains(IPHONE));
+        index = INDEX_SECOND_EXPENSE;
+        assertFalse(getModel().getFilteredExpenseList().get(index.getZeroBased()).equals(IPHONE));
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_IPHONE + CATEGORY_DESC_IPHONE
+                + COST_DESC_IPHONE + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+        assertCommandSuccess(command, index, IPHONE);
+
+        /* Case: edit a expense with new values same as another expense's values but with different tags -> edited */
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_IPHONE + CATEGORY_DESC_IPHONE
+                + COST_DESC_IPHONE + TAG_DESC_HUSBAND;
+        editedExpense = new ExpenseBuilder(IPHONE).withTags(VALID_TAG_HUSBAND).build();
+        assertCommandSuccess(command, index, editedExpense);
+
+        /* Case: edit a expense with new values same as another expense's values but with different cost
+        -> edited */
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_IPHONE + CATEGORY_DESC_IPHONE
+                + COST_DESC_GAME + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+        editedExpense = new ExpenseBuilder(IPHONE).withCost(VALID_COST_GAME).build();
+        assertCommandSuccess(command, index, editedExpense);
+
+        /* Case: edit a expense with new values same as another expense's values but with different category
+        -> edited */
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_IPHONE + CATEGORY_DESC_GAME
+                + COST_DESC_IPHONE + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+        editedExpense = new ExpenseBuilder(IPHONE).withCategory(VALID_CATEGORY_GAME).build();
         assertCommandSuccess(command, index, editedExpense);
 
         /* Case: edit a expense with new values same as another expense's values but with different category and cost
          * -> edited
          */
         index = INDEX_SECOND_EXPENSE;
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + CATEGORY_DESC_AMY
-                + COST_DESC_AMY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_IPHONE + CATEGORY_DESC_GAME
+                + COST_DESC_GAME + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         editedExpense = new ExpenseBuilder(IPHONE).withCategory(VALID_CATEGORY_GAME).withCost(VALID_COST_GAME).build();
         assertCommandSuccess(command, index, editedExpense);
         /* Case: clear tags -> cleared */
@@ -105,7 +132,7 @@ public class EditCommandSystemTest extends ExpenseTrackerSystemTest {
         showExpensesWithName(KEYWORD_MATCHING_BUY);
         index = INDEX_FIRST_EXPENSE;
         assertTrue(index.getZeroBased() < getModel().getFilteredExpenseList().size());
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + NAME_DESC_BOB;
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + NAME_DESC_IPHONE;
         expenseToEdit = getModel().getFilteredExpenseList().get(index.getZeroBased());
         editedExpense = new ExpenseBuilder(expenseToEdit).withName(VALID_NAME_IPHONE).build();
         assertCommandSuccess(command, index, editedExpense);
@@ -114,7 +141,7 @@ public class EditCommandSystemTest extends ExpenseTrackerSystemTest {
          */
         showExpensesWithName(KEYWORD_MATCHING_BUY);
         int invalidIndex = getModel().getExpenseTracker().getExpenseList().size();
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_BOB,
+        assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_IPHONE,
                 Messages.MESSAGE_INVALID_EXPENSE_DISPLAYED_INDEX);
         /* ------------------ Performing edit operation while a expense card is selected ----------------------- */
         /* Case: selects first card in the expense list, edit a expense -> edited, card selection remains unchanged
@@ -123,24 +150,24 @@ public class EditCommandSystemTest extends ExpenseTrackerSystemTest {
         showAllExpenses();
         index = INDEX_FIRST_EXPENSE;
         selectExpense(index);
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + CATEGORY_DESC_AMY
-                + COST_DESC_AMY + TAG_DESC_FRIEND + DATE_DESC_1990;
+        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_GAME + CATEGORY_DESC_GAME
+                + COST_DESC_GAME + TAG_DESC_FRIEND + DATE_DESC_1990;
         // this can be misleading: card selection actually remains unchanged but the
         // browser's url is updated to reflect the new expense's name
         assertCommandSuccess(command, index, GAME, index);
         /* ------------------------------ Performing invalid edit operation ----------------------------------- */
         /* Case: invalid index (0) -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " 0" + NAME_DESC_BOB,
+        assertCommandFailure(EditCommand.COMMAND_WORD + " 0" + NAME_DESC_IPHONE,
                 String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         /* Case: invalid index (-1) -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " -1" + NAME_DESC_BOB,
+        assertCommandFailure(EditCommand.COMMAND_WORD + " -1" + NAME_DESC_IPHONE,
                 String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         /* Case: invalid index (size + 1) -> rejected */
         invalidIndex = getModel().getFilteredExpenseList().size() + 1;
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_BOB,
+        assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_IPHONE,
                 Messages.MESSAGE_INVALID_EXPENSE_DISPLAYED_INDEX);
         /* Case: missing index -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + NAME_DESC_BOB,
+        assertCommandFailure(EditCommand.COMMAND_WORD + NAME_DESC_IPHONE,
                 String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         /* Case: missing all fields -> rejected */
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_EXPENSE.getOneBased(),
@@ -152,37 +179,13 @@ public class EditCommandSystemTest extends ExpenseTrackerSystemTest {
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_EXPENSE.getOneBased() + INVALID_CATEGORY_DESC,
                 Category.MESSAGE_CATEGORY_CONSTRAINTS);
 
-        /* Case: invalid address -> rejected */
+        /* Case: invalid expensetracker -> rejected */
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_EXPENSE.getOneBased()
-                + INVALID_ADDRESS_DESC, Cost.MESSAGE_COST_CONSTRAINTS);
+                + INVALID_COST_DESC, Cost.MESSAGE_COST_CONSTRAINTS);
         /* Case: invalid tag -> rejected */
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_EXPENSE.getOneBased()
                 + INVALID_TAG_DESC, Tag.MESSAGE_TAG_CONSTRAINTS);
-        /* Case: edit a expense with new values same as another expense's values -> rejected */
-        executeCommand(ExpenseUtil.getAddCommand(IPHONE));
-        assertTrue(getModel().getExpenseTracker().getExpenseList().contains(IPHONE));
-        index = INDEX_FIRST_EXPENSE;
-        assertFalse(getModel().getFilteredExpenseList().get(index.getZeroBased()).equals(IPHONE));
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + CATEGORY_DESC_BOB
-                + COST_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_EXPENSE);
 
-        /* Case: edit a expense with new values same as another expense's values but with different tags -> rejected */
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + CATEGORY_DESC_BOB
-                + COST_DESC_BOB + TAG_DESC_HUSBAND;
-        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_EXPENSE);
-
-        /* Case: edit a expense with new values same as another expense's values but with different address
-        -> rejected */
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + CATEGORY_DESC_BOB
-                + COST_DESC_AMY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_EXPENSE);
-
-        /* Case: edit a expense with new values same as another expense's values but with different category
-        -> rejected */
-        command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + CATEGORY_DESC_AMY
-                + COST_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
-        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_EXPENSE);
 
     }
 

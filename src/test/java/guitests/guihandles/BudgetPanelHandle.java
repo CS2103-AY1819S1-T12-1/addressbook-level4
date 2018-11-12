@@ -55,7 +55,6 @@ public class BudgetPanelHandle extends NodeHandle<Region> {
      * @return true if expenseDisplay portrays the correct text, false otherwise.
      */
     public boolean isExpenseCorrect(String expense) {
-        System.out.println(budgetDisplay.getText());
         return expenseDisplay.getText().equals(EXPENSE_DISPLAY_PREFIX + expense);
     }
 
@@ -65,7 +64,6 @@ public class BudgetPanelHandle extends NodeHandle<Region> {
      * @return true if budgetDisplay portrays the correct text, false otherwise.
      */
     public boolean isBudgetCorrect(String budget) {
-        System.out.println(budgetDisplay.getText());
         return budgetDisplay.getText().equals(BUDGET_DISPLAY_PREFIX + budget);
     }
 

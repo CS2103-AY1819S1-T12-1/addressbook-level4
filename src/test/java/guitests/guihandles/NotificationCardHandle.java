@@ -2,7 +2,7 @@ package guitests.guihandles;
 
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import seedu.address.model.notification.Notification;
+import seedu.expensetracker.model.notification.Notification;
 
 /**
  * Provides a handle to anotification card in the expense list panel.

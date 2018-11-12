@@ -9,8 +9,8 @@
    <children>
       <AnchorPane prefHeight="150.0" prefWidth="320.0">
          <children>
-            <Label fx:id="body" alignment="TOP_LEFT" layoutX="82.0" layoutY="46.0" prefHeight="109.0" prefWidth="248.0" text="body" textAlignment="JUSTIFY" wrapText="true" />
-            <Label fx:id="header" layoutX="82.0" prefHeight="44.0" prefWidth="248.0" text="header" wrapText="true" />
+            <Label fx:id="body" alignment="TOP_LEFT" layoutX="82.0" layoutY="52.0" prefHeight="103.0" prefWidth="248.0" text="body" textAlignment="JUSTIFY" wrapText="true" />
+            <Label fx:id="header" layoutX="82.0" prefHeight="52.0" prefWidth="248.0" text="header" wrapText="true" />
             <ImageView fx:id="notificationImage" fitHeight="60.0" fitWidth="60.0" layoutX="14.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true" />
          </children>
       </AnchorPane>

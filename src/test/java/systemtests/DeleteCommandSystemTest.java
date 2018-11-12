@@ -1,26 +1,26 @@
 package systemtests;
 
 import static org.junit.Assert.assertTrue;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_EXPENSE_DISPLAYED_INDEX;
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_EXPENSE_SUCCESS;
-import static seedu.address.testutil.TestUtil.getExpense;
-import static seedu.address.testutil.TestUtil.getLastIndex;
-import static seedu.address.testutil.TestUtil.getMidIndex;
-import static seedu.address.testutil.TypicalExpenses.KEYWORD_MATCHING_BUY;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_EXPENSE;
+import static seedu.expensetracker.commons.core.Messages.MESSAGE_INVALID_EXPENSE_DISPLAYED_INDEX;
+import static seedu.expensetracker.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.expensetracker.logic.commands.DeleteCommand.MESSAGE_DELETE_EXPENSE_SUCCESS;
+import static seedu.expensetracker.testutil.TestUtil.getExpense;
+import static seedu.expensetracker.testutil.TestUtil.getLastIndex;
+import static seedu.expensetracker.testutil.TestUtil.getMidIndex;
+import static seedu.expensetracker.testutil.TypicalExpenses.KEYWORD_MATCHING_BUY;
+import static seedu.expensetracker.testutil.TypicalIndexes.INDEX_FIRST_EXPENSE;
 
 import org.junit.Test;
 
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.UndoCommand;
-import seedu.address.model.Model;
-import seedu.address.model.exceptions.NoUserSelectedException;
-import seedu.address.model.expense.Expense;
+import seedu.expensetracker.commons.core.Messages;
+import seedu.expensetracker.commons.core.index.Index;
+import seedu.expensetracker.commons.exceptions.IllegalValueException;
+import seedu.expensetracker.logic.commands.DeleteCommand;
+import seedu.expensetracker.logic.commands.RedoCommand;
+import seedu.expensetracker.logic.commands.UndoCommand;
+import seedu.expensetracker.model.Model;
+import seedu.expensetracker.model.exceptions.NoUserSelectedException;
+import seedu.expensetracker.model.expense.Expense;
 
 public class DeleteCommandSystemTest extends ExpenseTrackerSystemTest {
 

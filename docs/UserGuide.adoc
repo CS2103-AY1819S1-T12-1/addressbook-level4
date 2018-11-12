@@ -18,15 +18,16 @@ By: `Team T12-1`      Since: `Oct 2018`      Licence: `MIT`
 
 == Introduction
 
-The Expense Tracker application is a desktop application which enables users to track their expenses.
-The application features both a Command Line Interface (CLI) and a Graphical User Interface (GUI) which provides users
-with the efficiency of the CLI while still having the benefits of a GUI.
+Expense Tracker is a desktop application that you can use to track your expenses. Expense Tracker provides you
+with features such as setting a budget and expense statistics, which help you stay within your budget.
 
-Interested? Jump to <<Quick Start>> to get started!
+== About
+The *Expense Tracker User Guide* contains all the essential information for you to make full use of Expense Tracker.
+Jump to <<Quick Start, Quick Start>> to get started or go to <<Features, Features>> for a list of all the commands available.
 
 == Quick Start
 
-Follow these steps to start using the Expense Tracker:
+Follow these steps to start using Expense Tracker:
 
 .  Install Java (version 9 or later) on your computer by going https://www.oracle.com/technetwork/java/javase/downloads/java-archive-javase9-3934878.html[here]
 and downloading the Java SE Runtime Environment for your operating system.
@@ -40,91 +41,142 @@ image::userguide/uiOnLaunch.png[width="790"]
 .  Type the command `signup USERNAME` in the command box (the box where it says "Enter command here...") and press kbd:[Enter] to execute it, where USERNAME is the username of your choice. E.g. `signup username123`
 .  Type the command `login u/USERNAME` in the command box and press kbd:[Enter] to execute it, where USERNAME is the username you signed up with in the previous step. e.g. `login u/username123` +
 You are now able to use all the commands of the app. +
-.  Type commands in the command box, as highlighted in the figure below, and press kbd:[Enter] to execute it. +
+.  Type commands in the command box, as highlighted in the figure below, and press kbd:[Enter] to execute it.
+Refer to <<Features, Features>> for details on all the available commands. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
-.  Refer to <<Features>> for details of all available commands.
-
 == User Interface
-After logging in, the interface looks something like this:
+After logging in, the interface will display as such:
 
 .User interface
 image::userguide/ui.png[width="790"]
 
-There are six main components to the user interface, each highlighted by the coloured box as per the diagram above.
+There are 6 main components to Expense Tracker, each highlighted by the coloured box in the diagram above.
 
-=== Expense List / Statistics Panel
+=== Left Panel
 
-This is the portion highlighted in the red box.
+This component is highlighted by the red box. There are two modes to this panel:
 
-==== Expense List
-The Expense List shows the list of expenses. By default, the list will show all expenses in the Expense Tracker.
-When commands such as `find` and `list` are used, they change which expenses will be shown in the Expense List.
+ * Expense List mode
+ * Statistics Panel mode
+
+You are able swap between Expense List mode and Statistics Panel mode by using the `list` command and
+ `stats` command, respectively.
+
+ See <<ListCommand,`list`>> and <<StatsCommand, `stats`>> commands for more details on these commands.
+
+==== Expense List mode
+In Expense List mode, the Left Panel displays the list of all expenses, as shown below:
+
+.Left Panel in Expense List mode
+image::userguide/expenseList.png[width="790"]
+
+Commands that alter the Expense List, such as `find` and `list`, will change the expenses that are shown.
+
+ See <<FindCommand, `find`>> and <<ListCommand, `list`>> commands for more details.
+
+Each expense has an index number next to the expense name. These are relevant to the `delete` and `edit` commands.
+
+ See <<DeleteCommand, `delete`>> and <<EditCommand, `edit`>> commands for more details.
+
+
+==== Statistics Panel mode
+In Statistics Panel mode, the Left Panel contains upper and lower sections, similar to what is shown below:
+
+.Left Panel in Statistics Panel mode
+image::userguide/statisticsPanel.png[width="790"]
+
+The upper section displays statistical information about expenses.
+
+The type of statistics shown can be changed via the `stats` command.
+
+ See <<StatsCommand, `stats`>> command for more details.
+
+The lower section shows four of the category budgets that have been set using the `setCategoryBudget` command.
 
 [NOTE]
-====
-Each expense has an index number next to the expense name. These are relevant to the `delete` and `edit` commands.
-====
+If there are no category budgets set, the lower section will be empty, save for the title.
 
-==== Statistics Panel
-When the `stats` command is used, the Expense List changes to the Statistics Panel, where statistics about expenses
-will be displayed.
+ See <<SetCategoryBudgetCommand, `setCategoryBudget`>> command for more details.
 
 === Budget Tracker
 
-This is the portion highlighted in the blue box.
+This component is highlighted by the blue box.
 
-This is a feature which is work in progress.
+The Budget Tracker shows information about your total expenditure and
+the budget which you set using the `setBudget` command.
+ See <<SetBudgetCommand, `setBudget`>> command for more details.
 
 === Notifications Panel
 
-This is the portion highlighted in the green box.
+This is the portion highlighted by the green box.
 
-This is a feature which is work in progress.
+The Notifications Panel is where any automated notifications will appear. These include warnings about your expenditure and
+saving tips that you should consider.
+
+[NOTE]
+The Notification Panel will only display a maximum of 10 notifications. If the Notification Panel is full, the oldest notification will be replaced by the newest notification.
+
+You can toggle notifications on and off with the `notification` command.
+ See <<NotificationCommand, `notification`>> command for more details.
 
 === Command Box and Console
 
-This is the portion highlighted in the yellow box.
+This component is highlighted by the yellow box.
 
-The Command Box is where the "Enter command here..." is located. To enter a command in the Command Box, user your mouse
+The Command Box is where the "Enter command here..." is located. To enter a command in the Command Box, use your mouse
 and click anywhere within the box, then proceed to type a command. +
 
-The Console is where any success and error messages, relevant to the most recent command entered, will appear .
+The Console displays any success and error messages that is relevant to the most recent command entered.
 
 === Menu Bar
 
-This is the portion highlighted in the orange box.
+This component is highlighted by the orange box.
 
-The menu bar contains two submenus, which allow the user to either exit the application or to open the help window.
-These have the same effect as using the commands `exit` and `help` respectively.
+The menu bar contains two submenus, "file" and "help".
 
+Click on "file" to reveal a dropdown containing the option "exit". Clicking on "exit" will close the application.
+Entering the command `exit` into the Command Box achieves the same outcome.
+
+Click on "help" to reveal a dropdown containing the option "help". Clicking on "help", or pressing the `F1` key on your
+keyboard, will open a Help Window.
+Entering the command `help` into the Command Box achieves the same outcome.
+
+=== Status Bar
+This component is highlighted by the pink box.
+
+On the leftmost side, the Status Bar displays the date and time of the last update to the Expense Tracker.
+
+On the rightmost side, the Status Bar displays the directory or folder where the updated data was saved to.
 
 [[Features]]
 == Features
 
+Take note of these instructions related to the format of the commands before using them:
+
 ====
 *Command Format*
 
-* All commands begin with the command word. The command word may be followed by parameters.
-* According to the format of each command, words in `UPPER_CASE` are the parameters which can be specified by the user
-** E.g. the `login` command has the format of `login u/USERNAME` where `USERNAME` is a parameter which can be replaced by a user specified value. In order to log in to an account with the username "username123", the user will enter the command `login u/username123`.
-* Parameters in square brackets are optional
+* All commands begin with the command word. The command word may be followed by user-defined parameters.
+* According to the format of each command, words in `UPPER_CASE` are the parameters which can be specified by you.
+** E.g. the `login` command has the format of `login u/USERNAME` where `USERNAME` is a parameter which can be replaced by a specified value. In order to log in to an account with the username "username123", enter the command `login u/username123`.
+* Parameters in square brackets are optional. This means that the parameter does not have to be included for the command to work.
 ** E.g if a command has a parameter format of `n/EXPENSE_NAME [t/TAG]`, the parameters can be used as `n/Birthday Present t/Girlfriend`, which includes the "Girlfriend" tag, or as `n/Birthday Present`, which does not include a tag.
-* Parameters with `…`​ after them can be used multiple times including zero times
-** E.g. if a command format contains the parameter `[t/TAG]...`, the parameter can be replaced with `t/friend`, `t/friend t/family` etc.
+* Parameters with `…`​ after them can be used multiple times.
+** E.g. if a command format contains the parameter `t/TAG...`, the parameter can be replaced with `t/friend` or `t/friend t/family`
 * Parameters can be in any order e.g. if the command format specifies `n/NAME c/CATEGORY`, using the parameters `c/CATEGORY n/NAME` is also acceptable.
 ====
-//tag::useraccounts[]
+//tag::security1[]
 [NOTE]
 ====
-* Before a user is logged in, only `login`, `signup` and `help` commands are useable.
-* After a user is logged in, the rest of the commands will become useable.
+* Before you are logged in, only `login`, `signup` and `help` commands are useable.
+* After you are logged in, the rest of the commands will become useable.
 ====
 
-These are the features commands available to use in the Expense Tracker:
+These are the commands available to use in Expense Tracker:
 
 === Signing up a user : `signup`
-Creates a a new user in the Expense Tracker.
+Creates a new user in Expense Tracker. You can log in to your newly created user after signing up.
 
 Format: `signup USERNAME`
 
@@ -137,11 +189,12 @@ Format: `signup USERNAME`
 
 [NOTE]
 ====
-* USERNAME must not contain any of the following characters :  > < : \ / | ?
+* USERNAME must be 1 to 250 characters long
+* USERNAME cannot contain white spaces or any of the following characters :  > < : \ / | ?
 ====
 
 === Logging in as an existing user : `login`
-Logs in to the Expense Tracker as an existing user and expands the UI to show the existing expenses if it is not already expanded.
+Logs in to Expense Tracker as an existing user and expands the user interface to show Expense Tracker if it is not already showing.
 
 Format: `login u/USERNAME [p/PASSWORD]`
 
@@ -158,36 +211,42 @@ Format: `login u/USERNAME [p/PASSWORD]`
 ====
 * USERNAME is case insensitive
 * PASSWORD is case sensitive
-* PASSWORD cannot contain any spaces and must be at least 6 characters long
+* PASSWORD cannot contain any spaces and must be 6 to 100 characters long
 * Expense Tracker contains a sample user with USERNAME `sample`
+* If a user has no password set, then the login will be successful
+regardless of whether a PASSWORD has been provided
 ====
+//end::security1[]
+//tag::security2[]
+=== Setting a password for the current user : `setPassword`
+Sets a new password for the user which is currently logged in.
 
-=== Setting a password for the current user : `setpassword`
-Sets a new password for the currently logged in user.
-
-Format: `setpassword n/NEW_PASSWORD [o/OLD_PASSWORD]`
+Format: `setPassword n/NEW_PASSWORD [o/OLD_PASSWORD]`
 
 ****
 *Examples:*
 
-*  `setpassword n/pass123` +
+*  `setPassword n/pass123` +
  Sets the current user's password as "pass123", provided that there is no previously set password
-*  `setpassword n/pass123 o/password1` +
+*  `setPassword n/pass123 o/password1` +
  Sets the current user's password as "pass123", provided that the current password is "password1"
 ****
 
 [NOTE]
 ====
 * OLD_PASSWORD is needed if a password has been previously set for the current user and they have to match.
+* OLD_PASSWORD and NEW_PASSWORD are case sensitive
+* OLD_PASSWORD and NEW_PASSWORD cannot contain any spaces and must be 6 to 100 characters long
 ====
-//end::useraccounts[]
+//end::security2[]
+
 === Viewing help : `help`
 Opens up a new window with the User Guide.
 
 Format: `help`
 
 === Adding an expense: `add`
-Adds an expense to the tracker.
+Adds an expense to Expense Tracker.
 
 Format: `add n/EXPENSE_NAME $/COST c/CATEGORY [d/DATE] [t/TAG]...`
 
@@ -195,9 +254,9 @@ Format: `add n/EXPENSE_NAME $/COST c/CATEGORY [d/DATE] [t/TAG]...`
 *Examples:*
 
 *  `add n/Lunch $/4.00 c/Food` +
- Adds an expense with its name as "Lunch", cost as "4.00" and category as "Food".
+ Adds an expense with its name as "Lunch", cost as "4.00", category as "Food" and date as the current day.
 *  `add n/Stationery $/1.80 c/School t/bookhaven` +
- Adds an expense with its name as "Stationery", cost as "1.80", category as "School" and Tag as "bookhaven".
+ Adds an expense with its name as "Stationery", cost as "1.80", category as "School", Tag as "bookhaven" and date as the current day.
 *  `add n/Project $/2.08 c/School d/01-01-2018` +
  Adds an expense with its name as "Project", cost as "2.08", category as "School" and date as "01-01-2018".
 ****
@@ -205,14 +264,17 @@ Format: `add n/EXPENSE_NAME $/COST c/CATEGORY [d/DATE] [t/TAG]...`
 [NOTE]
 ====
 * COST should be a non-zero positive number with two decimal places
-* If the user does not in put a DATE parameter, the expense  date will default to the current day.
+* If the DATE parameter is not provided, the date of the expense will default to the current day.
 * DATE should be in the format of "dd-mm-yyyy".
+* DATE can be a date in the future
 ====
 
+[[EditCommand]]
 === Editing an expense : `edit`
 
-Edits the expense at the specified `INDEX`. The `INDEX` refers to the index number shown in the displayed expense list
-next to the name of the expense. Existing values of the expense will be edited according to the value of the parameters +
+Edits the expense at the specified `INDEX`. The `INDEX` refers to the index number shown in the displayed Expense List
+next to the name of the expense in the Expense List.
+Existing values of the expense will be edited according to the value of the parameters +
 
 Format: `edit INDEX [n/EXPENSE_NAME] [$/COST] [c/CATEGORY] [d/DATE] [t/TAG...]`
 
@@ -220,60 +282,61 @@ Format: `edit INDEX [n/EXPENSE_NAME] [$/COST] [c/CATEGORY] [d/DATE] [t/TAG...]`
 *Examples:*
 
 * `edit 1 n/Stationery $/1.80 c/School` +
- Edits the name and category of the 1st expense in the expense list to be `Stationery` and `school` respectively.
+ Edits the name and category of the first expense in the Expense List to be "Stationery" and "school" respectively.
 * `edit 2 d/01-10-2018` +
- Edits the date of the 2nd expense in the expense list to be the 1st of October, 2018.
+ Edits the date of the second expense in the Expense List to be the 1st of October, 2018.
 ****
 
 [NOTE]
 ====
 * At least one of the optional fields must be provided.
-* The index *must be a non-zero positive integer* and must correspond to an expense in the expense list.
+* The index *must be a non-zero positive integer* and must correspond to an expense in the Expense List.
 * COST should be a non-zero positive number with two decimal places
 * DATE should be in the format of "dd-mm-yyyy".
+* DATE can be a date in the future
 ====
 
-// tag::massedit[]
+// tag::massedit1[]
 === Editing multiple expenses : `massedit`
 
-Edits the expenses with the keywords specified by the user.
+Edits the all expenses which match the keywords specified.
 Existing values of the expense will be edited according to the value of the parameters +
 
-Format: `massedit [n/EXPENSE_NAME] [$/COST] [c/CATEGORY] [d/DATE] [t/TAG...] -> [n/EXPENSE_NAME] [$/COST] [c/CATEGORY] [d/DATE] [t/TAG...]`
+Format: `massedit [n/EXPENSE_NAME] [$/COST] [c/CATEGORY] [d/DATE] [t/TAG...] \-> [n/EXPENSE_NAME] [$/COST] [c/CATEGORY] [d/DATE] [t/TAG...]`
 
+// end::massedit1[]
+// tag::massedit2[]
 ****
 *Examples:*
 
-* `massedit c/school -> c/food` +
- Edits the expenses under `school` category.
- The category of these expenses is changed to `food`.
-* `massedit n/School fee d/01-10-2018:03-10-2018 -> t/books` +
- Edits expenses, whose names contain `school`,with date between `01-10-2018` and `03-10-2018`(inclusively).
- The tags of these expenses are changed to `book` tag.
-* `massedit $/1.00:2.00 -> c/waste n/saving` +
- Edits expenses with cost between 1.00 and 2.00 inclusively.
- The category and name of these expenses are changed to `waste` and `saving` respecitvely.
-* `massedit c/shopping $/100.00 -> n/waste $/200.00` +
- Edits the expenses with cost of `100.00` under `shopping` category.
- The name and cost of these expenses are changed to `waste` and `200.00` respectively.
+* `massedit c/school \-> c/food` +
+ Edits all the expenses in the "school" category to have their categories changed to "food".
+* `massedit n/School fee d/01-10-2018:03-10-2018 \-> t/books` +
+ Edits all the expenses which have names containing "School", with dates between "01-10-2018" and "03-10-2018", to have their tags changed to "book".
+* `massedit $/1.00:2.00 \-> c/waste n/saving` +
+ Edits all the expenses which have costs between "1.00" and "2.00" to have their categories changed to "waste" and names changed to "saving".
+* `massedit c/shopping $/100.00 \-> n/waste $/200.00` +
+ Edits all the expenses in the "shopping" category, which have a cost of "100.00", to have their names changed to "waste" and costs changed to "200.00".
+
 ****
 
 [NOTE]
 ====
-* `->` can be key in by typing `-` followed by `>`.
-* At least one keyword before `->` and one keyword after `->` must be provided.
-* The order of the keywords doesn't matter.
+* At least one keyword before `\->` and one keyword after `\->` must be provided.
+* The order of the keywords does not matter.
 * Keywords are case insensitive, i.e. the KEYWORD `have` is equivalent to the KEYWORD `Have`
 * COST should be a non-zero positive number with two decimal places
 * DATE should be in the format of "dd-mm-yyyy".
-* Only tag keywords can have multiple keywords. Name/Category/Cost/Date can only have one keywords.
+* DATE can be a date in the future
+* Only `Tag` keywords can have multiple keywords. `Name`,`Category`,`Cost`,`Date` can only have one keyword, i.e.
+`find t/lunch t/family` is permitted but `find n/school n/book` is not permitted.
 ====
 
-// end::massedit[]
-
+// end::massedit2[]
+[[DeleteCommand]]
 === Deleting a expense : `delete`
 
-Deletes the expense at the specified `INDEX`. The `INDEX` refers to the index number shown in the displayed expense list
+Deletes the expense at the specified `INDEX`. The `INDEX` refers to the index number shown in the displayed Expense List
 next to the name of the expense. +
 
 Format: `delete INDEX`
@@ -282,81 +345,72 @@ Format: `delete INDEX`
 *Examples:*
 
 * `delete 1` +
- Deletes the 1st expense in the expense list from Expense Tracker.
+ Deletes the first expense in the Expense List from Expense Tracker.
 ****
 
 [NOTE]
 ====
-* The index *must be a non-zero positive integer* and must correspond to an expense in the expense list.
+* The index *must be a non-zero positive integer* and must correspond to an expense in the Expense List.
 ====
 
-// tag::find[]
+// tag::find1[]
+[[FindCommand]]
 === Locating expenses by keywords: `find`
 
 Finds expense which contains all the given keywords. +
-Format: `find [n/NAME] [c/CATEGORY] [$/COST:COST] [d/DATE:DATE] [t/TAG...] `
 
+Format: `find [n/NAME] [c/CATEGORY] [$/COST:COST] [d/DATE:DATE] [t/TAG...]`
+// end::find1[]
+
+// tag::find2[]
 ****
 *Examples:*
 
 * `find c/School` +
-Find all the expenses under `School` category.
+Find all the expenses under the `School` category.
 * `find d/1-10-2018:7-10-2018` +
-Find all the expenses from 1-10-2018 to 7-10-2018.
+Find all the expenses which have dates between 1-10-2018 and 7-10-2018(inclusive).
 * `find d/1-10-2018` +
-Find all the expenses on 1-10-2018
+Find all the expenses with dates on 1-10-2018
 * `find $/10.00:20.00` +
-Find all the expenses with cost between 10 and 20(inclusive).
+Find all the expenses with costs between 10 and 20(inclusive).
 * `find $/10.00` +
-Find all the expenses with cost of 10.00.
+Find all the expenses with costs of 10.00.
 * `find c/School t/lunch d/1-10-2018` +
-Find all the expenses with tag "lunch" under "School" category on 1-10-2018.
+Find all the expenses under the "School" category, with "lunch" tags and dates on 1-10-2018.
 
 ****
 [NOTE]
 ====
-* Command should at least have one keyword.
+* At least one keyword should be provided
 * Keywords are case insensitive, i.e. the KEYWORD `have` is equivalent to the KEYWORD `Have`
 * The order of the keywords does not matter, i.e. the KEYWORD `Have lunch` is equivalent to the KEYWORD `lunch have`
-* Partial word will be matched, i.e. the NAME KEYWORD `Hav` will match the expense name `Have`
-* Only tag keywords can have multiple keywords. Name/Category/Cost/Date can only have one keywords, i.e."Find n/school n/lunch" is invalid while "Find t/school t/lunch" is valid
+* Partial words will be matched, i.e. using the KEYWORD `Hav` for expense name will give an expense with the name `Have`
+* Only `Tag` keywords can have multiple keywords. `Name`,`Category`,`Cost`,`Date` can only have one keyword, i.e.
+`find t/lunch t/family` is permitted but `find n/school n/book` is not permitted.
 ====
 
-// end::find[]
-
+// end::find2[]
+[[ListCommand]]
 === Listing all expenses : `list`
 
-Updates the expense list to show all expenses in Expense Tracker.
+Updates the Expense List to show all expenses in Expense Tracker.
 
-For example, this command can be used after the `find` command is used, as the `find` command will apply a filter to the expense list.
+This command can be used after the `find` command is used, to display all the expenses in Expense Tracker,
+as the `find` command will filter out certain expenses.
 
 Format: `list`
 
-//=== Selecting a expense : `select`
-//
-//Selects the expense identified by the index number used in the displayed expense list. +
-//Format: `select INDEX`
-//
-//****
-//* Selects the expense and loads the Google search page the expense at the specified `INDEX`.
-//* The index refers to the index number shown in the displayed expense list.
-//* The index *must be a positive integer* `1, 2, 3, ...`
-//****
-//
-//Examples:
-//
-//* `list` +
-//`select 2` +
-//Selects the 2nd expense in Expense Tracker.
-//* `find Betsy` +
-//`select 1` +
-//Selects the 1st expense in the results of the `find` command.
-
 // tag::budget[]
+[[SetBudgetCommand]]
 === Setting a total budget: `setBudget`
-Sets `totalBudget` for Expense Tracker. +
+Sets a total budget. Available spending is defined as the total amount of expenses you can add before you exceed your budget.
+ The Expense Tracker will warn you when adding an expense results in your available spending
+exceeding the total budget that is set to prevent yourself from overspending. The warning is shown below.
 
-The Expense Tracker will warn you when your total expenditure exceeds the total budget that is set.
+[#over-budget-warning]
+.Warning that is shown when a user adds an expense which results in the user exceeding the budget.
+image::Overbudget.png[width="300"]
 
 Format: `setBudget MONEY_WITH_TWO_DECIMAL_PLACES`
 
@@ -364,9 +418,9 @@ Format: `setBudget MONEY_WITH_TWO_DECIMAL_PLACES`
 *Examples:*
 
 * `setBudget 2.00` +
- Sets a `totalBudget` of $2.00.
+ Sets a total budget of $2.00.
 * `setBudget 20.00` +
- Sets a `totalBudget` of $20.00.
+ Sets a total budget of $20.00.
 ****
 
 [NOTE]
@@ -375,10 +429,24 @@ Format: `setBudget MONEY_WITH_TWO_DECIMAL_PLACES`
 * MONEY_WITH_TWO_DECIMAL_PLACES must be a positive number with two decimal places.
 ====
 
-=== Setting a recurring frequency for totalBudget: `setRecurrenceFrequency`
-Sets the recurrence frequency for the `totalBudget` of Expense Tracker.
+=== Setting a recurrence frequency for total budget: `setRecurrenceFrequency`
+Sets the recurrence frequency for resetting the available spending of the total budget of Expense Tracker.
 
-Expense Tracker will reset your spending after every `FREQUENCY`
+If you draw a salary/have an allowance, this would allow you to track the portion of money you have spent against
+your salary/allowance of the week/month. This ensures that you do not overspend on a certain day, causing you to not
+have enough money until you draw your next salary/allowance.
+
+A diagram of a use case and its detailed explanation is given below:
+
+.Diagram showing the operation of the setRecurrenceFrequency feature
+image::userguide/recurrenceFrequencyGuide.png[width="500"]
+
+. You type in the command `setRecurrenceFrequency hrs/24` as you want your available spending to reset every day
+when you receive your allowance.
+. You close the application.
+. You reopen the application on the next day to record another expense.
+. Your available spending will now be reset as it is past the set frequency of one day. A notification will be shown
+to inform you that this is done.
 
 Format: `setRecurrenceFrequency [hrs/HOURS] [min/MINUTES] [sec/SECONDS]`
 
@@ -387,24 +455,27 @@ Format: `setRecurrenceFrequency [hrs/HOURS] [min/MINUTES] [sec/SECONDS]`
 *Examples:*
 
 * `setRecurrenceFrequency hrs/1` +
-    Sets the spending of `totalBudget` to reset every 1 hour
+    Sets the available spending of your total budget to reset every 1 hour
 * `setRecurrenceFrequency hrs/1 min/30` +
-    Sets the spending of `totalBudget` reset every 1 hour and 30 minutes
+    Sets the available spending of your total budget to reset every 1 hour and 30 minutes
 ****
 
 [NOTE]
 ====
 * The `setRecurrenceFrequency` command is case sensitive.
 * HOURS/MINUTES/SECONDS must be a positive number.
+* This feature does not reset all of your expenses. It just resets your available spending. Thus,
+it is possible that you have 10 expenses of $200.00 with a budget of $10, and yet you are not over your budget.
 ====
 
-=== Adding a Category Budget: `setCategoryBudget`
-Adds a Budget to limit spending on a certain category.
+[[SetCategoryBudgetCommand]]
+=== Setting a Category Budget: `setCategoryBudget`
+Sets a Budget to limit expenses on a certain category. If adding an expense causes the available spending of that
+category to exceeds Category budget, a
+<<over-budget-warning, warning>> will be displayed.
 
-If spending exceeds Category budget, a warning similar to 4.10 will be shown.
+// end::budget[]
 
-Sum of all category budgets cannot exceed total budget of
-Expense Tracker.
 
 Format: `setCategoryBudget c/CATEGORY b/BUDGET`
 
@@ -412,16 +483,18 @@ Format: `setCategoryBudget c/CATEGORY b/BUDGET`
 *Example:*
 
 * `setCategoryBudget c/School b/10.00` +
-    Sets a budget of $10 to the `School` category.
+    Sets a budget of $10 for the `School` category.
 
 ****
 
 [NOTE]
 ====
-Valid `CATEOGRY` and `BUDGET` follows the syntax listed under 4.5 and 4.10
+* The `setCategoryBudget` command is case sensitive
+* `CATEOGRY` can only consist of one keyword and `BUDGET` must be a positive number with two decimal places.
+* The sum of all Category budgets cannot exceed the total budget of
+  Expense Tracker. This is because Category budgets are used to segment your total budget, not as a replacement.
 ====
 
-// end::budget[]
 
 === Listing entered commands : `history`
 
@@ -438,7 +511,7 @@ Press the kbd:[&uarr;] and kbd:[&darr;] arrows to display the previous and next 
 === Undoing previous command : `undo`
 
 Restores Expense Tracker to the state before the previous _undoable_ command was executed. +
-_Undoable_ commands are commands that modify expenses in Expense Tracker (`add`, `delete`, `edit` and `clear`). +
+_Undoable_ commands are commands that change expenses in Expense Tracker (`add`, `delete`, `edit` and `clear`). +
 
 Format: `undo`
 
@@ -494,16 +567,28 @@ The second`redo` reverses the first `undo` command, reapplying `clear`.
 // end::undoredo[]
 
 // tag::statistics[]
+[[StatsCommand]]
 === Showing expense statistics: `stats`
 
-Changes the expense list to show the statistics panel if the expense list is currently showing, then
-displays a bar chart of the expenditure over a specified time period, in a given `MODE`. +
+Changes the Expense List to show the Statistics Panel if the Expense List is currently showing, then
+displays a graph of your expenditure over a specified time period, in a given `MODE`. +
+
+You can use this command to analyse your expenses, observe your spending patterns and to identify categories which take
+up most of your budget.
 
 There are two available modes: Time and Category, which can be indicated by `t` or `c` respectively in the `MODE` parameter. +
-Choosing Time mode will show a Bar Chart in the statistics panel, where amounts for each day or month will displayed,
-depending on the specified `PERIOD_AMOUNT` and `PERIOD`. +
-Choosing Category mode will show a Pie Chart in the statistics panel, where amounts for each category will displayed for
+
+Choosing Time mode will show a bar chart, similar to the one below, in the statistics panel, where amounts for each day or month will displayed,
+depending on the specified `PERIOD_AMOUNT` and `PERIOD`, starting from the current day or month. +
+
+.Statistics Panel showing a bar chart in Time mode
+image::userguide/barChart.png[width="790"]
+
+Choosing Category mode will show a pie chart, similar to the one below, in the statistics panel, where amounts for each category will displayed for
 expenses in the specified `PERIOD_AMOUNT` and `PERIOD`.
+
+.Statistics Panel showing a pie chart in Category mode
+image::userguide/pieChart.png[width="790"]
 
 The available options for `PERIOD` are `d` and `m`, which represents day and month respectively. E.g. if `PERIOD_AMOUNT` is 7
 and `MODE` is `d`, the statistics will include data from the past 7 days.
@@ -523,16 +608,44 @@ Shows the expense statistics for the past 3 months as a bar chart showing expens
 * `stats n/3 p/m m/c` +
 Shows the expense statistics for the past 3 months as a pie chart showing expenses for each category +
 ****
+
+[NOTE]
+====
+* PERIOD_AMOUNT must be a positive integer
+* PERIOD can only be `d` or `m`, for day and month respectively
+* MODE can only be `t` or `c`, for time and category respectively
+* Leaving all parameters blank, i.e. typing the command `stats`, defaults in showing expenses for the past 7 days in Time mode.
+====
 // end::statistics[]
 
+// tag::notification[]
+[[NotificationCommand]]
 === Toggling Notifications: `notification`
 
-Toggles the ability of `Expense Tracker` to send notifications.
+Toggles the ability of `Expense Tracker` to generate and display automated notifications.
 
-There are three notification types to toggle: Warning` and Tip, which can be indicated by `warning` or `tip` respectively in the `NOTIFICATION_TYPE` parameter. +
-To toggle both, omit `NOTIFICATION_TYPE`.
+There are 2 types of notification to toggle:
 
-There are two toggle options, `on` and `off`, which can be indication by 'on' or 'off' respectively in the `TOGGLE_OPTION` parameter. `TOGGLE_OPTION` is required.
+. Warning - Referenced by `warning` as the `NOTIFICATION_TYPE` parameter. These notifications will be sent when you are over
+ or about to go over your budget.
+
+. Tip - Referenced by typing `tip` as the `NOTIFICATION_TYPE` parameter. These notifications are saving tips that will be sent once
+every 24 hours when you log onto an account.
+
+As shown below, Warning-type Notifications can be indicated by *exclamation mark* image displayed along with the notification:
+
+.Example of a Warning-type Notification
+image::userguide/warningExample.png[width="400"]
+
+
+Meanwhile, Tip-type Notifications can be indicated by *light bulb* image displayed along with the notification:
+
+.Example of a Tip-type Notification
+image::userguide/tipExample.png[width="400"]
+
+There are two toggle options, `on` and `off`, which can be indicated by 'on' or 'off' respectively in the `TOGGLE_OPTION` parameter.
+
+`TOGGLE_OPTION` is a required parameter. `NOTIFICATION_TYPE` can be omitted.
 
 Format: `notification n/NOTIFICATION_TYPE t/TOGGLE_OPTION`
 
@@ -556,6 +669,8 @@ Disables the sending of both types of notifications. +
 * NOTIFICATION_TYPE is optional
 ====
 
+// end::notification[]
+
 === Clearing all entries : `clear`
 
 Deletes all expense entries from Expense Tracker. +
@@ -568,13 +683,60 @@ Exits the program. +
 
 Format: `exit`
 
+// tag::encrypt[]
+=== Encrypting text using your password : `encrypt`
+WARNING: This command is for advanced users only and should be used with caution.
+
+Encrypts text using your account's password.
+You may want to use this feature if you wish to edit your expenses in the data file directly.
+
+Format: `encrypt TEXT`
+
+****
+*Examples:*
+
+*  `encrypt secret thing` +
+ Displays the encrypted version of the text `secret thing` to be used with your account.
+*  `encrypt secret_thing` +
+ Displays the encrypted version of the text `secret_thing` to be used with your account.
+****
+
+[NOTE]
+====
+* Any leading and trailing spaces in TEXT are ignored
+====
+
+=== Decrypting text using your password : `decrypt`
+
+// end::encrypt[]
+
+WARNING: This command is for advanced users only and should be used with caution.
+
+Decrypts an encrypted text that has been encrypted using your account's password.
+You may want to use this feature if you wish to edit your expenses in the data file directly.
+
+Format: `decrypt TEXT`
+
+****
+*Examples:*
+
+*  `decrypt sadoasiondoofdnig` +
+ Displays the decrypted version of the string `sadoasiondoofdnig`.
+*  `encrypt dsfresf==asdas` +
+ Displays the encrypted version of the string `dsfresf==asdas`.
+****
+
+[NOTE]
+====
+* Any leading and trailing spaces are ignored
+* Only text that has been encrypted using your account's password can be decrypted by you
+====
+
 == FAQ
 
 *Q*: Do I need to manually save my data? +
 *A*: There is no need to save your manually. All the data in Expense Tracker is automatically saved in the hard disk
-after
-any
-command that changes the data. +
+after any command that changes the data. +
 
 
 *Q*: How do I transfer my data to another Computer? +
@@ -585,18 +747,9 @@ If you wish to copy only one user over, create a folder named `data` in the app 
 *A*: All user expense-specific data is encrypted. The program ensures that no one will be able to decrypt encrypted information without your actual plain text password, which is not stored anywhere. So rest assured that no one can access your data without your password.
 
 *Q*: How do I manually encrypt text to edit my user XML file as a technologically-savvy user? +
-*A*: You can carry out the following steps to do so:
-
-. Open http://murmurhash.shorelabs.com/[this website] and wait for it to load.
-. Under `MurmurHash3 (32/128 bit, x86/x64)`, enter your password in the text box labelled `An ASCII Text`.
-. Under the text box from step 2, there is a dropdown menu that has `x86` selected. Click on it and select `x64`.
-. Beside the menu from step 3, there is a dropdown menu that has `32-bit` selected. Click on it and select `128-bit`.
-. Note down the string of characters on the bottom left of the text box from step 2. This is your `encryption key`.
-. Open https://www.devglan.com/online-tools/aes-encryption-decryption[this website] and wait for it to load.
-. Use the left column on the web page and enter the text you wish to encrypt.
-. Use the `encryption` key from step 5 as the `secret key` and leave the other options as default.
-. Click on the `Encrypt` button to get the encrypted text you want.
+*A*: You can make use of the encrypt and decrypt commands that have been described in the previous section.
 //end::dataencryption[]
+
 == Command Summary
 
 This is a summary of the commands available in Expense Tracker:
@@ -605,27 +758,59 @@ This is a summary of the commands available in Expense Tracker:
 e.g. `signup username123`
 * *Login* : `login u/USERNAME [p/PASSWORD]` +
 e.g. `login u/username123 p/password1`
-* *Set Password* : `setpassword n/NEW_PASSWORD [o/OLD_PASSWORD]` +
-e.g. `setpassword n/pass1 o/passold`
+* *Set Password* : `setPassword n/NEW_PASSWORD [o/OLD_PASSWORD]` +
+e.g. `setPassword n/pass1 o/passold`
 * *Help* : `help`
 * *Add* `add n/EXPENSE_NAME $/COST c/CATEGORY [d/DATE] [t/TAG]…​` +
 e.g. `add n/Lunch e/4 c/Food`
 * *Edit* : `edit INDEX [n/EXPENSE_NAME] [$/COST] [c/CATEGORY] [d/DATE] [t/TAG…​]` +
 e.g. `edit 2 n/Lunch e/4 c/Food`
+* *Mass Edit* : `massedit [n/EXPENSE_NAME] [$/COST] [c/CATEGORY] [d/DATE] [t/TAG…​] -> [n/EXPENSE_NAME] [$/COST] [c/CATEGORY] [d/DATE] [t/TAG…​]` +
+e.g. ``massedit c/school \-> c/food`
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
 * *Find* : `find [n/NAME] [c/CATEGORY] [$/COST:COST] [t/TAG] [d/DATE:DATE]` +
 e.g. `find c/School`
 * *List* : `list`
-//* *Select* : `select INDEX` +
-//e.g.`select 2`
 * *Set `totalBudget`* : `setBudget` +
 e.g. `setBudget 20.00`
 * *Set recurring frequency for `totalBudget`*: `setRecurrenceFrequency [hrs/HOURS] [min/MINUTES] [sec/SECONDS]` +
+* *Set category budgets* : `setCategoryBudget c/CATEGORY b/BUDGET` +
 * *History* : `history`
 * *Undo* : `undo`
 * *Redo* : `redo`
 * *Statistics* : `stats n/NUMBER_OF_DAYS_OR_MONTHS m/MODE`
 e.g. `stats n/7 m/d`
+* *Toggle Notifications* : `notification n/NOTIFICATION_TYPE t/TOGGLE_OPTION`
+e.g. `notification n/tip t/off`
 * *Clear* : `clear`
 * *Exit* : `exit`
+* *Encrypt* : `encrypt TEXT`
+* *Decrypt* : `decrypt TEXT`
+
+== Command Shorthands
+
+Commands also come with command shorthands which can be used in place of the command word. I.e. using `h` has the same outcome as `help`
+This is a list of commands and their command shorthands in Expense Tracker:
+
+* `signup`: `su`
+* `login`: `li`
+* `setPassword`: `sp`
+* `help`: `h`
+* `add`: `a`
+* `edit`: `e`
+* `delete`: `d`
+* `find`: `f`
+* `list`: `l`
+* `setBudget`: `sb`
+* `setRecurringFrequency`: `srf`
+* `setCategoryBudget`: `scb`
+* `history`: `h`
+* `undo`: `u`
+* `redo`: `r`
+* `stats`:  `su`
+* `notification`: `n`
+* `clear`: `c`
+* `exit`: `x`
+
+

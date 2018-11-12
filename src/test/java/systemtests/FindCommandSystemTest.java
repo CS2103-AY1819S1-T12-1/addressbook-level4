@@ -1,34 +1,34 @@
 package systemtests;
 
 import static org.junit.Assert.assertFalse;
-import static seedu.address.commons.core.Messages.MESSAGE_EXPENSES_LISTED_OVERVIEW;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.testutil.TypicalExpenses.BOOKS;
-import static seedu.address.testutil.TypicalExpenses.CLOTHES;
-import static seedu.address.testutil.TypicalExpenses.ICECREAM;
-import static seedu.address.testutil.TypicalExpenses.KEYWORD_MATCHING_BUY;
-import static seedu.address.testutil.TypicalExpenses.KEYWORD_MATCHING_FOOD;
-import static seedu.address.testutil.TypicalExpenses.KEYWORD_MATCHING_LUNCH;
-import static seedu.address.testutil.TypicalExpenses.LUNCH;
-import static seedu.address.testutil.TypicalExpenses.TOY;
+import static seedu.expensetracker.commons.core.Messages.MESSAGE_EXPENSES_LISTED_OVERVIEW;
+import static seedu.expensetracker.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.expensetracker.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.expensetracker.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.expensetracker.testutil.TypicalExpenses.BOOKS;
+import static seedu.expensetracker.testutil.TypicalExpenses.CLOTHES;
+import static seedu.expensetracker.testutil.TypicalExpenses.ICECREAM;
+import static seedu.expensetracker.testutil.TypicalExpenses.KEYWORD_MATCHING_BUY;
+import static seedu.expensetracker.testutil.TypicalExpenses.KEYWORD_MATCHING_FOOD;
+import static seedu.expensetracker.testutil.TypicalExpenses.KEYWORD_MATCHING_LUNCH;
+import static seedu.expensetracker.testutil.TypicalExpenses.LUNCH;
+import static seedu.expensetracker.testutil.TypicalExpenses.TOY;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
 
-import seedu.address.commons.core.index.Index;
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.FindCommand;
-import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.UndoCommand;
-import seedu.address.model.Model;
-import seedu.address.model.exceptions.NoUserSelectedException;
-import seedu.address.model.expense.Name;
-import seedu.address.model.tag.Tag;
+import seedu.expensetracker.commons.core.index.Index;
+import seedu.expensetracker.commons.exceptions.IllegalValueException;
+import seedu.expensetracker.logic.commands.DeleteCommand;
+import seedu.expensetracker.logic.commands.FindCommand;
+import seedu.expensetracker.logic.commands.RedoCommand;
+import seedu.expensetracker.logic.commands.UndoCommand;
+import seedu.expensetracker.model.Model;
+import seedu.expensetracker.model.exceptions.NoUserSelectedException;
+import seedu.expensetracker.model.expense.Name;
+import seedu.expensetracker.model.tag.Tag;
 
 public class FindCommandSystemTest extends ExpenseTrackerSystemTest {
 
@@ -135,7 +135,7 @@ public class FindCommandSystemTest extends ExpenseTrackerSystemTest {
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find address of expense in expense tracker -> 0 expenses found */
+        /* Case: find expensetracker of expense in expense tracker -> 0 expenses found */
         command = FindCommand.COMMAND_WORD + " " + PREFIX_NAME + CLOTHES.getCost().value;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, Name.MESSAGE_NAME_CONSTRAINTS));
         assertSelectedCardUnchanged();

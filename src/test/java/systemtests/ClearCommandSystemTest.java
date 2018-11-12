@@ -1,21 +1,21 @@
 package systemtests;
 
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.testutil.TypicalExpenses.KEYWORD_MATCHING_BUY;
+import static seedu.expensetracker.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.expensetracker.testutil.TypicalExpenses.KEYWORD_MATCHING_BUY;
 
 import org.junit.Test;
 
-import seedu.address.commons.core.index.Index;
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.logic.commands.ClearCommand;
-import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.UndoCommand;
-import seedu.address.model.Model;
-import seedu.address.model.exceptions.InvalidDataException;
-import seedu.address.model.exceptions.NoUserSelectedException;
-import seedu.address.model.exceptions.NonExistentUserException;
-import seedu.address.model.exceptions.UserAlreadyExistsException;
-import seedu.address.testutil.ModelUtil;
+import seedu.expensetracker.commons.core.index.Index;
+import seedu.expensetracker.commons.exceptions.IllegalValueException;
+import seedu.expensetracker.logic.commands.ClearCommand;
+import seedu.expensetracker.logic.commands.RedoCommand;
+import seedu.expensetracker.logic.commands.UndoCommand;
+import seedu.expensetracker.model.Model;
+import seedu.expensetracker.model.exceptions.InvalidDataException;
+import seedu.expensetracker.model.exceptions.NoUserSelectedException;
+import seedu.expensetracker.model.exceptions.NonExistentUserException;
+import seedu.expensetracker.model.exceptions.UserAlreadyExistsException;
+import seedu.expensetracker.testutil.ModelUtil;
 
 
 public class ClearCommandSystemTest extends ExpenseTrackerSystemTest {

@@ -3,8 +3,8 @@ package systemtests;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
-import static seedu.address.ui.testutil.GuiTestAssert.assertExpenseListMatching;
+import static seedu.expensetracker.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
+import static seedu.expensetracker.ui.testutil.GuiTestAssert.assertExpenseListMatching;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -24,19 +24,19 @@ import guitests.guihandles.MainMenuHandle;
 import guitests.guihandles.MainWindowHandle;
 import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.StatusBarFooterHandle;
-import seedu.address.TestApp;
-import seedu.address.commons.core.EventsCenter;
-import seedu.address.commons.core.index.Index;
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.logic.commands.ClearCommand;
-import seedu.address.logic.commands.FindCommand;
-import seedu.address.logic.commands.ListCommand;
-import seedu.address.logic.commands.SelectCommand;
-import seedu.address.model.ExpenseTracker;
-import seedu.address.model.Model;
-import seedu.address.model.exceptions.NoUserSelectedException;
-import seedu.address.testutil.TypicalExpenses;
-import seedu.address.ui.CommandBox;
+import seedu.expensetracker.TestApp;
+import seedu.expensetracker.commons.core.EventsCenter;
+import seedu.expensetracker.commons.core.index.Index;
+import seedu.expensetracker.commons.exceptions.IllegalValueException;
+import seedu.expensetracker.logic.commands.ClearCommand;
+import seedu.expensetracker.logic.commands.FindCommand;
+import seedu.expensetracker.logic.commands.ListCommand;
+import seedu.expensetracker.logic.commands.SelectCommand;
+import seedu.expensetracker.model.ExpenseTracker;
+import seedu.expensetracker.model.Model;
+import seedu.expensetracker.model.exceptions.NoUserSelectedException;
+import seedu.expensetracker.testutil.TypicalExpenses;
+import seedu.expensetracker.ui.CommandBox;
 
 /**
  * A system test class for ExpenseTracker, which provides access to handles of GUI components and helper methods
@@ -260,7 +260,7 @@ public abstract class ExpenseTrackerSystemTest {
     /**
      * Asserts that the starting state of the application is correct.
      */
-    private void assertApplicationStartingStateIsCorrect() throws NoUserSelectedException {
+    private void assertApplicationStartingStateIsCorrect() {
         assertEquals("", getCommandBox().getInput());
         assertEquals("", getResultDisplay().getText());
         //assertExpenseListMatching(getExpenseListPanel(), getModel().getFilteredExpenseList());

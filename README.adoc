@@ -2,7 +2,7 @@
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 image:https://travis-ci.org/CS2103-AY1819S1-T12-1/main.svg?branch=develop["Build Status", link="https://travis-ci.org/CS2103-AY1819S1-T12-1/main"]
-https://ci.appveyor.com/project/JasonChong96/main[image:https://ci.appveyor.com/api/projects/status/jae5ywvu7fdjst00?svg=true[Build status]]
+//https://ci.appveyor.com/project/JasonChong96/main[image:https://ci.appveyor.com/api/projects/status/jae5ywvu7fdjst00?svg=true[Build status]]
 https://coveralls.io/github/CS2103-AY1819S1-T12-1/main?branch=develop[image:https://coveralls.io/repos/github/CS2103-AY1819S1-T12-1/main/badge.svg?branch=develop[Coverage Status]]
 image:https://api.codacy.com/project/badge/Grade/56707ee7344441ebaa5839b92e17a881["Codacy code quality", link="https://www.codacy.com/app/JasonChong96/main?utm_source=github.com&utm_medium=referral&utm_content=CS2103-AY1819S1-T12-1/main&utm_campaign=Badge_Grade"]
 https://gitter.im/se-edu/Lobby[image:https://badges.gitter.im/se-edu/Lobby.svg[Gitter chat]]
@@ -15,11 +15,14 @@ image::docs/images/Ui2.png[width="600"]
 
 endif::[]
 
-* Have you ever lost track of your expenditure and burst your budget for the month? Fret not! The Expense Tracker is
-here to help you.
-* The Expense Tracker application features a GUI but interactions happen using a CLI (Command Line Interface) for quick and easy use
-* The Expense Tracker application is a Java application intended for students who wish to have a better way to track their expenses.
-* It includes support for _Build Automation_ using Gradle and for _Continuous Integration_ using Travis CI.
+Have you ever lost track of your expenditure and burst your budget for the month? Fret not! Expense Tracker is
+here to help you. With features which help you manage, organise and analyse your expenses, staying within your budget
+has never been easier. +
+
+Interested? Head over to the <<UserGuide#, User Guide>> to get started!
+
+Expense Tracker is an open source project that welcomes contributions from the community. If you are interested in
+contributing to this project, head over to the <<DeveloperGuide#, Developer Guide>> to get started!
 
 == Site Map
 

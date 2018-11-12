@@ -8,7 +8,7 @@ import com.google.common.collect.ImmutableMultiset;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
-import seedu.address.model.expense.Expense;
+import seedu.expensetracker.model.expense.Expense;
 
 /**
  * Provides a handle to a expense card in the expense list panel.
@@ -16,7 +16,7 @@ import seedu.address.model.expense.Expense;
 public class ExpenseCardHandle extends NodeHandle<Node> {
     private static final String ID_FIELD_ID = "#id";
     private static final String NAME_FIELD_ID = "#name";
-    private static final String ADDRESS_FIELD_ID = "#cost";
+    private static final String COST_FIELD_ID = "#cost";
     private static final String CATEGORY_FIELD_ID = "#category";
     private static final String TAGS_FIELD_ID = "#tags";
 
@@ -31,7 +31,7 @@ public class ExpenseCardHandle extends NodeHandle<Node> {
 
         idLabel = getChildNode(ID_FIELD_ID);
         nameLabel = getChildNode(NAME_FIELD_ID);
-        costLabel = getChildNode(ADDRESS_FIELD_ID);
+        costLabel = getChildNode(COST_FIELD_ID);
         categoryLabel = getChildNode(CATEGORY_FIELD_ID);
 
         Region tagsContainer = getChildNode(TAGS_FIELD_ID);

@@ -1,0 +1,89 @@
+= Jonathan Tan Jit Ming - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: ExpenseTracker
+
+---
+
+=== Overview
+
+This portfolio aims to document the contributions made by *Jonathan Tan Jit Ming* to the *Expense Tracker*.
+
+*Expense Tracker* was a project done under the a Software Engineering module during my time at NUS. The project involved
+working in a team of 5 people to enhance or morph an existing https://github.com/se-edu/addressbook-level4[Address Book]
+application. +
+
+*Expense Tracker* is a desktop application that can be used track one's expenses and features a Command Line Interface (CLI)
+as the main mode of interaction. Expense Tracker aims to provide users with the necessary tools to become
+a better saver. The main features of *Expense Tracker* are the managing of expenses, budget setting and expense statistics.
+
+=== Summary of contributions
+
+*Code Contribution* -- Refer to this https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=jonathantjm[link] to see
+the code I contributed to Expense Tracker.
+
+Below describes my contributions and enhancements to Expense Tracker and the project team:
+
+==== Main feature
+The main feature that I added was the functionality to display *expense statistics*, which is a bar chart or a pie chart
+showing the user's expenditure organised by time or category. This is a core feature of Expense Tracker as it allows the user to be informed about their spending patterns, and therefore helping the user become a better saver. +
+
+This feature required an in-depth understanding of the software architecture as it involves multiple components of the application.
+
+==== Other Contributions
+
+These are other contributions that I made to the project and the team:
+
+//. Added a `Date` class that is used to represent the date of an expense.
+
+. Ensured consistency in the language, formatting and structure of the project's documentation. These changes can be seen in Pull Requests (PRs)
+https://github.com/CS2103-AY1819S1-T12-1/main/pull/65[#65],
+https://github.com/CS2103-AY1819S1-T12-1/main/pull/66[#66],
+https://github.com/CS2103-AY1819S1-T12-1/main/pull/68[#68],
+https://github.com/CS2103-AY1819S1-T12-1/main/pull/89[#89],
+https://github.com/CS2103-AY1819S1-T12-1/main/pull/90[#90],
+https://github.com/CS2103-AY1819S1-T12-1/main/pull/95[#95],
+https://github.com/CS2103-AY1819S1-T12-1/main/pull/173[#173],
+https://github.com/CS2103-AY1819S1-T12-1/main/pull/180[#180],
+https://github.com/CS2103-AY1819S1-T12-1/main/pull/183[#183],
+https://github.com/CS2103-AY1819S1-T12-1/main/pull/185[#185],
+and https://github.com/CS2103-AY1819S1-T12-1/main/pull/189[#189].
+
+. Reviewed PRs made by teammates by providing meaningful comments, where necessary.
+The PRs I reviewed include
+https://github.com/CS2103-AY1819S1-T12-1/main/pull/72[#72],
+https://github.com/CS2103-AY1819S1-T12-1/main/pull/73[#73],
+https://github.com/CS2103-AY1819S1-T12-1/main/pull/76[#76],
+https://github.com/CS2103-AY1819S1-T12-1/main/pull/91[#91],
+https://github.com/CS2103-AY1819S1-T12-1/main/pull/94[#94],
+https://github.com/CS2103-AY1819S1-T12-1/main/pull/98[#98],
+https://github.com/CS2103-AY1819S1-T12-1/main/pull/109[#109],
+https://github.com/CS2103-AY1819S1-T12-1/main/pull/72[#128],
+https://github.com/CS2103-AY1819S1-T12-1/main/pull/72[#170],
+https://github.com/CS2103-AY1819S1-T12-1/main/pull/72[#179],
+https://github.com/CS2103-AY1819S1-T12-1/main/pull/72[#186],
+https://github.com/CS2103-AY1819S1-T12-1/main/pull/72[#187]
+and https://github.com/CS2103-AY1819S1-T12-1/main/pull/72[#188].
+
+//*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com[1], https://github.com[2], https://github.com[3])
+
+=== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=statistics]
+
+=== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=statistics]
+
+

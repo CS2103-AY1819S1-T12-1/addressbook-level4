@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-import seedu.address.model.ExpenseTracker;
-import seedu.address.testutil.TestUtil;
+import seedu.expensetracker.model.ExpenseTracker;
+import seedu.expensetracker.testutil.TestUtil;
 
 public class SampleDataTest extends ExpenseTrackerSystemTest {
     /**

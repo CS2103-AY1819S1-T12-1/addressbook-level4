@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Text?>
 
-
-<AnchorPane prefHeight="30.0" prefWidth="30.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane id = "categoriesIcon" fx:id="categoriesIcon" prefHeight="100.0" prefWidth="100.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ImageView fx:id="categoryIcon" fitHeight="59.0" fitWidth="74.0" layoutX="13.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true" />
-      <Text fx:id="categoryName" layoutX="13.0" layoutY="81.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="74.00000095367432" />
+      <ImageView fx:id="categoryIcon" fitHeight="55.0" fitWidth="55.0" layoutX="23.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" />
+      <Label fx:id="categoryName" alignment="CENTER" prefHeight="17.0" prefWidth="100.0" text="Label" textAlignment="CENTER" />
+      <Label fx:id="categoryPercentage" alignment="CENTER" layoutY="81.0" prefHeight="17.0" prefWidth="100.0" text="Label" textAlignment="CENTER" />
    </children>
 </AnchorPane>

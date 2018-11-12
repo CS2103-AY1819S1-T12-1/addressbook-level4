@@ -87,9 +87,9 @@ The set of code style rules implemented can be found in `config/checkstyle/check
 * **`allTests`** +
 Runs all tests.
 * **`guiTests`** +
-Runs all tests in the `seedu.address.ui` and `systemtests` package
+Runs all tests in the `seedu.expensetracker.ui` and `systemtests` package
 * **`nonGuiTests`** +
-Runs all non-GUI tests in the `seedu.address`
+Runs all non-GUI tests in the `seedu.expensetracker`
 package
 * **`headless`** +
 Sets the test mode as _headless_. The mode is effective for that Gradle run only so it should be combined with other test tasks.
