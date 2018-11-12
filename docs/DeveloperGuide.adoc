@@ -2153,10 +2153,10 @@ Test cases should be performed one after the other.
 .. Prerequisites: Create a new account using `signup x` where x is any valid username and login to said account using `login u/x`.
 Test cases should be performed one after the other.
 .. Test case: `setBudget 100.00` + `setCategoryBudget c/Food b/50.00` + `add n/test c/Food $/25.00` + `stats` +
-   Expected: A new `CategoryIcon` should appear in the `CagtegoryPanel`. The upper text should display "Food" and the lower text should display
+   Expected: A new `CategoryIcon` should appear in the `CategoryPanel`. The upper text should display "Food" and the lower text should display
 "50.00%"
 .. Test case: `setCategoryBudget c/New b/00.00` + `add n/test c/New $/10.00` + `stats` +
-    Expected: A new `CategoryIcon` should appear in the `CagtegoryPanel`. The upper text should display "New" and the lower text should display
+    Expected: A new `CategoryIcon` should appear in the `CategoryPanel`. The upper text should display "New" and the lower text should display
 "1000.00%"
 .. Test case: `setCategoryBudget c/Food b/25.00` +
     Expected: The bottommost text of the first `CategoryIcon` should now update to display "100.00%".
