@@ -80,7 +80,7 @@
 <li><a href="#setting-a-recurrence-frequency">F.4. Setting a recurrence frequency</a></li>
 <li><a href="#setting-a-category-budget">F.5. Setting a category budget</a></li>
 <li><a href="#set-password-for-current-user">F.6. Set password for current user</a></li>
-<li><a href="#encrypting-and-decrypting-code-string-code-s">F.7. Encrypting and Decrypting <code>String</code>&#8217;s</a></li>
+<li><a href="#encrypting-and-decrypting-code-string-code-s">F.7. Encrypting and Decrypting <code>String</code>s</a></li>
 <li><a href="#showing-statistics">F.8. Showing statistics</a></li>
 <li><a href="#notification-panel">F.9. Notification Panel</a></li>
 <li><a href="#toggling-notifications">F.10. Toggling Notifications</a></li>
@@ -1567,9 +1567,6 @@ to another file according to the edited fields.</p>
 <li>
 <p>The user executes an <code>add</code> command. As the <code>add</code> command modifies budget and
 expenses, <code>AddCommand#execute()</code> will post a <code>UpdateBudgetPanelEvent</code> event to the EventsCenter.</p>
-</li>
-</ol>
-</div>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -1582,8 +1579,7 @@ If a command fails its execution or does not affect budget or expenses, <code>Up
 </tr>
 </table>
 </div>
-<div class="olist arabic">
-<ol class="arabic">
+</li>
 <li>
 <p>The <code>UpdateBudgetPanelEvent</code> event is handled by <code>MainWindow#handleBudgetPanelEvent()</code>, which calls <code>BudgetPanel#update()</code>.</p>
 </li>
@@ -4577,7 +4573,7 @@ Expected: A message indicating that the password has been changed is shown.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="encrypting-and-decrypting-code-string-code-s"><a class="link" href="#encrypting-and-decrypting-code-string-code-s">F.7. Encrypting and Decrypting <code>String</code>&#8217;s</a></h3>
+<h3 id="encrypting-and-decrypting-code-string-code-s"><a class="link" href="#encrypting-and-decrypting-code-string-code-s">F.7. Encrypting and Decrypting <code>String</code>s</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -4687,11 +4683,11 @@ Expected: Similar to previous.</p>
 <p>Prerequisites: User must be logged in. Set the budget to $10.00 by using entering <code>setBudget 10.00</code>. Test cases should be performed one after the other.</p>
 </li>
 <li>
-<p>Test case: <code>notification n/warning t/on</code> + <code>add n/test c/test $/11.00</code><br>
+<p>Test case: <code>notification n/warning t/on</code> + <code>add n/test c/test $/11.00</code>.<br>
 Expected: A notification should appear on the the <code>NotificationPanel</code> containing a warning that you are over budget.</p>
 </li>
 <li>
-<p>Test case: <code>notification n/warning t/off</code> + <code>add n/test c/test $/11.00</code><br>
+<p>Test case: <code>notification n/warning t/off</code> + <code>add n/test c/test $/11.00</code>.<br>
 Expected: No new notifications should appear on the <code>NotificationPanel</code>.</p>
 </li>
 <li>
@@ -4875,4 +4871,4 @@ Expected: No expense is shown on expense list panel. "No expense is found by the
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 15:04:03 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 15:08:28 UTC</div></div></div></body></html>
