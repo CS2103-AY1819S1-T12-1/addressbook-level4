@@ -13,7 +13,7 @@
 statistics, expense management and budget setting, *Expense Tracker* equips users with the necessary tools to become a better saver.
 
 Morphed from the https://github.com/nus-cs2103-AY1819S1/addressbook-level4[Address Book] application,
-**Expense Tracker** was created for an NUS software Engineering module (CS2103T) under several https://nus-cs2103-ay1819s1.github.io/cs2103-website/admin/project-constraints.html[constraints].
+**Expense Tracker** was developed for an NUS Software Engineering module (CS2103T) under several https://nus-cs2103-ay1819s1.github.io/cs2103-website/admin/project-constraints.html[constraints].
 Due to said constraints, Command Line Interface (CLI) became the main mode of interaction with the application. However, to ensure user friendliness, a
 Graphical User Interface (GUI) has been implemented.
 

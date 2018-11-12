@@ -858,6 +858,7 @@ The `n/` suffix and parameter can be omitted. In this case, all types of notific
 
 The following sequence diagram shows the process of executing a `NotificationCommand`:
 
+.Sequence Diagram for Exectuing a Notification Command
 image::implementation/NotificationCommandSequenceDiagram.png[width="600"]
 
 ==== Design Considerations
