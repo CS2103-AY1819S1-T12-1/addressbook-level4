@@ -877,22 +877,15 @@ as the <code>find</code> command will filter out certain expenses.</p>
 <div class="sect2">
 <h3 id="SetBudgetCommand"><a class="link" href="#SetBudgetCommand">5.11. Setting a total budget: <code>setBudget</code></a></h3>
 <div class="paragraph">
-<p>Sets a total budget. Expense Tracker will warn you when you are going to spend over your budget so you can prevent
-yourself from overspending</p>
+<p>Sets a total budget. Available spending is defined as the total amount of expenses you can add before you exceed your budget.
+ The Expense Tracker will warn you when adding an expense results in your available spending
+exceeding the total budget that is set to prevent yourself from overspending. The warning is shown below.</p>
 </div>
-<div class="paragraph">
-<p>Available spending is defined as the total amount of expenses you can add before you exceed your budget.</p>
-</div>
-<div class="paragraph">
-<p>The Expense Tracker will warn you when adding an expense results in your available spending exceeding the total
-budget that is set,
-as shown in the figure below.</p>
-</div>
-<div class="imageblock">
+<div id="over-budget-warning" class="imageblock">
 <div class="content">
-<img src="images/Overbudget.JPG" alt="Overbudget" width="790">
+<img src="images/Overbudget.png" alt="Overbudget" width="300">
 </div>
-<div class="title">Figure 5. Notification that is shown when a user adds an expense which results in the user exceeding the budget.</div>
+<div class="title">Figure 5. Warning that is shown when a user adds an expense which results in the user exceeding the budget.</div>
 </div>
 <div class="paragraph">
 <p>Format: <code>setBudget MONEY_WITH_TWO_DECIMAL_PLACES</code></p>
@@ -945,49 +938,35 @@ Sets a total budget of $20.00.</p>
 </div>
 <div class="paragraph">
 <p>If you draw a salary/have an allowance, this would allow you to track the portion of money you have spent against
-your salary/allowance. This ensures that you do not overspend on a certain day, causing you to not have enough money
-until you draw your next salary/allowance.</p>
+your salary/allowance of the week/month. This ensures that you do not overspend on a certain day, causing you to not
+have enough money until you draw your next salary/allowance.</p>
 </div>
 <div class="paragraph">
-<p>If you have a daily budget, setting the recurrence frequency to 24 hours causes your available spending to reset
-everyday. Likewise, if you have a weekly budget, setting the frequency to 168 (24*7) hours causes your available
-spending to reset every week.</p>
+<p>A diagram of a use case and its detailed explanation is given below:</p>
 </div>
-<div class="paragraph">
-<p>Expense Tracker will reset your available spending after every user defined frequency.
-A detailed use case is given below:</p>
+<div class="imageblock">
+<div class="content">
+<img src="images/userguide/recurrenceFrequencyGuide.png" alt="recurrenceFrequencyGuide" width="500">
+</div>
+<div class="title">Figure 6. Diagram showing the operation of the setRecurrenceFrequency feature</div>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>User types in the command <code>setRecurrenceFrequency hrs/1</code> as he wants his available spending to reset every hour.</p>
+<p>You type in the command <code>setRecurrenceFrequency hrs/24</code> as you want your available spending to reset every day
+when you receive your allowance.</p>
 </li>
 <li>
-<p>User closes his application.</p>
+<p>You close the application.</p>
 </li>
 <li>
-<p>User reopens his application after one hour and thirty minutes to record another expense.</p>
+<p>You reopen the application on the next day to record another expense.</p>
 </li>
 <li>
-<p>His available spending will now be reset as it is past the set frequency of one hour. A notification will be shown
-to inform you that this is done. This is shown in the figure below.</p>
+<p>Your available spending will now be reset as it is past the set frequency of one day. A notification will be shown
+to inform you that this is done.</p>
 </li>
 </ol>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/reset_notif.PNG" alt="reset notif" width="790">
-</div>
-<div class="title">Figure 6. Notification that is shown when the expense tracker resets the available spending.</div>
-</div>
-<div class="paragraph">
-<p>A walk-through of the above steps is clearly shown in the diagram below.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/userguide/recurrenceFrequencyGuide.PNG" alt="recurrenceFrequencyGuide" width="790">
-</div>
-<div class="title">Figure 7. Diagram showing the operation of the setRecurrenceFrequency feature</div>
 </div>
 <div class="paragraph">
 <p>Format: <code>setRecurrenceFrequency [hrs/HOURS] [min/MINUTES] [sec/SECONDS]</code></p>
@@ -1040,11 +1019,9 @@ it is possible that you have 10 expenses of $200.00 with a budget of $10, and ye
 <div class="sect2">
 <h3 id="SetCategoryBudgetCommand"><a class="link" href="#SetCategoryBudgetCommand">5.13. Setting a Category Budget: <code>setCategoryBudget</code></a></h3>
 <div class="paragraph">
-<p>Sets a Budget to limit expenses on a certain category.</p>
-</div>
-<div class="paragraph">
-<p>If adding an expense causes the available spending of that category to exceeds Category budget, a warning shown in
-figure 3 will be displayed</p>
+<p>Sets a Budget to limit expenses on a certain category. If adding an expense causes the available spending of that
+category to exceeds Category budget, a
+<a href="#over-budget-warning">warning</a> will be displayed.</p>
 </div>
 <div class="paragraph">
 <p>Format: <code>setCategoryBudget c/CATEGORY b/BUDGET</code></p>
@@ -1217,7 +1194,7 @@ depending on the specified <code>PERIOD_AMOUNT</code> and <code>PERIOD</code>, s
 <div class="content">
 <img src="images/userguide/barChart.png" alt="barChart" width="790">
 </div>
-<div class="title">Figure 8. Statistics Panel showing a bar chart in Time mode</div>
+<div class="title">Figure 7. Statistics Panel showing a bar chart in Time mode</div>
 </div>
 <div class="paragraph">
 <p>Choosing Category mode will show a pie chart, similar to the one below, in the statistics panel, where amounts for each category will displayed for
@@ -1227,7 +1204,7 @@ expenses in the specified <code>PERIOD_AMOUNT</code> and <code>PERIOD</code>.</p
 <div class="content">
 <img src="images/userguide/pieChart.png" alt="pieChart" width="790">
 </div>
-<div class="title">Figure 9. Statistics Panel showing a pie chart in Category mode</div>
+<div class="title">Figure 8. Statistics Panel showing a pie chart in Category mode</div>
 </div>
 <div class="paragraph">
 <p>The available options for <code>PERIOD</code> are <code>d</code> and <code>m</code>, which represents day and month respectively. E.g. if <code>PERIOD_AMOUNT</code> is 7
@@ -1314,7 +1291,7 @@ every 24 hours when you log onto an account.</p>
 <div class="content">
 <img src="images/userguide/warningExample.png" alt="warningExample" width="400">
 </div>
-<div class="title">Figure 10. Example of a Warning-type Notification</div>
+<div class="title">Figure 9. Example of a Warning-type Notification</div>
 </div>
 <div class="paragraph">
 <p>Meanwhile, Tip-type Notifications can be indicated by <strong>light bulb</strong> image displayed along with the notification:</p>
@@ -1323,7 +1300,7 @@ every 24 hours when you log onto an account.</p>
 <div class="content">
 <img src="images/userguide/tipExample.png" alt="tipExample" width="400">
 </div>
-<div class="title">Figure 11. Example of a Tip-type Notification</div>
+<div class="title">Figure 10. Example of a Tip-type Notification</div>
 </div>
 <div class="paragraph">
 <p>There are two toggle options, <code>on</code> and <code>off</code>, which can be indicated by 'on' or 'off' respectively in the <code>TOGGLE_OPTION</code> parameter.</p>
@@ -1702,4 +1679,4 @@ This is a list of commands and their command shorthands in Expense Tracker:</p>
 </ul>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 12:44:53 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 13:09:02 UTC</div></div></div></body></html>

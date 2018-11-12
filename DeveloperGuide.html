@@ -74,9 +74,11 @@
 <li><a href="#glossary">Appendix E: Glossary</a></li>
 <li><a href="#instructions-for-manual-testing">Appendix F: Instructions for Manual Testing</a>
 <ul class="sectlevel2">
-<li><a href="#launch-and-shutdown">F.1. Launch and Shutdown</a></li>
-<li><a href="#sign-up-for-an-account">F.2. Sign up for an account</a></li>
-<li><a href="#log-in-to-an-account">F.3. Log in to an account</a></li>
+<li><a href="#setting-a-budget-2">F.1. Setting a budget</a></li>
+<li><a href="#setting-a-recurrence-frequency">F.2. Setting a recurrence frequency</a></li>
+<li><a href="#setting-a-category-budget">F.3. Setting a category budget</a></li>
+<li><a href="#sign-up-for-an-account">F.4. Sign up for an account</a></li>
+<li><a href="#log-in-to-an-account">F.5. Log in to an account</a></li>
 </ul>
 </li>
 <li><a href="#set-password-for-current-user">8. Set password for current user</a></li>
@@ -1965,34 +1967,30 @@ The <code>n/</code> suffix and parameter can be omitted. In this case, all types
 <div class="sect2">
 <h3 id="budgeting"><a class="link" href="#budgeting">4.8. Budgeting</a></h3>
 <div class="paragraph">
-<p>The budget feature allows the user to set a budget for their expenses.</p>
+<p>This group of features allows the user to set budgets for their expenses.</p>
 </div>
 <div class="paragraph">
-<p>Available spending is defined as the total amount of expenses you can add before you exceed your budget.</p>
-</div>
-<div class="paragraph">
-<p>If the user&#8217;s spending exceeds their available spending for the budget, a warning like the image below will be shown
+<p>Available spending is defined as the total
+amount of expenses you can add before you exceed your budget. If the user&#8217;s spending exceeds their available spending
+ for the budget, a <a href="UserGuide.html#over-budget-warning">warning</a> will be shown
  to the user.</p>
 </div>
-<div class="imageblock">
-<div class="content">
-<img src="images/overbudget.png" alt="overbudget" width="790">
-</div>
-<div class="title">Figure 28. Warning that is shown when a user adds an expense which results in the user exceeding the budget.</div>
-</div>
 <div class="paragraph">
-<p>The current implementation for budgeting and its related features are described below.</p>
+<p>The current implementation for budgeting and its related features are described in the sections below.</p>
 </div>
 <div class="sect3">
 <h4 id="setting-a-budget"><a class="link" href="#setting-a-budget">4.8.1. Setting a Budget</a></h4>
+<div class="paragraph">
+<p>This feature allows the user to set a budget for Expense tracker.</p>
+</div>
 <div class="paragraph">
 <p>Given below is a sequence diagram and step by step explanation of how Expense Tracker executes when a user sets a budget</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/implementation/BudgetCommandSequenceDiagram.png" alt="BudgetCommandSequenceDiagram" width="800">
+<img src="images/implementation/BudgetCommandSequenceDiagram.png" alt="BudgetCommandSequenceDiagram" width="700">
 </div>
-<div class="title">Figure 29. Sequence diagram of a user setting a budget.</div>
+<div class="title">Figure 28. Sequence diagram of a user setting a budget.</div>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -2014,27 +2012,26 @@ maximum budget of Expense Tracker.</p>
 <li>
 <p><code>LogicManager</code> will then call <code>EventsCenter#post()</code> to update the UI, displaying the updated budget.</p>
 </li>
-<li>
-<p>The budget is then updated.</p>
-</li>
 </ol>
 </div>
 </div>
 <div class="sect3">
 <h4 id="setting-a-recurring-budget"><a class="link" href="#setting-a-recurring-budget">4.8.2. Setting a recurring Budget</a></h4>
 <div class="paragraph">
-<p>Every time a user logs in, <code>Model#loadUserData()</code> is called and  the application will check if the user has set a time
-when the
-available spending will reset (recurrence time). If it is not set, Expense Tracker will issue a notification. Else,
-Expense Tracker will track the set recurrence time against the time now. If it exceeds, available spending will be
-reset, else nothing will be done.</p>
+<p>This feature allows the user&#8217;s available spending to reset every user defined frequency.</p>
+</div>
+<div class="paragraph">
+<p>The implementation for this feature is describe in the two sections below.</p>
 </div>
 <div class="sect4">
 <h5 id="setting-the-recurrence-frequency"><a class="link" href="#setting-the-recurrence-frequency">Setting the recurrence frequency</a></h5>
+<div class="paragraph">
+<p>This section explains the implementations of <code>setRecurrenceFrequency</code> command.</p>
+</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Recurrence time is set by <code>setRecurrenceFrequency()</code>. If it has not been set before, the next recurrence time will
+<p>Recurrence time is set by <code>setRecurrenceFrequency</code>. If it has not been set before, the next recurrence time will
 be set to <code>currentTime</code> + <code>recurrenceFrequency</code>. This is shown in the code snippet below.</p>
 </li>
 </ul>
@@ -2064,7 +2061,7 @@ snippet below.</p>
     {</code></pre>
 </div>
 </div>
-<div class="paragraph">
+<div id="recc-seq-diag" class="paragraph">
 <p>Given below is a sequence diagram
 and step by step explanation of how Expense Tracker executes when a user sets a recurrence frequency.</p>
 </div>
@@ -2072,7 +2069,7 @@ and step by step explanation of how Expense Tracker executes when a user sets a 
 <div class="content">
 <img src="images/implementation/SetRecurringBudgetCommandSequenceDiagram.png" alt="SetRecurringBudgetCommandSequenceDiagram" width="800">
 </div>
-<div class="title">Figure 30. Sequence diagram of a user setting a recurrence frequency.</div>
+<div class="title">Figure 29. Sequence diagram of a user setting a recurrence frequency.</div>
 </div>
 <div class="paragraph">
 <p>Steps of the command execution are as follows:</p>
@@ -2114,14 +2111,17 @@ method to update the time when the next expenses of <code>totalBudget</code> is 
 <div class="sect4">
 <h5 id="resetting-available-spending"><a class="link" href="#resetting-available-spending">Resetting available spending.</a></h5>
 <div class="paragraph">
+<p>This section explains the implementations of the recurring budget.</p>
+</div>
+<div class="paragraph">
 <p>Every time the user logs in, Expense Tracker will check if the available spending should be reset. Sequence diagram
 of available spending resetting is given below.</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/implementation/RecurrenceFrequencySequenceDiagram.png" alt="RecurrenceFrequencySequenceDiagram" width="900">
+<img src="images/implementation/RecurrenceFrequencySequenceDiagram.png" alt="RecurrenceFrequencySequenceDiagram" width="600">
 </div>
-<div class="title">Figure 31. Sequence diagram of a user setting a recurrence frequency.</div>
+<div class="title">Figure 30. Sequence diagram of a user setting a recurrence frequency.</div>
 </div>
 <div class="paragraph">
 <p>Execution steps of resetting available spending are as follows:</p>
@@ -2129,7 +2129,8 @@ of available spending resetting is given below.</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>User logs in</p>
+<p>User logs in, which causes the <code>login</code> command to execute in <code>Logic</code>. <code>Logic</code> calls <code>Logic#execute()</code> to
+execute the command on the <code>Model</code>.</p>
 </li>
 <li>
 <p><code>login</code> command executes in the <code>Logic</code>, which calls <code>Logic#execute()</code> to execute the command on <code>Model</code></p>
@@ -2147,9 +2148,9 @@ notifications. It will also return <code>DO_NOTHING</code>, which will results i
 </div>
 </div>
 <div class="sect3">
-<h4 id="setting-a-budget-by-category"><a class="link" href="#setting-a-budget-by-category">4.8.3. Setting a Budget by Category</a></h4>
+<h4 id="Budget-Category"><a class="link" href="#Budget-Category">4.8.3. Setting a Budget by Category</a></h4>
 <div class="paragraph">
-<p>An extension to the budget feature, this allows the user to divide their budget based on categories. Users can
+<p>An extension to the budget feature, this feature allows the user to divide their budget based on categories. Users can
 allocate parts of their budget to certain categories.
 If the user&#8217;s expenses for a <code>Category</code> exceeds the available spending for their <code>CategoryBudget</code>, a warning will be
 shown
@@ -2163,7 +2164,7 @@ and step by step explanation of how Expense Tracker executes when a user sets a 
 <div class="content">
 <img src="images/implementation/SetCategoryBudgetSequenceDiagram.png" alt="SetCategoryBudgetSequenceDiagram" width="900">
 </div>
-<div class="title">Figure 32. Sequence diagram of a user setting <code>CategoryBudget</code>.</div>
+<div class="title">Figure 31. Sequence diagram of a user setting <code>CategoryBudget</code>.</div>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -2195,27 +2196,31 @@ method to add a <code>CategoryBudget</code>.</p>
 <div class="sect4">
 <h5 id="setting-budgets-for-different-time-frames-proposed"><a class="link" href="#setting-budgets-for-different-time-frames-proposed">Setting budgets for different time frames (Proposed)</a></h5>
 <div class="paragraph">
-<p>Users can now set budgets for different time frames. For example, a user can have a monthly budget and a weekly budget.
-This is to allow a user to segment his spending by weeks. A benefit to this is that even if the user has spent over
-the budget for this week, he could potentially spend lesser to make up for his overspending. This allows for expense
-tracking as it allows for more leeway in how a person could spend. This is illustrated by the images below.</p>
+<p>Users can now set budgets for different time frames. For example, a user can have a monthly and weekly budget.
+This is to allow a user to segment his spending by weeks. Thus, even if the user has spent over
+the budget for this week, he could potentially spend lesser in the next week to make up for his overspending and keep
+ within his budget for the month. This is
+illustrated by the images below.</p>
 </div>
-<div class="imageblock">
+<div class="openblock clearfix">
 <div class="content">
-<img src="images/budgetOfTheWeek.PNG" alt="budgetOfTheWeek" width="800">
-</div>
-<div class="title">Figure 33. Diagram of a weekly budget</div>
-</div>
-<div class="imageblock">
+<div class="imageblock left">
 <div class="content">
-<img src="images/budgetOfTheMonth.png" alt="budgetOfTheMonth" width="800">
+<img src="images/budgetOfTheWeek.png" alt="budgetOfTheWeek" width="200">
 </div>
-<div class="title">Figure 34. Diagram of a monthly budget.</div>
+<div class="title">Figure 32. Diagram of a weekly budget</div>
+</div>
+<div class="imageblock left">
+<div class="content">
+<img src="images/budgetOfTheMonth.png" alt="budgetOfTheMonth" width="200">
+</div>
+<div class="title">Figure 33. Diagram of a monthly budget.</div>
+</div>
+</div>
 </div>
 <div class="paragraph">
-<p>The first image above shows that the user has spent over his budget for the week, whilst the second image shows that
-the
-user still has available spending for the month.</p>
+<p>The first image shows that the user has spent over his budget for the week, while the second image shows that
+the user still has available spending for the month.</p>
 </div>
 </div>
 </div>
@@ -2369,7 +2374,7 @@ like the figure below should show up.</p>
 <div class="content">
 <img src="images/chrome_save_as_pdf.png" alt="chrome save as pdf" width="300">
 </div>
-<div class="title">Figure 35. Saving documentation as PDF files in Chrome</div>
+<div class="title">Figure 34. Saving documentation as PDF files in Chrome</div>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -4295,41 +4300,180 @@ over my budget</p></td>
 <div class="paragraph">
 <p>Given below are instructions to test the app manually.</p>
 </div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-These instructions only provide a starting point for testers to work on; testers are expected to do more <em>exploratory</em> testing.
-</td>
-</tr>
-</table>
-</div>
 <div class="sect2">
-<h3 id="launch-and-shutdown"><a class="link" href="#launch-and-shutdown">F.1. Launch and Shutdown</a></h3>
+<h3 id="setting-a-budget-2"><a class="link" href="#setting-a-budget-2">F.1. Setting a budget</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Initial launch</p>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
+<p>Setting a budget no matter what is listed.</p>
+<div class="ulist">
+<ul>
 <li>
-<p>Download the jar file and copy into an empty folder</p>
+<p>Test case: <code>setBudget 2.00</code><br>
+Expected: Budget is set to $2.00. Current spendings update to the total costs of all expenses recorded. UI updates
+accordingly.</p>
 </li>
 <li>
-<p>Double-click the jar file<br>
-Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.</p>
+<p>Test case: <code>setBudget 0.00</code><br>
+Expected: Error message of no negative values being allowed is shown. Budget is not set. UI does not update.</p>
 </li>
-</ol>
+<li>
+<p>Test case: <code>setBudget -1.00</code>+
+Expected: Similar to previous</p>
+</li>
+<li>
+<p>Test case: <code>setBudget 1</code><br>
+Expected: Budget is not set. Error details stating that the a valid budget consists of {int}.{digit}{digit} is
+shown in the status message. UI is not updated.</p>
+</li>
+<li>
+<p>Testcase: <code>setBudget x</code> where x is not a number`<br>
+Expected: Budget is not set. Error message informing user of incorrect syntax is shown in the status message. UI is
+not updated.</p>
+</li>
+<li>
+<p>Other incorrect delete commands to try: <code>setBudget</code>, <code>setBudget x</code> where x is not a number with 2 decimal places.
+Expected: Similar to previous</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Adding an expense after budget has been set</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Test case: Add a valid expense that does not cause the budget to exceed.<br>
+Expected: Status message shown is similar to <code>add</code> command. Budget is updated. UI is updated.</p>
+</li>
+<li>
+<p>Test case: Add a valid expense that causes the budget to exceed.<br>
+Expected: Status message shown is similar to <code>add</code> command. Budget is updated. UI is updated. Notification
+informing the user that adding this expense results in the budget exceeding is shown.</p>
+</li>
+</ul>
 </div>
 </li>
 </ol>
 </div>
 </div>
 <div class="sect2">
-<h3 id="sign-up-for-an-account"><a class="link" href="#sign-up-for-an-account">F.2. Sign up for an account</a></h3>
+<h3 id="setting-a-recurrence-frequency"><a class="link" href="#setting-a-recurrence-frequency">F.2. Setting a recurrence frequency</a></h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Setting the recurrence frequency.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Test case: <code>setRecurrenceFrequency sec/1</code><br>
+Expected: Recurrence frequency is set. Message showing that the recurrence frequency being set to 1 seconds is
+shown.</p>
+</li>
+<li>
+<p>Test case: <code>setRecurrenceFrequency hrs/1</code><br>
+Expected: Recurrence frequency is set. Message showing that the recurrence frequency being set to 3600 seconds is shown.</p>
+</li>
+<li>
+<p>Test case: <code>setRecurrenceFrequency 1</code><br>
+Expected: Recurrence frequency is not set. Error details are shown in
+the status message.</p>
+</li>
+<li>
+<p>Other incorrect recurrence frequency commands to try: <code>setRecurrenceFrequency</code>, <code>setRecurrenceFrequency x</code> where x
+is a number without tags.<br>
+Expected: Similar to previous.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Budget is restarted after the set recurrence frequency.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Prerequisite: Tester is in the application.</p>
+</li>
+<li>
+<p>Test case: Close the application. Open the application and login to the same account.<br>
+Expected: Budget not updated, expenses not deleted, nothing changes.</p>
+</li>
+<li>
+<p>Test case: Apply the command <code>setRecurrenceFrequency sec/1</code>. Close the application. Login to the same account.<br>
+Expected: Budget is now reset ($0/{initial budget}). Expenses not deleted. UI updates accordingly.</p>
+</li>
+<li>
+<p>Test case: Apply the command <code>setRecurrenceFrequency hr/1</code>. Close the application. Login to the same account.<br>
+Expected: Budget not updated, expenses not deleted, nothing changes.</p>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="setting-a-category-budget"><a class="link" href="#setting-a-category-budget">F.3. Setting a category budget</a></h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Setting the Category Budget</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Test case: <code>setCategoryBudget c/NEW_CATEGORY b/2.00</code> where <code>NEW_CATEGORY</code> is a category not used by any expense.<br>
+Expected: Category Budget is set. Message showing that the Category budget is set is shown. Icon showing the
+category and its budget appears.</p>
+</li>
+<li>
+<p>Test case: <code>setCategoryBudget c/OLD_CATEGORY b/2.00</code> where <code>OLD_CATEGORY</code> is a Category already used by at least
+one expense.<br>
+    Expected: Similar to previous</p>
+</li>
+<li>
+<p>Test case: <code>setCategoryBudget c/INVALID_CATEGORY b/2.00</code>, where <code>INVALID_CATEGORY</code> is an invalid Category.<br>
+Expected. Category Budget is not set. Error message displayed would be similar to when a user tries to add an
+expense with an invalid Category.</p>
+</li>
+<li>
+<p>Test case: <code>setCategoryBudget c/test b/INVALID_BUDGET</code>, where <code>INVALID_CATEGORY</code> is an invalid Category.<br>
+Expected. Category Budget is not set. Error message displayed would be similar to when a user tries to add an
+expense with an invalid Budget.</p>
+</li>
+<li>
+<p>Test case: <code>setCategoryBudget</code><br>
+Expected: Category Budget not set. Error details are shown in
+the status message.</p>
+</li>
+<li>
+<p>Other incorrect commands to try: <code>setCategoryBudget x</code> where x an alphanumeric without valid tags,
+<code>setCatgoryBudget c/VALID_CATEGORY</code>, <code>setCategoryBudget b/VALID_BUDGET</code>.<br>
+    Expected: Similar to above.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Adding an expense after Category budget has been set</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Test case: Add a valid expense that does not cause the Category budget to exceed.<br>
+Expected: Status message shown is similar to <code>add</code> command. Budget is updated. UI is updated.</p>
+</li>
+<li>
+<p>Test case: Add a valid expense that causes the Category budget to exceed, but not the total budget.<br>
+Expected: Status message shown is similar to <code>add</code> command. Budget is updated. UI is updated. Notification
+informing the user that adding this expense results in the budget exceeding is shown.</p>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="sign-up-for-an-account"><a class="link" href="#sign-up-for-an-account">F.4. Sign up for an account</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -4368,7 +4512,7 @@ Expected: A message is shown to indicate that the user already exists.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="log-in-to-an-account"><a class="link" href="#log-in-to-an-account">F.3. Log in to an account</a></h3>
+<h3 id="log-in-to-an-account"><a class="link" href="#log-in-to-an-account">F.5. Log in to an account</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -4715,4 +4859,4 @@ Expected: <code>BudgetPanel#budgetBar</code> should be updated. <code>BudgetPane
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 12:44:53 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 13:09:02 UTC</div></div></div></body></html>
