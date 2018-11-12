@@ -15,27 +15,11 @@
 <div class="paragraph">
 <p><strong>ExpenseTracker</strong> is a desktop expense tracking application developed to aid users in tracking their expenses and
 save money. The user interacts with it using a Command Line Interface (CLI), and it has a Graphical User Interface
-(GUI) created with JavaFX library. It is written in Java, and has about 20 kLoC. The product was morphed from an <a href="https://github.com/nus-cs2103-AY1819S1/addressbook-level4">Address Book</a> over a period of 8 weeks
+(GUI) created with JavaFX library. It is written in Java, and has about 28 kLoC. The product was morphed from an <a href="https://github.com/nus-cs2103-AY1819S1/addressbook-level4">Address Book</a> over a period of 8 weeks
 under the constraints described <a href="https://nus-cs2103-ay1819s1.github.io/cs2103-website/admin/project-constraints.html">here</a>.</p>
 </div>
 <div class="paragraph">
-<p>Some of its main features are:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Setting a budget for expenses.</p>
-</li>
-<li>
-<p>Data security.</p>
-</li>
-<li>
-<p>Categorization of expenses.</p>
-</li>
-<li>
-<p>Statistics for expenses.</p>
-</li>
-</ol>
+<p>Some of its main features are: Setting a budget for expenses, data security, categorization and statistics for expenses.</p>
 </div>
 </div>
 </div>
@@ -59,7 +43,7 @@ under the constraints described <a href="https://nus-cs2103-ay1819s1.github.io/c
 <div class="ulist">
 <ul>
 <li>
-<p>This enhancement adds a robust user accounts system that comes with several features, namely <code>signup</code>, <code>login</code> and <code>setpassword</code>. Each user&#8217;s data file is kept separately and explicitly labelled with their username. The implementation too was challenging as it required changes to how data is loaded in the <code>Storage</code> component and stored in the <code>Model</code> component.</p>
+<p>This enhancement adds a robust user accounts system that comes with several features, namely <code>signup</code>, <code>login</code> and <code>setPassword</code>. Each user&#8217;s data file is kept separately and explicitly labelled with their username. The implementation too was challenging as it required changes to how data is loaded in the <code>Storage</code> component and stored in the <code>Model</code> component.</p>
 </li>
 <li>
 <p>The encryption algorithm also makes use of hash algorithms and the AES symmetric key encryption algorithm to ensure that no one can gain access to a user&#8217;s information unless he/she knows the plain text password of the user, which is not stored anywhere.</p>
@@ -285,7 +269,7 @@ regardless of whether a PASSWORD has been provided</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="../images/implementation/ReadAllExpensesSequenceDiagram.png" alt="ReadAllExpensesSequenceDiagram" width="512">
+<img src="../images/userguide/LogInExpectedOutcomeDiagram.png" alt="LogInExpectedOutcomeDiagram" width="800">
 </div>
 <div class="title">Figure 1. Diagram showing log in success UI expansion for sample user</div>
 </div>
@@ -341,91 +325,16 @@ Sets the current user&#8217;s password as "pass123", provided that the current p
 </tr>
 </table>
 </div>
-</div>
-<div class="sect2">
-<h3 id="encrypting-text-using-your-password-code-encrypt-code"><a class="link" href="#encrypting-text-using-your-password-code-encrypt-code">Encrypting text using your password : <code>encrypt</code></a></h3>
-<div class="admonitionblock warning">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-warning" title="Warning"></i>
-</td>
-<td class="content">
-This command is for advanced users only and should be used with caution.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Encrypts text using your account&#8217;s password.
-You may want to use this feature if you wish to edit your expenses in the data file directly.</p>
-</div>
-<div class="paragraph">
-<p>Format: <code>encrypt TEXT</code></p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="paragraph">
-<p><strong>Examples:</strong></p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>encrypt secret thing</code><br>
-Displays the encrypted version of the text <code>secret thing</code> to be used with your account.</p>
-</li>
-<li>
-<p><code>encrypt secret_thing</code><br>
-Displays the encrypted version of the text <code>secret_thing</code> to be used with your account.</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="ulist">
-<ul>
-<li>
-<p>Any leading and trailing spaces in TEXT are ignored</p>
-</li>
-</ul>
-</div>
-</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect2">
-<h3 id="decrypting-text-using-your-password-code-decrypt-code"><a class="link" href="#decrypting-text-using-your-password-code-decrypt-code">Decrypting text using your password : <code>decrypt</code></a></h3>
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
 <col style="width: 100%;">
 </colgroup>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>This command has been omitted from this Portfolio as it is largely a repetition of the encrypt command, except that it decrypts strings rather than encrypt them. You can view this section in the <code>UserGuide</code> if you wish to</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>I have also contributed documentation for the <code>encrypt</code> and <code>decrypt</code> commands but they have been omitted from this portfolio as the above commands are sufficient to showcase my ability to write documentation targeting end-users. You can view this section in the <code>User Guide</code> if you wish to.</em></p></td>
 </tr>
 </tbody>
 </table>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="frequently-asked-questions"><a class="link" href="#frequently-asked-questions">Frequently Asked Questions</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p><strong>Q</strong>: How is my expense data kept safe when I use this application?<br>
-<strong>A</strong>: All user expense-specific data is encrypted. The program ensures that no one will be able to decrypt encrypted information without your actual plain text password, which is not stored anywhere. So rest assured that no one can access your data without your password.</p>
-</div>
-<div class="paragraph">
-<p><strong>Q</strong>: How do I manually encrypt text to edit my user XML file as a technologically-savvy user?<br>
-<strong>A</strong>: You can make use of the encrypt and decrypt commands that have been described in the previous section.</p>
 </div>
 </div>
 </div>
@@ -472,40 +381,18 @@ Displays the encrypted version of the text <code>secret_thing</code> to be used 
 </tr>
 </table>
 </div>
-<div class="paragraph">
-<p>This feature is facilitated by newly added methods in the Model interface which now supports the following operations:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>Model#loadUserData(Username, Password)</code>&#8201;&#8212;&#8201;Logs in to the user with the input <code>Username</code> and <code>Password</code> and loads the associated data into <code>Model</code>. Returns true if the <code>Password</code> matches the user&#8217;s <code>Password</code>, else the user is not logged into and false is returned</p>
-</li>
-<li>
-<p><code>Model#unloadUserData()</code>&#8201;&#8212;&#8201;Unselects the user in <code>Model</code></p>
-</li>
-<li>
-<p><code>Model#isUserExists(Username)</code>&#8201;&#8212;&#8201;Checks if a user with the input <code>Username</code> exists in <code>Model</code></p>
-</li>
-<li>
-<p><code>Model#addUser(Username)</code>&#8201;&#8212;&#8201;Adds a new user with the given <code>Username</code> to <code>Model</code></p>
-</li>
-<li>
-<p><code>Model#hasSelectedUser()</code>&#8201;&#8212;&#8201;Checks if a user is currently logged in in <code>Model</code></p>
-</li>
-<li>
-<p><code>Model#setPassword(Password, String)</code>&#8201;&#8212;&#8201;Changes the <code>Password</code> of the user that is currently logged in. Requires the new password as a <code>Password</code> object and as a plain text <code>String</code>.</p>
-</li>
-<li>
-<p><code>Model#isMatchPassword(Password)</code>&#8201;&#8212;&#8201;Checks if the input <code>Password</code> matches the name</p>
-</li>
-<li>
-<p><code>Model#encryptString(String)</code>&#8201;&#8212;&#8201;Encrypts the input <code>String</code> using the currently logged in user&#8217;s encryption key</p>
-</li>
-<li>
-<p><code>Model#decryptString(String)</code>&#8201;&#8212;&#8201;Decrypts the input <code>String</code> using the currently logged in user&#8217;s encryption key.</p>
-</li>
-</ul>
-</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>This feature is facilitated by 9 newly added methods in the <code>Model</code> interface. One of them is as follows:</p>
+<p class="tableblock"><code>Model#setPassword(Password, String)</code>&#8201;&#8212;&#8201;Changes the <code>Password</code> of the user that is currently logged in. Requires the new password as a <code>Password</code> object and as a plain text <code>String</code>.</p>
+<p class="tableblock">The list of these methods along with their descriptions have been omitted in this portfolio and can be found in the <code>Developer Guide</code>.</em></p></td>
+</tr>
+</tbody>
+</table>
 <div class="paragraph">
 <p>When implementing methods in <code>ModelManager</code> that requires a user to already be logged in, one can use <code>ModelManager#requireUserSelected()</code>, which throws a checked <code>NoUserSelectedException</code> if there is no logged in user. I.e your method should look like this:</p>
 </div>
@@ -515,9 +402,7 @@ Displays the encrypted version of the text <code>secret_thing</code> to be used 
 <pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Override</span>
 <span class="directive">public</span> <span class="type">void</span> methodName() <span class="directive">throws</span> NoUserSelectedException {
     requireUserSelected();
-    <span class="comment">/*
-    Perform required operations here.
-    */</span>
+    <span class="comment">// Rest of the method body...</span>
 }</code></pre>
 </div>
 </div>
@@ -540,28 +425,16 @@ Displays the encrypted version of the text <code>secret_thing</code> to be used 
 </li>
 </ul>
 </div>
-<div class="paragraph">
-<p>Utility methods related to data encryption are implemented in the <code>EncryptionUtil</code> class, which includes the following methods:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>EncryptionUtil#decryptString(String, String)</code>&#8201;&#8212;&#8201;Decrypts a <code>String</code> with by using the input encryption key</p>
-</li>
-<li>
-<p><code>EncryptionUtil#encryptString(String, String)</code>&#8201;&#8212;&#8201;Encrypts a <code>String</code> with by using the input encryption key</p>
-</li>
-<li>
-<p><code>EncryptionUtil#createEncryptionKey(String)</code>&#8201;&#8212;&#8201;Creates a 128-bit encryption key using the input plain text password <code>String</code>. Equivalent passwords will always map to equivalent keys.</p>
-</li>
-<li>
-<p><code>EncryptionUtil#encryptExpense(Expense, String)</code>&#8201;&#8212;&#8201;Creates an <code>EncryptedExpense</code> instance of the given <code>Expense</code> by encrypting its data using the given encryption key</p>
-</li>
-<li>
-<p><code>EncryptionUtil#encryptTracker(ExpenseTracker)</code>&#8201;&#8212;&#8201;Creates an <code>EncryptedExpenseTracker</code> instance of the given <code>ExpenseTracker</code> by encrypting it using its encryption key. This is always called when sending users' data to <code>Storage</code> for saving.</p>
-</li>
-</ul>
-</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Utility methods related to data encryption are implemented in the EncryptionUtil class. They include methods to encrypt/decrypt <code>String</code>, <code>Expense</code> and <code>ExpenseTracker</code> and to generate a 128-bit encryption key from a plain text password <code>String</code>. More details can be found in the <code>Developer Guide</code>.</em></p></td>
+</tr>
+</tbody>
+</table>
 <div class="paragraph">
 <p>Encrypted versions of the <code>ExpenseTracker</code> and most of the classes it contains were implemented. These classes have their class names prepended with <code>Encrypted</code> and are shown in the class diagram below:</p>
 </div>
@@ -611,7 +484,7 @@ Displays the encrypted version of the text <code>secret_thing</code> to be used 
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="../images/implementation/ReadAllExpensesSequenceDiagram.png" alt="ReadAllExpensesSequenceDiagram" width="512">
+<img src="../images/implementation/ReadAllExpensesSequenceDiagram.png" alt="ReadAllExpensesSequenceDiagram" width="450">
 </div>
 <div class="title">Figure 3. Sequence diagram of the <code>StorageManager#readAllExpenses(Path)</code> method</div>
 </div>
@@ -630,7 +503,10 @@ Displays the encrypted version of the text <code>secret_thing</code> to be used 
 <p>The user then executes the command <code>login u/john</code> to log in to his user account</p>
 </li>
 <li>
-<p>The <code>login</code> command calls <code>loadUserData(Username, Password)</code> with a null password as a password was not provided. The method is executed successfully as the user <code>john</code> has no password set.</p>
+<p>The <code>login</code> command calls the <code>LoginCredentials(Username, String)</code> constructor with a null <code>String</code> password as a password was not provided.</p>
+</li>
+<li>
+<p>The <code>login</code> command then calls <code>Model#loadUserData(LoginCredentials)</code> with the <code>LoginCredentials</code> instance created in the previous step. The method is executed successfully as the user <code>john</code> has no password set.</p>
 </li>
 <li>
 <p><code>john</code>&#8217;s data that is stored as <code>EncryptedExpenseTracker</code> is decrypted using the <code>EncryptedExpenseTracker#decryptTracker(String)</code> using an encryption key generated from <code>john</code>&#8217;s password (In this case an empty <code>String</code> is used as the password since <code>john</code>&#8217;s account has no password).</p>
@@ -640,15 +516,16 @@ Displays the encrypted version of the text <code>secret_thing</code> to be used 
 </li>
 </ol>
 </div>
-<div class="paragraph">
-<p>Below is the UML sequence diagram that shows how <code>SignUpCommand</code> works.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="../images/implementation/SignUpCommandSequenceDiagram.png" alt="SignUpCommandSequenceDiagram" width="800">
-</div>
-<div class="title">Figure 4. Sequence diagram showing how <code>SignUpCommand</code> works</div>
-</div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>The sequence diagram for SignUpCommand has been omitted as it is largely similar to subsequent sequence diagrams in this section. You can view it in the <code>Developer Guide</code> if you wish to.</em></p></td>
+</tr>
+</tbody>
+</table>
 <div class="paragraph">
 <p>Below is the UML sequence diagram that shows how <code>LoginCommand</code> works.</p>
 </div>
@@ -656,7 +533,7 @@ Displays the encrypted version of the text <code>secret_thing</code> to be used 
 <div class="content">
 <img src="../images/implementation/LoginCommandSequenceDiagram.png" alt="LoginCommandSequenceDiagram" width="800">
 </div>
-<div class="title">Figure 5. Sequence diagram showing how <code>LoginCommand</code> works</div>
+<div class="title">Figure 4. Sequence diagram showing how <code>LoginCommand</code> works</div>
 </div>
 <div class="paragraph">
 <p>Below is an example usage scenario and how the Password system behaves at each step after the he/she is logged in.</p>
@@ -664,10 +541,10 @@ Displays the encrypted version of the text <code>secret_thing</code> to be used 
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>The user is already logged in to the account <code>john</code> with an existing password <code>password1</code> and executes the command <code>setpassword o/password1 n/password2</code> to change his password to <code>password2</code></p>
+<p>The user is already logged in to the account <code>john</code> with an existing password <code>password1</code> and executes the command <code>setPassword o/password1 n/password2</code> to change his password to <code>password2</code></p>
 </li>
 <li>
-<p>The <code>setpassword</code> command calls the <code>Model#setPassword(Password)</code> method since the given old password matches his existing password and <code>password2</code> does not violate any password constraints</p>
+<p>The <code>setPassword</code> command calls the <code>Model#setPassword(Password)</code> method since the given old password matches his existing password and <code>password2</code> does not violate any password constraints</p>
 </li>
 <li>
 <p>The <code>Model#setPassword(Password)</code> method changes <code>john</code>&#8217;s account password to <code>password2</code></p>
@@ -684,44 +561,11 @@ Displays the encrypted version of the text <code>secret_thing</code> to be used 
 <div class="content">
 <img src="../images/implementation/SetPasswordCommandSequenceDiagram.png" alt="SetPasswordCommandSequenceDiagram" width="800">
 </div>
-<div class="title">Figure 6. Sequence diagram showing how <code>SetPasswordCommand</code> works</div>
+<div class="title">Figure 5. Sequence diagram showing how <code>SetPasswordCommand</code> works</div>
 </div>
 </div>
 <div class="sect3">
 <h4 id="design-considerations"><a class="link" href="#design-considerations">Design Considerations</a></h4>
-<div class="sect4">
-<h5 id="aspect-storage-of-separate-user-data"><a class="link" href="#aspect-storage-of-separate-user-data">Aspect: Storage of Separate User Data</a></h5>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>Alternative 1 (current choice):</strong> Save each user&#8217;s data into a seperate xml file</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Pros: More work needed to implement as the data loading has to be changed to read from multiple xml files</p>
-</li>
-<li>
-<p>Cons: Users can transfer their own data between computers easily by just copying their own account&#8217;s xml file</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p><strong>Alternative 2:</strong> Save all the separated user data in a single xml data file</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Pros: Relatively easier to implement. ExpenseTracker already loads data from a single xml data file so less work has to be done to change the storage structure</p>
-</li>
-<li>
-<p>Cons: Users will be unable to easily transfer their individual data to another computer</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-</div>
 <div class="sect4">
 <h5 id="aspect-loading-of-user-data"><a class="link" href="#aspect-loading-of-user-data">Aspect: Loading of User Data</a></h5>
 <div class="ulist">
@@ -754,8 +598,18 @@ Displays the encrypted version of the text <code>secret_thing</code> to be used 
 </li>
 </ul>
 </div>
+<table class="tableblock frame-all grid-all spread">
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Another aspect, <code>Storage of Separate User Data</code>, has been omitted from this portfolio section as I&#8217;ve already demonstrated my ability to consider different design options. You can view it in the <code>Developer Guide</code> if you wish to.</em></p></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 12:32:24 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 12:44:53 UTC</div></div></div></body></html>

@@ -75,13 +75,18 @@
 <li><a href="#instructions-for-manual-testing">Appendix F: Instructions for Manual Testing</a>
 <ul class="sectlevel2">
 <li><a href="#launch-and-shutdown">F.1. Launch and Shutdown</a></li>
-<li><a href="#deleting-a-expense">F.2. Deleting a expense</a></li>
-<li><a href="#showing-statistics">F.3. Showing statistics</a></li>
-<li><a href="#notification-panel">F.4. Notification Panel</a></li>
-<li><a href="#toggling-notifications">F.5. Toggling Notifications</a></li>
-<li><a href="#budget-panel">F.6. Budget Panel</a></li>
-<li><a href="#category-panel">F.7. Category Panel</a></li>
-<li><a href="#saving-data">F.8. Saving data</a></li>
+<li><a href="#sign-up-for-an-account">F.2. Sign up for an account</a></li>
+<li><a href="#log-in-to-an-account">F.3. Log in to an account</a></li>
+</ul>
+</li>
+<li><a href="#set-password-for-current-user">8. Set password for current user</a></li>
+<li><a href="#encrypt-and-decrypt-code-strings-code">9. Encrypt and Decrypt <code>Strings</code></a>
+<ul class="sectlevel2">
+<li><a href="#showing-statistics">9.1. Showing statistics</a></li>
+<li><a href="#notification-panel">9.2. Notification Panel</a></li>
+<li><a href="#toggling-notifications">9.3. Toggling Notifications</a></li>
+<li><a href="#budget-panel">9.4. Budget Panel</a></li>
+<li><a href="#category-panel">9.5. Category Panel</a></li>
 </ul>
 </li>
 </ul>
@@ -870,12 +875,10 @@ If <code>currentStatePointer</code> is at index <code>expenseTrackerStateList.si
 <p><code>Model#encryptString(String)</code>&#8201;&#8212;&#8201;Encrypts the input <code>String</code> using the currently logged in user&#8217;s encryption key</p>
 </li>
 <li>
-<p><code>Model#decryptString(String)</code>&#8201;&#8212;&#8201;Decrypts the input <code>String</code> using the currently logged in user&#8217;s encryption key.</p>
+<p><code>Model#decryptString(String)</code>&#8201;&#8212;&#8201;Decrypts the input <code>String</code> using the currently logged in user&#8217;s encryption key.
+When implementing methods in <code>ModelManager</code> that requires a user to already be logged in, one can use <code>ModelManager#requireUserSelected()</code>, which throws a checked <code>NoUserSelectedException</code> if there is no logged in user. I.e your method should look like this:</p>
 </li>
 </ul>
-</div>
-<div class="paragraph">
-<p>When implementing methods in <code>ModelManager</code> that requires a user to already be logged in, one can use <code>ModelManager#requireUserSelected()</code>, which throws a checked <code>NoUserSelectedException</code> if there is no logged in user. I.e your method should look like this:</p>
 </div>
 <div class="listingblock">
 <div class="title">New method example</div>
@@ -883,9 +886,7 @@ If <code>currentStatePointer</code> is at index <code>expenseTrackerStateList.si
 <pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Override</span>
 <span class="directive">public</span> <span class="type">void</span> methodName() <span class="directive">throws</span> NoUserSelectedException {
     requireUserSelected();
-    <span class="comment">/*
-    Perform required operations here.
-    */</span>
+    <span class="comment">// Rest of the method body...</span>
 }</code></pre>
 </div>
 </div>
@@ -904,15 +905,9 @@ If <code>currentStatePointer</code> is at index <code>expenseTrackerStateList.si
 <p>When a <code>Password</code> class is constructed with plain text, the password is hashed using SHA-256 before being stored as an internal <code>String</code> in the <code>Password</code> object</p>
 </li>
 <li>
-<p><code>Password</code> is only valid if the plain text form is at least 6 characters long</p>
+<p><code>Password</code> is only valid if the plain text form is at least 6 characters long
+Utility methods related to data encryption are implemented in the <code>EncryptionUtil</code> class, which includes the following methods:</p>
 </li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Utility methods related to data encryption are implemented in the <code>EncryptionUtil</code> class, which includes the following methods:</p>
-</div>
-<div class="ulist">
-<ul>
 <li>
 <p><code>EncryptionUtil#decryptString(String, String)</code>&#8201;&#8212;&#8201;Decrypts a <code>String</code> with by using the input encryption key</p>
 </li>
@@ -926,12 +921,10 @@ If <code>currentStatePointer</code> is at index <code>expenseTrackerStateList.si
 <p><code>EncryptionUtil#encryptExpense(Expense, String)</code>&#8201;&#8212;&#8201;Creates an <code>EncryptedExpense</code> instance of the given <code>Expense</code> by encrypting its data using the given encryption key</p>
 </li>
 <li>
-<p><code>EncryptionUtil#encryptTracker(ExpenseTracker)</code>&#8201;&#8212;&#8201;Creates an <code>EncryptedExpenseTracker</code> instance of the given <code>ExpenseTracker</code> by encrypting it using its encryption key. This is always called when sending users' data to <code>Storage</code> for saving.</p>
+<p><code>EncryptionUtil#encryptTracker(ExpenseTracker)</code>&#8201;&#8212;&#8201;Creates an <code>EncryptedExpenseTracker</code> instance of the given <code>ExpenseTracker</code> by encrypting it using its encryption key. This is always called when sending users' data to <code>Storage</code> for saving.
+Encrypted versions of the <code>ExpenseTracker</code> and most of the classes it contains were implemented. These classes have their class names prepended with <code>Encrypted</code> and are shown in the class diagram below:</p>
 </li>
 </ul>
-</div>
-<div class="paragraph">
-<p>Encrypted versions of the <code>ExpenseTracker</code> and most of the classes it contains were implemented. These classes have their class names prepended with <code>Encrypted</code> and are shown in the class diagram below:</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -979,7 +972,7 @@ If <code>currentStatePointer</code> is at index <code>expenseTrackerStateList.si
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/implementation/ReadAllExpensesSequenceDiagram.png" alt="ReadAllExpensesSequenceDiagram" width="512">
+<img src="images/implementation/ReadAllExpensesSequenceDiagram.png" alt="ReadAllExpensesSequenceDiagram" width="450">
 </div>
 <div class="title">Figure 17. Sequence diagram of the <code>StorageManager#readAllExpenses(Path)</code> method</div>
 </div>
@@ -998,18 +991,19 @@ If <code>currentStatePointer</code> is at index <code>expenseTrackerStateList.si
 <p>The user then executes the command <code>login u/john</code> to log in to his user account</p>
 </li>
 <li>
-<p>The <code>login</code> command calls <code>loadUserData(Username, Password)</code> with a null password as a password was not provided. The method is executed successfully as the user <code>john</code> has no password set.</p>
+<p>The <code>login</code> command calls the <code>LoginCredentials(Username, String)</code> constructor with a null <code>String</code> password as a password was not provided.</p>
+</li>
+<li>
+<p>The <code>login</code> command then calls <code>Model#loadUserData(LoginCredentials)</code> with the <code>LoginCredentials</code> instance created in the previous step. The method is executed successfully as the user <code>john</code> has no password set.</p>
 </li>
 <li>
 <p><code>john</code>&#8217;s data that is stored as <code>EncryptedExpenseTracker</code> is decrypted using the <code>EncryptedExpenseTracker#decryptTracker(String)</code> using an encryption key generated from <code>john</code>&#8217;s password (In this case an empty <code>String</code> is used as the password since <code>john</code>&#8217;s account has no password).</p>
 </li>
 <li>
-<p>The selected data in <code>Model</code> is switched to <code>john</code>&#8217;s and an <code>UserLoggedInEvent</code> is raised for <code>UI</code> to show <code>john</code>&#8217;s Expense Tracker data</p>
+<p>The selected data in <code>Model</code> is switched to <code>john</code>&#8217;s and an <code>UserLoggedInEvent</code> is raised for <code>UI</code> to show <code>john</code>&#8217;s Expense Tracker data
+Below is the UML sequence diagram that shows how <code>SignUpCommand</code> works.</p>
 </li>
 </ol>
-</div>
-<div class="paragraph">
-<p>Below is the UML sequence diagram that shows how <code>SignUpCommand</code> works.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -1032,10 +1026,10 @@ If <code>currentStatePointer</code> is at index <code>expenseTrackerStateList.si
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>The user is already logged in to the account <code>john</code> with an existing password <code>password1</code> and executes the command <code>setpassword o/password1 n/password2</code> to change his password to <code>password2</code></p>
+<p>The user is already logged in to the account <code>john</code> with an existing password <code>password1</code> and executes the command <code>setPassword o/password1 n/password2</code> to change his password to <code>password2</code></p>
 </li>
 <li>
-<p>The <code>setpassword</code> command calls the <code>Model#setPassword(Password)</code> method since the given old password matches his existing password and <code>password2</code> does not violate any password constraints</p>
+<p>The <code>setPassword</code> command calls the <code>Model#setPassword(Password)</code> method since the given old password matches his existing password and <code>password2</code> does not violate any password constraints</p>
 </li>
 <li>
 <p>The <code>Model#setPassword(Password)</code> method changes <code>john</code>&#8217;s account password to <code>password2</code></p>
@@ -1057,39 +1051,6 @@ If <code>currentStatePointer</code> is at index <code>expenseTrackerStateList.si
 </div>
 <div class="sect3">
 <h4 id="design-considerations-2"><a class="link" href="#design-considerations-2">4.2.2. Design Considerations</a></h4>
-<div class="sect4">
-<h5 id="aspect-storage-of-separate-user-data"><a class="link" href="#aspect-storage-of-separate-user-data">Aspect: Storage of Separate User Data</a></h5>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>Alternative 1 (current choice):</strong> Save each user&#8217;s data into a seperate xml file</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Pros: More work needed to implement as the data loading has to be changed to read from multiple xml files</p>
-</li>
-<li>
-<p>Cons: Users can transfer their own data between computers easily by just copying their own account&#8217;s xml file</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p><strong>Alternative 2:</strong> Save all the separated user data in a single xml data file</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Pros: Relatively easier to implement. ExpenseTracker already loads data from a single xml data file so less work has to be done to change the storage structure</p>
-</li>
-<li>
-<p>Cons: Users will be unable to easily transfer their individual data to another computer</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-</div>
 <div class="sect4">
 <h5 id="aspect-loading-of-user-data"><a class="link" href="#aspect-loading-of-user-data">Aspect: Loading of User Data</a></h5>
 <div class="ulist">
@@ -1115,7 +1076,34 @@ If <code>currentStatePointer</code> is at index <code>expenseTrackerStateList.si
 <p>Pros: Unnecessary data is not kept in memory so memory space is not wasted</p>
 </li>
 <li>
-<p>Cons: The Model or Logic component will have to depend on the Storage component as the login command will require the Storage to load and return the user&#8217;s data.</p>
+<p>Cons: The Model or Logic component will have to depend on the Storage component as the login command will require the Storage to load and return the user&#8217;s data.
+===== Aspect: Storage of Separate User Data</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> Save each user&#8217;s data into a seperate xml file</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: More work needed to implement as the data loading has to be changed to read from multiple xml files</p>
+</li>
+<li>
+<p>Cons: Users can transfer their own data between computers easily by just copying their own account&#8217;s xml file</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> Save all the separated user data in a single xml data file</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Relatively easier to implement. ExpenseTracker already loads data from a single xml data file so less work has to be done to change the storage structure</p>
+</li>
+<li>
+<p>Cons: Users will be unable to easily transfer their individual data to another computer</p>
 </li>
 </ul>
 </div>
@@ -3590,70 +3578,7 @@ over my budget</p></td>
 <div class="ulist">
 <ul>
 <li>
-<p>1a1. Expense tracker informs the user that a password is required.</p>
-</li>
-<li>
-<p>Use case ends</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-<h3 id="use-case-login-without-password-2" class="discrete">Use case: Login without password</h3>
-<div class="paragraph">
-<p><strong>MSS</strong></p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>User keys in command to login to an account.</p>
-</li>
-<li>
-<p>Expense Tracker logs user into account.</p>
-<div class="paragraph">
-<p>Use case ends</p>
-</div>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p><strong>Exceptions</strong></p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>1a.Expense Tracker detects error in the entered data.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>1a1. Expense Tracker informs user of the error.</p>
-</li>
-<li>
-<p>Use case ends.</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>1a.Expense Tracker detects that specified user does not exist.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>1a1. Expense Tracker informs user that user does not exist</p>
-</li>
-<li>
-<p>Use case ends.</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>1a. Expense Tracker detects that the account is password-protected.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>1a1. Expense tracker informs the user that a password is required.</p>
+<p>1a1. Expense tracker informs the user that a password is incorrect.</p>
 </li>
 <li>
 <p>Use case ends</p>
@@ -4196,6 +4121,11 @@ over my budget</p></td>
 </ol>
 </div>
 <div class="paragraph">
+<p>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
 <p><strong>Extensions</strong></p>
 </div>
 <div class="ulist">
@@ -4228,6 +4158,9 @@ over my budget</p></td>
 </li>
 </ul>
 </div>
+<div class="paragraph">
+<p>&gt;&gt;&gt;&gt;&gt;&gt;&gt; 907c64a3e5a7173ddb3ac77e068786dd16e2ec13</p>
+</div>
 <h3 id="use-case-decrypt" class="discrete">Use case: Decrypt</h3>
 <div class="paragraph">
 <p><strong>MSS</strong></p>
@@ -4247,6 +4180,13 @@ over my budget</p></td>
 </div>
 <div class="paragraph">
 <p><strong>Extensions</strong></p>
+</div>
+<div class="paragraph">
+<p>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+* 1a.Expense Tracker detects that the specified <code>String</code> was not encrypted with the user&#8217;s encryption key.
+    ** 1a1. Expense Tracker informs user that the specified <code>String</code> was not encrypted with the user&#8217;s encryption key.</p>
+</div>
+</div>
 </div>
 <div class="ulist">
 <ul>
@@ -4281,7 +4221,8 @@ over my budget</p></td>
 <div class="ulist">
 <ul>
 <li>
-<p>1c1. Expense Tracker informs user that they are not logged into any user.</p>
+<p>1c1. Expense Tracker informs user that they are not logged into any user.
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; 907c64a3e5a7173ddb3ac77e068786dd16e2ec13</p>
 </li>
 <li>
 <p>Use case ends.</p>
@@ -4388,27 +4329,37 @@ Expected: Shows the GUI with a set of sample contacts. The window size may not b
 </div>
 </div>
 <div class="sect2">
-<h3 id="deleting-a-expense"><a class="link" href="#deleting-a-expense">F.2. Deleting a expense</a></h3>
+<h3 id="sign-up-for-an-account"><a class="link" href="#sign-up-for-an-account">F.2. Sign up for an account</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Deleting a expense while all expenses are listed</p>
+<p>Sign up for an account</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
-<p>Prerequisites: List all expenses using the <code>list</code> command. Multiple expenses in the list.</p>
+<p>Prerequisites: The application has been opened successfully and there are no other user accounts other than the sample user.</p>
 </li>
 <li>
-<p>Test case: <code>delete 1</code><br>
-Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.</p>
+<p>Test case: <code>signup tom</code><br>
+Expected: A message is shown to indicate that the user <code>tom</code> has been created successfully.</p>
 </li>
 <li>
-<p>Test case: <code>delete 0</code><br>
-Expected: No expense is deleted. Error details shown in the status message. Status bar remains the same.</p>
+<p>Test case: <code>signup tom doe</code><br>
+Expected: A message is shown to indicate that the USERNAME is invalid and shows the criteria for a valid USERNAME.</p>
+</li>
+</ol>
+</div>
 </li>
 <li>
-<p>Other incorrect delete commands to try: <code>delete</code>, <code>delete x</code> (where x is larger than the list size)<br>
-Expected: Similar to previous.</p>
+<p>Sign up for an account with an existing Username</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: There exists a user account with <code>Username</code> <code>tom</code></p>
+</li>
+<li>
+<p>Test case: <code>signup tom</code><br>
+Expected: A message is shown to indicate that the user already exists.</p>
 </li>
 </ol>
 </div>
@@ -4417,7 +4368,152 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="showing-statistics"><a class="link" href="#showing-statistics">F.3. Showing statistics</a></h3>
+<h3 id="log-in-to-an-account"><a class="link" href="#log-in-to-an-account">F.3. Log in to an account</a></h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Log in to an account with no password</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: There exists a user account with <code>Username</code> <code>tom</code> which has no <code>Password</code> set. There does not exist a user account with <code>Username</code> <code>jon</code>.</p>
+</li>
+<li>
+<p>Test case: <code>login u/tom</code>
+Expected: The UI expands (if it has not already been) to show <code>tom</code> Expense Tracker information and a message shown to indicate that <code>tom</code> has successfully logged in.</p>
+</li>
+<li>
+<p>Test case: <code>login u/tom p/password1</code>
+Expected: The UI expands (if it has not already been) to show <code>tom</code> Expense Tracker information and a message shown to indicate that <code>tom</code> has successfully logged in.</p>
+</li>
+<li>
+<p>Test case: <code>login u/jon</code>
+Expected: A message that indicates that the user <code>jon</code> does not exist is shown.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Log in to an account with a password</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: There exists a user account with <code>Username</code> <code>tom</code> which has <code>Password</code> set as <code>password1</code>.</p>
+</li>
+<li>
+<p>Test case: <code>login u/tom</code>
+Expected: A message that indicates that the input password is incorrect is shown.</p>
+</li>
+<li>
+<p>Test case: <code>login u/tom p/password2</code>
+Expected: A message that indicates that the input password is incorrect is shown.</p>
+</li>
+<li>
+<p>Test case: <code>login u/tom p/password1</code>
+Expected: The UI expands (if it has not already been) to show <code>tom</code> Expense Tracker information and a message shown to indicate that <code>tom</code> has successfully logged in.</p>
+</li>
+<li>
+<p>Test case: <code>login u/jon</code>
+Expected: A message that indicates that the user <code>jon</code> does not exist is shown.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="set-password-for-current-user"><a class="link" href="#set-password-for-current-user">8. Set password for current user</a></h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Set password for a user with no previously set password #1</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: Already logged into user with no previously set password.</p>
+</li>
+<li>
+<p>Test case: <code>setPassword n/pass word</code>
+Expected: A message with valid password constraints is shown.</p>
+</li>
+<li>
+<p>Test case: <code>setPassword n/pass</code>
+Expected: A message with valid password constraints is shown.</p>
+</li>
+<li>
+<p>Test case: <code>setPassword n/password</code>
+Expected: A message indicating that the password has been changed is shown.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Set password for a user with no previously set password #2</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: Already logged into user with no previously set password.</p>
+</li>
+<li>
+<p>Test case: <code>setPassword o/passsss n/password1</code>
+Expected: A message indicating that the password has been changed is shown.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Set password for a user with a previously set password</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: Already logged into user with <code>Password</code> set as <code>password1</code>.</p>
+</li>
+<li>
+<p>Test case: <code>setPassword n/password11</code>
+Expected: A message indicating that the old password is incorrect is shown.</p>
+</li>
+<li>
+<p>Test case: <code>setPassword n/password11 o/password2</code>
+Expected: A message indicating that the old password is incorrect is shown.</p>
+</li>
+<li>
+<p>Test case: <code>setPassword n/password11 o/password1</code>
+Expected: A message indicating that the password has been changed is shown.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="encrypt-and-decrypt-code-strings-code"><a class="link" href="#encrypt-and-decrypt-code-strings-code">9. Encrypt and Decrypt <code>Strings</code></a></h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Encrypt and decrypt `String`s</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: Already logged into a user account</p>
+</li>
+<li>
+<p>Test case: <code>encrypt this is a test string</code>, and then use <code>decrypt STRING</code> where <code>STRING</code> is the encrypted <code>String</code> obtained from the first command.
+Expected: A message indicating that the decrypted <code>String</code> is <code>this is a test string</code> is shown.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+<div class="sect2">
+<h3 id="showing-statistics"><a class="link" href="#showing-statistics">9.1. Showing statistics</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -4457,7 +4553,7 @@ If there are no expenses in the last 7 months, a message will be shown saying th
 </div>
 </div>
 <div class="sect2">
-<h3 id="notification-panel"><a class="link" href="#notification-panel">F.4. Notification Panel</a></h3>
+<h3 id="notification-panel"><a class="link" href="#notification-panel">9.2. Notification Panel</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -4495,7 +4591,7 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="toggling-notifications"><a class="link" href="#toggling-notifications">F.5. Toggling Notifications</a></h3>
+<h3 id="toggling-notifications"><a class="link" href="#toggling-notifications">9.3. Toggling Notifications</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -4538,7 +4634,7 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="budget-panel"><a class="link" href="#budget-panel">F.6. Budget Panel</a></h3>
+<h3 id="budget-panel"><a class="link" href="#budget-panel">9.4. Budget Panel</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -4570,7 +4666,7 @@ Expected: <code>BudgetPanel#budgetBar</code> should be updated. <code>BudgetPane
 </div>
 </div>
 <div class="sect2">
-<h3 id="category-panel"><a class="link" href="#category-panel">F.7. Category Panel</a></h3>
+<h3 id="category-panel"><a class="link" href="#category-panel">9.5. Category Panel</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -4618,25 +4714,5 @@ Expected: <code>BudgetPanel#budgetBar</code> should be updated. <code>BudgetPane
 </ol>
 </div>
 </div>
-<div class="sect2">
-<h3 id="saving-data"><a class="link" href="#saving-data">F.8. Saving data</a></h3>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Dealing with missing/corrupted data files</p>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
-<li>
-<p><em>{explain how to simulate a missing/corrupted file and the expected behavior}</em></p>
-</li>
-</ol>
 </div>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p><em>{ more test cases &#8230;&#8203; }</em></p>
-</div>
-</div>
-</div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 12:32:24 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 12:44:53 UTC</div></div></div></body></html>
