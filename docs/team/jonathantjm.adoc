@@ -52,7 +52,7 @@ https://github.com/CS2103-AY1819S1-T12-1/main/pull/185[#185],
 and https://github.com/CS2103-AY1819S1-T12-1/main/pull/189[#189].
 
 . Reviewed PRs made by teammates by providing meaningful comments, where necessary.
-The PRs I reviewed are
+The PRs I reviewed include
 https://github.com/CS2103-AY1819S1-T12-1/main/pull/72[#72],
 https://github.com/CS2103-AY1819S1-T12-1/main/pull/73[#73],
 https://github.com/CS2103-AY1819S1-T12-1/main/pull/76[#76],

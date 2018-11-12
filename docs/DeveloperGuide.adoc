@@ -364,8 +364,8 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
-
 //tag::security[]
+//tag::security1[]
 
 === Data Security
 The Expense Tracker ensures the security of users' data through the user accounts system and data encryption.
@@ -380,7 +380,8 @@ On initialization, `MainApp` class loads all xml files within the data folder ac
 ====
 The username value will be forced to match the name of the xml data filename (ignoring file extentions).
 ====
-
+//end::security1[]
+//tag::modelsecurity[]
 This feature is facilitated by newly added methods in the Model interface which now supports the following operations:
 
 * `Model#loadUserData(Username, Password)` -- Logs in to the user with the input `Username` and `Password` and loads the associated data into `Model`. Returns true if the `Password` matches the user's `Password`, else the user is not logged into and false is returned
@@ -392,7 +393,8 @@ This feature is facilitated by newly added methods in the Model interface which 
 * `Model#isMatchPassword(Password)` -- Checks if the input `Password` matches the name
 * `Model#encryptString(String)` -- Encrypts the input `String` using the currently logged in user's encryption key
 * `Model#decryptString(String)` -- Decrypts the input `String` using the currently logged in user's encryption key.
-
+//end::modelsecurity[]
+//tag::security2[]
 When implementing methods in `ModelManager` that requires a user to already be logged in, one can use `ModelManager#requireUserSelected()`, which throws a checked `NoUserSelectedException` if there is no logged in user. I.e your method should look like this:
 
 .New method example
@@ -401,9 +403,7 @@ When implementing methods in `ModelManager` that requires a user to already be l
 @Override
 public void methodName() throws NoUserSelectedException {
     requireUserSelected();
-    /*
-    Perform required operations here.
-    */
+    // Rest of the method body...
 }
 ----
 
@@ -413,7 +413,7 @@ The classes `Username` and `Password` have also been implemented and have the fo
 * `Username` cannot be constructed with a `String` containing a white space or any of the following characters: _" > < : \ / | ? *_
 * When a `Password` class is constructed with plain text, the password is hashed using SHA-256 before being stored as an internal `String` in the `Password` object
 * `Password` is only valid if the plain text form is at least 6 characters long
-
+//end::security2[]
 Utility methods related to data encryption are implemented in the `EncryptionUtil` class, which includes the following methods:
 
 * `EncryptionUtil#decryptString(String, String)` -- Decrypts a `String` with by using the input encryption key
@@ -421,7 +421,7 @@ Utility methods related to data encryption are implemented in the `EncryptionUti
 * `EncryptionUtil#createEncryptionKey(String)` -- Creates a 128-bit encryption key using the input plain text password `String`. Equivalent passwords will always map to equivalent keys.
 * `EncryptionUtil#encryptExpense(Expense, String)` -- Creates an `EncryptedExpense` instance of the given `Expense` by encrypting its data using the given encryption key
 * `EncryptionUtil#encryptTracker(ExpenseTracker)` -- Creates an `EncryptedExpenseTracker` instance of the given `ExpenseTracker` by encrypting it using its encryption key. This is always called when sending users' data to `Storage` for saving.
-
+//tag::security3[]
 Encrypted versions of the `ExpenseTracker` and most of the classes it contains were implemented. These classes have their class names prepended with `Encrypted` and are shown in the class diagram below:
 
 .Class diagram for `Enrypted` classes
@@ -443,22 +443,23 @@ Below is an example usage scenario and how the User Account System behaves at ea
 Below is the UML sequence diagram of the `StorageManager#readAllExpenses(Path)` method mentioned.
 
 .Sequence diagram of the `StorageManager#readAllExpenses(Path)` method
-image::implementation/ReadAllExpensesSequenceDiagram.png[width="512"]
+image::implementation/ReadAllExpensesSequenceDiagram.png[width="450"]
 
 Below is an example usage scenario and how the Sign Up and Login system behaves at each step after the application is launched.
 
 . The user executes the command `signup john` to create a user with the `Username` john
 . The `signup` command calls `Model#addUser(Username)` which adds the user `john` to `Model`. The operation is successful as `john` does not break any of the `Username` constraints and does not already exist in the Model.
 . The user then executes the command `login u/john` to log in to his user account
-. The `login` command calls `loadUserData(Username, Password)` with a null password as a password was not provided. The method is executed successfully as the user `john` has no password set.
+. The `login` command calls the `LoginCredentials(Username, String)` constructor with a null `String` password as a password was not provided.
+. The `login` command then calls `Model#loadUserData(LoginCredentials)` with the `LoginCredentials` instance created in the previous step. The method is executed successfully as the user `john` has no password set.
 . `john`&#8217;s data that is stored as `EncryptedExpenseTracker` is decrypted using the `EncryptedExpenseTracker#decryptTracker(String)` using an encryption key generated from `john`&#8217;s password (In this case an empty `String` is used as the password since `john`&#8217;s account has no password).
 . The selected data in `Model` is switched to `john`&#8217;s and an `UserLoggedInEvent` is raised for `UI` to show `john`&#8217;s Expense Tracker data
-
+//end::security3[]
 Below is the UML sequence diagram that shows how `SignUpCommand` works.
 
 .Sequence diagram showing how `SignUpCommand` works
 image::implementation/SignUpCommandSequenceDiagram.png[width="800"]
-
+//tag::security4[]
 Below is the UML sequence diagram that shows how `LoginCommand` works.
 
 .Sequence diagram showing how `LoginCommand` works
@@ -466,8 +467,8 @@ image::implementation/LoginCommandSequenceDiagram.png[width="800"]
 
 Below is an example usage scenario and how the Password system behaves at each step after the he/she is logged in.
 
-. The user is already logged in to the account `john` with an existing password `password1` and executes the command `setpassword o/password1 n/password2` to change his password to `password2`
-. The `setpassword` command calls the `Model#setPassword(Password)` method since the given old password matches his existing password and `password2` does not violate any password constraints
+. The user is already logged in to the account `john` with an existing password `password1` and executes the command `setPassword o/password1 n/password2` to change his password to `password2`
+. The `setPassword` command calls the `Model#setPassword(Password)` method since the given old password matches his existing password and `password2` does not violate any password constraints
 . The `Model#setPassword(Password)` method changes `john`&#8217;s account password to `password2`
 . `john`&#8217;s expense data gets encrypted using a new encryption key generated from the `String` `password2`. This also applies in future whenever it is saved to the data file.
 
@@ -477,15 +478,6 @@ Below is the UML sequence diagram that shows how `SetPasswordCommand` works.
 image::implementation/SetPasswordCommandSequenceDiagram.png[width="800"]
 
 ==== Design Considerations
-===== Aspect: Storage of Separate User Data
-
-* **Alternative 1 (current choice):** Save each user's data into a seperate xml file
-** Pros: More work needed to implement as the data loading has to be changed to read from multiple xml files
-** Cons: Users can transfer their own data between computers easily by just copying their own account's xml file
-* **Alternative 2:** Save all the separated user data in a single xml data file
-** Pros: Relatively easier to implement. ExpenseTracker already loads data from a single xml data file so less work has to be done to change the storage structure
-** Cons: Users will be unable to easily transfer their individual data to another computer
-
 ===== Aspect: Loading of User Data
 
 * **Alternative 1 (current choice):** Loading of User data is only done on initialization of Expense Tracker
@@ -494,7 +486,16 @@ image::implementation/SetPasswordCommandSequenceDiagram.png[width="800"]
 * **Alternative 2:** User data is loaded only when the user attempts to log in
 ** Pros: Unnecessary data is not kept in memory so memory space is not wasted
 ** Cons: The Model or Logic component will have to depend on the Storage component as the login command will require the Storage to load and return the user's data.
-// end::security[]
+// end::security4[]
+===== Aspect: Storage of Separate User Data
+
+* **Alternative 1 (current choice):** Save each user's data into a seperate xml file
+** Pros: More work needed to implement as the data loading has to be changed to read from multiple xml files
+** Cons: Users can transfer their own data between computers easily by just copying their own account's xml file
+* **Alternative 2:** Save all the separated user data in a single xml data file
+** Pros: Relatively easier to implement. ExpenseTracker already loads data from a single xml data file so less work has to be done to change the storage structure
+** Cons: Users will be unable to easily transfer their individual data to another computer
+//end::security[]
 
 // tag::statistics[]
 === Statistics
@@ -539,10 +540,28 @@ and passes the data as parameters by calling
 
 . `Logic#getExpenseStats()` gets the filtered expense list by calling `Model#getExpenseStats()`, which returns
 an unmodifiable `ObservableList`, only containing only expenses in the last 7 days, as per `ModelManager#expensePredicate`, and sorted by date.
-`Logic#getExpenseStats()` then organises the data into a `LinkedHashMap<String, Double>`, where the key value pair represents
-the data series of the chart. If `StatsMode` is set to TIME, the key and value pair represents date and cost.
-If `StatsMode` is set to CATEGORY, the key value pair represents category and cost.
 
+. `Logic#getExpenseStats()` then organises the data into a `LinkedHashMap<String, Double>`, where the key value pair represents
+the data series of the chart. If `StatsMode` is set to TIME, the key and value pair represents date and cost.
+If `StatsMode` is set to CATEGORY, the key value pair represents category and cost. Regardless of mode, the values are
+cumulative and is implemented using the algorithm in the following code snippet, using the example of category mode:
++
+```
+LinkedHashMap<String, Double> stats = new LinkedHashMap<>();
+for (Expense e : expenseList) {
+    String category;
+    category = e.getCategory().categoryName;
+
+    if (stats.containsKey(category)) {
+        stats.put(
+                category,
+                stats.get(category) + e.getCost().getCostValue()
+        );
+    } else {
+        stats.put(category, e.getCost().getCostValue());
+    }
+}
+```
 . `Logic#getStatsPeriod()`, `Logic#getStatsMode()` and `Logic#getPeriodAmount()` gets their respective data
  by calling the method of the same name in `Model`.
 
@@ -852,30 +871,26 @@ image::implementation/NotificationCommandSequenceDiagram.png[width="600"]
 
 // end::userinterfaceredesign[]
 
-// tag::budget[]
+// tag::budgetPart1[]
 
 === Budgeting
 
-The budget feature allows the user to set a budget for their expenses.
+This group of features allows the user to set budgets for their expenses.
 
-Available spending is defined as the total amount of expenses you can add before you exceed your budget.
-
-If the user's spending exceeds their available spending for the budget, a warning like the image below will be shown
+Available spending is defined as the total
+amount of expenses you can add before you exceed your budget. If the user's spending exceeds their available spending
+ for the budget, a <<UserGuide#over-budget-warning, warning>> will be shown
  to the user.
 
-.Warning that is shown when a user adds an expense which results in the user exceeding the budget.
-image::overbudget.png[width="790"]
-
-
-
-The current implementation for budgeting and its related features are described below.
+The current implementation for budgeting and its related features are described in the sections below.
 
 ==== Setting a Budget
+This feature allows the user to set a budget for Expense tracker.
 
 Given below is a sequence diagram and step by step explanation of how Expense Tracker executes when a user sets a budget
 
 .Sequence diagram of a user setting a budget.
-image::implementation/BudgetCommandSequenceDiagram.png[width="800"]
+image::implementation/BudgetCommandSequenceDiagram.png[width="700"]
 
 . User enters command `setBudget 2.00`.
 . The command is received by `ExpenseTrackerParser`, which then creates a `SetBudgetCommandParser` Object and calls
@@ -885,20 +900,17 @@ image::implementation/BudgetCommandSequenceDiagram.png[width="800"]
 . `LogicManager` then calls `SetBudgetCommand#execute()`, which calls `ModelManager#modifyMaximumBudget` to update the
  maximum budget of Expense Tracker.
 . `LogicManager` will then call `EventsCenter#post()` to update the UI, displaying the updated budget.
-. The budget is then updated.
 
 
 ==== Setting a recurring Budget
+This feature allows the user's available spending to reset every user defined frequency.
 
-Every time a user logs in, `Model#loadUserData()` is called and  the application will check if the user has set a time
-when the
-available spending will reset (recurrence time). If it is not set, Expense Tracker will issue a notification. Else,
-Expense Tracker will track the set recurrence time against the time now. If it exceeds, available spending will be
-reset, else nothing will be done.
+The implementation for this feature is describe in the two sections below.
 
 ===== Setting the recurrence frequency
+This section explains the implementations of `setRecurrenceFrequency` command.
 
-* Recurrence time is set by `setRecurrenceFrequency()`. If it has not been set before, the next recurrence time will
+* Recurrence time is set by `setRecurrenceFrequency`. If it has not been set before, the next recurrence time will
 be set to `currentTime` + `recurrenceFrequency`. This is shown in the code snippet below.
 ```
 public void setRecurrenceFrequency(long seconds) {
@@ -915,7 +927,8 @@ if (LocalDateTime.now().isAfter(this.nextRecurrence)) {
         // rest of the implementation
     {
 ```
-
+//end::budgetPart1[]
+[[recc-seq-diag]]
 Given below is a sequence diagram
 and step by step explanation of how Expense Tracker executes when a user sets a recurrence frequency.
 
@@ -946,17 +959,21 @@ returned to
 . `LogicManager` then calls `SetRecurringBudgetCommand#execute()`,which calls `ModelManager#setRecurrenceFrequency()`
 method to update the time when the next expenses of `totalBudget` is reset.
 
+//tag::budgetPart2[]
 ===== Resetting available spending.
+
+This section explains the implementations of the recurring budget.
 
 Every time the user logs in, Expense Tracker will check if the available spending should be reset. Sequence diagram
 of available spending resetting is given below.
 
 .Sequence diagram of a user setting a recurrence frequency.
-image::implementation/RecurrenceFrequencySequenceDiagram.png[width="900"]
+image::implementation/RecurrenceFrequencySequenceDiagram.png[width="600"]
 
 Execution steps of resetting available spending are as follows:
 
-. User logs in
+. User logs in, which causes the `login` command to execute in `Logic`. `Logic` calls `Logic#execute()` to
+execute the command on the `Model`.
 
 . `login` command executes in the `Logic`, which calls `Logic#execute()` to execute the command on `Model`
 
@@ -966,10 +983,12 @@ available spending is to be reset.
 . `TotalBudget#checkBudgetRestart()` either return `NOT_SET` or `SPENDING_RESET`, which will add their respective
 notifications. It will also return `DO_NOTHING`, which will results in `Model` to continue its execution.
 
+//end::budgetPart2[]
 
+[[Budget-Category]]
 ==== Setting a Budget by Category
 
-An extension to the budget feature, this allows the user to divide their budget based on categories. Users can
+An extension to the budget feature, this feature allows the user to divide their budget based on categories. Users can
 allocate parts of their budget to certain categories.
 If the user's expenses for a `Category` exceeds the available spending for their `CategoryBudget`, a warning will be
 shown
@@ -999,21 +1018,28 @@ method. If any of the keywords are missing, `ParseException` will be thrown.
 . `LogicManager` then calls `AddCategoryBudgetCommand#execute()`,which calls `ModelManager#setCategoryBudget()`
 method to add a `CategoryBudget`.
 
+// tag::budgetPart3[]
+
 ===== Setting budgets for different time frames (Proposed)
-Users can now set budgets for different time frames. For example, a user can have a monthly budget and a weekly budget.
-This is to allow a user to segment his spending by weeks. A benefit to this is that even if the user has spent over
-the budget for this week, he could potentially spend lesser to make up for his overspending. This allows for expense
-tracking as it allows for more leeway in how a person could spend. This is illustrated by the images below.
+Users can now set budgets for different time frames. For example, a user can have a monthly and weekly budget.
+This is to allow a user to segment his spending by weeks. Thus, even if the user has spent over
+the budget for this week, he could potentially spend lesser in the next week to make up for his overspending and keep
+ within his budget for the month. This is
+illustrated by the images below.
 
+[.clearfix]
+--
+[.left]
 .Diagram of a weekly budget
-image::budgetOfTheWeek.PNG[width="800"]
+image::budgetOfTheWeek.png[width="200"]
 
+[.left]
 .Diagram of a monthly budget.
-image::budgetOfTheMonth.png[width="800"]
+image::budgetOfTheMonth.png[width="200"]
+--
 
-The first image above shows that the user has spent over his budget for the week, whilst the second image shows that
-the
-user still has available spending for the month.
+The first image shows that the user has spent over his budget for the week, while the second image shows that
+the user still has available spending for the month.
 
 ==== Design Considerations
 
@@ -1030,7 +1056,7 @@ This section provides alternative design patterns that we have considered for fe
 logging in, this should not be possible
 
 
-// end::budget[]
+// end::budgetPart3[]
 
 === Logging
 
@@ -1579,32 +1605,7 @@ Use case ends
     ** Use case ends.
 
 * 1a. Expense Tracker detects that the account is password-protected.
-** 1a1. Expense tracker informs the user that a password is required.
-** Use case ends
-
-[discrete]
-
-=== Use case: Login without password
-
-*MSS*
-
-1. User keys in command to login to an account.
-2. Expense Tracker logs user into account.
-+
-Use case ends
-
-*Exceptions*
-
-* 1a.Expense Tracker detects error in the entered data.
-    ** 1a1. Expense Tracker informs user of the error.
-    ** Use case ends.
-
-* 1a.Expense Tracker detects that specified user does not exist.
-    ** 1a1. Expense Tracker informs user that user does not exist
-    ** Use case ends.
-
-* 1a. Expense Tracker detects that the account is password-protected.
-** 1a1. Expense tracker informs the user that a password is required.
+** 1a1. Expense tracker informs the user that a password is incorrect.
 ** Use case ends
 
 [discrete]
@@ -1828,12 +1829,8 @@ Use case ends
 
 *Extensions*
 
-* 1a.Expense Tracker detects error in the entered data.
-    ** 1a1. Expense Tracker informs user of the error.
-    ** Use case ends.
-
-* 1b.Expense Tracker detects that the user is not logged into an account.
-    ** 1b1. Expense Tracker informs user that they are not logged into any user.
+* 1a.Expense Tracker detects that the user is not logged into an account.
+    ** 1a1. Expense Tracker informs user that they are not logged into any user.
     ** Use case ends.
 
 [discrete]
@@ -1848,16 +1845,12 @@ Use case ends
 
 *Extensions*
 
-* 1a.Expense Tracker detects error in the entered data.
-    ** 1a1. Expense Tracker informs user of the error.
+* 1a.Expense Tracker detects that the specified string was not encrypted with the user's encryption key.
+    ** 1a1. Expense Tracker informs user that the specified string was not encrypted with the user's encryption key.
     ** Use case ends.
 
-* 1b.Expense Tracker detects that the specified string was not encrypted with the user's encryption key.
-    ** 1b1. Expense Tracker informs user that the specified string was not encrypted with the user's encryption key.
-    ** Use case ends.
-
-* 1c.Expense Tracker detects that the user is not logged into an account.
-    ** 1c1. Expense Tracker informs user that they are not logged into any user.
+* 1b.Expense Tracker detects that the user is not logged into an account.
+    ** 1b1. Expense Tracker informs user that they are not logged into any user.
     ** Use case ends.
 
 [discrete]
@@ -1913,28 +1906,202 @@ A contact detail that is not meant to be shared with others
 
 Given below are instructions to test the app manually.
 
-[NOTE]
-These instructions only provide a starting point for testers to work on; testers are expected to do more _exploratory_ testing.
+=== Setting a budget
 
-=== Launch and Shutdown
+. Setting a budget no matter what is listed.
 
-. Initial launch
+** Test case: `setBudget 2.00` +
+    Expected: Budget is set to $2.00. Current spendings update to the total costs of all expenses recorded. UI updates
+    accordingly.
+** Test case: `setBudget 0.00` +
+    Expected: Error message of no negative values being allowed is shown. Budget is not set. UI does not update.
+** Test case: `setBudget -1.00`+
+    Expected: Similar to previous
+** Test case: `setBudget 1` +
+    Expected: Budget is not set. Error details stating that the a valid budget consists of {int}.{digit}{digit} is
+    shown in the status message. UI is not updated.
+** Testcase: `setBudget x` where x is not a number` +
+    Expected: Budget is not set. Error message informing user of incorrect syntax is shown in the status message. UI is
+    not updated.
 
-.. Download the jar file and copy into an empty folder
-.. Double-click the jar file +
-   Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+** Other incorrect delete commands to try: `setBudget`, `setBudget x` where x is not a number with 2 decimal places.
+    Expected: Similar to previous
 
-=== Deleting a expense
+. Adding an expense after budget has been set
 
-. Deleting a expense while all expenses are listed
+** Test case: Add a valid expense that does not cause the budget to exceed. +
+    Expected: Status message shown is similar to `add` command. Budget is updated. UI is updated.
 
-.. Prerequisites: List all expenses using the `list` command. Multiple expenses in the list.
-.. Test case: `delete 1` +
-   Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
-   Expected: No expense is deleted. Error details shown in the status message. Status bar remains the same.
-.. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) +
-   Expected: Similar to previous.
+** Test case: Add a valid expense that causes the budget to exceed. +
+    Expected: Status message shown is similar to `add` command. Budget is updated. UI is updated. Notification
+    informing the user that adding this expense results in the budget exceeding is shown.
+
+
+=== Setting a recurrence frequency
+
+. Setting the recurrence frequency.
+
+** Test case: `setRecurrenceFrequency sec/1` +
+    Expected: Recurrence frequency is set. Message showing that the recurrence frequency being set to 1 seconds is
+    shown.
+
+** Test case: `setRecurrenceFrequency hrs/1` +
+    Expected: Recurrence frequency is set. Message showing that the recurrence frequency being set to 3600 seconds is shown.
+
+** Test case: `setRecurrenceFrequency 1` +
+    Expected: Recurrence frequency is not set. Error details are shown in
+    the status message.
+
+** Other incorrect recurrence frequency commands to try: `setRecurrenceFrequency`, `setRecurrenceFrequency x` where x
+ is a number without tags. +
+ Expected: Similar to previous.
+
+. Budget is restarted after the set recurrence frequency.
+
+** Prerequisite: Tester is in the application.
+
+** Test case: Close the application. Open the application and login to the same account. +
+    Expected: Budget not updated, expenses not deleted, nothing changes.
+
+** Test case: Apply the command `setRecurrenceFrequency sec/1`. Close the application. Login to the same account. +
+    Expected: Budget is now reset ($0/{initial budget}). Expenses not deleted. UI updates accordingly.
+
+** Test case: Apply the command `setRecurrenceFrequency hr/1`. Close the application. Login to the same account. +
+    Expected: Budget not updated, expenses not deleted, nothing changes.
+
+=== Setting a category budget
+
+. Setting the Category Budget
+
+** Test case: `setCategoryBudget c/NEW_CATEGORY b/2.00` where `NEW_CATEGORY` is a category not used by any expense. +
+    Expected: Category Budget is set. Message showing that the Category budget is set is shown. Icon showing the
+    category and its budget appears.
+
+** Test case: `setCategoryBudget c/OLD_CATEGORY b/2.00` where `OLD_CATEGORY` is a Category already used by at least
+one expense. +
+    Expected: Similar to previous
+
+** Test case: `setCategoryBudget c/INVALID_CATEGORY b/2.00`, where `INVALID_CATEGORY` is an invalid Category. +
+    Expected. Category Budget is not set. Error message displayed would be similar to when a user tries to add an
+    expense with an invalid Category.
+
+** Test case: `setCategoryBudget c/test b/INVALID_BUDGET`, where `INVALID_CATEGORY` is an invalid Category. +
+    Expected. Category Budget is not set. Error message displayed would be similar to when a user tries to add an
+    expense with an invalid Budget.
+
+** Test case: `setCategoryBudget` +
+    Expected: Category Budget not set. Error details are shown in
+    the status message.
+
+** Other incorrect commands to try: `setCategoryBudget x` where x an alphanumeric without valid tags,
+`setCatgoryBudget c/VALID_CATEGORY`, `setCategoryBudget b/VALID_BUDGET`. +
+    Expected: Similar to above.
+
+. Adding an expense after Category budget has been set
+
+** Test case: Add a valid expense that does not cause the Category budget to exceed. +
+    Expected: Status message shown is similar to `add` command. Budget is updated. UI is updated.
+
+** Test case: Add a valid expense that causes the Category budget to exceed, but not the total budget. +
+    Expected: Status message shown is similar to `add` command. Budget is updated. UI is updated. Notification
+    informing the user that adding this expense results in the budget exceeding is shown.
+
+=== Sign up for an account
+
+. Sign up for an account
+
+.. Prerequisites: The application has been opened successfully and there are no other user accounts other than the sample user.
+.. Test case: `signup tom` +
+   Expected: A message is shown to indicate that the user `tom` has been created successfully.
+.. Test case: `signup tom doe` +
+   Expected: A message is shown to indicate that the USERNAME is invalid and shows the criteria for a valid USERNAME.
+
+. Sign up for an account with an existing Username
+
+.. Prerequisites: There exists a user account with `Username` `tom`
+.. Test case: `signup tom` +
+   Expected: A message is shown to indicate that the user already exists.
+
+=== Log in to an account
+
+. Log in to an account with no password
+
+.. Prerequisites: There exists a user account with `Username` `tom` which has no `Password` set. There does not exist a user account with `Username` `jon`.
+.. Test case: `login u/tom`
+   Expected: The UI expands (if it has not already been) to show `tom` Expense Tracker information and a message shown to indicate that `tom` has successfully logged in.
+.. Test case: `login u/tom p/password1`
+   Expected: The UI expands (if it has not already been) to show `tom` Expense Tracker information and a message shown to indicate that `tom` has successfully logged in.
+.. Test case: `login u/jon`
+   Expected: A message that indicates that the user `jon` does not exist is shown.
+
+. Log in to an account with a password
+.. Prerequisites: There exists a user account with `Username` `tom` which has `Password` set as `password1`.
+.. Test case: `login u/tom`
+   Expected: A message that indicates that the input password is incorrect is shown.
+.. Test case: `login u/tom p/password2`
+   Expected: A message that indicates that the input password is incorrect is shown.
+.. Test case: `login u/tom p/password1`
+   Expected: The UI expands (if it has not already been) to show `tom` Expense Tracker information and a message shown to indicate that `tom` has successfully logged in.
+.. Test case: `login u/jon`
+   Expected: A message that indicates that the user `jon` does not exist is shown.
+
+== Set password for current user
+
+. Set password for a user with no previously set password #1
+
+.. Prerequisites: Already logged into user with no previously set password.
+.. Test case: `setPassword n/pass word`
+   Expected: A message with valid password constraints is shown.
+.. Test case: `setPassword n/pass`
+   Expected: A message with valid password constraints is shown.
+.. Test case: `setPassword n/password`
+   Expected: A message indicating that the password has been changed is shown.
+
+. Set password for a user with no previously set password #2
+.. Prerequisites: Already logged into user with no previously set password.
+.. Test case: `setPassword o/passsss n/password1`
+   Expected: A message indicating that the password has been changed is shown.
+
+. Set password for a user with a previously set password
+.. Prerequisites: Already logged into user with `Password` set as `password1`.
+.. Test case: `setPassword n/password11`
+   Expected: A message indicating that the old password is incorrect is shown.
+.. Test case: `setPassword n/password11 o/password2`
+   Expected: A message indicating that the old password is incorrect is shown.
+.. Test case: `setPassword n/password11 o/password1`
+   Expected: A message indicating that the password has been changed is shown.
+
+=== Encrypt and Decrypt `Strings`
+
+. Encrypt and decrypt `String`s
+.. Prerequisites: Already logged into a user account
+.. Test case: `encrypt this is a test string`, and then use `decrypt STRING` where `STRING` is the encrypted `String` obtained from the first command.
+   Expected: A message indicating that the decrypted `String` is `this is a test string` is shown.
+
+=== Showing statistics
+
+. Showing statistics based on expenses in Expense Tracker
+
+.. Prerequisites: User must be logged in. Preferably, there should be expenses in Expense Tracker with varying dates,
+categories and costs.
+
+.. Test case: `stats` +  (defaults to periodAmount = 7, period = day, mode = time)
+   Expected: Statistics Panel will be shown (if not already showing). Expense Tracker will attempt to display statistics in
+   a *bar chart* for expenses in the last 7 days, starting from the current day, aggregated by day.
+   If there are no expenses in the last 7 days, a message will be shown saying that there are no expenses.
+
+.. Test case: `stats n/7 p/d m/t` +  (defaults to periodAmount = 7, period = day, mode = time)
+   Expected: Exactly the same as above.
+
+.. Test case: `stats n/7 p/m m/t` (periodAmount = 7, period = month, mode = time) +
+   Expected: Statistics Panel will be shown (if not already showing). Expense Tracker will attempt to display statistics in
+   a *bar chart* for expenses in the last 7 months, starting from the current month, aggregated by month.
+   If there are no expenses in the last 7 months, a message will be shown saying that there are no expenses.
+
+.. Test case: `stats n/7 p/m m/c` (periodAmount = 7, period = month, mode = category) +
+   Expected: Statistics Panel will be shown (if not already showing). Expense Tracker will attempt to display statistics in
+   a *pie chart* for expenses in the last 7 months, starting from the current month, aggregated by category.
+   If there are no expenses in the last 7 months, a message will be shown saying that there are no expenses.
 
 === Notification Panel
 
@@ -2005,10 +2172,35 @@ These instructions only provide a starting point for testers to work on; testers
 .. Test case: `setCategoryBudget c/Fees b/10.00` + `setCategoryBudget c/Bus b/10.00` + `setCategoryBudget c/Bills b/10.00`
 .. Expected: Four of the five added `CategoryIcon` objects should be displayed in `CategoryPanel`.
 
-=== Saving data
+=== Find expenses
 
-. Dealing with missing/corrupted data files
+. Find expenses that are in the ExpenseTracker
+.. Prerequisites: Logged in to an account and the targeted expenses exist in the account.
+.. Test case: `find n/lunch` +
+   Expected: The expenses with name "lunch" are shown on the expense list panel. Number of expenses
+   found is shown as the status message.
+.. Test case: `find c/food $/1.00:2.00` +
+   Expected: The expenses under "food" category with cost between 1.00 and 2.00(inclusive) are shown on
+   the expense list panel. Number of expense found is shown as the status message.
 
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+. Find expenses that are not in the ExpenseTracker
+.. Prerequisites: Logged in to an account and the targeted expenses do not exist in the account.
+.. Test case: `find (any keywords that would not direct to existing expenses)`
+   Expected: No expense is shown on expense list panel. "0 expenses listed!" is shown as
+   status message.
 
-_{ more test cases ... }_
+=== Mass edit expenses
+
+. Mass edit expenses that are in the ExpenseTracker
+.. Prerequisites: Logged in to an account and the targeted expenses exist in the account.
+.. Test case: `massedit c/school \-> c/food` +
+   Expected: Edits all the expenses in the "school" category to have their categories changed to "food" and the edited
+   expenses are shown on the screen. Success message is shown as status message.
+.. Test case: `massedit n/School fee d/01-10-2018:03-10-2018 \-> t/books` +
+   Expected: Edits all the expenses which have names containing "School", with dates between "01-10-2018" and "03-10-2018", to have their tags changed to "book". The
+   edited expenses are shown as status message.
+
+. Mass edit expenses that are not in the ExpenseTracker
+.. Prerequisites: Logged in to an account and the targeted expenses do not exist in the account.
+.. Test case: `massedit (ny keywords that would not direct to existing expenses) \-> (any edited field)` +
+   Expected: No expense is shown on expense list panel. "No expense is found by the keywords." is shown as status message.

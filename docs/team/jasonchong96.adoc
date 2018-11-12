@@ -13,15 +13,10 @@ This portfolio aims to document the contributions made by *Jason Chong Yi Sheng*
 
 *ExpenseTracker* is a desktop expense tracking application developed to aid users in tracking their expenses and
 save money. The user interacts with it using a Command Line Interface (CLI), and it has a Graphical User Interface
-(GUI) created with JavaFX library. It is written in Java, and has about 20 kLoC. The product was morphed from an https://github.com/nus-cs2103-AY1819S1/addressbook-level4[Address Book] over a period of 8 weeks
+(GUI) created with JavaFX library. It is written in Java, and has about 28 kLoC. The product was morphed from an https://github.com/nus-cs2103-AY1819S1/addressbook-level4[Address Book] over a period of 8 weeks
 under the constraints described https://nus-cs2103-ay1819s1.github.io/cs2103-website/admin/project-constraints.html[here].
 
-Some of its main features are:
-
-. Setting a budget for expenses.
-. Data security.
-. Categorization of expenses.
-. Statistics for expenses.
+Some of its main features are: Setting a budget for expenses, data security, categorization and statistics for expenses.
 
 == Summary of contributions
 
@@ -29,7 +24,7 @@ Some of its main features are:
 ** What it does: Allows multiple users to use the application on the same machine without being able to view or affect each other's data without their passwords. Also keeps each user's data file encrypted and inaccessible by others.
 ** Justification: This feature improves the product significantly because multiple users can share the application on the same computer. For many people, financial information is often kept private so this function allows them to use the application without fear of other's having unauthorized access to their spending data.
 ** The following are the highlights of this feature:
-*** This enhancement adds a robust user accounts system that comes with several features, namely `signup`, `login` and `setpassword`. Each user's data file is kept separately and explicitly labelled with their username. The implementation too was challenging as it required changes to how data is loaded in the `Storage` component and stored in the `Model` component.
+*** This enhancement adds a robust user accounts system that comes with several features, namely `signup`, `login` and `setPassword`. Each user's data file is kept separately and explicitly labelled with their username. The implementation too was challenging as it required changes to how data is loaded in the `Storage` component and stored in the `Model` component.
 *** The encryption algorithm also makes use of hash algorithms and the AES symmetric key encryption algorithm to ensure that no one can gain access to a user's information unless he/she knows the plain text password of the user, which is not stored anywhere.
 ** Credits: Google Guava library for common hashing algorithms.
 
@@ -69,18 +64,16 @@ include::../UserGuide.adoc[tag=security1]
 If the log in is successful (ie. the USERNAME and PASSWORD are correct and the user's data has no issues), then the UI will be expanded as shown in the diagram below:
 
 .Diagram showing log in success UI expansion for sample user
-image::implementation/ReadAllExpensesSequenceDiagram.png[width="512"]
+image::userguide/LogInExpectedOutcomeDiagram.png[width="800"]
 
 include::../UserGuide.adoc[tag=security2]
 
-include::../UserGuide.adoc[tag=encrypt]
-
 |===
-|_This command has been omitted from this Portfolio as it is largely a repetition of the encrypt command, except that it decrypts strings rather than encrypt them. You can view this section in the `UserGuide` if you wish to_
+|_I have also contributed documentation for the `encrypt` and `decrypt` commands but they have been omitted from this portfolio as the above commands are sufficient to showcase my ability to write documentation targeting end-users. You can view this section in the `User Guide` if you wish to._
 |===
 
-== Frequently Asked Questions
-include::../UserGuide.adoc[tag=dataencryption]
+//== Frequently Asked Questions
+//include::../UserGuide.adoc[tag=dataencryption]
 
 == Contributions to the Developer Guide
 
@@ -88,5 +81,31 @@ include::../UserGuide.adoc[tag=dataencryption]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=security]
+include::../DeveloperGuide.adoc[tag=security1]
+
+|===
+|_This feature is facilitated by 9 newly added methods in the `Model` interface. One of them is as follows:
+
+`Model#setPassword(Password, String)` -- Changes the `Password` of the user that is currently logged in. Requires the new password as a `Password` object and as a plain text `String`.
+
+The list of these methods along with their descriptions have been omitted in this portfolio and can be found in the `Developer Guide`._
+|===
+
+include::../DeveloperGuide.adoc[tag=security2]
+
+|===
+|_Utility methods related to data encryption are implemented in the EncryptionUtil class. They include methods to encrypt/decrypt `String`, `Expense` and `ExpenseTracker` and to generate a 128-bit encryption key from a plain text password `String`. More details can be found in the `Developer Guide`._
+|===
+
+include::../DeveloperGuide.adoc[tag=security3]
+
+|===
+|_The sequence diagram for SignUpCommand has been omitted as it is largely similar to subsequent sequence diagrams in this section. You can view it in the `Developer Guide` if you wish to._
+|===
+
+include::../DeveloperGuide.adoc[tag=security4]
+
+|===
+|_Another aspect, `Storage of Separate User Data`, has been omitted from this portfolio section as I've already demonstrated my ability to consider different design options. You can view it in the `Developer Guide` if you wish to._
+|===
 

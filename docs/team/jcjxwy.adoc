@@ -36,7 +36,7 @@ all targeted expenses at the same time.
 Now users can easily view the list of expenses with desired details, for example,specific name, category, cost and date.
 With mass edit, users can easily correct the wrongly recorded expenses.
 *** Highlights: This feature enhances the original filtering function. This makes the application more user-friendly as
-filtering is one of the most frequently used command in this application.
+filtering is one of the most frequently used commands in this application.
 
 * *Minor enhancement:*
 ** Refactored original `AddressBook` and `Person` class into `ExpenseTracker` and `Expense` class.

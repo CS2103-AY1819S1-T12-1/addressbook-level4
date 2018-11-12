@@ -1,6 +1,7 @@
 = Winson Heng Yong Seng - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
+:relfileprefix: ../
 :stylesDir: ../stylesheets
 
 == PROJECT: ExpenseTracker
@@ -12,8 +13,8 @@
 This portfolio aims to document the contributions that I made to the *ExpenseTracker*.
 
 *ExpenseTracker* is a desktop expense tracking application developed to aid users in tracking their expenses and
-save money. The user interacts with it using a Command Line Interface (CLI), and it has a Graphical User Interface
-(GUI) created with JavaFX library. It is written in Java, and has about 20 kLoC.
+saving money. The user interacts with it using a Command Line Interface (CLI), and it has a Graphical User Interface
+(GUI) created with JavaFX library. It is written in Java, and has about 20k lines of code.
 
 Some of its main features are:
 
@@ -41,7 +42,7 @@ main purpose of an expense tracker.
 their choice.
 . Added a `setCategoryBudget` command that allows the user to set budgets based on their category of expenses.
 
-* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+* *Code contributed*: [https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=winsonhys&sort=displayName&since=2018-09-12&until=2018-11-02&timeframe=day&reverse=false&repoSort=true[Code]]
 
 * *Other contributions*:
 
@@ -73,13 +74,28 @@ https://github.com/CS2103-AY1819S1-T12-1/main/pull/17[#17]
 |===
 
 include::../UserGuide.adoc[tag=budget]
+For more details and caveats for this feature, please refer to the <<UserGuide#, user guide>>.
 
 == 4. Contributions to the Developer Guide
 
 |===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical
+ documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=budget]
+include::../DeveloperGuide.adoc[tag=budgetPart1]
+For more details on explanation on how Expense Tracker executes when a user sets a recurrence frequency and its
+sequence diagram, please refer to the <<DeveloperGuide#recc-seq-diag, Developer Guide>>.
+
+include::../DeveloperGuide.adoc[tag=budgetPart2]
+
+==== Setting a Budget by Category
+An extension to the budget feature, this allows the user to divide their budget based on categories. Users can
+allocate parts of their budget to certain categories. Refer to the <<DeveloperGuide#Budget-Category, Developer
+Guide>> for
+more details.
+
+include::../DeveloperGuide.adoc[tag=budgetPart3]
+
 
 
