@@ -45,6 +45,17 @@ You are now able to use all the commands of the app. +
 Refer to <<Features, Features>> for details on all the available commands. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
+[NOTE]
+====
+* For Linux users, if the error `expensetracker.jar is not marked as executable` error appears, please follow the
+steps below:
+. Open `Terminal`, enter the command `cd path/to/expensetracker.jar`
+. Enter the command `sudo chmod 666 expensetracker.jar`
+
+`expensetracker.jar` will now be executable.
+====
+
+
 == User Interface
 After logging in, the interface will display as such:
 
@@ -63,7 +74,7 @@ This component is highlighted by the red box. There are two modes to this panel:
 You are able swap between Expense List mode and Statistics Panel mode by using the `list` command and
  `stats` command, respectively.
 
- See <<ListCommand,`list`>> and <<StatsCommand, `stats`>> commands for more details on these commands.
+See <<ListCommand,`list`>> and <<StatsCommand, `stats`>> commands for more details on these commands.
 
 ==== Expense List mode
 In Expense List mode, the Left Panel displays the list of all expenses, as shown below:
@@ -73,11 +84,11 @@ image::userguide/expenseList.png[width="790"]
 
 Commands that alter the Expense List, such as `find` and `list`, will change the expenses that are shown.
 
- See <<FindCommand, `find`>> and <<ListCommand, `list`>> commands for more details.
+See <<FindCommand, `find`>> and <<ListCommand, `list`>> commands for more details.
 
 Each expense has an index number next to the expense name. These are relevant to the `delete` and `edit` commands.
 
- See <<DeleteCommand, `delete`>> and <<EditCommand, `edit`>> commands for more details.
+See <<DeleteCommand, `delete`>> and <<EditCommand, `edit`>> commands for more details.
 
 
 ==== Statistics Panel mode
@@ -90,22 +101,25 @@ The upper section displays statistical information about expenses.
 
 The type of statistics shown can be changed via the `stats` command.
 
- See <<StatsCommand, `stats`>> command for more details.
+See <<StatsCommand, `stats`>> command for more details.
 
 The lower section shows four of the category budgets that have been set using the `setCategoryBudget` command.
 
 [NOTE]
 If there are no category budgets set, the lower section will be empty, save for the title.
 
- See <<SetCategoryBudgetCommand, `setCategoryBudget`>> command for more details.
+See <<SetCategoryBudgetCommand, `setCategoryBudget`>> command for more details.
 
-=== Budget Tracker
+=== Budget Panel
 
 This component is highlighted by the blue box.
 
-The Budget Tracker shows information about your total expenditure and
+The Budget Panel shows information about your total expenditure and
 the budget which you set using the `setBudget` command.
  See <<SetBudgetCommand, `setBudget`>> command for more details.
+
+[NOTE]
+On slow computers, it is possible that the texts in the Budget Panel may not appear.
 
 === Notifications Panel
 
@@ -410,7 +424,7 @@ exceeding the total budget that is set to prevent yourself from overspending. Th
 
 [#over-budget-warning]
 .Warning that is shown when a user adds an expense which results in the user exceeding the budget.
-image::Overbudget.png[width="300"]
+image::overbudget.png[width="300"]
 
 Format: `setBudget MONEY_WITH_TWO_DECIMAL_PLACES`
 
@@ -582,13 +596,13 @@ Choosing Time mode will show a bar chart, similar to the one below, in the stati
 depending on the specified `PERIOD_AMOUNT` and `PERIOD`, starting from the current day or month. +
 
 .Statistics Panel showing a bar chart in Time mode
-image::userguide/barChart.png[width="790"]
+image::userguide/barChart.png[width="600"]
 
 Choosing Category mode will show a pie chart, similar to the one below, in the statistics panel, where amounts for each category will displayed for
 expenses in the specified `PERIOD_AMOUNT` and `PERIOD`.
 
 .Statistics Panel showing a pie chart in Category mode
-image::userguide/pieChart.png[width="790"]
+image::userguide/pieChart.png[width="600"]
 
 The available options for `PERIOD` are `d` and `m`, which represents day and month respectively. E.g. if `PERIOD_AMOUNT` is 7
 and `MODE` is `d`, the statistics will include data from the past 7 days.
@@ -604,6 +618,9 @@ Shows the expense statistics for the past 14 days as a bar chart showing expense
 
 * `stats n/3 p/m m/t` +
 Shows the expense statistics for the past 3 months as a bar chart showing expenses for each month +
+
+* `stats n/7 p/d m/c` +
+Shows the expense statistics for the past 7 days as a pie chart showing expenses for each category +
 
 * `stats n/3 p/m m/c` +
 Shows the expense statistics for the past 3 months as a pie chart showing expenses for each category +
@@ -742,7 +759,9 @@ after any command that changes the data. +
 *Q*: How do I transfer my data to another Computer? +
 *A*:  Install the app in the other computer and copy the `data` folder in your previous Expense Tracker folder over to the new Expense Tracker folder on your other Computer.
 If you wish to copy only one user over, create a folder named `data` in the app directory on the other computer and copy the xml file with your username in the `data` folder of the old computer into the `data` folder of the new computer.
+
 //tag::dataencryption[]
+
 *Q*: How is my expense data kept safe when I use this application? +
 *A*: All user expense-specific data is encrypted. The program ensures that no one will be able to decrypt encrypted information without your actual plain text password, which is not stored anywhere. So rest assured that no one can access your data without your password.
 
@@ -772,16 +791,16 @@ e.g. `delete 3`
 * *Find* : `find [n/NAME] [c/CATEGORY] [$/COST:COST] [t/TAG] [d/DATE:DATE]` +
 e.g. `find c/School`
 * *List* : `list`
-* *Set `totalBudget`* : `setBudget` +
+* *Set budget for Expense Tracker* : `setBudget` +
 e.g. `setBudget 20.00`
-* *Set recurring frequency for `totalBudget`*: `setRecurrenceFrequency [hrs/HOURS] [min/MINUTES] [sec/SECONDS]` +
+* *Set recurring frequency for the budget*: `setRecurrenceFrequency [hrs/HOURS] [min/MINUTES] [sec/SECONDS]` +
 * *Set category budgets* : `setCategoryBudget c/CATEGORY b/BUDGET` +
 * *History* : `history`
 * *Undo* : `undo`
 * *Redo* : `redo`
-* *Statistics* : `stats n/NUMBER_OF_DAYS_OR_MONTHS m/MODE`
+* *Statistics* : `stats n/NUMBER_OF_DAYS_OR_MONTHS m/MODE` +
 e.g. `stats n/7 m/d`
-* *Toggle Notifications* : `notification n/NOTIFICATION_TYPE t/TOGGLE_OPTION`
+* *Toggle Notifications* : `notification n/NOTIFICATION_TYPE t/TOGGLE_OPTION` +
 e.g. `notification n/tip t/off`
 * *Clear* : `clear`
 * *Exit* : `exit`

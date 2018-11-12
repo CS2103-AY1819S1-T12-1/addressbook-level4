@@ -12,7 +12,7 @@
 This portfolio aims to document the contributions made by *Jason Chong Yi Sheng* to the *ExpenseTracker*.
 
 *ExpenseTracker* is a desktop expense tracking application developed to aid users in tracking their expenses and
-save money. The user interacts with it using a Command Line Interface (CLI), and it has a Graphical User Interface
+saving money. The user interacts with it using a Command Line Interface (CLI), and it has a Graphical User Interface
 (GUI) created with JavaFX library. It is written in Java, and has about 28 kLoC. The product was morphed from an https://github.com/nus-cs2103-AY1819S1/addressbook-level4[Address Book] over a period of 8 weeks
 under the constraints described https://nus-cs2103-ay1819s1.github.io/cs2103-website/admin/project-constraints.html[here].
 
