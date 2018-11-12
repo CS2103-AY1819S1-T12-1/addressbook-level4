@@ -739,7 +739,6 @@ Given below are the steps of an example scenario of how `BudgetPanel` is updated
 
 . The user executes an `add` command. As the `add` command modifies budget and
 expenses, `AddCommand#execute()` will post a `UpdateBudgetPanelEvent` event to the EventsCenter.
-
 [NOTE]
 If a command fails its execution or does not affect budget or expenses, `UpdateBudgetPanelEvent` will not be posted.
 
