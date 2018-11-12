@@ -81,17 +81,16 @@
 <li><a href="#log-in-to-an-account">F.5. Log in to an account</a></li>
 </ul>
 </li>
-<li><a href="#set-password-for-current-user">8. Set password for current user</a></li>
-<li><a href="#encrypt-and-decrypt-code-strings-code">9. Encrypt and Decrypt <code>Strings</code></a>
+<li><a href="#set-password-for-current-user">8. Set password for current user</a>
 <ul class="sectlevel2">
-<li><a href="#showing-statistics">9.1. Showing statistics</a></li>
-<li><a href="#notification-panel">9.2. Notification Panel</a></li>
-<li><a href="#toggling-notifications">9.3. Toggling Notifications</a></li>
-<li><a href="#budget-panel">9.4. Budget Panel</a></li>
-<li><a href="#category-panel">9.5. Category Panel</a></li>
-<li><a href="#find-expenses">9.6. Find expenses</a></li>
-<li><a href="#mass-edit-expenses">9.7. Mass edit expenses</a></li>
-<li><a href="#saving-data">9.8. Saving data</a></li>
+<li><a href="#encrypt-and-decrypt-code-strings-code">8.1. Encrypt and Decrypt <code>Strings</code></a></li>
+<li><a href="#showing-statistics">8.2. Showing statistics</a></li>
+<li><a href="#notification-panel">8.3. Notification Panel</a></li>
+<li><a href="#toggling-notifications">8.4. Toggling Notifications</a></li>
+<li><a href="#budget-panel">8.5. Budget Panel</a></li>
+<li><a href="#category-panel">8.6. Category Panel</a></li>
+<li><a href="#find-expenses">8.7. Find expenses</a></li>
+<li><a href="#mass-edit-expenses">8.8. Mass edit expenses</a></li>
 </ul>
 </li>
 </ul>
@@ -4134,24 +4133,11 @@ over my budget</p></td>
 <div class="ulist">
 <ul>
 <li>
-<p>1a.Expense Tracker detects error in the entered data.</p>
+<p>1a.Expense Tracker detects that the user is not logged into an account.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>1a1. Expense Tracker informs user of the error.</p>
-</li>
-<li>
-<p>Use case ends.</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>1b.Expense Tracker detects that the user is not logged into an account.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>1b1. Expense Tracker informs user that they are not logged into any user.</p>
+<p>1a1. Expense Tracker informs user that they are not logged into any user.</p>
 </li>
 <li>
 <p>Use case ends.</p>
@@ -4184,11 +4170,11 @@ over my budget</p></td>
 <div class="ulist">
 <ul>
 <li>
-<p>1a.Expense Tracker detects error in the entered data.</p>
+<p>1a.Expense Tracker detects that the specified string was not encrypted with the user&#8217;s encryption key.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>1a1. Expense Tracker informs user of the error.</p>
+<p>1a1. Expense Tracker informs user that the specified string was not encrypted with the user&#8217;s encryption key.</p>
 </li>
 <li>
 <p>Use case ends.</p>
@@ -4197,24 +4183,14 @@ over my budget</p></td>
 </div>
 </li>
 <li>
-<p>1b.Expense Tracker detects that the specified string was not encrypted with the user&#8217;s encryption key.</p>
+<p>1b.Expense Tracker detects that the user is not logged into an account.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>1b1. Expense Tracker informs user that the specified string was not encrypted with the user&#8217;s encryption key.</p>
+<p>1b1. Expense Tracker informs user that they are not logged into any user.</p>
 </li>
 <li>
 <p>Use case ends.</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>1c.Expense Tracker detects that the user is not logged into an account.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>1c1. Expense Tracker informs user that they are not logged into any user.</p>
 </li>
 </ul>
 </div>
@@ -4617,11 +4593,8 @@ Expected: A message indicating that the password has been changed is shown.</p>
 </li>
 </ol>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="encrypt-and-decrypt-code-strings-code"><a class="link" href="#encrypt-and-decrypt-code-strings-code">9. Encrypt and Decrypt <code>Strings</code></a></h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="encrypt-and-decrypt-code-strings-code"><a class="link" href="#encrypt-and-decrypt-code-strings-code">8.1. Encrypt and Decrypt <code>Strings</code></a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -4640,8 +4613,9 @@ Expected: A message indicating that the decrypted <code>String</code> is <code>t
 </li>
 </ol>
 </div>
+</div>
 <div class="sect2">
-<h3 id="showing-statistics"><a class="link" href="#showing-statistics">9.1. Showing statistics</a></h3>
+<h3 id="showing-statistics"><a class="link" href="#showing-statistics">8.2. Showing statistics</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -4681,7 +4655,7 @@ If there are no expenses in the last 7 months, a message will be shown saying th
 </div>
 </div>
 <div class="sect2">
-<h3 id="notification-panel"><a class="link" href="#notification-panel">9.2. Notification Panel</a></h3>
+<h3 id="notification-panel"><a class="link" href="#notification-panel">8.3. Notification Panel</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -4719,7 +4693,7 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="toggling-notifications"><a class="link" href="#toggling-notifications">9.3. Toggling Notifications</a></h3>
+<h3 id="toggling-notifications"><a class="link" href="#toggling-notifications">8.4. Toggling Notifications</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -4762,7 +4736,7 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="budget-panel"><a class="link" href="#budget-panel">9.4. Budget Panel</a></h3>
+<h3 id="budget-panel"><a class="link" href="#budget-panel">8.5. Budget Panel</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -4794,7 +4768,7 @@ Expected: <code>BudgetPanel#budgetBar</code> should be updated. <code>BudgetPane
 </div>
 </div>
 <div class="sect2">
-<h3 id="category-panel"><a class="link" href="#category-panel">9.5. Category Panel</a></h3>
+<h3 id="category-panel"><a class="link" href="#category-panel">8.6. Category Panel</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -4843,7 +4817,7 @@ Expected: <code>BudgetPanel#budgetBar</code> should be updated. <code>BudgetPane
 </div>
 </div>
 <div class="sect2">
-<h3 id="find-expenses"><a class="link" href="#find-expenses">9.6. Find expenses</a></h3>
+<h3 id="find-expenses"><a class="link" href="#find-expenses">8.7. Find expenses</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -4885,7 +4859,7 @@ status message.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="mass-edit-expenses"><a class="link" href="#mass-edit-expenses">9.7. Mass edit expenses</a></h3>
+<h3 id="mass-edit-expenses"><a class="link" href="#mass-edit-expenses">8.8. Mass edit expenses</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -4925,25 +4899,5 @@ Expected: No expense is shown on expense list panel. "No expense is found by the
 </ol>
 </div>
 </div>
-<div class="sect2">
-<h3 id="saving-data"><a class="link" href="#saving-data">9.8. Saving data</a></h3>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Dealing with missing/corrupted data files</p>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
-<li>
-<p><em>{explain how to simulate a missing/corrupted file and the expected behavior}</em></p>
-</li>
-</ol>
 </div>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p><em>{ more test cases &#8230;&#8203; }</em></p>
-</div>
-</div>
-</div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 13:18:08 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 13:35:24 UTC</div></div></div></body></html>
