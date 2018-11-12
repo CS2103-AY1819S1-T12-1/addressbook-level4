@@ -909,7 +909,7 @@ This feature allows the user's available spending to reset every user defined fr
 
 The implementation for this feature is describe in the two sections below.
 
-===== Setting the recurrence frequency
+===== 1. Setting the recurrence frequency
 This section explains the implementations of `setRecurrenceFrequency` command.
 
 * Recurrence time is set by `setRecurrenceFrequency`. If it has not been set before, the next recurrence time will
@@ -962,7 +962,7 @@ returned to
 method to update the time when the next expenses of `totalBudget` is reset.
 
 //tag::budgetPart2[]
-===== Resetting available spending.
+===== 2. Resetting available spending.
 
 This section explains the implementations of the recurring budget.
 
@@ -1882,9 +1882,6 @@ _{More to be added}_
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
-
 //[appendix]
 //== Product Survey
 //
@@ -2046,7 +2043,7 @@ one expense. +
     Expected: Status message shown is similar to `add` command. Budget is updated. UI is updated. Notification
     informing the user that adding this expense results in the budget exceeding is shown.
 
-== Set password for current user
+=== Set password for current user
 
 . Set password for a user with no previously set password #1
 
@@ -2160,6 +2157,7 @@ Test cases should be performed one after the other.
 === Category Panel
 
 . Updating the Category Panel
+
 .. Prerequisites: Create a new account using `signup x` where x is any valid username and login to said account using `login u/x`.
 Test cases should be performed one after the other.
 .. Test case: `setBudget 100.00` + `setCategoryBudget c/Food b/50.00` + `add n/test c/Food $/25.00` + `stats`

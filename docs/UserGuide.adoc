@@ -45,6 +45,17 @@ You are now able to use all the commands of the app. +
 Refer to <<Features, Features>> for details on all the available commands. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
+[NOTE]
+====
+* For Linux users, if the error `expensetracker.jar is not marked as executable` error appears, please follow the
+steps below:
+. Open `Terminal`, enter the command `cd path/to/expensetracker.jar`
+. Enter the command `sudo chmod 666 expensetracker.jar`
+
+`expensetracker.jar` will now be executable.
+====
+
+
 == User Interface
 After logging in, the interface will display as such:
 
@@ -99,13 +110,16 @@ If there are no category budgets set, the lower section will be empty, save for 
 
  See <<SetCategoryBudgetCommand, `setCategoryBudget`>> command for more details.
 
-=== Budget Tracker
+=== Budget Panel
 
 This component is highlighted by the blue box.
 
-The Budget Tracker shows information about your total expenditure and
+The Budget Panel shows information about your total expenditure and
 the budget which you set using the `setBudget` command.
  See <<SetBudgetCommand, `setBudget`>> command for more details.
+
+[NOTE]
+On slow computers, it is possible that the texts in the Budget Panel may not appear.
 
 === Notifications Panel
 
