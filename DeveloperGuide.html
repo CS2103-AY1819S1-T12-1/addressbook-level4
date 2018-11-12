@@ -1567,9 +1567,6 @@ to another file according to the edited fields.</p>
 <li>
 <p>The user executes an <code>add</code> command. As the <code>add</code> command modifies budget and
 expenses, <code>AddCommand#execute()</code> will post a <code>UpdateBudgetPanelEvent</code> event to the EventsCenter.</p>
-</li>
-</ol>
-</div>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -1582,8 +1579,7 @@ If a command fails its execution or does not affect budget or expenses, <code>Up
 </tr>
 </table>
 </div>
-<div class="olist arabic">
-<ol class="arabic">
+</li>
 <li>
 <p>The <code>UpdateBudgetPanelEvent</code> event is handled by <code>MainWindow#handleBudgetPanelEvent()</code>, which calls <code>BudgetPanel#update()</code>.</p>
 </li>
@@ -4296,15 +4292,15 @@ Expected: A message is shown to indicate that the user already exists.</p>
 <p>Prerequisites: There exists a user account with <code>Username</code> <code>tom</code> which has no <code>Password</code> set. There does not exist a user account with <code>Username</code> <code>jon</code>.</p>
 </li>
 <li>
-<p>Test case: <code>login u/tom</code>
+<p>Test case: <code>login u/tom</code><br>
 Expected: The UI expands (if it has not already been) to show <code>tom</code> Expense Tracker information and a message shown to indicate that <code>tom</code> has successfully logged in.</p>
 </li>
 <li>
-<p>Test case: <code>login u/tom p/password1</code>
+<p>Test case: <code>login u/tom p/password1</code><br>
 Expected: The UI expands (if it has not already been) to show <code>tom</code> Expense Tracker information and a message shown to indicate that <code>tom</code> has successfully logged in.</p>
 </li>
 <li>
-<p>Test case: <code>login u/jon</code>
+<p>Test case: <code>login u/jon</code><br>
 Expected: A message that indicates that the user <code>jon</code> does not exist is shown.</p>
 </li>
 </ol>
@@ -4318,19 +4314,19 @@ Expected: A message that indicates that the user <code>jon</code> does not exist
 <p>Prerequisites: There exists a user account with <code>Username</code> <code>tom</code> which has <code>Password</code> set as <code>password1</code>.</p>
 </li>
 <li>
-<p>Test case: <code>login u/tom</code>
+<p>Test case: <code>login u/tom</code><br>
 Expected: A message that indicates that the input password is incorrect is shown.</p>
 </li>
 <li>
-<p>Test case: <code>login u/tom p/password2</code>
+<p>Test case: <code>login u/tom p/password2</code><br>
 Expected: A message that indicates that the input password is incorrect is shown.</p>
 </li>
 <li>
-<p>Test case: <code>login u/tom p/password1</code>
+<p>Test case: <code>login u/tom p/password1</code><br>
 Expected: The UI expands (if it has not already been) to show <code>tom</code> Expense Tracker information and a message shown to indicate that <code>tom</code> has successfully logged in.</p>
 </li>
 <li>
-<p>Test case: <code>login u/jon</code>
+<p>Test case: <code>login u/jon</code><br>
 Expected: A message that indicates that the user <code>jon</code> does not exist is shown.</p>
 </li>
 </ol>
@@ -4366,12 +4362,12 @@ Expected: Budget is not set. Error details stating that the a valid budget consi
 shown in the status message. UI is not updated.</p>
 </li>
 <li>
-<p>Testcase: <code>setBudget x</code>, where x is not a number`<br>
+<p>Test case: <code>setBudget x</code> where x is not a number`<br>
 Expected: Budget is not set. Error message informing user of incorrect syntax is shown in the status message. UI is
 not updated.</p>
 </li>
 <li>
-<p>Other incorrect delete commands to try: <code>setBudget</code>, <code>setBudget x</code> where x is not a number with 2 decimal places.
+<p>Other incorrect delete commands to try: <code>setBudget</code>, <code>setBudget x</code> where x is not a number with 2 decimal places.<br>
 Expected: Similar to previous</p>
 </li>
 </ul>
@@ -4523,15 +4519,15 @@ informing the user that adding this expense results in the budget exceeding is s
 <p>Prerequisites: Already logged into user with no previously set password.</p>
 </li>
 <li>
-<p>Test case: <code>setPassword n/pass word</code>
+<p>Test case: <code>setPassword n/pass word</code><br>
 Expected: A message with valid password constraints is shown.</p>
 </li>
 <li>
-<p>Test case: <code>setPassword n/pass</code>
+<p>Test case: <code>setPassword n/pass</code><br>
 Expected: A message with valid password constraints is shown.</p>
 </li>
 <li>
-<p>Test case: <code>setPassword n/password</code>
+<p>Test case: <code>setPassword n/password</code><br>
 Expected: A message indicating that the password has been changed is shown.</p>
 </li>
 </ol>
@@ -4545,7 +4541,7 @@ Expected: A message indicating that the password has been changed is shown.</p>
 <p>Prerequisites: Already logged into user with no previously set password.</p>
 </li>
 <li>
-<p>Test case: <code>setPassword o/passsss n/password1</code>
+<p>Test case: <code>setPassword o/passsss n/password1</code><br>
 Expected: A message indicating that the password has been changed is shown.</p>
 </li>
 </ol>
@@ -4559,15 +4555,15 @@ Expected: A message indicating that the password has been changed is shown.</p>
 <p>Prerequisites: Already logged into user with <code>Password</code> set as <code>password1</code>.</p>
 </li>
 <li>
-<p>Test case: <code>setPassword n/password11</code>
+<p>Test case: <code>setPassword n/password11</code><br>
 Expected: A message indicating that the old password is incorrect is shown.</p>
 </li>
 <li>
-<p>Test case: <code>setPassword n/password11 o/password2</code>
+<p>Test case: <code>setPassword n/password11 o/password2</code><br>
 Expected: A message indicating that the old password is incorrect is shown.</p>
 </li>
 <li>
-<p>Test case: <code>setPassword n/password11 o/password1</code>
+<p>Test case: <code>setPassword n/password11 o/password1</code><br>
 Expected: A message indicating that the password has been changed is shown.</p>
 </li>
 </ol>
@@ -4588,7 +4584,7 @@ Expected: A message indicating that the password has been changed is shown.</p>
 <p>Prerequisites: Already logged into a user account</p>
 </li>
 <li>
-<p>Test case: <code>encrypt this is a test string</code>, and then use <code>decrypt STRING</code> where <code>STRING</code> is the encrypted <code>String</code> obtained from the first command.
+<p>Test case: <code>encrypt this is a test string</code>, and then use <code>decrypt STRING</code> where <code>STRING</code> is the encrypted <code>String</code> obtained from the first command.<br>
 Expected: A message indicating that the decrypted <code>String</code> is <code>this is a test string</code> is shown.</p>
 </li>
 </ol>
@@ -4610,13 +4606,13 @@ Expected: A message indicating that the decrypted <code>String</code> is <code>t
 categories and costs.</p>
 </li>
 <li>
-<p>Test case: <code>stats</code> (defaults to periodAmount = 7, period = day, mode = time)
+<p>Test case: <code>stats</code> (defaults to periodAmount = 7, period = day, mode = time)<br>
 Expected: Statistics Panel will be shown (if not already showing). Expense Tracker will attempt to display statistics in
 a <strong>bar chart</strong> for expenses in the last 7 days, starting from the current day, aggregated by day.
 If there are no expenses in the last 7 days, a message will be shown saying that there are no expenses.</p>
 </li>
 <li>
-<p>Test case: <code>stats n/7 p/d m/t</code> +  (defaults to periodAmount = 7, period = day, mode = time)
+<p>Test case: <code>stats n/7 p/d m/t</code>  (periodAmount = 7, period = day, mode = time)<br>
 Expected: Exactly the same as above.</p>
 </li>
 <li>
@@ -4649,24 +4645,24 @@ If there are no expenses in the last 7 months, a message will be shown saying th
 <p>Prerequisites: Create a new account using <code>signup x</code> where x is any valid username. Test cases should be performed one after the other.</p>
 </li>
 <li>
-<p>Test case: <code>login u/x</code>, where x is the username of the new account.
+<p>Test case: <code>login u/x</code>, where x is the username of the new account.<br>
 Expected: Two notifications should appear in the the `NotificationPanel`list. The topmost notification should contain a saving tip. The bottommost notification should containing a warning
  to the user that their recurrence time has not been set.</p>
 </li>
 <li>
-<p>Test case: <code>add n/test c/test $/27.00</code>.
+<p>Test case: <code>add n/test c/test $/27.00</code>.<br>
 Expected: A notification should appear at the top of the  <code>NotificationPanel</code> containing a warning to the user that they are about to go over budget.</p>
 </li>
 <li>
-<p>Additional command to try: <code>edit 1 $/27.50</code>
+<p>Additional command to try: <code>edit 1 $/27.50</code><br>
 Expected: Similar to previous.</p>
 </li>
 <li>
-<p>Test case: <code>add n/test c/test $/28.50</code>.
+<p>Test case: <code>add n/test c/test $/28.50</code>.<br>
 Expected: A notification should appear at the top of the <code>NotificationPanel</code> containing a warning to the user that they are over budget.</p>
 </li>
 <li>
-<p>Additional command to try: <code>edit 1 $/29.00</code>
+<p>Additional command to try: <code>edit 1 $/29.00</code><br>
 Expected: Similar to previous.</p>
 </li>
 </ol>
@@ -4823,7 +4819,7 @@ the expense list panel. Number of expense found is shown as the status message.<
 <p>Prerequisites: Logged in to an account and the targeted expenses do not exist in the account.</p>
 </li>
 <li>
-<p>Test case: <code>find (any keywords that would not direct to existing expenses)</code>
+<p>Test case: <code>find (any keywords that would not direct to existing expenses)</code><br>
 Expected: No expense is shown on expense list panel. "0 expenses listed!" is shown as
 status message.</p>
 </li>
@@ -4875,4 +4871,4 @@ Expected: No expense is shown on expense list panel. "No expense is found by the
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 15:00:50 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 15:06:41 UTC</div></div></div></body></html>
