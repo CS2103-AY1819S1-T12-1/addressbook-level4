@@ -381,7 +381,7 @@ Read <a href="#Design-Ui"><strong><code>UI</code></strong></a> for more details.
 Read <a href="#Design-Model"><strong><code>Model</code></strong></a> for more details.</p>
 </div>
 <div class="paragraph">
-<p><code>Storage</code> reads data from, and writes data to, the hard disk.It defines its API in the <code>Storage.java</code> interface and exposes its functionality using the <code>StorageManager.java</code> class.
+<p><code>Storage</code> reads data from, and writes data to, the hard disk. It defines its API in the <code>Storage.java</code> interface and exposes its functionality using the <code>StorageManager.java</code> class.
 Read <a href="#Design-Storage"><strong><code>Storage</code></strong></a> for more details.</p>
 </div>
 <h4 id="Event-driven" class="discrete">Events-Driven Design</h4>
@@ -1374,15 +1374,19 @@ A <code>CommandResult</code> is then created and returned to <code>LogicManager<
 </li>
 </ul>
 </div>
-<div class="paragraph">
-<p>Animations have been incorporated into the UI elements for a better user experience. We will look at the implementation of <code>BudgetPanel</code>,
-which is the most extensive.</p>
+<div class="imageblock">
+<div class="content">
+<img src="images/UiChange.png" alt="UiChange" width="600">
+</div>
+<div class="title">Figure 25. Before and After shots of the UI</div>
 </div>
 <div class="paragraph">
-<p><strong>Budget Panel</strong></p>
+<p>As an example of how the new UI elements were implemented, we will examine the implementation of <code>BudgetPanel</code>.</p>
 </div>
+<div class="sect3">
+<h4 id="the-budget-panel"><a class="link" href="#the-budget-panel">4.6.1. The Budget Panel</a></h4>
 <div class="paragraph">
-<p>The <code>Budget</code> panel consists of 4 UI elements:</p>
+<p><code>BudgetPanel</code> consists of 4 UI elements:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -1423,7 +1427,7 @@ which is the most extensive.</p>
 </div>
 </li>
 <li>
-<p>The user executes the command <code>add n/Lunch $/30.00 c/Food</code>. As the <code>'add</code> command modifies <code>totalBudget</code> and
+<p>The user executes the command <code>add n/Lunch $/30.00 c/Food</code>. As the <code>'add</code> command modifies budget and
 expenses, <code>AddCommand#execute()</code> will post a <code>UpdateBudgetPanelEvent</code> event to the EventsCenter.</p>
 <div class="admonitionblock note">
 <table>
@@ -1432,7 +1436,7 @@ expenses, <code>AddCommand#execute()</code> will post a <code>UpdateBudgetPanelE
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-If a command fails its execution, <code>UpdateBudgetPanelEvent</code> will not be posted.
+If a command fails its execution, or does not affect budget or expenses,<code>UpdateBudgetPanelEvent</code> will not be posted.
 </td>
 </tr>
 </table>
@@ -1445,7 +1449,7 @@ If a command fails its execution, <code>UpdateBudgetPanelEvent</code> will not b
 <p><code>BudgetPanel#update()</code> calls <code>BudgetPanel#animateBudgetPanel()</code>, which creates a new <code>Timeline</code> object.</p>
 </li>
 <li>
-<p>Two <code>KeyFrame</code> objects are added to the Timeline that smooths the transition of the <code>BudgetPanel#budgetBar</code> progress percentage from 0% to the updated percentage.</p>
+<p>Two <code>KeyFrame</code> objects are added to <code>Timeline</code>, creating the animation <code>BudgetPanel#budgetBar</code> that transits the <code>BudgetPanel#budgetBar#progress</code> to the updated number.</p>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -1453,16 +1457,15 @@ If a command fails its execution, <code>UpdateBudgetPanelEvent</code> will not b
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-If the updated percentage is more than 1.0, <code>BudgetPanel#budgetBar</code> progress percentage will be set to 1.0. Barring oversights, the progress percentage should never fall below 0.0.
+If the updated percentage is more than 1.0, <code>BudgetPanel#budgetBar#progress</code> will be set to 1.0. Barring oversights, it should never fall below 0.0.
 </td>
 </tr>
 </table>
 </div>
 </li>
 <li>
-<p>A call to 'BudgetPanel#addTextAnimationKeyFrames()` is made to add the <code>KeyFrame</code> objects required to create the incrementing animation for <code>BudgetPanel#expenseDisplay</code>. The total time for this animation is 0.5 seconds, and consists of 10 <code>KeyFrame</code> objects.
-With this information, the amount to increment <code>BudgetPanel#expenseDisplay</code> by in each <code>KeyFrame</code> can be calculated.
- <code>BudgetPanel#updateExpenseDisplay()</code> is called to increment the <code>BudgetPanel#expenseDisplay</code>.</p>
+<p>A call to 'BudgetPanel#addTextAnimationKeyFrames()` is made to add the <code>KeyFrame</code> objects required to create the incrementing animation for <code>BudgetPanel#expenseDisplay</code> and <code>BudgetPanel#budgetCapDisplay</code>.
+In each <code>KeyFrame</code>, <code>BudgetPanel#updateExpenseDisplay()</code> and  <code>BudgetPanel#updateBudgetCapDisplay()</code> is called to increment the <code>BudgetPanel#expenseDisplay</code> and <code>BudgetPanel#budgetCapDisplay</code> respectively.</p>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -1470,22 +1473,22 @@ With this information, the amount to increment <code>BudgetPanel#expenseDisplay<
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<code>BudgetPanel#addTextAnimationKeyFrames()</code> handles the incrementing animation for both the <code>BudgetPanel#budgetDisplay</code> and <code>BudgetPanel#expenseDisplay</code> at the same time.
+The number of <code>KeyFrame</code> objects and the time interval between each <code>KeyFrame</code> has been predetermined.
 </td>
 </tr>
 </table>
 </div>
 </li>
 <li>
-<p>For each <code>KeyFrame</code>, 'BudgetPanel#addTextAnimationKeyFrames()` also makes a call to <code>BudgetPanel#alterTextSize()</code>. This method checks the height of <code>BudgetPanel#percentageDisplay</code>. If said height is
-different from <code>BudgetPanel#percentageDisplay#maxHeight</code>, <code>BudgetPanel#percentageDisplay</code> will be rescaled accordingly such that its new width matches <code>BudgetPanel#percentageDisplay#maxHeight</code>.</p>
+<p>A call is also made to <code>BudgetPanel#alterTextSize()</code> in each <code>KeyFrame</code>. This method checks the height of <code>BudgetPanel#percentageDisplay</code>. If said height is
+different from <code>BudgetPanel#percentageDisplay#maxHeight</code>, <code>BudgetPanel#percentageDisplay</code> will be rescaled accordingly such that its new width is equal to <code>BudgetPanel#percentageDisplay#maxHeight</code>.</p>
 </li>
 <li>
-<p><code>Timeline#playFromStart()</code> is called to execute the animation.</p>
+<p>A call to <code>Timeline#playFromStart()</code> is made to execute the animations.</p>
 </li>
 <li>
-<p><code>BudgetPanel#update()</code> also calls <code>BudgetPanel#setBudgetUiColors()</code>. The method detects that the user has gone
-over budget, and changes the color of <code>BudgetPanel#expenseDisplay</code> and <code>BudgetPanel#budgetBar</code> from green to red.</p>
+<p>A call is also made concurrently to <code>BudgetPanel#setBudgetUiColors()</code>. If <code>BudgetPanel#expenseDisplay</code> is larger than <code>BudgetPanel#budgetCapDisplay</code>, the color of <code>BudgetPanel#expenseDisplay</code>
+and <code>BudgetPanel#budgetBar</code> changes to red, indicating that the user is over budget.</p>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -1494,7 +1497,7 @@ over budget, and changes the color of <code>BudgetPanel#expenseDisplay</code> an
 </td>
 <td class="content">
 Similarly, if the user has gone from over budget to under budget, the color of
-'BudgetPanel#expenseDisplay` and <code>BudgetPanel#budgetBar</code> should change from red to green.
+'BudgetPanel#expenseDisplay` and <code>BudgetPanel#budgetBar</code> changes to green.
 </td>
 </tr>
 </table>
@@ -1507,12 +1510,13 @@ Similarly, if the user has gone from over budget to under budget, the color of
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/implementation/BudgetPanelSequenceDiagram.png" alt="BudgetPanelSequenceDiagram" width="800">
+<img src="images/implementation/BudgetPanelSequenceDiagram.png" alt="BudgetPanelSequenceDiagram" width="600">
 </div>
-<div class="title">Figure 25. Sequence diagram of the <code>BudgetPanel</code> update</div>
+<div class="title">Figure 26. Sequence diagram of the <code>BudgetPanel</code> update</div>
+</div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-4"><a class="link" href="#design-considerations-4">4.6.1. Design Considerations</a></h4>
+<h4 id="design-considerations-4"><a class="link" href="#design-considerations-4">4.6.2. Design Considerations</a></h4>
 <div class="sect4">
 <h5 id="aspect-choosing-which-library-to-use-for-animation-implementation"><a class="link" href="#aspect-choosing-which-library-to-use-for-animation-implementation">Aspect: Choosing which library to use for animation implementation</a></h5>
 <div class="ulist">
@@ -1525,7 +1529,7 @@ Similarly, if the user has gone from over budget to under budget, the color of
 <p>Pros: More flexible; Able to create the animation frame by frame.</p>
 </li>
 <li>
-<p>Cons: Animations tricks and effects will require manual tweaking for the intended effect.</p>
+<p>Cons: More tedious. Animations effects will require manual addition of <code>KeyFrame</code> objects for the intended effect.</p>
 </li>
 </ul>
 </div>
@@ -1584,7 +1588,7 @@ Similarly, if the user has gone from over budget to under budget, the color of
 <p>Pros: Easy to centralize the <code>Text</code> objects by taking advantage of the properties of <code>TextFlow</code>. Allows the implementation of separate text color changing and animation.</p>
 </li>
 <li>
-<p>Cons: Does not solve the issue of decentralization when <code>currentExpenses</code> or <code>budgetCap</code> are large numbers.</p>
+<p>Cons: Does not solve the issue of decentralized text when <code>currentExpenses</code> or <code>budgetCap</code> are large numbers.</p>
 </li>
 </ul>
 </div>
@@ -1618,7 +1622,7 @@ Similarly, if the user has gone from over budget to under budget, the color of
 </li>
 <li>
 <p>Cons: In the case of very large numbers, the <code>TextFlow</code> object is shrunk down to a point where the text in non-legible. However,
-we assume that the average user who is seriously using <code>ExpenseTracker</code> will not set  <code>currentExpenses</code> or <code>budgetCap</code> to such large numbers.</p>
+we assume that the average user who is seriously using <code>ExpenseTracker</code> will not set <code>currentExpenses</code> or <code>budgetCap</code> to such large numbers.</p>
 </li>
 </ul>
 </div>
@@ -1652,25 +1656,27 @@ we assume that the average user who is seriously using <code>ExpenseTracker</cod
 <p><code>NotificationHandler</code> - Handles the storage and creation of <code>Notification</code> objects.</p>
 </li>
 <li>
-<p><code>XmlAdaptedNotificationHandler</code>, <code>JsonTipsStorage</code> and <code>XmlAdaptedNotificationHandler</code> -  Manages the saving and reading on Notifications.</p>
+<p><code>Tips</code> - Reads and stores <code>Tip</code> objects in a list.</p>
 </li>
 <li>
-<p><code>Tips</code> - Reads and stores <code>Tip</code> objects in a list.</p>
+<p><code>XmlAdaptedNotificationHandler</code>, <code>JsonTipsStorage</code> and <code>XmlAdaptedNotificationHandler</code> -  Manages the saving and reading on <code>Notification</code> and <code>Tip</code> objects.</p>
 </li>
 </ul>
 </div>
+<div class="sect3">
+<h4 id="adding-a-notification"><a class="link" href="#adding-a-notification">4.7.1. Adding a Notification</a></h4>
 <div class="paragraph">
 <p>Given below are the steps of an example scenario of how the Notification System functions:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>The user launches the application for the first time. A new <code>NotificationHandler</code> is instantiated. A new <code>Tips</code> is instantiated, and a call
+<p>The user launches the application for the first time. A new <code>NotificationHandler</code> is instantiated. A new <code>Tips</code> object is instantiated, and a call
 to <code>JsonTipsStorage#readTips</code> is made to read a list of <code>Tip</code> objects from a JSON file.</p>
 </li>
 <li>
 <p>A call to <code>NotificationHandler#isTimeToSendTip()</code> is made upon login. In turn, a check is made to see if it has
-been a day since the last <code>TipNotification</code> has been sent. If so, a new <code>TipNotification</code> is added to the <code>NotificationHandler#internalList</code> via a call to <code>NotificationPanel#addNotification()</code>.</p>
+been 24 hours since the last <code>TipNotification</code> has been sent. It also checks if <code>NotificationHandler#isTipEnabled</code> is <code>true. If both conditions are met, a new `TipNotification</code> is added to the <code>NotificationHandler#internalList</code> via a call to <code>NotificationPanel#addTipNotification()</code>.</p>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -1686,7 +1692,7 @@ If this is the user&#8217;s first time logging into their account, a new <code>T
 </li>
 <li>
 <p>The user executes the command <code>add n/Lunch $/30.00 c/Food</code>. The <code>add</code> command calls <code>NotificationHandler#isTimeToSendWarning()</code> to check if the user is nearing or over their budget.
-If the user is nearing or approaching their budget, a <code>WarningNotification</code> is added to <code>NotificationHandler#internalList</code> via a call to <code>NotificationPanel#addNotification()</code>.</p>
+It also checks if <code>NotificationPanel#isWarningEnabled</code> is <code>true</code>. If both conditions are met, a <code>WarningNotification</code> is added to <code>NotificationHandler#internalList</code> via a call to <code>NotificationPanel#addWarningNotification()</code>.</p>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -1706,6 +1712,9 @@ the new <code>Notification</code>.</p>
 </li>
 </ol>
 </div>
+</div>
+<div class="sect3">
+<h4 id="executing-notification-command"><a class="link" href="#executing-notification-command">4.7.2. Executing Notification Command</a></h4>
 <div class="paragraph">
 <p>Given below is an example scenario of how <code>NotificationCommand</code> functions:
 . The user executes <code>notification n/warning t/off</code>. THe command is received by <code>ExpenseTrackerParser</code>.</p>
@@ -1729,7 +1738,7 @@ The <code>n/</code> suffix and parameter can be omitted. In this case, all types
 </div>
 </li>
 <li>
-<p><code>LogicManager</code> then calls <code>NotificationCommand#execute</code>, which calls <code>NotificationHandler#toggleWarningNotifications</code> to set
+<p><code>LogicManager</code> then calls <code>NotificationCommand#execute()</code>, which calls <code>NotificationHandler#toggleWarningNotifications()</code> to set
 <code>NotificationPanel#isWarningEnabled</code> to <code>false</code>.</p>
 <div class="admonitionblock note">
 <table>
@@ -1740,7 +1749,19 @@ The <code>n/</code> suffix and parameter can be omitted. In this case, all types
 <td class="content">
  If <code>notification n/tip t/on</code> was executed, <code>NotificationHandler#toggleTipNotifications()</code> would be called to set <code>NotificationHandler#isTipEnabled</code>
  to <code>true</code>.
- If`notification t/on` was executed, <code>NotificationHandler#toggleBothNotifications()</code> will be called instead.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+ If <code>notification t/on</code> was executed, <code>NotificationHandler#toggleBothNotifications()</code> will be called instead to set both <code>NotificationHandler#isTipEnabled</code> and
+<code>NotificationPanel#isWarningEnabled</code>.
 </td>
 </tr>
 </table>
@@ -1753,11 +1774,12 @@ The <code>n/</code> suffix and parameter can be omitted. In this case, all types
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/implementation/NotificationCommandSequenceDiagram.png" alt="NotificationCommandSequenceDiagram" width="800">
+<img src="images/implementation/NotificationCommandSequenceDiagram.png" alt="NotificationCommandSequenceDiagram" width="600">
+</div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-5"><a class="link" href="#design-considerations-5">4.7.1. Design Considerations</a></h4>
+<h4 id="design-considerations-5"><a class="link" href="#design-considerations-5">4.7.3. Design Considerations</a></h4>
 <div class="sect4">
 <h5 id="aspect-storing-of-tips"><a class="link" href="#aspect-storing-of-tips">Aspect: Storing of Tips</a></h5>
 <div class="ulist">
@@ -1807,9 +1829,9 @@ The <code>n/</code> suffix and parameter can be omitted. In this case, all types
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/Overbudget.JPG" alt="Overbudget" width="790">
+<img src="images/overbudget.png" alt="overbudget" width="790">
 </div>
-<div class="title">Figure 26. Warning that is shown when a user adds an expense which results in the user exceeding the budget.</div>
+<div class="title">Figure 27. Warning that is shown when a user adds an expense which results in the user exceeding the budget.</div>
 </div>
 <div class="paragraph">
 <p>The current implementation for budgeting and its related features are described below.</p>
@@ -1823,7 +1845,7 @@ The <code>n/</code> suffix and parameter can be omitted. In this case, all types
 <div class="content">
 <img src="images/implementation/BudgetCommandSequenceDiagram.png" alt="BudgetCommandSequenceDiagram" width="800">
 </div>
-<div class="title">Figure 27. Sequence diagram of a user setting a budget.</div>
+<div class="title">Figure 28. Sequence diagram of a user setting a budget.</div>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -1903,7 +1925,7 @@ and step by step explanation of how Expense Tracker executes when a user sets a 
 <div class="content">
 <img src="images/implementation/SetRecurringBudgetCommandSequenceDiagram.png" alt="SetRecurringBudgetCommandSequenceDiagram" width="800">
 </div>
-<div class="title">Figure 28. Sequence diagram of a user setting a recurrence frequency.</div>
+<div class="title">Figure 29. Sequence diagram of a user setting a recurrence frequency.</div>
 </div>
 <div class="paragraph">
 <p>Steps of the command execution are as follows:</p>
@@ -1952,7 +1974,7 @@ of available spending resetting is given below.</p>
 <div class="content">
 <img src="images/implementation/RecurrenceFrequencySequenceDiagram.png" alt="RecurrenceFrequencySequenceDiagram" width="900">
 </div>
-<div class="title">Figure 29. Sequence diagram of a user setting a recurrence frequency.</div>
+<div class="title">Figure 30. Sequence diagram of a user setting a recurrence frequency.</div>
 </div>
 <div class="paragraph">
 <p>Execution steps of resetting available spending are as follows:</p>
@@ -1994,7 +2016,7 @@ and step by step explanation of how Expense Tracker executes when a user sets a 
 <div class="content">
 <img src="images/implementation/SetCategoryBudgetSequenceDiagram.png" alt="SetCategoryBudgetSequenceDiagram" width="900">
 </div>
-<div class="title">Figure 30. Sequence diagram of a user setting <code>CategoryBudget</code>.</div>
+<div class="title">Figure 31. Sequence diagram of a user setting <code>CategoryBudget</code>.</div>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -2035,13 +2057,13 @@ tracking as it allows for more leeway in how a person could spend. This is illus
 <div class="content">
 <img src="images/budgetOfTheWeek.PNG" alt="budgetOfTheWeek" width="800">
 </div>
-<div class="title">Figure 31. Diagram of a weekly budget</div>
+<div class="title">Figure 32. Diagram of a weekly budget</div>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="images/budgetOfTheMonth.png" alt="budgetOfTheMonth" width="800">
 </div>
-<div class="title">Figure 32. Diagram of a monthly budget.</div>
+<div class="title">Figure 33. Diagram of a monthly budget.</div>
 </div>
 <div class="paragraph">
 <p>The first image above shows that the user has spent over his budget for the week, whilst the second image shows that
@@ -2156,7 +2178,7 @@ Certain properties of the application can be controlled (e.g App name, logging l
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-We chose asciidoc over Markdown because asciidoc, although a bit more complex than Markdown, provides more flexibility in formatting.
+We chose asciidoc over Markdown because asciidoc, although a bit more complex than Markdown, provides more flexibility for formatting.
 </td>
 </tr>
 </table>
@@ -2200,7 +2222,7 @@ like the figure below should show up.</p>
 <div class="content">
 <img src="images/chrome_save_as_pdf.png" alt="chrome save as pdf" width="300">
 </div>
-<div class="title">Figure 33. Saving documentation as PDF files in Chrome</div>
+<div class="title">Figure 34. Saving documentation as PDF files in Chrome</div>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -2370,7 +2392,7 @@ The SE-EDU team does not provide support for modified template files.</p>
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-The most reliable way to run tests is the 3rd one. The first two methods might fail some GUI tests due to platform/resolution-specific idiosyncrasies.
+Method 3 is the most reliable way to run tests. The first two methods might fail some GUI tests due to platform/resolution-specific idiosyncrasies.
 </td>
 </tr>
 </table>
@@ -4037,4 +4059,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 08:08:12 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 08:21:35 UTC</div></div></div></body></html>

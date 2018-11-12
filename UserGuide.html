@@ -1249,10 +1249,10 @@ Shows the expense statistics for the past 3 months as a pie chart showing expens
 <div class="sect2">
 <h3 id="NotificationCommand"><a class="link" href="#NotificationCommand">5.18. Toggling Notifications: <code>notification</code></a></h3>
 <div class="paragraph">
-<p>Toggles the ability of <code>Expense Tracker</code> to send notifications.</p>
+<p>Toggles the ability of <code>Expense Tracker</code> to generate and display automated notifications.</p>
 </div>
 <div class="paragraph">
-<p>There are two types of notification to toggle:</p>
+<p>There are 2 types of notification to toggle:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -1260,39 +1260,35 @@ Shows the expense statistics for the past 3 months as a pie chart showing expens
 <p>Warning - Referenced by <code>warning</code> as the <code>NOTIFICATION_TYPE</code> parameter. These notifications will be sent when you are over
 or about to go over your budget.</p>
 </li>
-</ol>
-</div>
-<div class="paragraph">
-<p>As shown below, Tip type Notifications can be indicated by exclamation mark image displayed along with the notification:</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="images/userguide/warningExample.png" alt="warningExample" width="790">
-</div>
-<div class="title">Figure 10. Example of a Warning Type Notification</div>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
 <li>
-<p>Tip - Referenced by typing <code>tip</code> as the <code>NOTIFICATION_TYPE</code> parameter. These notifications are saving tips that will be sent
-when you log onto an account on a new day.</p>
+<p>Tip - Referenced by typing <code>tip</code> as the <code>NOTIFICATION_TYPE</code> parameter. These notifications are saving tips that will be sent once
+every 24 hours when you log onto an account.</p>
 </li>
 </ol>
 </div>
 <div class="paragraph">
-<p>As shown below, Tip type Notifications can be indicated by light bulb image displayed along with the notification:</p>
+<p>As shown below, Warning-type Notifications can be indicated by <strong>exclamation mark</strong> image displayed along with the notification:</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/userguide/tipExample.png" alt="tipExample" width="790">
+<img src="images/userguide/warningExample.png" alt="warningExample" width="400">
 </div>
-<div class="title">Figure 11. Example of a Tip Type Notification</div>
+<div class="title">Figure 10. Example of a Warning-type Notification</div>
+</div>
+<div class="paragraph">
+<p>Meanwhile, Tip-type Notifications can be indicated by <strong>light bulb</strong> image displayed along with the notification:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/userguide/tipExample.png" alt="tipExample" width="400">
+</div>
+<div class="title">Figure 11. Example of a Tip-type Notification</div>
 </div>
 <div class="paragraph">
 <p>There are two toggle options, <code>on</code> and <code>off</code>, which can be indicated by 'on' or 'off' respectively in the <code>TOGGLE_OPTION</code> parameter.</p>
 </div>
 <div class="paragraph">
-<p>'TOGGLE_OPTION` is a required parameter. <code>NOTIFICATION_TYPE</code> can be omitted.</p>
+<p><code>TOGGLE_OPTION</code> is a required parameter. <code>NOTIFICATION_TYPE</code> can be omitted.</p>
 </div>
 <div class="paragraph">
 <p>Format: <code>notification n/NOTIFICATION_TYPE t/TOGGLE_OPTION</code></p>
@@ -1664,4 +1660,4 @@ e.g. <code>notification n/tip t/off</code></p>
 </ul>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 08:08:12 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 08:21:35 UTC</div></div></div></body></html>
