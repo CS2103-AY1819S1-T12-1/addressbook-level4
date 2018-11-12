@@ -727,7 +727,7 @@ As an example of how the new UI elements were implemented, we will examine the i
 *	`BudgetPanel#expenseDisplay` – A `Text` element that displays the user’s current expenses.
 *	`BudgetPanel#budgetDisplay` – A `Text` element that displays the user’s monthly budget cap.
 *   `BudgetPanel#percentageDisplay` - A `TextFlow` objects that manages `BudgetPanel#budgetDisplay` and `BudgetPanel#expenseDisplay`.
-*	`BudgetPanel#budgetBar` – A `progressBar` element that visually presents the percentage of the current
+*	`BudgetPanel#budgetBar` – A `ProgressBar` element that visually presents the percentage of the current
 `totalBudget` cap that has been used.
 
 Given below are the steps of an example scenario of how `BudgetPanel` is updated:
@@ -2123,19 +2123,19 @@ categories and costs.
 . Toggling Notifications On and Off
 
 .. Prerequisites: User must be logged in. Set the budget to $10.00 by using entering `setBudget 10.00`. Test cases should be performed one after the other.
-.. Test case: `notification n/warning t/on` + `add n/test c/test $/11.00`.
+.. Test case: `notification n/warning t/on` + `add n/test c/test $/11.00`. +
    Expected: A notification should appear on the the `NotificationPanel` containing a warning that you are over budget.
-.. Test case: `notification n/warning t/off` + `add n/test c/test $/11.00`.
+.. Test case: `notification n/warning t/off` + `add n/test c/test $/11.00`. +
    Expected: No new notifications should appear on the `NotificationPanel`.
-.. Test case: `notification n/tip t/on`
+.. Test case: `notification n/tip t/on` +
    Expected: 24 hours after the previous tip was sent, a notification should appear on the the `NotificationPanel` containing a saving tip.
-.. Test case: `notification n/tip t/off`
+.. Test case: `notification n/tip t/off` +
    Expected: No new notifications containing saving tips should appear after any length of time.
-.. Test case: `notification`
+.. Test case: `notification` +
    Expected: Error details shown in the status message.
 .. Other incorrect delete commands to try: `notification x` where x is any input,
    `notification n/x t/on` where x is any input other than `tip` or `warning`, `notification n/warning t/x` where
-   x is any input other than `on` or `off`.
+   x is any input other than `on` or `off`. +
    Expected: Similar to previous.
 
 === Budget Panel
@@ -2144,13 +2144,13 @@ categories and costs.
 
 .. Prerequisites: Create a new account using `signup x` where x is any valid username and login to said account using `login u/x`.
 Test cases should be performed one after the other.
-.. Test case: `add n/test c/test $/4.00`
+.. Test case: `add n/test c/test $/4.00` +
    Expected: `BudgetPanel#budgetBar` should be updated . `BudgetPanel#expenseDisplay` should be updated to display "$4.00".
    Both of these elements should be colored green.
-.. Test case: `add n/test c/test $/40.00`
+.. Test case: `add n/test c/test $/40.00` +
    Expected: `BudgetPanel#budgetBar` should be updated. `BudgetPanel#expenseDisplay` should be updated to display "$40.00".
                 Both of these elements should be colored red.
-.. Test case: `setBudget $/1000.00`
+.. Test case: `setBudget $/1000.00` +
    Expected: `BudgetPanel#budgetBar` should be updated. `BudgetPanel#budgetCapDisplay` should be updated to display "$1000.00".
    `BudgetPanel#expenseDisplay` and `BudgetPanel#budgetBar` should be colored green.
 
@@ -2160,18 +2160,18 @@ Test cases should be performed one after the other.
 
 .. Prerequisites: Create a new account using `signup x` where x is any valid username and login to said account using `login u/x`.
 Test cases should be performed one after the other.
-.. Test case: `setBudget 100.00` + `setCategoryBudget c/Food b/50.00` + `add n/test c/Food $/25.00` + `stats`
-.. Expected: A new `CategoryIcon` should appear in the `CagtegoryPanel`. The upper text should display "Food" and the lower text should display
+.. Test case: `setBudget 100.00` + `setCategoryBudget c/Food b/50.00` + `add n/test c/Food $/25.00` + `stats` +
+   Expected: A new `CategoryIcon` should appear in the `CagtegoryPanel`. The upper text should display "Food" and the lower text should display
 "50.00%"
-.. Test case: `setCategoryBudget c/New b/00.00` + `add n/test c/New $/10.00` + `stats`
-.. Expected: A new `CategoryIcon` should appear in the `CagtegoryPanel`. The upper text should display "New" and the lower text should display
+.. Test case: `setCategoryBudget c/New b/00.00` + `add n/test c/New $/10.00` + `stats` +
+    Expected: A new `CategoryIcon` should appear in the `CagtegoryPanel`. The upper text should display "New" and the lower text should display
 "1000.00%"
-.. Test case: `setCategoryBudget c/Food b/25.00`
-.. Expected: The bottommost text of the first `CategoryIcon` should now update to display "100.00%".
-.. Test case: `setCategoryBudget c/Food b/25.00`
-.. Expected: The bottommost text of the first `CategoryIcon` should now update to display "100.00%".
-.. Test case: `setCategoryBudget c/Fees b/10.00` + `setCategoryBudget c/Bus b/10.00` + `setCategoryBudget c/Bills b/10.00`
-.. Expected: Four of the five added `CategoryIcon` objects should be displayed in `CategoryPanel`.
+.. Test case: `setCategoryBudget c/Food b/25.00` +
+    Expected: The bottommost text of the first `CategoryIcon` should now update to display "100.00%".
+.. Test case: `setCategoryBudget c/Food b/25.00` +
+   Expected: The bottommost text of the first `CategoryIcon` should now update to display "100.00%".
+.. Test case: `setCategoryBudget c/Fees b/10.00` + `setCategoryBudget c/Bus b/10.00` + `setCategoryBudget c/Bills b/10.00` +
+   Expected: Four of the five added `CategoryIcon` objects should be displayed in `CategoryPanel`.
 
 === Find expenses
 

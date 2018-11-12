@@ -756,7 +756,9 @@ after any command that changes the data. +
 *Q*: How do I transfer my data to another Computer? +
 *A*:  Install the app in the other computer and copy the `data` folder in your previous Expense Tracker folder over to the new Expense Tracker folder on your other Computer.
 If you wish to copy only one user over, create a folder named `data` in the app directory on the other computer and copy the xml file with your username in the `data` folder of the old computer into the `data` folder of the new computer.
+
 //tag::dataencryption[]
+
 *Q*: How is my expense data kept safe when I use this application? +
 *A*: All user expense-specific data is encrypted. The program ensures that no one will be able to decrypt encrypted information without your actual plain text password, which is not stored anywhere. So rest assured that no one can access your data without your password.
 
@@ -793,9 +795,9 @@ e.g. `setBudget 20.00`
 * *History* : `history`
 * *Undo* : `undo`
 * *Redo* : `redo`
-* *Statistics* : `stats n/NUMBER_OF_DAYS_OR_MONTHS m/MODE`
+* *Statistics* : `stats n/NUMBER_OF_DAYS_OR_MONTHS m/MODE` +
 e.g. `stats n/7 m/d`
-* *Toggle Notifications* : `notification n/NOTIFICATION_TYPE t/TOGGLE_OPTION`
+* *Toggle Notifications* : `notification n/NOTIFICATION_TYPE t/TOGGLE_OPTION` +
 e.g. `notification n/tip t/off`
 * *Clear* : `clear`
 * *Exit* : `exit`
