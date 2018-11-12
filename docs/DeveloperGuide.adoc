@@ -718,10 +718,11 @@ Given below are the steps of an example scenario of how `BudgetPanel` is updated
 * `BudgetPanel#budgetDisplay` is set to "/ $28.00", with $28.00 being the default `totalBudget`.
 * `BudgetPanel#budgetBar` is green and at 0% progress.
 
-. The user executes the command `add n/Lunch $/30.00 c/Food`. As the `'add` command modifies budget and
+. The user executes an `add` command. As the `'add` command modifies budget and
 expenses, `AddCommand#execute()` will post a `UpdateBudgetPanelEvent` event to the EventsCenter.
+
 [NOTE]
-If a command fails its execution, or does not affect budget or expenses,`UpdateBudgetPanelEvent` will not be posted.
+If a command fails its execution or does not affect budget or expenses, `UpdateBudgetPanelEvent` will not be posted.
 
 . The `UpdateBudgetPanelEvent` event is handled by `MainWindow#handleBudgetPanelEvent()`, which calls `BudgetPanel#update()`.
 
@@ -757,7 +758,7 @@ image::implementation/BudgetPanelSequenceDiagram.png[width="600"]
 
 * **Alternative 1 (current choice):** Use `Timeline` and `KeyFrame` classes.
 ** Pros: More flexible; Able to create the animation frame by frame.
-** Cons: More tedious. Animations effects will require manual addition of `KeyFrame` objects for the intended effect.
+** Cons: More tedious to implement. Animations effects will require manual addition of `KeyFrame` objects for the intended effect.
 * **Alternative 2:** Use the `Transition` class
 ** Pros: The class is specialized, and thus has built-in methods to create better animations For example, `EASE-BOTH` can be used to cause the transition to accelerate at different points for a better effect)
 ** Cons: Does not work for certain desired effects, such as the 'incrementing' effect required for `Text` elements of `BudgetPanel`.
@@ -1000,6 +1001,7 @@ method. If any of the keywords are missing, `ParseException` will be thrown.
 method to add a `CategoryBudget`.
 
 ===== Setting budgets for different time frames (Proposed)
+
 Users can now set budgets for different time frames. For example, a user can have a monthly budget and a weekly budget.
 This is to allow a user to segment his spending by weeks. A benefit to this is that even if the user has spent over
 the budget for this week, he could potentially spend lesser to make up for his overspending. This allows for expense
@@ -1940,7 +1942,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 . Updating the Notification Panel
 
-.. Prerequisites: Create a new account using `signup x` where x is any valid username.
+.. Prerequisites: Create a new account using `signup x` where x is any valid username. Test cases should be performed one after the other.
 .. Test case: `login x`, where x is the username of the new account.
    Expected: Two notifications should appear in the the `NotificationPanel`list. The topmost notification should contain a saving tip. The bottommost notification should containing a warning
     to the user that their recurrence time has not been set.
@@ -1957,7 +1959,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 . Toggling Notifications On and Off
 
-.. Prerequisites: Set the budget to $10.00 by using entering `setBudget 10.00`.
+.. Prerequisites: Set the budget to $10.00 by using entering `setBudget 10.00`. Test cases should be performed one after the other.
 .. Test case: `notification n/warning t/on` + `add n/test c/test $/11.00`.
    Expected: A notification should appear on the the `NotificationPanel` containing a warning that you are over budget.
 .. Test case: `notification n/warning t/off` + `add n/test c/test $/11.00`.
@@ -1966,7 +1968,7 @@ These instructions only provide a starting point for testers to work on; testers
    Expected: 24 hours after the previous tip was sent, a notification should appear on the the `NotificationPanel` containing a saving tip.
 .. Test case: `notification n/tip t/off`
    Expected: No new notifications containing saving tips should appear after any length of time.
-.. Test case: `notification` +
+.. Test case: `notification`
    Expected: Error details shown in the status message.
 .. Other incorrect delete commands to try: `notification x` where x is any input,
    `notification n/x t/on` where x is any input other than `tip` or `warning`, `notification n/warning t/x` where
@@ -1978,6 +1980,7 @@ These instructions only provide a starting point for testers to work on; testers
 . Updating the Budget Panel
 
 .. Prerequisites: Create a new account using `signup x` where x is any valid username and login to said account using `login x`.
+Test cases should be performed one after the other.
 .. Test case: `add n/test c/test $/4.00`
    Expected: `BudgetPanel#budgetBar` should be updated . `BudgetPanel#expenseDisplay` should be updated to display "$4.00".
    Both of these elements should be colored green.
@@ -1992,6 +1995,7 @@ These instructions only provide a starting point for testers to work on; testers
 
 . Updating the Category Panel
 .. Prerequisites: Create a new account using `signup x` where x is any valid username and login to said account using `login x`.
+Test cases should be performed one after the other.
 .. Test case: `setBudget 100.00` + `setCategoryBudget c/Food b/50.00` + `add n/test c/Food $/25.00` + `stats`
 .. Expected: A new `CategoryIcon` should appear in the `CagtegoryPanel`. The upper text should display "Food" and the lower text should display
 "50.00%"

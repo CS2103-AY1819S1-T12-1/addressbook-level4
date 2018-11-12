@@ -9,11 +9,15 @@
 
 == Overview
 
-Expense Tracker is the secure, efficient financial application for the keyboard enthusiast. Boasting such features as daily tips,
-statistics, expense management and budget setting, Expense Tracker provides users with the necessary tools to become a better saver.
+*Expense Tracker* is the secure, efficient financial application for the keyboard enthusiast. Boasting such features as daily tips,
+statistics, expense management and budget setting, *Expense Tracker* equips users with the necessary tools to become a better saver.
 
-This portfolio is a documentation of my contributions to Expense Tracker. Morphed from the https://github.com/nus-cs2103-AY1819S1/addressbook-level4[AddressBook application],
-Expense Tracker was created for an NUS software Engineering module (CS2103T). The constraints for the project are described https://nus-cs2103-ay1819s1.github.io/cs2103-website/admin/project-constraints.html[here].
+Morphed from the https://github.com/nus-cs2103-AY1819S1/addressbook-level4[Address Book] application,
+**Expense Tracker** was created for an NUS software Engineering module (CS2103T) under several https://nus-cs2103-ay1819s1.github.io/cs2103-website/admin/project-constraints.html[constraints].
+Due to said constraints, Command Line Interface (CLI) became the main mode of interaction with the application. However, to ensure user friendliness, a
+Graphical User Interface (GUI) has been implemented.
+
+This portfolio is a documentation of my contributions to *Expense Tracker*.
 
 == Summary of contributions
 
@@ -27,21 +31,21 @@ if the user is about to spend or have spent over their budget.
 
 *Justification*
 
-* A well-designed and responsive user interface is able to maximize user experience and allows `Expense Tracker` to stand out amongst the sea
+* A well-designed and responsive user interface is able to maximize user experience and allows *Expense Tracker* to stand out amongst the sea
 of financial applications.
 
-* I predict that there will be a subset of users who use `Expense Tracker` because they have trouble maintaining a budget. The Notification System was
+* I predict that there will be a subset of users who use *Expense Tracker* because they have trouble maintaining a budget. The Notification System was
  implemented to help said users by monitoring their budget management and providing general knowledge about saving money.
 
 *Highlights*
 
-* Creativity and many design considerations were required to get the Expense Tracker GUI to look and function as I had envisioned.
+* Creativity and many design considerations were required to get the *Expense Tracker* GUI to look and function as I had envisioned.
 * Additional features animation and dynamic changing of text color were also implemented for the GUI for improved visual feedback.
-* The implementation of the Notification System, in particular, was challenging as it involved making additions and modifications to all components of Expense Tracker.
+* The implementation of the Notification System, in particular, was challenging as it involved making additions and modifications to all components of *Expense Tracker*.
 
 *Minor enhancements*:
 
-* Implemented the `notification` command that allows users to toggle the option for automated notification sending.
+* Implemented the `notification` command which allows users to toggle the option for automated notification sending.
 * Completely overhauled the CSS styling of the application.
 * Implemented other minor animations to existing features such a fade-in effect of GUI elements upon login.
 * Implemented panel switching. The leftmost panel of the GUI can swap between statistical information and the list of expenses.
