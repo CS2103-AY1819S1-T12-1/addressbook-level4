@@ -355,18 +355,7 @@ quick overview for each component</p>
 </ul>
 </div>
 <div class="paragraph">
-<p><a href="#Design-Commons"><strong><code>Commons</code></strong></a> represents a collection of classes used by multiple other components. Two of those classes play important roles at the architecture level.</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>EventsCenter</code> : This class (written using <a href="https://github.com/google/guava/wiki/EventBusExplained">Google&#8217;s Event Bus library</a>) is used by components to communicate with other components using events.
-See <a href="#Event-driven">Event-Driven Design</a> from more details.</p>
-</li>
-<li>
-<p><code>LogsCenter</code> : This class is used by many components to write log messages to Expense Tracker&#8217;s log file.</p>
-</li>
-</ul>
+<p><a href="#Design-Commons"><strong><code>Commons</code></strong></a> represents a collection of classes used by multiple other components.</p>
 </div>
 <div class="paragraph">
 <p><code>Logic</code> is the command executor. It defines its API in the <code>Logic.java</code> interface and exposes its functionality using the <code>LogicManager.java</code> class.
@@ -579,7 +568,24 @@ instead of each <code>Expense</code> needing their own <code>Tag</code> object. 
 <div class="sect2">
 <h3 id="Design-Commons"><a class="link" href="#Design-Commons">3.6. Common classes</a></h3>
 <div class="paragraph">
-<p>Classes used by multiple components are in the <code>seedu.expensetracker.commons</code> package.</p>
+<p>Two classes in <code>Commons</code> play important roles at the architecture level:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>EventsCenter</code> : This class (written using <a href="https://github.com/google/guava/wiki/EventBusExplained">Google&#8217;s Event Bus library</a>) is used by components to communicate with other components using events.
+See <a href="#Event-driven">Event-Driven Design</a> from more details.</p>
+</li>
+<li>
+<p><code>LogsCenter</code> : This class is used by components to write log messages to Expense Tracker&#8217;s log file.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><code>Commons</code> also contains utility and exception classes which can be used by components.
+See the <a href="https://github.com/CS2103-AY1819S1-T12-1/main/tree/master/src/main/java/seedu/expensetracker/commons/util"><code>Utilities</code></a>
+and <a href="https://github.com/CS2103-AY1819S1-T12-1/main/tree/master/src/main/java/seedu/expensetracker/commons/exceptions"><code>Exceptions</code></a>
+folders for all the utility and exception classes available.</p>
 </div>
 </div>
 </div>
@@ -1117,8 +1123,8 @@ If <code>currentStatePointer</code> is at index <code>expenseTrackerStateList.si
 <div class="sect2">
 <h3 id="statistics"><a class="link" href="#statistics">4.3. Statistics</a></h3>
 <div class="paragraph">
-<p>The implementation of the Statistics function can be divided into two parts - preparation and execution.
-Given below is an example usage scenario and an explanation of how the statistics mechanism behaves at each step.</p>
+<p>The implementation of the Statistics function can be divided into two phases - preparation and execution.
+Given below is an explanation of how the statistics mechanism behaves at each phase.</p>
 </div>
 <div class="sect3">
 <h4 id="preparation"><a class="link" href="#preparation">4.3.1. Preparation</a></h4>
@@ -1129,37 +1135,44 @@ Below is the UML sequence diagram and a step-by-step explanation of the preparat
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/implementation/StatsPreparationSequenceDiagram.png" alt="StatsPreparationSequenceDiagram" width="800">
+<img src="images/implementation/StatsPreparationSequenceDiagram.png" alt="StatsPreparationSequenceDiagram">
 </div>
 <div class="title">Figure 21. Sequence diagram of the preparation stage in the statistics mechanism</div>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>User enters command <code>stats n/7 p/d m/t</code>. The command is received by <code>ExpenseTrackerParser</code>, which calls <code>StatsCommandParser#parse()</code>
-to create a <code>StatsCommand</code> object with the two extracted parameters. The <code>StatsCommand</code> object is returned to <code>LogicManager</code>.</p>
+<p>User enters command <code>stats</code> command e.g. <code>stats n/7 p/d m/t</code>. The command is received by <code>ExpenseTrackerParser</code>, which calls
+creates <code>StatsCommand</code> and calls <code>StatsCommandParser#parse()</code> to create <code>StatsCommand</code>.</p>
 </li>
 <li>
-<p><code>LogicManager</code> then calls <code>StatsCommand#execute()</code>, which updates <code>Predicate</code> and <code>StatsMode</code> in <code>ModelManager and
-also posts a `ShowStatsRequestEvent</code> and <code>SwapLeftPanelEvent</code> event to <code>EventsCenter</code>.</p>
+<p>If no parameters are provided by the user, <code>StatsCommand#StatsCommand()</code> is called to create <code>StatsCommand</code> with the
+default parameters of <code>periodAmount</code> as <code>7</code>, <code>period</code> as <code>d</code> and <code>mode</code> as <code>t</code>. Otherwise,
+<code>StatsCommand#StatsCommand(periodAmount, period, mode)</code> is called to create <code>StatsCommand</code> with the specified parameters.</p>
+</li>
+<li>
+<p><code>StatsCommand</code> checks if the parameters are valid. If any parameter is invalid, an exception will be raised and a
+message will be displayed to the user. Otherwise, the parameters are stored in instance variables and
+<code>StatsCommand</code> is returned to <code>LogicManager</code>.</p>
+</li>
+<li>
+<p><code>LogicManager</code> then calls <code>StatsCommand#execute()</code>, which updates <code>expensePredicate</code>, <code>statsMode</code>, <code>statsPeriod</code> and
+<code>periodAmount</code> in <code>ModelManager</code>, which are variables in <code>ModelManager</code> relevant for statistics.
+<code>StatsCommand#execute()</code> also posts <code>ShowStatsRequestEvent</code> and <code>SwapLeftPanelEvent</code> events to <code>EventsCenter</code>.</p>
 </li>
 </ol>
-</div>
-<div class="paragraph">
-<p>In this example, <code>Predicate</code> is set to filter out expenses which have dates within the last 7 days and
-<code>StatsPeriod</code> is set to TIME, which will be used later to have the UI display a bar chart instead of a pie chart.</p>
 </div>
 </div>
 <div class="sect3">
 <h4 id="execution"><a class="link" href="#execution">4.3.2. Execution</a></h4>
 <div class="paragraph">
-<p>In the execution phase, the program handles the events posted by <code>StatsCommand</code> by
+<p>In the execution phase, the program handles <code>ShowStatsRequestEvent</code> posted by <code>StatsCommand</code> by
 processing and retrieving the data to be displayed and finally displaying it.
 Below is the UML sequence diagram and a step-by-step explanation of the execution stage.</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/implementation/StatsExecutionSequenceDiagram.png" alt="StatsExecutionSequenceDiagram" width="800">
+<img src="images/implementation/StatsExecutionSequenceDiagram.png" alt="StatsExecutionSequenceDiagram" width="500">
 </div>
 <div class="title">Figure 22. Sequence diagram of the execution stage in the statistics mechanism</div>
 </div>
@@ -1172,10 +1185,10 @@ and passes the data as parameters by calling
 </li>
 <li>
 <p><code>Logic#getExpenseStats()</code> gets the filtered expense list by calling <code>Model#getExpenseStats()</code>, which returns
-an unmodifiable <code>ObservableList</code>, only containing only expenses in the last 7 days, as per <code>Predicate</code>, and sorted by date.
+an unmodifiable <code>ObservableList</code>, only containing only expenses in the last 7 days, as per <code>ModelManager#expensePredicate</code>, and sorted by date.
 <code>Logic#getExpenseStats()</code> then organises the data into a <code>LinkedHashMap&lt;String, Double&gt;</code>, where the key value pair represents
-the x and y values of the chart. In this case, <code>StatsMode</code> is set to TIME, which results in a x,y values of date and cost.
-If <code>StatsMode</code> is set to CATEGORY, the x,y values will be set to category and cost.</p>
+the data series of the chart. If <code>StatsMode</code> is set to TIME, the key and value pair represents date and cost.
+If <code>StatsMode</code> is set to CATEGORY, the key value pair represents category and cost.</p>
 </li>
 <li>
 <p><code>Logic#getStatsPeriod()</code>, <code>Logic#getStatsMode()</code> and <code>Logic#getPeriodAmount()</code> gets their respective data
@@ -1183,17 +1196,35 @@ by calling the method of the same name in <code>Model</code>.</p>
 </li>
 <li>
 <p>Once the parameters are passed into <code>StatisticsPanel#setData()</code>, <code>StackPane#getChildren()#clear()</code> is called to clear
-any display elements in <code>StackPane</code>.</p>
-</li>
+any display elements in <code>StackPane</code>. Then there are three scenarios which could happen:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
 <li>
-<p>In this case, <code>StatsMode</code> is set to TIME, which results in <code>StatisticsPanel#setTimeBasedData()</code> to be called, which
-generates a Bar Chart and calls <code>StackPane#getChildren()#add()</code>, which adds it to <code>StackPane</code>.
-If <code>StatsMode</code> is set to CATEGORY, which results in <code>StatisticsPanel#setCategoryBasedData()</code> to be called, which
-generates a Pie Chart and calls <code>StackPane#getChildren()#add()</code>, which adds it to <code>StackPane</code>.
-If the data received is empty, a <code>Text</code> object is generated and <code>StackPane#getChildren()#add()</code> is called,
+<p>If the data received is empty, a <code>Text</code> object is generated and <code>StackPane#getChildren()#add()</code> is called,
 which informs the user that there are no expenditures</p>
 </li>
+<li>
+<p>If <code>StatsMode</code> is set to TIME, <code>StatisticsPanel#setTimeBasedData()</code> will be called, which
+generates a Bar Chart and calls <code>StackPane#getChildren()#add()</code>, which adds it to <code>StackPane</code>.</p>
+</li>
+<li>
+<p>If <code>StatsMode</code> is set to CATEGORY, <code>StatisticsPanel#setCategoryBasedData()</code> will be called, which
+generates a Pie Chart and calls <code>StackPane#getChildren()#add()</code>, which adds it to <code>StackPane</code>.</p>
+</li>
 </ol>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>All of these steps from the preparation and execution phase result in the Statistics Panel of Expense Tracker showing
+either a bar chart or a pie chart like the ones in the diagram below:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/StatsCharts.png" alt="StatsCharts">
+</div>
+<div class="title">Figure 23. Example bar and pie charts for Statistics Panel</div>
 </div>
 </div>
 <div class="sect3">
@@ -1275,7 +1306,7 @@ which informs the user that there are no expenditures</p>
 <div class="content">
 <img src="images/implementation/FindCommandSequenceDiagram.png" alt="FindCommandSequenceDiagram" width="800">
 </div>
-<div class="title">Figure 23. Sequence diagram of find mechanism</div>
+<div class="title">Figure 24. Sequence diagram of find mechanism</div>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -1318,7 +1349,7 @@ and returned to <code>LogicManager</code>.</p>
 <div class="content">
 <img src="images/implementation/MassEditCommandSequenceDiagram.png" alt="MassEditCommandSequenceDiagram" width="800">
 </div>
-<div class="title">Figure 24. Sequence diagram of mass edit mechanism</div>
+<div class="title">Figure 25. Sequence diagram of mass edit mechanism</div>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -1378,7 +1409,7 @@ A <code>CommandResult</code> is then created and returned to <code>LogicManager<
 <div class="content">
 <img src="images/UiChange.png" alt="UiChange" width="600">
 </div>
-<div class="title">Figure 25. Before and After shots of the UI</div>
+<div class="title">Figure 26. Before and After shots of the UI</div>
 </div>
 <div class="paragraph">
 <p>As an example of how the new UI elements were implemented, we will examine the implementation of <code>BudgetPanel</code>.</p>
@@ -1512,7 +1543,7 @@ Similarly, if the user has gone from over budget to under budget, the color of
 <div class="content">
 <img src="images/implementation/BudgetPanelSequenceDiagram.png" alt="BudgetPanelSequenceDiagram" width="600">
 </div>
-<div class="title">Figure 26. Sequence diagram of the <code>BudgetPanel</code> update</div>
+<div class="title">Figure 27. Sequence diagram of the <code>BudgetPanel</code> update</div>
 </div>
 </div>
 <div class="sect3">
@@ -1831,7 +1862,7 @@ The <code>n/</code> suffix and parameter can be omitted. In this case, all types
 <div class="content">
 <img src="images/overbudget.png" alt="overbudget" width="790">
 </div>
-<div class="title">Figure 27. Warning that is shown when a user adds an expense which results in the user exceeding the budget.</div>
+<div class="title">Figure 28. Warning that is shown when a user adds an expense which results in the user exceeding the budget.</div>
 </div>
 <div class="paragraph">
 <p>The current implementation for budgeting and its related features are described below.</p>
@@ -1845,7 +1876,7 @@ The <code>n/</code> suffix and parameter can be omitted. In this case, all types
 <div class="content">
 <img src="images/implementation/BudgetCommandSequenceDiagram.png" alt="BudgetCommandSequenceDiagram" width="800">
 </div>
-<div class="title">Figure 28. Sequence diagram of a user setting a budget.</div>
+<div class="title">Figure 29. Sequence diagram of a user setting a budget.</div>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -1925,7 +1956,7 @@ and step by step explanation of how Expense Tracker executes when a user sets a 
 <div class="content">
 <img src="images/implementation/SetRecurringBudgetCommandSequenceDiagram.png" alt="SetRecurringBudgetCommandSequenceDiagram" width="800">
 </div>
-<div class="title">Figure 29. Sequence diagram of a user setting a recurrence frequency.</div>
+<div class="title">Figure 30. Sequence diagram of a user setting a recurrence frequency.</div>
 </div>
 <div class="paragraph">
 <p>Steps of the command execution are as follows:</p>
@@ -1974,7 +2005,7 @@ of available spending resetting is given below.</p>
 <div class="content">
 <img src="images/implementation/RecurrenceFrequencySequenceDiagram.png" alt="RecurrenceFrequencySequenceDiagram" width="900">
 </div>
-<div class="title">Figure 30. Sequence diagram of a user setting a recurrence frequency.</div>
+<div class="title">Figure 31. Sequence diagram of a user setting a recurrence frequency.</div>
 </div>
 <div class="paragraph">
 <p>Execution steps of resetting available spending are as follows:</p>
@@ -2016,7 +2047,7 @@ and step by step explanation of how Expense Tracker executes when a user sets a 
 <div class="content">
 <img src="images/implementation/SetCategoryBudgetSequenceDiagram.png" alt="SetCategoryBudgetSequenceDiagram" width="900">
 </div>
-<div class="title">Figure 31. Sequence diagram of a user setting <code>CategoryBudget</code>.</div>
+<div class="title">Figure 32. Sequence diagram of a user setting <code>CategoryBudget</code>.</div>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -2057,13 +2088,13 @@ tracking as it allows for more leeway in how a person could spend. This is illus
 <div class="content">
 <img src="images/budgetOfTheWeek.PNG" alt="budgetOfTheWeek" width="800">
 </div>
-<div class="title">Figure 32. Diagram of a weekly budget</div>
+<div class="title">Figure 33. Diagram of a weekly budget</div>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="images/budgetOfTheMonth.png" alt="budgetOfTheMonth" width="800">
 </div>
-<div class="title">Figure 33. Diagram of a monthly budget.</div>
+<div class="title">Figure 34. Diagram of a monthly budget.</div>
 </div>
 <div class="paragraph">
 <p>The first image above shows that the user has spent over his budget for the week, whilst the second image shows that
@@ -2222,7 +2253,7 @@ like the figure below should show up.</p>
 <div class="content">
 <img src="images/chrome_save_as_pdf.png" alt="chrome save as pdf" width="300">
 </div>
-<div class="title">Figure 34. Saving documentation as PDF files in Chrome</div>
+<div class="title">Figure 35. Saving documentation as PDF files in Chrome</div>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -4059,4 +4090,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 08:21:35 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 10:26:07 UTC</div></div></div></body></html>
