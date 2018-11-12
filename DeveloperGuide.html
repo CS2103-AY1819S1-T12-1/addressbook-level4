@@ -89,6 +89,9 @@
 <li><a href="#toggling-notifications">9.3. Toggling Notifications</a></li>
 <li><a href="#budget-panel">9.4. Budget Panel</a></li>
 <li><a href="#category-panel">9.5. Category Panel</a></li>
+<li><a href="#find-expenses">9.6. Find expenses</a></li>
+<li><a href="#mass-edit-expenses">9.7. Mass edit expenses</a></li>
+<li><a href="#saving-data">9.8. Saving data</a></li>
 </ul>
 </li>
 </ul>
@@ -4126,11 +4129,6 @@ over my budget</p></td>
 </ol>
 </div>
 <div class="paragraph">
-<p>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</p>
-</div>
-<div class="exampleblock">
-<div class="content">
-<div class="paragraph">
 <p><strong>Extensions</strong></p>
 </div>
 <div class="ulist">
@@ -4163,9 +4161,6 @@ over my budget</p></td>
 </li>
 </ul>
 </div>
-<div class="paragraph">
-<p>&gt;&gt;&gt;&gt;&gt;&gt;&gt; 907c64a3e5a7173ddb3ac77e068786dd16e2ec13</p>
-</div>
 <h3 id="use-case-decrypt" class="discrete">Use case: Decrypt</h3>
 <div class="paragraph">
 <p><strong>MSS</strong></p>
@@ -4185,13 +4180,6 @@ over my budget</p></td>
 </div>
 <div class="paragraph">
 <p><strong>Extensions</strong></p>
-</div>
-<div class="paragraph">
-<p>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
-* 1a.Expense Tracker detects that the specified <code>String</code> was not encrypted with the user&#8217;s encryption key.
-    ** 1a1. Expense Tracker informs user that the specified <code>String</code> was not encrypted with the user&#8217;s encryption key.</p>
-</div>
-</div>
 </div>
 <div class="ulist">
 <ul>
@@ -4226,11 +4214,7 @@ over my budget</p></td>
 <div class="ulist">
 <ul>
 <li>
-<p>1c1. Expense Tracker informs user that they are not logged into any user.
-&gt;&gt;&gt;&gt;&gt;&gt;&gt; 907c64a3e5a7173ddb3ac77e068786dd16e2ec13</p>
-</li>
-<li>
-<p>Use case ends.</p>
+<p>1c1. Expense Tracker informs user that they are not logged into any user.</p>
 </li>
 </ul>
 </div>
@@ -4858,5 +4842,108 @@ Expected: <code>BudgetPanel#budgetBar</code> should be updated. <code>BudgetPane
 </ol>
 </div>
 </div>
+<div class="sect2">
+<h3 id="find-expenses"><a class="link" href="#find-expenses">9.6. Find expenses</a></h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Find expenses that are in the ExpenseTracker</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: Logged in to an account and the targeted expenses exist in the account.</p>
+</li>
+<li>
+<p>Test case: <code>find n/lunch</code><br>
+Expected: The expenses with name "lunch" are shown on the expense list panel. Number of expenses
+found is shown as the status message.</p>
+</li>
+<li>
+<p>Test case: <code>find c/food $/1.00:2.00</code><br>
+Expected: The expenses under "food" category with cost between 1.00 and 2.00(inclusive) are shown on
+the expense list panel. Number of expense found is shown as the status message.</p>
+</li>
+</ol>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 13:09:02 UTC</div></div></div></body></html>
+</li>
+<li>
+<p>Find expenses that are not in the ExpenseTracker</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: Logged in to an account and the targeted expenses do not exist in the account.</p>
+</li>
+<li>
+<p>Test case: <code>find (any keywords that would not direct to existing expenses)</code>
+Expected: No expense is shown on expense list panel. "0 expenses listed!" is shown as
+status message.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="mass-edit-expenses"><a class="link" href="#mass-edit-expenses">9.7. Mass edit expenses</a></h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Mass edit expenses that are in the ExpenseTracker</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: Logged in to an account and the targeted expenses exist in the account.</p>
+</li>
+<li>
+<p>Test case: <code>massedit c/school -&gt; c/food</code><br>
+Expected: Edits all the expenses in the "school" category to have their categories changed to "food" and the edited
+expenses are shown on the screen. Success message is shown as status message.</p>
+</li>
+<li>
+<p>Test case: <code>massedit n/School fee d/01-10-2018:03-10-2018 -&gt; t/books</code><br>
+Expected: Edits all the expenses which have names containing "School", with dates between "01-10-2018" and "03-10-2018", to have their tags changed to "book". The
+edited expenses are shown as status message.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Mass edit expenses that are not in the ExpenseTracker</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: Logged in to an account and the targeted expenses do not exist in the account.</p>
+</li>
+<li>
+<p>Test case: <code>massedit (ny keywords that would not direct to existing expenses) -&gt; (any edited field)</code><br>
+Expected: No expense is shown on expense list panel. "No expense is found by the keywords." is shown as status message.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="saving-data"><a class="link" href="#saving-data">9.8. Saving data</a></h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Dealing with missing/corrupted data files</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p><em>{explain how to simulate a missing/corrupted file and the expected behavior}</em></p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><em>{ more test cases &#8230;&#8203; }</em></p>
+</div>
+</div>
+</div>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 13:18:08 UTC</div></div></div></body></html>
