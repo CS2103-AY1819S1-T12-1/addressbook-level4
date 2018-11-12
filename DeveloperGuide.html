@@ -1300,6 +1300,15 @@ either a bar chart or a pie chart like the ones in the diagram below:</p>
 <div class="sect2">
 <h3 id="find"><a class="link" href="#find">4.4. Find</a></h3>
 <div class="paragraph">
+<p>This feature allows users to filter out specific expenses by entering multiple keywords.
+Only the expenses which contain all the keywords will be shown on the expense list panel.</p>
+</div>
+<div class="paragraph">
+<p>This implementation is under <code>Logic</code> and <code>Model</code> Components.</p>
+</div>
+<div class="sect3">
+<h4 id="current-implementation-3"><a class="link" href="#current-implementation-3">4.4.1. Current Implementation</a></h4>
+<div class="paragraph">
 <p>Below is the UML sequence diagram and a step-by-step explanation of an example usage scenario.</p>
 </div>
 <div class="imageblock">
@@ -1340,8 +1349,58 @@ and returned to <code>LogicManager</code>.</p>
 </ol>
 </div>
 </div>
+<div class="sect3">
+<h4 id="design-consideration"><a class="link" href="#design-consideration">4.4.2. Design Consideration</a></h4>
+<div class="paragraph">
+<p>This feature can be implemented in different ways in terms of how the target expenses are found.
+The alternative ways of implementation are shown below.</p>
+</div>
+<div class="sect4">
+<h5 id="aspect-how-to-filter-out-targeted-expenses"><a class="link" href="#aspect-how-to-filter-out-targeted-expenses">Aspect: How to filter out targeted expenses</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1 (current choice):</strong> Check through all expenses and select those with all the keywords</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Easy to implement. No need to change original architecture.</p>
+</li>
+<li>
+<p>Cons: Time-consuming. Tend to take longer time when there is a large number of expenses.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> Store expenses in separate files and only check the relevant files while filtering.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: More efficient. No need to check every expense.</p>
+</li>
+<li>
+<p>Cons: Need to change the original architecture of storage.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
 <div class="sect2">
 <h3 id="mass-edit"><a class="link" href="#mass-edit">4.5. Mass Edit</a></h3>
+<div class="paragraph">
+<p>This feature allows users to edit multiple expenses at the same time. Users need to enter the keywords to identify the
+targeted expenses as well as the fields they would like to edit.</p>
+</div>
+<div class="paragraph">
+<p>This implementation is under <code>Logic</code> and <code>Model</code> components.</p>
+</div>
+<div class="sect3">
+<h4 id="current-implementation-4"><a class="link" href="#current-implementation-4">4.5.1. Current implementation</a></h4>
 <div class="paragraph">
 <p>Below is the UML sequence diagram and a step-by-step explanation of an example usage scenario.</p>
 </div>
@@ -1354,7 +1413,7 @@ and returned to <code>LogicManager</code>.</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>User enters command <code>massedit c/school &#8594; c/work d/01-01-2018</code>. The command is received by <code>ExpenseTrackerParser</code>,
+<p>User enters command <code>massedit c/school -&gt; c/work d/01-01-2018</code>. The command is received by <code>ExpenseTrackerParser</code>,
 which then creates a <code>MassEditCommandParser</code> Object and calls <code>MassEditCommandParser#parse()</code> method.</p>
 </li>
 <li>
@@ -1374,14 +1433,57 @@ two <code>ArgumentMultimap</code> Objects.</p>
 method to update the predicate of FilterList&lt;Expense&gt;. <code>Model#getFilteredExpenseList()</code> is called to return the FilterList&lt;Expense&gt;.</p>
 </li>
 <li>
-<p>A loop starts and for each <code>Expense</code> in the FilterList&lt;Expense&gt;, <code>EditExpenseDescriptor#createEditedExpense()</code> is called to create an edited Expense object.
+<p>All the <code>Expense</code> in the FilterList&lt;Expense&gt; are then added to a new list.
+A loop starts and for each <code>Expense</code> in the list, <code>EditExpenseDescriptor#createEditedExpense()</code> is called to create an edited Expense object.
 Then <code>Model#updateExpense</code> is called to replace the original <code>Expense</code> with edited <code>Expense</code>.</p>
 </li>
 <li>
-<p>When loop ends, <code>Model#updateFilteredExpenseList()</code> is called again to show the edit <code>Expense</code> to the user.
+<p>When loop ends, <code>Model#updateFilteredExpenseList()</code> is called to show the edit <code>Expense</code> to the user.
 A <code>CommandResult</code> is then created and returned to <code>LogicManager</code>.</p>
 </li>
 </ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-consideration-2"><a class="link" href="#design-consideration-2">4.5.2. Design Consideration</a></h4>
+<div class="paragraph">
+<p>This feature can be implemented in different ways in terms of how the target expenses are edited.
+The alternative ways of implementation are shown below.</p>
+</div>
+<div class="sect4">
+<h5 id="aspect-how-to-edit-the-targeted-expenses"><a class="link" href="#aspect-how-to-edit-the-targeted-expenses">Aspect: How to Edit the targeted expenses</a></h5>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Alternative 1(current choice):</strong> Filter out the targeted expenses and replace them with edited expenses.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Easy to implement. Align with current architecture.</p>
+</li>
+<li>
+<p>Cons: Time-consuming. Tend to take longer time when there is a large number of expenses.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternative 2:</strong> Store expenses in separate files. When the expenses are edited, move them
+to another file according to the edited fields.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Pros: Easy to identify the targeted expenses by checking relevant files. No need to check every expense.</p>
+</li>
+<li>
+<p>Cons: Need to change original architecture of storage. May need to create new files during edition.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -4090,4 +4192,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 10:26:07 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 10:58:13 UTC</div></div></div></body></html>

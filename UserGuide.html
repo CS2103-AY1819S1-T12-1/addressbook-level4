@@ -708,7 +708,8 @@ Edits all the expenses in the "shopping" category, which have a cost of "100.00"
 <p>DATE can be a date in the future</p>
 </li>
 <li>
-<p>Only tag keywords can have multiple keywords. Name/Category/Cost/Date can only have one keywords.</p>
+<p>Only <code>Tag</code> keywords can have multiple keywords. <code>Name</code>,<code>Category</code>,<code>Cost</code>,<code>Date</code> can only have one keyword, i.e.
+<code>find t/lunch t/family</code> is permitted but <code>find n/school n/book</code> is not permitted.</p>
 </li>
 </ul>
 </div>
@@ -763,8 +764,10 @@ Deletes the first expense in the Expense List from Expense Tracker.</p>
 <div class="sect2">
 <h3 id="FindCommand"><a class="link" href="#FindCommand">5.9. Locating expenses by keywords: <code>find</code></a></h3>
 <div class="paragraph">
-<p>Finds expense which contains all the given keywords.<br>
-Format: `find [n/NAME] [c/CATEGORY] [$/COST:COST] [d/DATE:DATE] [t/TAG&#8230;&#8203;] `</p>
+<p>Finds expense which contains all the given keywords.<br></p>
+</div>
+<div class="paragraph">
+<p>Format: <code>find [n/NAME] [c/CATEGORY] [$/COST:COST] [d/DATE:DATE] [t/TAG&#8230;&#8203;]</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -779,7 +782,7 @@ Find all the expenses under the <code>School</code> category.</p>
 </li>
 <li>
 <p><code>find d/1-10-2018:7-10-2018</code><br>
-Find all the expenses which have dates between 1-10-2018 to 7-10-2018.</p>
+Find all the expenses which have dates between 1-10-2018 and 7-10-2018(inclusive).</p>
 </li>
 <li>
 <p><code>find d/1-10-2018</code><br>
@@ -817,13 +820,14 @@ Find all the expenses under the "School" category, with "lunch" tags and dates o
 <p>Keywords are case insensitive, i.e. the KEYWORD <code>have</code> is equivalent to the KEYWORD <code>Have</code></p>
 </li>
 <li>
-<p>Keywords can contain multiple words, i.e. the KEYWORD <code>have lunch</code> are permitted</p>
-</li>
-<li>
 <p>The order of the keywords does not matter, i.e. the KEYWORD <code>Have lunch</code> is equivalent to the KEYWORD <code>lunch have</code></p>
 </li>
 <li>
-<p>Partial words will be matched, i.e. using the KEYWORD <code>Hav</code> for expense name will an expense with the name <code>Have</code></p>
+<p>Partial words will be matched, i.e. using the KEYWORD <code>Hav</code> for expense name will give an expense with the name <code>Have</code></p>
+</li>
+<li>
+<p>Only <code>Tag</code> keywords can have multiple keywords. <code>Name</code>,<code>Category</code>,<code>Cost</code>,<code>Date</code> can only have one keyword, i.e.
+<code>find t/lunch t/family</code> is permitted but <code>find n/school n/book</code> is not permitted.</p>
 </li>
 </ul>
 </div>
@@ -1673,4 +1677,4 @@ This is a list of commands and their command shorthands in Expense Tracker:</p>
 </ul>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 10:26:07 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 10:58:13 UTC</div></div></div></body></html>
