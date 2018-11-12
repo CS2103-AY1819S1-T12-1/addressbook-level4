@@ -513,7 +513,7 @@ and step by step explanation of how Expense Tracker executes when a user sets a 
 <p><code>ExpenseTrackerParser</code> will then create a <code>SetRecurringBudgetCommandParser</code> Object and calls <code>SetRecurringBudgetCommandParser#parse()</code> method.</p>
 </li>
 <li>
-<p><code>SetRecurringBudgetCommandParser#parse()</code> method calls <code>ArgumentTokenizer#tokenize()</code> to tokenize the input String into keywords and store them in
+<p><code>SetRecurringBudgetCommandParser#parse()</code> method calls <code>ArgumentTokenizer#tokenize()</code> to tokenize the input <code>String</code> into keywords and store them in
 an <code>ArgumentMultimap</code> Object.</p>
 </li>
 <li>
@@ -559,7 +559,7 @@ of available spending resetting is given below.</p>
 <p>User logs in</p>
 </li>
 <li>
-<p><code>login</code> command executes in the <code>Logic</code>, which calls <code>Logic#execute()</code> to execute the command on the <code>Model</code></p>
+<p><code>login</code> command executes in the <code>Logic</code>, which calls <code>Logic#execute()</code> to execute the command on <code>Model</code></p>
 </li>
 <li>
 <p><code>Model</code> calls <code>Model#checkBudgetRestart()</code>, which in turn calls <code>TotalBudget#checkBudgetRetart()</code> to check if the
@@ -688,4 +688,4 @@ logging in, this should not be possible</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-11 17:22:11 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 05:56:10 UTC</div></div></div></body></html>

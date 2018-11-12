@@ -30,7 +30,7 @@
 <li><a href="#implementation">4. Implementation</a>
 <ul class="sectlevel2">
 <li><a href="#undo-redo-feature">4.1. Undo/Redo feature</a></li>
-<li><a href="#user-accounts-system">4.2. User Accounts System</a></li>
+<li><a href="#data-security">4.2. Data Security</a></li>
 <li><a href="#statistics">4.3. Statistics</a></li>
 <li><a href="#find">4.4. Find</a></li>
 <li><a href="#mass-edit">4.5. Mass Edit</a></li>
@@ -501,7 +501,7 @@ The result of the command execution is encapsulated as a <code>CommandResult</co
 <h3 id="Design-Model"><a class="link" href="#Design-Model">3.4. Model component</a></h3>
 <div class="imageblock">
 <div class="content">
-<img src="images/UpdatedModelComponentClassDiagram.png" alt="UpdatedModelComponentClassDiagram" width="800">
+<img src="images/ModelClassDiagram.png" alt="ModelClassDiagram" width="1366">
 </div>
 <div class="title">Figure 7. Structure of the Model Component</div>
 </div>
@@ -517,7 +517,10 @@ The result of the command execution is encapsulated as a <code>CommandResult</co
 <p>stores a <code>UserPref</code> object that represents the user&#8217;s preferences.</p>
 </li>
 <li>
-<p>stores a list of expenses.</p>
+<p>stores a list of expenses of a single user.</p>
+</li>
+<li>
+<p>stores encrypted lists of expenses of each users.</p>
 </li>
 <li>
 <p>exposes an unmodifiable <code>ObservableList&lt;Expense&gt;</code> that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.</p>
@@ -537,9 +540,6 @@ The result of the command execution is encapsulated as a <code>CommandResult</co
 To better adhere to the paradigms of OOP, we could store a <code>Tag</code> list in <code>Expense Tracker</code>, which <code>Expense</code> can
 reference. This allows <code>Expense Tracker</code> to only require one <code>Tag</code> object per unique <code>Tag</code>,
 instead of each <code>Expense</code> needing their own <code>Tag</code> object. This is planned to be implemented in future releases.
-An example of how such a model may look like is given below.<br>
-<br>
-<span class="image"><img src="images/BetterOopModelComponentClassDiagram.png" alt="BetterOopModelComponentClassDiagram" width="800"></span>
 </td>
 </tr>
 </table>
@@ -800,9 +800,15 @@ If <code>currentStatePointer</code> is at index <code>expenseTrackerStateList.si
 </div>
 </div>
 <div class="sect2">
-<h3 id="user-accounts-system"><a class="link" href="#user-accounts-system">4.2. User Accounts System</a></h3>
+<h3 id="data-security"><a class="link" href="#data-security">4.2. Data Security</a></h3>
+<div class="paragraph">
+<p>The Expense Tracker ensures the security of users' data through the user accounts system and data encryption.</p>
+</div>
 <div class="paragraph">
 <p>The user accounts system allows multiple users to use Expense Tracker on the same computer without interfering with each other&#8217;s data. It also includes an optional password system that allows users to protect their Expense Tracker information from being viewed or altered by others.</p>
+</div>
+<div class="paragraph">
+<p>The encryption system ensures all expense data (excluding budget) is encrypted within the xml storage files.</p>
 </div>
 <div class="sect3">
 <h4 id="current-implementation-2"><a class="link" href="#current-implementation-2">4.2.1. Current Implementation</a></h4>
@@ -817,33 +823,60 @@ If <code>currentStatePointer</code> is at index <code>expenseTrackerStateList.si
 </td>
 <td class="content">
 <div class="paragraph">
-<p>An xml data file not be loaded if the username value is not the same as the filename (ignoring file extension).</p>
+<p>The username value will be forced to match the name of the xml data filename (ignoring file extentions).</p>
 </div>
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>This system is facilitated by newly added methods in the Model interface which now supports the following operations:</p>
+<p>This feature is facilitated by newly added methods in the Model interface which now supports the following operations:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><code>Model#loadUserData(Username, Password)</code>&#8201;&#8212;&#8201;Logs in to the user with the input Username and Password and loads the associated data into <code>Model</code>. Returns true if the password matches the user&#8217;s password, else the user is not logged into and false is returned</p>
+<p><code>Model#loadUserData(Username, Password)</code>&#8201;&#8212;&#8201;Logs in to the user with the input <code>Username</code> and <code>Password</code> and loads the associated data into <code>Model</code>. Returns true if the <code>Password</code> matches the user&#8217;s <code>Password</code>, else the user is not logged into and false is returned</p>
 </li>
 <li>
 <p><code>Model#unloadUserData()</code>&#8201;&#8212;&#8201;Unselects the user in <code>Model</code></p>
 </li>
 <li>
-<p><code>Model#isUserExists(Username)</code>&#8201;&#8212;&#8201;Checks if a user with the input Username exists in <code>Model</code></p>
+<p><code>Model#isUserExists(Username)</code>&#8201;&#8212;&#8201;Checks if a user with the input <code>Username</code> exists in <code>Model</code></p>
 </li>
 <li>
-<p><code>Model#addUser(Username)</code>&#8201;&#8212;&#8201;Adds a new user with the given Username to <code>Model</code></p>
+<p><code>Model#addUser(Username)</code>&#8201;&#8212;&#8201;Adds a new user with the given <code>Username</code> to <code>Model</code></p>
 </li>
 <li>
 <p><code>Model#hasSelectedUser()</code>&#8201;&#8212;&#8201;Checks if a user is currently logged in in <code>Model</code></p>
 </li>
+<li>
+<p><code>Model#setPassword(Password, String)</code>&#8201;&#8212;&#8201;Changes the <code>Password</code> of the user that is currently logged in. Requires the new password as a <code>Password</code> object and as a plain text <code>String</code>.</p>
+</li>
+<li>
+<p><code>Model#isMatchPassword(Password)</code>&#8201;&#8212;&#8201;Checks if the input <code>Password</code> matches the name</p>
+</li>
+<li>
+<p><code>Model#encryptString(String)</code>&#8201;&#8212;&#8201;Encrypts the input <code>String</code> using the currently logged in user&#8217;s encryption key</p>
+</li>
+<li>
+<p><code>Model#decryptString(String)</code>&#8201;&#8212;&#8201;Decrypts the input <code>String</code> using the currently logged in user&#8217;s encryption key.</p>
+</li>
 </ul>
+</div>
+<div class="paragraph">
+<p>When implementing methods in <code>ModelManager</code> that requires a user to already be logged in, one can use <code>ModelManager#requireUserSelected()</code>, which throws a checked <code>NoUserSelectedException</code> if there is no logged in user. I.e your method should look like this:</p>
+</div>
+<div class="listingblock">
+<div class="title">New method example</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Override</span>
+<span class="directive">public</span> <span class="type">void</span> methodName() <span class="directive">throws</span> NoUserSelectedException {
+    requireUserSelected();
+    <span class="comment">/*
+    Perform required operations here.
+    */</span>
+}</code></pre>
+</div>
 </div>
 <div class="paragraph">
 <p>The classes <code>Username</code> and <code>Password</code> have also been implemented and have the following noteworthy characteristics:</p>
@@ -851,16 +884,66 @@ If <code>currentStatePointer</code> is at index <code>expenseTrackerStateList.si
 <div class="ulist">
 <ul>
 <li>
-<p>Two <code>Username</code> classes are equivalent if and only if the internal username String are equivalent (case-insensitive).</p>
+<p>Two <code>Username</code> classes are equivalent if and only if the internal username <code>String</code> are equivalent (case-insensitive).</p>
 </li>
 <li>
-<p><code>Username</code> cannot be constructed with a String containing any of the following characters: <em>" &gt; &lt; : \ / | ? *</em></p>
+<p><code>Username</code> cannot be constructed with a <code>String</code> containing a white space or any of the following characters: <em>" &gt; &lt; : \ / | ? *</em></p>
 </li>
 <li>
-<p>When a <code>Password</code> class is constructed with plain text, the password is hashed before being stored as an internal String in the <code>Password</code> object</p>
+<p>When a <code>Password</code> class is constructed with plain text, the password is hashed using SHA-256 before being stored as an internal <code>String</code> in the <code>Password</code> object</p>
 </li>
 <li>
 <p><code>Password</code> is only valid if the plain text form is at least 6 characters long</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Utility methods related to data encryption are implemented in the <code>EncryptionUtil</code> class, which includes the following methods:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>EncryptionUtil#decryptString(String, String)</code>&#8201;&#8212;&#8201;Decrypts a <code>String</code> with by using the input encryption key</p>
+</li>
+<li>
+<p><code>EncryptionUtil#encryptString(String, String)</code>&#8201;&#8212;&#8201;Encrypts a <code>String</code> with by using the input encryption key</p>
+</li>
+<li>
+<p><code>EncryptionUtil#createEncryptionKey(String)</code>&#8201;&#8212;&#8201;Creates a 128-bit encryption key using the input plain text password <code>String</code>. Equivalent passwords will always map to equivalent keys.</p>
+</li>
+<li>
+<p><code>EncryptionUtil#encryptExpense(Expense, String)</code>&#8201;&#8212;&#8201;Creates an <code>EncryptedExpense</code> instance of the given <code>Expense</code> by encrypting its data using the given encryption key</p>
+</li>
+<li>
+<p><code>EncryptionUtil#encryptTracker(ExpenseTracker)</code>&#8201;&#8212;&#8201;Creates an <code>EncryptedExpenseTracker</code> instance of the given <code>ExpenseTracker</code> by encrypting it using its encryption key. This is always called when sending users' data to <code>Storage</code> for saving.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Encrypted versions of the <code>ExpenseTracker</code> and most of the classes it contains were implemented. These classes have their class names prepended with <code>Encrypted</code> and are shown in the class diagram below:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/implementation/EncryptionClassDiagram.png" alt="EncryptionClassDiagram" width="1024">
+</div>
+<div class="title">Figure 16. Class diagram for <code>Enrypted</code> classes</div>
+</div>
+<div class="paragraph">
+<p>The following are other noteworthy details of the implementation for data encryption:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Users' expense data are encrypted using <code>AES</code> encryption with a 128-bit <code>MurmurHash</code> of their plain text password as the encryption key. These are not stored anywhere in the data files to ensure the security of their data.</p>
+</li>
+<li>
+<p>The encrypted information is stored in new classes to ensure that encrypted data is not used before decryption.</p>
+</li>
+<li>
+<p>The encrypted information has to be stored in <code>Model</code> as the encryption key will only be known at runtime when a user logs in with his/her correct <code>Password</code>.</p>
+</li>
+<li>
+<p>Each Encrypted class will know how to decrypt itself into its decrypted equivalent. e.g <code>EncryptedExpenseField#decrypt(String)</code> uses the input <code>String</code> as an encryption key to decrypt itself into a <code>ExpenseField</code>.</p>
 </li>
 </ul>
 </div>
@@ -885,9 +968,9 @@ If <code>currentStatePointer</code> is at index <code>expenseTrackerStateList.si
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/implementation/ReadAllExpensesSequenceDiagram.png" alt="ReadAllExpensesSequenceDiagram" width="800">
+<img src="images/implementation/ReadAllExpensesSequenceDiagram.png" alt="ReadAllExpensesSequenceDiagram" width="512">
 </div>
-<div class="title">Figure 16. Sequence diagram of the <code>StorageManager#readAllExpenses(Path)</code> method</div>
+<div class="title">Figure 17. Sequence diagram of the <code>StorageManager#readAllExpenses(Path)</code> method</div>
 </div>
 <div class="paragraph">
 <p>Below is an example usage scenario and how the Sign Up and Login system behaves at each step after the application is launched.</p>
@@ -907,7 +990,10 @@ If <code>currentStatePointer</code> is at index <code>expenseTrackerStateList.si
 <p>The <code>login</code> command calls <code>loadUserData(Username, Password)</code> with a null password as a password was not provided. The method is executed successfully as the user <code>john</code> has no password set.</p>
 </li>
 <li>
-<p>The selected data in <code>Model</code> is switched to <code>john&#8217;s and an `UserLoggedInEvent</code> is raised for <code>UI</code> to show `john&#8217;s Expense Tracker data</p>
+<p><code>john</code>&#8217;s data that is stored as <code>EncryptedExpenseTracker</code> is decrypted using the <code>EncryptedExpenseTracker#decryptTracker(String)</code> using an encryption key generated from <code>john</code>&#8217;s password (In this case an empty <code>String</code> is used as the password since <code>john</code>&#8217;s account has no password).</p>
+</li>
+<li>
+<p>The selected data in <code>Model</code> is switched to <code>john</code>&#8217;s and an <code>UserLoggedInEvent</code> is raised for <code>UI</code> to show <code>john</code>&#8217;s Expense Tracker data</p>
 </li>
 </ol>
 </div>
@@ -918,7 +1004,7 @@ If <code>currentStatePointer</code> is at index <code>expenseTrackerStateList.si
 <div class="content">
 <img src="images/implementation/SignUpCommandSequenceDiagram.png" alt="SignUpCommandSequenceDiagram" width="800">
 </div>
-<div class="title">Figure 17. Sequence diagram showing how <code>SignUpCommand</code> works</div>
+<div class="title">Figure 18. Sequence diagram showing how <code>SignUpCommand</code> works</div>
 </div>
 <div class="paragraph">
 <p>Below is the UML sequence diagram that shows how <code>LoginCommand</code> works.</p>
@@ -927,7 +1013,7 @@ If <code>currentStatePointer</code> is at index <code>expenseTrackerStateList.si
 <div class="content">
 <img src="images/implementation/LoginCommandSequenceDiagram.png" alt="LoginCommandSequenceDiagram" width="800">
 </div>
-<div class="title">Figure 18. Sequence diagram showing how <code>LoginCommand</code> works</div>
+<div class="title">Figure 19. Sequence diagram showing how <code>LoginCommand</code> works</div>
 </div>
 <div class="paragraph">
 <p>Below is an example usage scenario and how the Password system behaves at each step after the he/she is logged in.</p>
@@ -941,7 +1027,10 @@ If <code>currentStatePointer</code> is at index <code>expenseTrackerStateList.si
 <p>The <code>setpassword</code> command calls the <code>Model#setPassword(Password)</code> method since the given old password matches his existing password and <code>password2</code> does not violate any password constraints</p>
 </li>
 <li>
-<p>The <code>Model#setPassword(Password)</code> changes <code>john&#8217;s account password to `password2</code></p>
+<p>The <code>Model#setPassword(Password)</code> method changes <code>john</code>&#8217;s account password to <code>password2</code></p>
+</li>
+<li>
+<p><code>john</code>&#8217;s expense data gets encrypted using a new encryption key generated from the <code>String</code> <code>password2</code>. This also applies in future whenever it is saved to the data file.</p>
 </li>
 </ol>
 </div>
@@ -952,7 +1041,7 @@ If <code>currentStatePointer</code> is at index <code>expenseTrackerStateList.si
 <div class="content">
 <img src="images/implementation/SetPasswordCommandSequenceDiagram.png" alt="SetPasswordCommandSequenceDiagram" width="800">
 </div>
-<div class="title">Figure 19. Sequence diagram showing how <code>SetPasswordCommand</code> works</div>
+<div class="title">Figure 20. Sequence diagram showing how <code>SetPasswordCommand</code> works</div>
 </div>
 </div>
 <div class="sect3">
@@ -1015,7 +1104,7 @@ If <code>currentStatePointer</code> is at index <code>expenseTrackerStateList.si
 <p>Pros: Unnecessary data is not kept in memory so memory space is not wasted</p>
 </li>
 <li>
-<p>Cons: Increase degree of coupling between the Logic, Model and Storage components as the login command will require the Storage to load and return the user&#8217;s data.</p>
+<p>Cons: The Model or Logic component will have to depend on the Storage component as the login command will require the Storage to load and return the user&#8217;s data.</p>
 </li>
 </ul>
 </div>
@@ -1042,7 +1131,7 @@ Below is the UML sequence diagram and a step-by-step explanation of the preparat
 <div class="content">
 <img src="images/implementation/StatsPreparationSequenceDiagram.png" alt="StatsPreparationSequenceDiagram" width="800">
 </div>
-<div class="title">Figure 20. Sequence diagram of the preparation stage in the statistics mechanism</div>
+<div class="title">Figure 21. Sequence diagram of the preparation stage in the statistics mechanism</div>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -1072,7 +1161,7 @@ Below is the UML sequence diagram and a step-by-step explanation of the executio
 <div class="content">
 <img src="images/implementation/StatsExecutionSequenceDiagram.png" alt="StatsExecutionSequenceDiagram" width="800">
 </div>
-<div class="title">Figure 21. Sequence diagram of the execution stage in the statistics mechanism</div>
+<div class="title">Figure 22. Sequence diagram of the execution stage in the statistics mechanism</div>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -1186,7 +1275,7 @@ which informs the user that there are no expenditures</p>
 <div class="content">
 <img src="images/implementation/FindCommandSequenceDiagram.png" alt="FindCommandSequenceDiagram" width="800">
 </div>
-<div class="title">Figure 22. Sequence diagram of find mechanism</div>
+<div class="title">Figure 23. Sequence diagram of find mechanism</div>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -1195,7 +1284,7 @@ which informs the user that there are no expenditures</p>
 which then creates a <code>FindCommandParser</code> Object and calls <code>FindCommandParser#parse()</code> method.</p>
 </li>
 <li>
-<p><code>FindCommandParser#parse()</code> method calls <code>ArgumentTokenizer#tokenize()</code> to tokenize the input String into keywords and store them in
+<p><code>FindCommandParser#parse()</code> method calls <code>ArgumentTokenizer#tokenize()</code> to tokenize the input <code>String</code> into keywords and store them in
 an <code>ArgumentMultimap</code> Object.</p>
 </li>
 <li>
@@ -1229,7 +1318,7 @@ and returned to <code>LogicManager</code>.</p>
 <div class="content">
 <img src="images/implementation/MassEditCommandSequenceDiagram.png" alt="MassEditCommandSequenceDiagram" width="800">
 </div>
-<div class="title">Figure 23. Sequence diagram of mass edit mechanism</div>
+<div class="title">Figure 24. Sequence diagram of mass edit mechanism</div>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -1238,7 +1327,7 @@ and returned to <code>LogicManager</code>.</p>
 which then creates a <code>MassEditCommandParser</code> Object and calls <code>MassEditCommandParser#parse()</code> method.</p>
 </li>
 <li>
-<p><code>MassEditCommandParser#parse()</code> method calls <code>ArgumentTokenizer#tokenize()</code> to tokenize the input String into keywords and store them in
+<p><code>MassEditCommandParser#parse()</code> method calls <code>ArgumentTokenizer#tokenize()</code> to tokenize the input <code>String</code> into keywords and store them in
 two <code>ArgumentMultimap</code> Objects.</p>
 </li>
 <li>
@@ -1420,7 +1509,7 @@ Similarly, if the user has gone from over budget to under budget, the color of
 <div class="content">
 <img src="images/implementation/BudgetPanelSequenceDiagram.png" alt="BudgetPanelSequenceDiagram" width="800">
 </div>
-<div class="title">Figure 24. Sequence diagram of the <code>BudgetPanel</code> update</div>
+<div class="title">Figure 25. Sequence diagram of the <code>BudgetPanel</code> update</div>
 </div>
 <div class="sect3">
 <h4 id="design-considerations-4"><a class="link" href="#design-considerations-4">4.6.1. Design Considerations</a></h4>
@@ -1720,7 +1809,7 @@ The <code>n/</code> suffix and parameter can be omitted. In this case, all types
 <div class="content">
 <img src="images/Overbudget.JPG" alt="Overbudget" width="790">
 </div>
-<div class="title">Figure 25. Warning that is shown when a user adds an expense which results in the user exceeding the budget.</div>
+<div class="title">Figure 26. Warning that is shown when a user adds an expense which results in the user exceeding the budget.</div>
 </div>
 <div class="paragraph">
 <p>The current implementation for budgeting and its related features are described below.</p>
@@ -1734,7 +1823,7 @@ The <code>n/</code> suffix and parameter can be omitted. In this case, all types
 <div class="content">
 <img src="images/implementation/BudgetCommandSequenceDiagram.png" alt="BudgetCommandSequenceDiagram" width="800">
 </div>
-<div class="title">Figure 26. Sequence diagram of a user setting a budget.</div>
+<div class="title">Figure 27. Sequence diagram of a user setting a budget.</div>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -1814,7 +1903,7 @@ and step by step explanation of how Expense Tracker executes when a user sets a 
 <div class="content">
 <img src="images/implementation/SetRecurringBudgetCommandSequenceDiagram.png" alt="SetRecurringBudgetCommandSequenceDiagram" width="800">
 </div>
-<div class="title">Figure 27. Sequence diagram of a user setting a recurrence frequency.</div>
+<div class="title">Figure 28. Sequence diagram of a user setting a recurrence frequency.</div>
 </div>
 <div class="paragraph">
 <p>Steps of the command execution are as follows:</p>
@@ -1828,7 +1917,7 @@ and step by step explanation of how Expense Tracker executes when a user sets a 
 <p><code>ExpenseTrackerParser</code> will then create a <code>SetRecurringBudgetCommandParser</code> Object and calls <code>SetRecurringBudgetCommandParser#parse()</code> method.</p>
 </li>
 <li>
-<p><code>SetRecurringBudgetCommandParser#parse()</code> method calls <code>ArgumentTokenizer#tokenize()</code> to tokenize the input String into keywords and store them in
+<p><code>SetRecurringBudgetCommandParser#parse()</code> method calls <code>ArgumentTokenizer#tokenize()</code> to tokenize the input <code>String</code> into keywords and store them in
 an <code>ArgumentMultimap</code> Object.</p>
 </li>
 <li>
@@ -1863,7 +1952,7 @@ of available spending resetting is given below.</p>
 <div class="content">
 <img src="images/implementation/RecurrenceFrequencySequenceDiagram.png" alt="RecurrenceFrequencySequenceDiagram" width="900">
 </div>
-<div class="title">Figure 28. Sequence diagram of a user setting a recurrence frequency.</div>
+<div class="title">Figure 29. Sequence diagram of a user setting a recurrence frequency.</div>
 </div>
 <div class="paragraph">
 <p>Execution steps of resetting available spending are as follows:</p>
@@ -1874,7 +1963,7 @@ of available spending resetting is given below.</p>
 <p>User logs in</p>
 </li>
 <li>
-<p><code>login</code> command executes in the <code>Logic</code>, which calls <code>Logic#execute()</code> to execute the command on the <code>Model</code></p>
+<p><code>login</code> command executes in the <code>Logic</code>, which calls <code>Logic#execute()</code> to execute the command on <code>Model</code></p>
 </li>
 <li>
 <p><code>Model</code> calls <code>Model#checkBudgetRestart()</code>, which in turn calls <code>TotalBudget#checkBudgetRetart()</code> to check if the
@@ -1905,7 +1994,7 @@ and step by step explanation of how Expense Tracker executes when a user sets a 
 <div class="content">
 <img src="images/implementation/SetCategoryBudgetSequenceDiagram.png" alt="SetCategoryBudgetSequenceDiagram" width="900">
 </div>
-<div class="title">Figure 29. Sequence diagram of a user setting <code>CategoryBudget</code>.</div>
+<div class="title">Figure 30. Sequence diagram of a user setting <code>CategoryBudget</code>.</div>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -1946,13 +2035,13 @@ tracking as it allows for more leeway in how a person could spend. This is illus
 <div class="content">
 <img src="images/budgetOfTheWeek.PNG" alt="budgetOfTheWeek" width="800">
 </div>
-<div class="title">Figure 30. Diagram of a weekly budget</div>
+<div class="title">Figure 31. Diagram of a weekly budget</div>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="images/budgetOfTheMonth.png" alt="budgetOfTheMonth" width="800">
 </div>
-<div class="title">Figure 31. Diagram of a monthly budget.</div>
+<div class="title">Figure 32. Diagram of a monthly budget.</div>
 </div>
 <div class="paragraph">
 <p>The first image above shows that the user has spent over his budget for the week, whilst the second image shows that
@@ -2111,7 +2200,7 @@ like the figure below should show up.</p>
 <div class="content">
 <img src="images/chrome_save_as_pdf.png" alt="chrome save as pdf" width="300">
 </div>
-<div class="title">Figure 32. Saving documentation as PDF files in Chrome</div>
+<div class="title">Figure 33. Saving documentation as PDF files in Chrome</div>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -3719,7 +3808,7 @@ over my budget</p></td>
 <p>User keys in command to encrypt a specified string.</p>
 </li>
 <li>
-<p>Expense Tracker encrypts the specified string with the user&#8217;s encryption key.</p>
+<p>Expense Tracker encrypts the specified <code>String</code> with the user&#8217;s encryption key.</p>
 <div class="paragraph">
 <p>Use case ends</p>
 </div>
@@ -3756,7 +3845,7 @@ over my budget</p></td>
 <p>User keys in command to decrypt a specified encrypted string.</p>
 </li>
 <li>
-<p>Expense Tracker decrypts the specified string with the user&#8217;s encryption key.</p>
+<p>Expense Tracker decrypts the specified <code>String</code> with the user&#8217;s encryption key.</p>
 <div class="paragraph">
 <p>Use case ends</p>
 </div>
@@ -3782,11 +3871,11 @@ over my budget</p></td>
 </div>
 </li>
 <li>
-<p>1a.Expense Tracker detects that the specified string was not encrypted with the user&#8217;s encryption key.</p>
+<p>1a.Expense Tracker detects that the specified <code>String</code> was not encrypted with the user&#8217;s encryption key.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>1a1. Expense Tracker informs user that the specified string was not encrypted with the user&#8217;s encryption key.</p>
+<p>1a1. Expense Tracker informs user that the specified <code>String</code> was not encrypted with the user&#8217;s encryption key.</p>
 </li>
 <li>
 <p>Use case ends.</p>
@@ -3948,4 +4037,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-11 17:22:11 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 05:56:10 UTC</div></div></div></body></html>
