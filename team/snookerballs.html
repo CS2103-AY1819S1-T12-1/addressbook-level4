@@ -10,12 +10,17 @@
 <h2 id="overview"><a class="link" href="#overview">Overview</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Expense Tracker is the secure, efficient financial application for the keyboard enthusiast. Boasting such features as daily tips,
-statistics, expense management and budget setting, Expense Tracker provides users with the necessary tools to become a better saver.</p>
+<p><strong>Expense Tracker</strong> is the secure, efficient financial application for the keyboard enthusiast. Boasting such features as daily tips,
+statistics, expense management and budget setting, <strong>Expense Tracker</strong> equips users with the necessary tools to become a better saver.</p>
 </div>
 <div class="paragraph">
-<p>This portfolio is a documentation of my contributions to Expense Tracker. Morphed from the <a href="https://github.com/nus-cs2103-AY1819S1/addressbook-level4">AddressBook application</a>,
-Expense Tracker was created for an NUS software Engineering module (CS2103T). The constraints for the project are described <a href="https://nus-cs2103-ay1819s1.github.io/cs2103-website/admin/project-constraints.html">here</a>.</p>
+<p>Morphed from the <a href="https://github.com/nus-cs2103-AY1819S1/addressbook-level4">Address Book</a> application,
+<strong>Expense Tracker</strong> was developed for an NUS Software Engineering module (CS2103T) under several <a href="https://nus-cs2103-ay1819s1.github.io/cs2103-website/admin/project-constraints.html">constraints</a>.
+Due to said constraints, Command Line Interface (CLI) became the main mode of interaction with the application. However, to ensure user friendliness, a
+Graphical User Interface (GUI) has been implemented.</p>
+</div>
+<div class="paragraph">
+<p>This portfolio is a documentation of my contributions to <strong>Expense Tracker</strong>.</p>
 </div>
 </div>
 </div>
@@ -43,11 +48,11 @@ if the user is about to spend or have spent over their budget.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>A well-designed and responsive user interface is able to maximize user experience and allows <code>Expense Tracker</code> to stand out amongst the sea
+<p>A well-designed and responsive user interface is able to maximize user experience and allows <strong>Expense Tracker</strong> to stand out amongst the sea
 of financial applications.</p>
 </li>
 <li>
-<p>I predict that there will be a subset of users who use <code>Expense Tracker</code> because they have trouble maintaining a budget. The Notification System was
+<p>I predict that there will be a subset of users who use <strong>Expense Tracker</strong> because they have trouble maintaining a budget. The Notification System was
 implemented to help said users by monitoring their budget management and providing general knowledge about saving money.</p>
 </li>
 </ul>
@@ -58,13 +63,13 @@ implemented to help said users by monitoring their budget management and providi
 <div class="ulist">
 <ul>
 <li>
-<p>Creativity and many design considerations were required to get the Expense Tracker GUI to look and function as I had envisioned.</p>
+<p>Creativity and many design considerations were required to get the <strong>Expense Tracker</strong> GUI to look and function as I had envisioned.</p>
 </li>
 <li>
 <p>Additional features animation and dynamic changing of text color were also implemented for the GUI for improved visual feedback.</p>
 </li>
 <li>
-<p>The implementation of the Notification System, in particular, was challenging as it involved making additions and modifications to all components of Expense Tracker.</p>
+<p>The implementation of the Notification System, in particular, was challenging as it involved making additions and modifications to all components of <strong>Expense Tracker</strong>.</p>
 </li>
 </ul>
 </div>
@@ -74,16 +79,13 @@ implemented to help said users by monitoring their budget management and providi
 <div class="ulist">
 <ul>
 <li>
-<p>Implemented the <code>notification</code> command that allows users to toggle the option for automated notification sending.</p>
+<p>Implemented the <code>notification</code> command which allows users to toggle the option for automated notification sending.</p>
 </li>
 <li>
 <p>Completely overhauled the CSS styling of the application.</p>
 </li>
 <li>
 <p>Implemented other minor animations to existing features such a fade-in effect of GUI elements upon login.</p>
-</li>
-<li>
-<p>Implemented panel switching. The leftmost panel of the GUI can swap between statistical information and the list of expenses.</p>
 </li>
 <li>
 <p>Added color to <code>Tags</code>.</p>
@@ -331,8 +333,11 @@ Disables the sending of both types of notifications.<br></p>
 </div>
 </li>
 <li>
-<p>The user executes the command <code>add n/Lunch $/30.00 c/Food</code>. As the <code>'add</code> command modifies budget and
+<p>The user executes an <code>add</code> command. As the <code>add</code> command modifies budget and
 expenses, <code>AddCommand#execute()</code> will post a <code>UpdateBudgetPanelEvent</code> event to the EventsCenter.</p>
+</li>
+</ol>
+</div>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -340,12 +345,13 @@ expenses, <code>AddCommand#execute()</code> will post a <code>UpdateBudgetPanelE
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-If a command fails its execution, or does not affect budget or expenses,<code>UpdateBudgetPanelEvent</code> will not be posted.
+If a command fails its execution or does not affect budget or expenses, <code>UpdateBudgetPanelEvent</code> will not be posted.
 </td>
 </tr>
 </table>
 </div>
-</li>
+<div class="olist arabic">
+<ol class="arabic">
 <li>
 <p>The <code>UpdateBudgetPanelEvent</code> event is handled by <code>MainWindow#handleBudgetPanelEvent()</code>, which calls <code>BudgetPanel#update()</code>.</p>
 </li>
@@ -433,7 +439,7 @@ Similarly, if the user has gone from over budget to under budget, the color of
 <p>Pros: More flexible; Able to create the animation frame by frame.</p>
 </li>
 <li>
-<p>Cons: More tedious. Animations effects will require manual addition of <code>KeyFrame</code> objects for the intended effect.</p>
+<p>Cons: More tedious to implement. Animations effects will require manual addition of <code>KeyFrame</code> objects for the intended effect.</p>
 </li>
 </ul>
 </div>
@@ -680,6 +686,7 @@ The <code>n/</code> suffix and parameter can be omitted. In this case, all types
 <div class="content">
 <img src="../images/implementation/NotificationCommandSequenceDiagram.png" alt="NotificationCommandSequenceDiagram" width="600">
 </div>
+<div class="title">Figure 5. Sequence Diagram for Exectuing a Notification Command</div>
 </div>
 </div>
 <div class="sect3">
@@ -720,4 +727,4 @@ The <code>n/</code> suffix and parameter can be omitted. In this case, all types
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 13:52:48 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 13:59:02 UTC</div></div></div></body></html>
