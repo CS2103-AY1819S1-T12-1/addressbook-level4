@@ -11,7 +11,7 @@
 
 This portfolio aims to document the contributions made by *Jonathan Tan Jit Ming* to the *Expense Tracker*.
 
-*Expense Tracker* was a project done under the a Software Engineering module during my time at NUS. The project involved
+*Expense Tracker* is the product of a project done under one of the Software Engineering modules during my time at NUS. The project involved
 working in a team of 5 people to enhance or morph an existing https://github.com/se-edu/addressbook-level4[Address Book]
 application. +
 
@@ -27,7 +27,7 @@ the code I contributed to Expense Tracker.
 Below describes my contributions and enhancements to Expense Tracker and the project team:
 
 ==== Main feature
-The main feature that I added was the functionality to display *expense statistics*, which is a bar chart or a pie chart
+The main feature that I added was the functionality to display *expense statistics*, which is a bar chart or pie chart
 showing the user's expenditure organised by time or category. This is a core feature of Expense Tracker as it allows the user to be informed about their spending patterns, and therefore helping the user become a better saver. +
 
 This feature required an in-depth understanding of the software architecture as it involves multiple components of the application.

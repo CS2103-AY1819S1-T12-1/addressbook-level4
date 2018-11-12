@@ -24,15 +24,14 @@ with features such as setting a budget and expense statistics, which help you st
 
 The *Expense Tracker Developer Guide* contains all the information you need to start development on Expense Tracker. It
 also includes information about the overall architecture and implementation of various features in Expense Tracker.
-Whether this is your first project or your 37th project, this guide will help you to start contribute to Expense Tracker.
-Jump to <<Setting up, Setting up>> to start setting up your environment.
+Whether this is your first project or your 37th project, this guide will help you to start contributing to Expense Tracker.
+Jump to <<Setup, Set up>> to start setting up your environment.
 
+[[Setup]]
 == Set Up
 
 '''
-Follow the steps in the section below to start development on Expense Tracker
-
-'''
+Follow the steps in the sections below to start development on Expense Tracker:
 
 === Prerequisites
 
@@ -566,7 +565,8 @@ for (Expense e : expenseList) {
  by calling the method of the same name in `Model`.
 
 . Once the parameters are passed into `StatisticsPanel#setData()`, `StackPane#getChildren()#clear()` is called to clear
-any display elements in `StackPane`. Then there are three scenarios which could happen:
+any display elements in `StackPane`. JavaFX's `BarChart` and `PieChart` are used to render the charts.
+There are three scenarios which could happen:
 
 .. If the data received is empty, a `Text` object is generated and `StackPane#getChildren()#add()` is called,
 which informs the user that there are no expenditures
@@ -575,11 +575,6 @@ generates a Bar Chart and calls `StackPane#getChildren()#add()`, which adds it t
 .. If `StatsMode` is set to CATEGORY, `StatisticsPanel#setCategoryBasedData()` will be called, which
 generates a Pie Chart and calls `StackPane#getChildren()#add()`, which adds it to `StackPane`.
 
-All of these steps from the preparation and execution phase result in the Statistics Panel of Expense Tracker showing
-either a bar chart or a pie chart like the ones in the diagram below:
-
-.Example bar and pie charts for Statistics Panel
-image::StatsCharts.png[]
 
 ==== Design Considerations
 
@@ -1922,22 +1917,22 @@ Given below are instructions to test the app manually.
 . Log in to an account with no password
 
 .. Prerequisites: There exists a user account with `Username` `tom` which has no `Password` set. There does not exist a user account with `Username` `jon`.
-.. Test case: `login u/tom`
+.. Test case: `login u/tom` +
    Expected: The UI expands (if it has not already been) to show `tom` Expense Tracker information and a message shown to indicate that `tom` has successfully logged in.
-.. Test case: `login u/tom p/password1`
+.. Test case: `login u/tom p/password1` +
    Expected: The UI expands (if it has not already been) to show `tom` Expense Tracker information and a message shown to indicate that `tom` has successfully logged in.
-.. Test case: `login u/jon`
+.. Test case: `login u/jon` +
    Expected: A message that indicates that the user `jon` does not exist is shown.
 
 . Log in to an account with a password
 .. Prerequisites: There exists a user account with `Username` `tom` which has `Password` set as `password1`.
-.. Test case: `login u/tom`
+.. Test case: `login u/tom` +
    Expected: A message that indicates that the input password is incorrect is shown.
-.. Test case: `login u/tom p/password2`
+.. Test case: `login u/tom p/password2` +
    Expected: A message that indicates that the input password is incorrect is shown.
-.. Test case: `login u/tom p/password1`
+.. Test case: `login u/tom p/password1` +
    Expected: The UI expands (if it has not already been) to show `tom` Expense Tracker information and a message shown to indicate that `tom` has successfully logged in.
-.. Test case: `login u/jon`
+.. Test case: `login u/jon` +
    Expected: A message that indicates that the user `jon` does not exist is shown.
 
 === Setting a budget
@@ -1949,16 +1944,16 @@ Given below are instructions to test the app manually.
     accordingly.
 ** Test case: `setBudget 0.00` +
     Expected: Error message of no negative values being allowed is shown. Budget is not set. UI does not update.
-** Test case: `setBudget -1.00`+
+** Test case: `setBudget -1.00` +
     Expected: Similar to previous
 ** Test case: `setBudget 1` +
     Expected: Budget is not set. Error details stating that the a valid budget consists of {int}.{digit}{digit} is
     shown in the status message. UI is not updated.
-** Testcase: `setBudget x` where x is not a number` +
+** Test case: `setBudget x` where x is not a number` +
     Expected: Budget is not set. Error message informing user of incorrect syntax is shown in the status message. UI is
     not updated.
 
-** Other incorrect delete commands to try: `setBudget`, `setBudget x` where x is not a number with 2 decimal places.
+** Other incorrect delete commands to try: `setBudget`, `setBudget x` where x is not a number with 2 decimal places. +
     Expected: Similar to previous
 
 . Adding an expense after budget has been set
@@ -2045,32 +2040,32 @@ one expense. +
 . Set password for a user with no previously set password #1
 
 .. Prerequisites: Already logged into user with no previously set password.
-.. Test case: `setPassword n/pass word`
+.. Test case: `setPassword n/pass word` +
    Expected: A message with valid password constraints is shown.
-.. Test case: `setPassword n/pass`
+.. Test case: `setPassword n/pass` +
    Expected: A message with valid password constraints is shown.
-.. Test case: `setPassword n/password`
+.. Test case: `setPassword n/password` +
    Expected: A message indicating that the password has been changed is shown.
 
 . Set password for a user with no previously set password #2
 .. Prerequisites: Already logged into user with no previously set password.
-.. Test case: `setPassword o/passsss n/password1`
+.. Test case: `setPassword o/passsss n/password1` +
    Expected: A message indicating that the password has been changed is shown.
 
 . Set password for a user with a previously set password
 .. Prerequisites: Already logged into user with `Password` set as `password1`.
-.. Test case: `setPassword n/password11`
+.. Test case: `setPassword n/password11` +
    Expected: A message indicating that the old password is incorrect is shown.
-.. Test case: `setPassword n/password11 o/password2`
+.. Test case: `setPassword n/password11 o/password2` +
    Expected: A message indicating that the old password is incorrect is shown.
-.. Test case: `setPassword n/password11 o/password1`
+.. Test case: `setPassword n/password11 o/password1` +
    Expected: A message indicating that the password has been changed is shown.
 
 === Encrypting and Decrypting `String`&#8217;s
 
 . Encrypting and Decrypting a `String`
 .. Prerequisites: Already logged into a user account
-.. Test case: `encrypt this is a test string`, and then use `decrypt STRING` where `STRING` is the encrypted `String` obtained from the first command.
+.. Test case: `encrypt this is a test string`, and then use `decrypt STRING` where `STRING` is the encrypted `String` obtained from the first command. +
    Expected: A message indicating that the decrypted `String` is `this is a test string` is shown.
 
 === Showing statistics
@@ -2080,12 +2075,12 @@ one expense. +
 .. Prerequisites: User must be logged in. Preferably, there should be expenses in Expense Tracker with varying dates,
 categories and costs.
 
-.. Test case: `stats` (defaults to periodAmount = 7, period = day, mode = time)
+.. Test case: `stats` (defaults to periodAmount = 7, period = day, mode = time) +
    Expected: Statistics Panel will be shown (if not already showing). Expense Tracker will attempt to display statistics in
    a *bar chart* for expenses in the last 7 days, starting from the current day, aggregated by day.
    If there are no expenses in the last 7 days, a message will be shown saying that there are no expenses.
 
-.. Test case: `stats n/7 p/d m/t` +  (defaults to periodAmount = 7, period = day, mode = time)
+.. Test case: `stats n/7 p/d m/t`  (periodAmount = 7, period = day, mode = time) +
    Expected: Exactly the same as above.
 
 .. Test case: `stats n/7 p/m m/t` (periodAmount = 7, period = month, mode = time) +
@@ -2103,16 +2098,16 @@ categories and costs.
 . Updating the Notification Panel
 
 .. Prerequisites: Create a new account using `signup x` where x is any valid username. Test cases should be performed one after the other.
-.. Test case: `login u/x`, where x is the username of the new account.
+.. Test case: `login u/x`, where x is the username of the new account. +
    Expected: Two notifications should appear in the the `NotificationPanel`list. The topmost notification should contain a saving tip. The bottommost notification should containing a warning
     to the user that their recurrence time has not been set.
-.. Test case: `add n/test c/test $/27.00`.
+.. Test case: `add n/test c/test $/27.00`. +
    Expected: A notification should appear at the top of the  `NotificationPanel` containing a warning to the user that they are about to go over budget.
-.. Additional command to try: `edit 1 $/27.50`
+.. Additional command to try: `edit 1 $/27.50` +
    Expected: Similar to previous.
-.. Test case: `add n/test c/test $/28.50`.
+.. Test case: `add n/test c/test $/28.50`. +
    Expected: A notification should appear at the top of the `NotificationPanel` containing a warning to the user that they are over budget.
-.. Additional command to try: `edit 1 $/29.00`
+.. Additional command to try: `edit 1 $/29.00` +
    Expected: Similar to previous.
 
 === Toggling Notifications
@@ -2183,7 +2178,7 @@ Test cases should be performed one after the other.
 
 . Find expenses that are not in the ExpenseTracker
 .. Prerequisites: Logged in to an account and the targeted expenses do not exist in the account.
-.. Test case: `find (any keywords that would not direct to existing expenses)`
+.. Test case: `find (any keywords that would not direct to existing expenses)` +
    Expected: No expense is shown on expense list panel. "0 expenses listed!" is shown as
    status message.
 
