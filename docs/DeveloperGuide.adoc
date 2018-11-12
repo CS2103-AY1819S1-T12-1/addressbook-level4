@@ -1907,6 +1907,45 @@ A contact detail that is not meant to be shared with others
 
 Given below are instructions to test the app manually.
 
+=== Sign up for an account
+
+. Sign up for an account
+
+.. Prerequisites: The application has been opened successfully and there are no other user accounts other than the sample user.
+.. Test case: `signup tom` +
+   Expected: A message is shown to indicate that the user `tom` has been created successfully.
+.. Test case: `signup tom doe` +
+   Expected: A message is shown to indicate that the USERNAME is invalid and shows the criteria for a valid USERNAME.
+
+. Sign up for an account with an existing Username
+
+.. Prerequisites: There exists a user account with `Username` `tom`
+.. Test case: `signup tom` +
+   Expected: A message is shown to indicate that the user already exists.
+
+=== Log in to an account
+
+. Log in to an account with no password
+
+.. Prerequisites: There exists a user account with `Username` `tom` which has no `Password` set. There does not exist a user account with `Username` `jon`.
+.. Test case: `login u/tom`
+   Expected: The UI expands (if it has not already been) to show `tom` Expense Tracker information and a message shown to indicate that `tom` has successfully logged in.
+.. Test case: `login u/tom p/password1`
+   Expected: The UI expands (if it has not already been) to show `tom` Expense Tracker information and a message shown to indicate that `tom` has successfully logged in.
+.. Test case: `login u/jon`
+   Expected: A message that indicates that the user `jon` does not exist is shown.
+
+. Log in to an account with a password
+.. Prerequisites: There exists a user account with `Username` `tom` which has `Password` set as `password1`.
+.. Test case: `login u/tom`
+   Expected: A message that indicates that the input password is incorrect is shown.
+.. Test case: `login u/tom p/password2`
+   Expected: A message that indicates that the input password is incorrect is shown.
+.. Test case: `login u/tom p/password1`
+   Expected: The UI expands (if it has not already been) to show `tom` Expense Tracker information and a message shown to indicate that `tom` has successfully logged in.
+.. Test case: `login u/jon`
+   Expected: A message that indicates that the user `jon` does not exist is shown.
+
 === Setting a budget
 
 . Setting a budget no matter what is listed.
@@ -2006,45 +2045,6 @@ one expense. +
 ** Test case: Add a valid expense that causes the Category budget to exceed, but not the total budget. +
     Expected: Status message shown is similar to `add` command. Budget is updated. UI is updated. Notification
     informing the user that adding this expense results in the budget exceeding is shown.
-
-=== Sign up for an account
-
-. Sign up for an account
-
-.. Prerequisites: The application has been opened successfully and there are no other user accounts other than the sample user.
-.. Test case: `signup tom` +
-   Expected: A message is shown to indicate that the user `tom` has been created successfully.
-.. Test case: `signup tom doe` +
-   Expected: A message is shown to indicate that the USERNAME is invalid and shows the criteria for a valid USERNAME.
-
-. Sign up for an account with an existing Username
-
-.. Prerequisites: There exists a user account with `Username` `tom`
-.. Test case: `signup tom` +
-   Expected: A message is shown to indicate that the user already exists.
-
-=== Log in to an account
-
-. Log in to an account with no password
-
-.. Prerequisites: There exists a user account with `Username` `tom` which has no `Password` set. There does not exist a user account with `Username` `jon`.
-.. Test case: `login u/tom`
-   Expected: The UI expands (if it has not already been) to show `tom` Expense Tracker information and a message shown to indicate that `tom` has successfully logged in.
-.. Test case: `login u/tom p/password1`
-   Expected: The UI expands (if it has not already been) to show `tom` Expense Tracker information and a message shown to indicate that `tom` has successfully logged in.
-.. Test case: `login u/jon`
-   Expected: A message that indicates that the user `jon` does not exist is shown.
-
-. Log in to an account with a password
-.. Prerequisites: There exists a user account with `Username` `tom` which has `Password` set as `password1`.
-.. Test case: `login u/tom`
-   Expected: A message that indicates that the input password is incorrect is shown.
-.. Test case: `login u/tom p/password2`
-   Expected: A message that indicates that the input password is incorrect is shown.
-.. Test case: `login u/tom p/password1`
-   Expected: The UI expands (if it has not already been) to show `tom` Expense Tracker information and a message shown to indicate that `tom` has successfully logged in.
-.. Test case: `login u/jon`
-   Expected: A message that indicates that the user `jon` does not exist is shown.
 
 == Set password for current user
 
