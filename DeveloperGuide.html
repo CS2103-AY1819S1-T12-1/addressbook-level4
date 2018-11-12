@@ -1548,7 +1548,7 @@ to another file according to the edited fields.</p>
 <p><code>BudgetPanel#percentageDisplay</code> - A <code>TextFlow</code> objects that manages <code>BudgetPanel#budgetDisplay</code> and <code>BudgetPanel#expenseDisplay</code>.</p>
 </li>
 <li>
-<p><code>BudgetPanel#budgetBar</code> – A <code>progressBar</code> element that visually presents the percentage of the current
+<p><code>BudgetPanel#budgetBar</code> – A <code>ProgressBar</code> element that visually presents the percentage of the current
 <code>totalBudget</code> cap that has been used.</p>
 </li>
 </ul>
@@ -4697,29 +4697,29 @@ Expected: Similar to previous.</p>
 <p>Prerequisites: User must be logged in. Set the budget to $10.00 by using entering <code>setBudget 10.00</code>. Test cases should be performed one after the other.</p>
 </li>
 <li>
-<p>Test case: <code>notification n/warning t/on</code> + <code>add n/test c/test $/11.00</code>.
+<p>Test case: <code>notification n/warning t/on</code> + <code>add n/test c/test $/11.00</code>.<br>
 Expected: A notification should appear on the the <code>NotificationPanel</code> containing a warning that you are over budget.</p>
 </li>
 <li>
-<p>Test case: <code>notification n/warning t/off</code> + <code>add n/test c/test $/11.00</code>.
+<p>Test case: <code>notification n/warning t/off</code> + <code>add n/test c/test $/11.00</code>.<br>
 Expected: No new notifications should appear on the <code>NotificationPanel</code>.</p>
 </li>
 <li>
-<p>Test case: <code>notification n/tip t/on</code>
+<p>Test case: <code>notification n/tip t/on</code><br>
 Expected: 24 hours after the previous tip was sent, a notification should appear on the the <code>NotificationPanel</code> containing a saving tip.</p>
 </li>
 <li>
-<p>Test case: <code>notification n/tip t/off</code>
+<p>Test case: <code>notification n/tip t/off</code><br>
 Expected: No new notifications containing saving tips should appear after any length of time.</p>
 </li>
 <li>
-<p>Test case: <code>notification</code>
+<p>Test case: <code>notification</code><br>
 Expected: Error details shown in the status message.</p>
 </li>
 <li>
 <p>Other incorrect delete commands to try: <code>notification x</code> where x is any input,
 <code>notification n/x t/on</code> where x is any input other than <code>tip</code> or <code>warning</code>, <code>notification n/warning t/x</code> where
-x is any input other than <code>on</code> or <code>off</code>.
+x is any input other than <code>on</code> or <code>off</code>.<br>
 Expected: Similar to previous.</p>
 </li>
 </ol>
@@ -4741,17 +4741,17 @@ Expected: Similar to previous.</p>
 Test cases should be performed one after the other.</p>
 </li>
 <li>
-<p>Test case: <code>add n/test c/test $/4.00</code>
+<p>Test case: <code>add n/test c/test $/4.00</code><br>
 Expected: <code>BudgetPanel#budgetBar</code> should be updated . <code>BudgetPanel#expenseDisplay</code> should be updated to display "$4.00".
 Both of these elements should be colored green.</p>
 </li>
 <li>
-<p>Test case: <code>add n/test c/test $/40.00</code>
+<p>Test case: <code>add n/test c/test $/40.00</code><br>
 Expected: <code>BudgetPanel#budgetBar</code> should be updated. <code>BudgetPanel#expenseDisplay</code> should be updated to display "$40.00".
              Both of these elements should be colored red.</p>
 </li>
 <li>
-<p>Test case: <code>setBudget $/1000.00</code>
+<p>Test case: <code>setBudget $/1000.00</code><br>
 Expected: <code>BudgetPanel#budgetBar</code> should be updated. <code>BudgetPanel#budgetCapDisplay</code> should be updated to display "$1000.00".
 <code>BudgetPanel#expenseDisplay</code> and <code>BudgetPanel#budgetBar</code> should be colored green.</p>
 </li>
@@ -4774,36 +4774,26 @@ Expected: <code>BudgetPanel#budgetBar</code> should be updated. <code>BudgetPane
 Test cases should be performed one after the other.</p>
 </li>
 <li>
-<p>Test case: <code>setBudget 100.00</code> + <code>setCategoryBudget c/Food b/50.00</code> + <code>add n/test c/Food $/25.00</code> + <code>stats</code></p>
-</li>
-<li>
-<p>Expected: A new <code>CategoryIcon</code> should appear in the <code>CagtegoryPanel</code>. The upper text should display "Food" and the lower text should display
+<p>Test case: <code>setBudget 100.00</code> + <code>setCategoryBudget c/Food b/50.00</code> + <code>add n/test c/Food $/25.00</code> + <code>stats</code><br>
+   Expected: A new <code>CategoryIcon</code> should appear in the <code>CagtegoryPanel</code>. The upper text should display "Food" and the lower text should display
 "50.00%"</p>
 </li>
 <li>
-<p>Test case: <code>setCategoryBudget c/New b/00.00</code> + <code>add n/test c/New $/10.00</code> + <code>stats</code></p>
-</li>
-<li>
-<p>Expected: A new <code>CategoryIcon</code> should appear in the <code>CagtegoryPanel</code>. The upper text should display "New" and the lower text should display
+<p>Test case: <code>setCategoryBudget c/New b/00.00</code> + <code>add n/test c/New $/10.00</code> + <code>stats</code><br>
+    Expected: A new <code>CategoryIcon</code> should appear in the <code>CagtegoryPanel</code>. The upper text should display "New" and the lower text should display
 "1000.00%"</p>
 </li>
 <li>
-<p>Test case: <code>setCategoryBudget c/Food b/25.00</code></p>
+<p>Test case: <code>setCategoryBudget c/Food b/25.00</code><br>
+Expected: The bottommost text of the first <code>CategoryIcon</code> should now update to display "100.00%".</p>
 </li>
 <li>
-<p>Expected: The bottommost text of the first <code>CategoryIcon</code> should now update to display "100.00%".</p>
+<p>Test case: <code>setCategoryBudget c/Food b/25.00</code><br>
+Expected: The bottommost text of the first <code>CategoryIcon</code> should now update to display "100.00%".</p>
 </li>
 <li>
-<p>Test case: <code>setCategoryBudget c/Food b/25.00</code></p>
-</li>
-<li>
-<p>Expected: The bottommost text of the first <code>CategoryIcon</code> should now update to display "100.00%".</p>
-</li>
-<li>
-<p>Test case: <code>setCategoryBudget c/Fees b/10.00</code> + <code>setCategoryBudget c/Bus b/10.00</code> + <code>setCategoryBudget c/Bills b/10.00</code></p>
-</li>
-<li>
-<p>Expected: Four of the five added <code>CategoryIcon</code> objects should be displayed in <code>CategoryPanel</code>.</p>
+<p>Test case: <code>setCategoryBudget c/Fees b/10.00</code> + <code>setCategoryBudget c/Bus b/10.00</code> + <code>setCategoryBudget c/Bills b/10.00</code><br>
+Expected: Four of the five added <code>CategoryIcon</code> objects should be displayed in <code>CategoryPanel</code>.</p>
 </li>
 </ol>
 </div>
@@ -4895,4 +4885,4 @@ Expected: No expense is shown on expense list panel. "No expense is found by the
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 14:30:16 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 14:41:24 UTC</div></div></div></body></html>
