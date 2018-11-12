@@ -76,8 +76,11 @@
 <ul class="sectlevel2">
 <li><a href="#launch-and-shutdown">F.1. Launch and Shutdown</a></li>
 <li><a href="#deleting-a-expense">F.2. Deleting a expense</a></li>
-<li><a href="#toggling-notifications">F.3. Toggling Notifications</a></li>
-<li><a href="#saving-data">F.4. Saving data</a></li>
+<li><a href="#notification-panel">F.3. Notification Panel</a></li>
+<li><a href="#toggling-notifications">F.4. Toggling Notifications</a></li>
+<li><a href="#budget-panel">F.5. Budget Panel</a></li>
+<li><a href="#category-panel">F.6. Category Panel</a></li>
+<li><a href="#saving-data">F.7. Saving data</a></li>
 </ul>
 </li>
 </ul>
@@ -3058,6 +3061,19 @@ over my budget</p></td>
 </ul>
 </div>
 </li>
+<li>
+<p>1d.Expense Tracker detects that the user is not logged into an account.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>1d1. Expense Tracker informs user that they are not logged into any user.</p>
+</li>
+<li>
+<p>Use case ends.</p>
+</li>
+</ul>
+</div>
+</li>
 </ul>
 </div>
 <h3 id="use-case-delete-expenditure" class="discrete">Use case: Delete expenditure</h3>
@@ -3099,11 +3115,24 @@ over my budget</p></td>
 </div>
 </li>
 <li>
-<p>1a.Expense Tracker cannot find specified expenditure.</p>
+<p>1b.Expense Tracker cannot find specified expenditure.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>1a1. Expense Tracker informs user that it cannot find the specified expenditure.</p>
+<p>1b1. Expense Tracker informs user that it cannot find the specified expenditure.</p>
+</li>
+<li>
+<p>Use case ends.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>1c.Expense Tracker detects that the user is not logged into an account.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>1c1. Expense Tracker informs user that they are not logged into any user.</p>
 </li>
 <li>
 <p>Use case ends.</p>
@@ -3152,11 +3181,24 @@ over my budget</p></td>
 </div>
 </li>
 <li>
-<p>1a.Expense Tracker cannot find specified expenditure.</p>
+<p>1b.Expense Tracker cannot find specified expenditure.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>1a1. Expense Tracker informs user that it cannot find the specified expenditure.</p>
+<p>1b1. Expense Tracker informs user that it cannot find the specified expenditure.</p>
+</li>
+<li>
+<p>Use case ends.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>1c.Expense Tracker detects that the user is not logged into an account.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>1c1. Expense Tracker informs user that they are not logged into any user.</p>
 </li>
 <li>
 <p>Use case ends.</p>
@@ -3200,6 +3242,19 @@ over my budget</p></td>
 <ul>
 <li>
 <p>1a1. Expense Tracker informs user of the error.</p>
+</li>
+<li>
+<p>Use case ends.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>1b.Expense Tracker detects that the user is not logged into an account.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>1b1. Expense Tracker informs user that they are not logged into any user.</p>
 </li>
 <li>
 <p>Use case ends.</p>
@@ -3273,6 +3328,19 @@ over my budget</p></td>
 </ul>
 </div>
 </li>
+<li>
+<p>1b.Expense Tracker detects that the user is not logged into an account.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>1b1. Expense Tracker informs user that they are not logged into any user.</p>
+</li>
+<li>
+<p>Use case ends.</p>
+</li>
+</ul>
+</div>
+</li>
 </ul>
 </div>
 <h3 id="use-case-set-a-recurring-budget" class="discrete">Use case: Set a recurring budget</h3>
@@ -3312,6 +3380,19 @@ over my budget</p></td>
 <ul>
 <li>
 <p>1a1. Expense Tracker inform user of the error.</p>
+</li>
+<li>
+<p>Use case ends.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>1b.Expense Tracker detects that the user is not logged into an account.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>1b1. Expense Tracker informs user that they are not logged into any user.</p>
 </li>
 <li>
 <p>Use case ends.</p>
@@ -3362,6 +3443,19 @@ over my budget</p></td>
 <ul>
 <li>
 <p>1a1. Expense Tracker inform user of the error.</p>
+</li>
+<li>
+<p>Use case ends.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>1b.Expense Tracker detects that the user is not logged into an account.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>1b1. Expense Tracker informs user that they are not logged into any user.</p>
 </li>
 <li>
 <p>Use case ends.</p>
@@ -3649,11 +3743,24 @@ over my budget</p></td>
 </div>
 </li>
 <li>
-<p>1a.Expense Tracker detects that the user is not logged in.</p>
+<p>1b.Expense Tracker detects that the user is not logged in.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>1a1. Expense Tracker informs user that they need to log into an account.</p>
+<p>1b1. Expense Tracker informs user that they need to log into an account.</p>
+</li>
+<li>
+<p>Use case ends.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>1c.Expense Tracker detects that the user is not logged into an account.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>1c1. Expense Tracker informs user that they are not logged into any user.</p>
 </li>
 <li>
 <p>Use case ends.</p>
@@ -3679,6 +3786,23 @@ over my budget</p></td>
 <p>Expense Tracker displays a success message.</p>
 <div class="paragraph">
 <p>Use case ends</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>1b.Expense Tracker detects that the user is not logged into an account.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>1b1. Expense Tracker informs user that they are not logged into any user.</p>
+</li>
+<li>
+<p>Use case ends.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
 </div>
 </li>
 </ol>
@@ -3714,6 +3838,19 @@ over my budget</p></td>
 <ul>
 <li>
 <p>1a1. Expense Tracker informs user of the error.</p>
+</li>
+<li>
+<p>Use case ends.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>1b.Expense Tracker detects that the user is not logged into an account.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>1b1. Expense Tracker informs user that they are not logged into any user.</p>
 </li>
 <li>
 <p>Use case ends.</p>
@@ -3761,6 +3898,19 @@ over my budget</p></td>
 </ul>
 </div>
 </li>
+<li>
+<p>1b.Expense Tracker detects that the user is not logged into an account.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>1b1. Expense Tracker informs user that they are not logged into any user.</p>
+</li>
+<li>
+<p>Use case ends.</p>
+</li>
+</ul>
+</div>
+</li>
 </ul>
 </div>
 <h3 id="use-case-view-statistics" class="discrete">Use case: View statistics</h3>
@@ -3794,6 +3944,19 @@ over my budget</p></td>
 <ul>
 <li>
 <p>1a1. Expense Tracker informs user of the error.</p>
+</li>
+<li>
+<p>Use case ends.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>1b.Expense Tracker detects that the user is not logged into an account.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>1b1. Expense Tracker informs user that they are not logged into any user.</p>
 </li>
 <li>
 <p>Use case ends.</p>
@@ -3878,6 +4041,19 @@ over my budget</p></td>
 </ul>
 </div>
 </li>
+<li>
+<p>1b.Expense Tracker detects that the user is not logged into an account.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>1b1. Expense Tracker informs user that they are not logged into any user.</p>
+</li>
+<li>
+<p>Use case ends.</p>
+</li>
+</ul>
+</div>
+</li>
 </ul>
 </div>
 <h3 id="use-case-undo-command" class="discrete">Use case: Undo Command</h3>
@@ -3908,6 +4084,19 @@ over my budget</p></td>
 <ul>
 <li>
 <p>1a1. Expense Tracker informs user that are no commands to undo.</p>
+</li>
+<li>
+<p>Use case ends.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>1b.Expense Tracker detects that the user is not logged into an account.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>1b1. Expense Tracker informs user that they are not logged into any user.</p>
 </li>
 <li>
 <p>Use case ends.</p>
@@ -3952,6 +4141,19 @@ over my budget</p></td>
 </ul>
 </div>
 </li>
+<li>
+<p>1b.Expense Tracker detects that the user is not logged into an account.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>1b1. Expense Tracker informs user that they are not logged into any user.</p>
+</li>
+<li>
+<p>Use case ends.</p>
+</li>
+</ul>
+</div>
+</li>
 </ul>
 </div>
 <h3 id="use-case-encrypt" class="discrete">Use case: Encrypt</h3>
@@ -3982,6 +4184,19 @@ over my budget</p></td>
 <ul>
 <li>
 <p>1a1. Expense Tracker informs user of the error.</p>
+</li>
+<li>
+<p>Use case ends.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>1b.Expense Tracker detects that the user is not logged into an account.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>1b1. Expense Tracker informs user that they are not logged into any user.</p>
 </li>
 <li>
 <p>Use case ends.</p>
@@ -4027,11 +4242,24 @@ over my budget</p></td>
 </div>
 </li>
 <li>
-<p>1a.Expense Tracker detects that the specified <code>String</code> was not encrypted with the user&#8217;s encryption key.</p>
+<p>1b.Expense Tracker detects that the specified string was not encrypted with the user&#8217;s encryption key.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>1a1. Expense Tracker informs user that the specified <code>String</code> was not encrypted with the user&#8217;s encryption key.</p>
+<p>1b1. Expense Tracker informs user that the specified string was not encrypted with the user&#8217;s encryption key.</p>
+</li>
+<li>
+<p>Use case ends.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>1c.Expense Tracker detects that the user is not logged into an account.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>1c1. Expense Tracker informs user that they are not logged into any user.</p>
 </li>
 <li>
 <p>Use case ends.</p>
@@ -4167,7 +4395,45 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="toggling-notifications"><a class="link" href="#toggling-notifications">F.3. Toggling Notifications</a></h3>
+<h3 id="notification-panel"><a class="link" href="#notification-panel">F.3. Notification Panel</a></h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Updating the Notification Panel</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: Create a new account using <code>signup x</code> where x is any valid username.</p>
+</li>
+<li>
+<p>Test case: <code>login x</code>, where x is the username of the new account.
+Expected: Two notifications should appear in the the `NotificationPanel`list. The topmost notification should contain a saving tip. The bottommost notification should containing a warning
+ to the user that their recurrence time has not been set.</p>
+</li>
+<li>
+<p>Test case: <code>add n/test c/test $/27.00</code>.
+Expected: A notification should appear at the top of the  <code>NotificationPanel</code> containing a warning to the user that they are about to go over budget.</p>
+</li>
+<li>
+<p>Additional command to try: <code>edit 1 $/27.50</code>
+Expected: Similar to previous.</p>
+</li>
+<li>
+<p>Test case: <code>add n/test c/test $/28.50</code>.
+Expected: A notification should appear at the top of the <code>NotificationPanel</code> containing a warning to the user that they are over budget.</p>
+</li>
+<li>
+<p>Additional command to try: <code>edit 1 $/29.00</code>
+Expected: Similar to previous.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="toggling-notifications"><a class="link" href="#toggling-notifications">F.4. Toggling Notifications</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -4179,8 +4445,7 @@ Expected: Similar to previous.</p>
 </li>
 <li>
 <p>Test case: <code>notification n/warning t/on</code> + <code>add n/test c/test $/11.00</code>.
-Expected: A notification should appear on the the <code>NotificationPanel</code> with the header <code>Warning</code> and the
-body, 'You are overbudget!'.</p>
+Expected: A notification should appear on the the <code>NotificationPanel</code> containing a warning that you are over budget.</p>
 </li>
 <li>
 <p>Test case: <code>notification n/warning t/off</code> + <code>add n/test c/test $/11.00</code>.
@@ -4199,8 +4464,8 @@ Expected: No new notifications containing saving tips should appear after any le
 Expected: Error details shown in the status message.</p>
 </li>
 <li>
-<p>Other incorrect delete commands to try: <code>notification</code>, <code>notification x</code> where x is any input,
-<code>notification n/x</code> where x is any input other than <code>tip</code> or <code>warning</code>, <code>notification n/warning t/x</code> where
+<p>Other incorrect delete commands to try: <code>notification x</code> where x is any input,
+<code>notification n/x t/on</code> where x is any input other than <code>tip</code> or <code>warning</code>, <code>notification n/warning t/x</code> where
 x is any input other than <code>on</code> or <code>off</code>.
 Expected: Similar to previous.</p>
 </li>
@@ -4211,7 +4476,88 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="saving-data"><a class="link" href="#saving-data">F.4. Saving data</a></h3>
+<h3 id="budget-panel"><a class="link" href="#budget-panel">F.5. Budget Panel</a></h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Updating the Budget Panel</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: Create a new account using <code>signup x</code> where x is any valid username and login to said account using <code>login x</code>.</p>
+</li>
+<li>
+<p>Test case: <code>add n/test c/test $/4.00</code>
+Expected: <code>BudgetPanel#budgetBar</code> should be updated . <code>BudgetPanel#expenseDisplay</code> should be updated to display "$4.00".
+Both of these elements should be colored green.</p>
+</li>
+<li>
+<p>Test case: <code>add n/test c/test $/40.00</code>
+Expected: <code>BudgetPanel#budgetBar</code> should be updated. <code>BudgetPanel#expenseDisplay</code> should be updated to display "$40.00".
+             Both of these elements should be colored red.</p>
+</li>
+<li>
+<p>Test case: <code>setBudget $/1000.00</code>
+Expected: <code>BudgetPanel#budgetBar</code> should be updated. <code>BudgetPanel#budgetCapDisplay</code> should be updated to display "$1000.00".
+<code>BudgetPanel#expenseDisplay</code> and <code>BudgetPanel#budgetBar</code> should be colored green.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="category-panel"><a class="link" href="#category-panel">F.6. Category Panel</a></h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Updating the Category Panel</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Prerequisites: Create a new account using <code>signup x</code> where x is any valid username and login to said account using <code>login x</code>.</p>
+</li>
+<li>
+<p>Test case: <code>setBudget 100.00</code> + <code>setCategoryBudget c/Food b/50.00</code> + <code>add n/test c/Food $/25.00</code> + <code>stats</code></p>
+</li>
+<li>
+<p>Expected: A new <code>CategoryIcon</code> should appear in the <code>CagtegoryPanel</code>. The upper text should display "Food" and the lower text should display
+"50.00%"</p>
+</li>
+<li>
+<p>Test case: <code>setCategoryBudget c/New b/00.00</code> + <code>add n/test c/New $/10.00</code> + <code>stats</code></p>
+</li>
+<li>
+<p>Expected: A new <code>CategoryIcon</code> should appear in the <code>CagtegoryPanel</code>. The upper text should display "New" and the lower text should display
+"1000.00%"</p>
+</li>
+<li>
+<p>Test case: <code>setCategoryBudget c/Food b/25.00</code></p>
+</li>
+<li>
+<p>Expected: The bottommost text of the first <code>CategoryIcon</code> should now update to display "100.00%".</p>
+</li>
+<li>
+<p>Test case: <code>setCategoryBudget c/Food b/25.00</code></p>
+</li>
+<li>
+<p>Expected: The bottommost text of the first <code>CategoryIcon</code> should now update to display "100.00%".</p>
+</li>
+<li>
+<p>Test case: <code>setCategoryBudget c/Fees b/10.00</code> + <code>setCategoryBudget c/Bus b/10.00</code> + <code>setCategoryBudget c/Bills b/10.00</code></p>
+</li>
+<li>
+<p>Expected: Four of the five added <code>CategoryIcon</code> objects should be displayed in <code>CategoryPanel</code>.</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="saving-data"><a class="link" href="#saving-data">F.7. Saving data</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -4231,4 +4577,4 @@ Expected: Similar to previous.</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 10:59:02 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 12:14:17 UTC</div></div></div></body></html>
