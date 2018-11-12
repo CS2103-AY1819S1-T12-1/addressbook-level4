@@ -737,7 +737,7 @@ Given below are the steps of an example scenario of how `BudgetPanel` is updated
 * `BudgetPanel#budgetDisplay` is set to "/ $28.00", with $28.00 being the default `totalBudget`.
 * `BudgetPanel#budgetBar` is green and at 0% progress.
 
-. The user executes an `add` command. As the `'add` command modifies budget and
+. The user executes an `add` command. As the `add` command modifies budget and
 expenses, `AddCommand#execute()` will post a `UpdateBudgetPanelEvent` event to the EventsCenter.
 
 [NOTE]
