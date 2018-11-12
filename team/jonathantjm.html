@@ -10,7 +10,7 @@
 <p>This portfolio aims to document the contributions made by <strong>Jonathan Tan Jit Ming</strong> to the <strong>Expense Tracker</strong>.</p>
 </div>
 <div class="paragraph">
-<p><strong>Expense Tracker</strong> was a project done under the a Software Engineering module during my time at NUS. The project involved
+<p><strong>Expense Tracker</strong> is the product of a project done under one of the Software Engineering modules during my time at NUS. The project involved
 working in a team of 5 people to enhance or morph an existing <a href="https://github.com/se-edu/addressbook-level4">Address Book</a>
 application.<br></p>
 </div>
@@ -32,7 +32,7 @@ the code I contributed to Expense Tracker.</p>
 <div class="sect3">
 <h4 id="main-feature"><a class="link" href="#main-feature">Main feature</a></h4>
 <div class="paragraph">
-<p>The main feature that I added was the functionality to display <strong>expense statistics</strong>, which is a bar chart or a pie chart
+<p>The main feature that I added was the functionality to display <strong>expense statistics</strong>, which is a bar chart or pie chart
 showing the user&#8217;s expenditure organised by time or category. This is a core feature of Expense Tracker as it allows the user to be informed about their spending patterns, and therefore helping the user become a better saver.<br></p>
 </div>
 <div class="paragraph">
@@ -299,7 +299,8 @@ by calling the method of the same name in <code>Model</code>.</p>
 </li>
 <li>
 <p>Once the parameters are passed into <code>StatisticsPanel#setData()</code>, <code>StackPane#getChildren()#clear()</code> is called to clear
-any display elements in <code>StackPane</code>. Then there are three scenarios which could happen:</p>
+any display elements in <code>StackPane</code>. JavaFX&#8217;s <code>BarChart</code> and <code>PieChart</code> are used to render the charts.
+There are three scenarios which could happen:</p>
 <div class="olist loweralpha">
 <ol class="loweralpha" type="a">
 <li>
@@ -318,16 +319,6 @@ generates a Pie Chart and calls <code>StackPane#getChildren()#add()</code>, whic
 </div>
 </li>
 </ol>
-</div>
-<div class="paragraph">
-<p>All of these steps from the preparation and execution phase result in the Statistics Panel of Expense Tracker showing
-either a bar chart or a pie chart like the ones in the diagram below:</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="../images/StatsCharts.png" alt="StatsCharts">
-</div>
-<div class="title">Figure 5. Example bar and pie charts for Statistics Panel</div>
 </div>
 </div>
 <div class="sect3">
@@ -401,4 +392,4 @@ either a bar chart or a pie chart like the ones in the diagram below:</p>
 </div>
 </div>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 14:47:45 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-11-12 14:58:26 UTC</div></div></div></body></html>
