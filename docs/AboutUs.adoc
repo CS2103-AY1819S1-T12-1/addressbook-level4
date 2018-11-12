@@ -13,7 +13,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 === Winson Heng Yong Seng
 image::winsonhys.png[width="150", align="left"]
-{empty}[https://github.com/winsonhys[github]] [<<winson#, portfolio>>]
+{empty}[https://github.com/winsonhys[github]] [<<winsonhys#, portfolio>>]
 
 Role: Team Lead +
 Responsibilities: Model and Logic

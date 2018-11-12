@@ -48,7 +48,6 @@ of financial applications.
 * Implemented the `notification` command which allows users to toggle the option for automated notification sending.
 * Completely overhauled the CSS styling of the application.
 * Implemented other minor animations to existing features such a fade-in effect of GUI elements upon login.
-* Implemented panel switching. The leftmost panel of the GUI can swap between statistical information and the list of expenses.
 * Added color to `Tags`.
 
 *Code contributed*: https://nus-cs2103-ay1819s1.github.io/cs2103-dashboard/#=undefined&search=jaime&sort=displayName&since=2018-09-12&until=2018-11-02&timeframe=day&reverse=false&repoSort=true[Reposense Compilation]

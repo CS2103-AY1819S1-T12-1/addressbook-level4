@@ -404,17 +404,13 @@ Format: `list`
 // tag::budget[]
 [[SetBudgetCommand]]
 === Setting a total budget: `setBudget`
-Sets a total budget. Expense Tracker will warn you when you are going to spend over your budget so you can prevent
-yourself from overspending
+Sets a total budget. Available spending is defined as the total amount of expenses you can add before you exceed your budget.
+ The Expense Tracker will warn you when adding an expense results in your available spending
+exceeding the total budget that is set to prevent yourself from overspending. The warning is shown below.
 
-Available spending is defined as the total amount of expenses you can add before you exceed your budget.
-
-The Expense Tracker will warn you when adding an expense results in your available spending exceeding the total
-budget that is set,
-as shown in the figure below.
-
-.Notification that is shown when a user adds an expense which results in the user exceeding the budget.
-image::Overbudget.JPG[width="790"]
+[#over-budget-warning]
+.Warning that is shown when a user adds an expense which results in the user exceeding the budget.
+image::overbudget.png[width="300"]
 
 Format: `setBudget MONEY_WITH_TWO_DECIMAL_PLACES`
 
@@ -437,30 +433,20 @@ Format: `setBudget MONEY_WITH_TWO_DECIMAL_PLACES`
 Sets the recurrence frequency for resetting the available spending of the total budget of Expense Tracker.
 
 If you draw a salary/have an allowance, this would allow you to track the portion of money you have spent against
-your salary/allowance. This ensures that you do not overspend on a certain day, causing you to not have enough money
-until you draw your next salary/allowance.
+your salary/allowance of the week/month. This ensures that you do not overspend on a certain day, causing you to not
+have enough money until you draw your next salary/allowance.
 
-If you have a daily budget, setting the recurrence frequency to 24 hours causes your available spending to reset
-everyday. Likewise, if you have a weekly budget, setting the frequency to 168 (24*7) hours causes your available
-spending to reset every week.
-
-Expense Tracker will reset your available spending after every user defined frequency.
-A detailed use case is given below:
-
-. User types in the command `setRecurrenceFrequency hrs/1` as he wants his available spending to reset every hour.
-. User closes his application.
-. User reopens his application after one hour and thirty minutes to record another expense.
-. His available spending will now be reset as it is past the set frequency of one hour. A notification will be shown
-to inform you that this is done. This is shown in the figure below.
-
-.Notification that is shown when the expense tracker resets the available spending.
-image::reset_notif.PNG[width="790"]
-
-A walk-through of the above steps is clearly shown in the diagram below.
+A diagram of a use case and its detailed explanation is given below:
 
 .Diagram showing the operation of the setRecurrenceFrequency feature
-image::userguide/recurrenceFrequencyGuide.PNG[width="790"]
+image::userguide/recurrenceFrequencyGuide.png[width="500"]
 
+. You type in the command `setRecurrenceFrequency hrs/24` as you want your available spending to reset every day
+when you receive your allowance.
+. You close the application.
+. You reopen the application on the next day to record another expense.
+. Your available spending will now be reset as it is past the set frequency of one day. A notification will be shown
+to inform you that this is done.
 
 Format: `setRecurrenceFrequency [hrs/HOURS] [min/MINUTES] [sec/SECONDS]`
 
@@ -484,10 +470,12 @@ it is possible that you have 10 expenses of $200.00 with a budget of $10, and ye
 
 [[SetCategoryBudgetCommand]]
 === Setting a Category Budget: `setCategoryBudget`
-Sets a Budget to limit expenses on a certain category.
+Sets a Budget to limit expenses on a certain category. If adding an expense causes the available spending of that
+category to exceeds Category budget, a
+<<over-budget-warning, warning>> will be displayed.
 
-If adding an expense causes the available spending of that category to exceeds Category budget, a warning shown in
-figure 3 will be displayed
+// end::budget[]
+
 
 Format: `setCategoryBudget c/CATEGORY b/BUDGET`
 
@@ -507,7 +495,6 @@ Format: `setCategoryBudget c/CATEGORY b/BUDGET`
   Expense Tracker. This is because Category budgets are used to segment your total budget, not as a replacement.
 ====
 
-// end::budget[]
 
 === Listing entered commands : `history`
 
@@ -592,7 +579,7 @@ up most of your budget.
 There are two available modes: Time and Category, which can be indicated by `t` or `c` respectively in the `MODE` parameter. +
 
 Choosing Time mode will show a bar chart, similar to the one below, in the statistics panel, where amounts for each day or month will displayed,
-depending on the specified `PERIOD_AMOUNT` and `PERIOD`. +
+depending on the specified `PERIOD_AMOUNT` and `PERIOD`, starting from the current day or month. +
 
 .Statistics Panel showing a bar chart in Time mode
 image::userguide/barChart.png[width="790"]

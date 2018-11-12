@@ -451,14 +451,17 @@ public class ModelManager extends ComponentManager implements Model {
     public boolean loadUserData(LoginCredentials loginCredentials)
             throws NonExistentUserException, InvalidDataException {
         requireAllNonNull(loginCredentials);
+        LOGGER.fine("Attempting to load user data...");
         Username username = loginCredentials.getUsername();
         Optional<Password> password = loginCredentials.getPassword();
         Optional<String> plainPassword = loginCredentials.getPlainPassword();
         EncryptedExpenseTracker encryptedTracker = expenseTrackers.get(username);
         if (!isUserExists(username)) {
+            LOGGER.fine("Username \"" + username + "\" does not exist.");
             throw new NonExistentUserException(username, expenseTrackers.size());
         }
         if (!encryptedTracker.isMatchPassword(password.orElse(null))) {
+            LOGGER.fine("Failed to load user data as user has typed in an incorrect password");
             return false;
         }
 
@@ -482,8 +485,10 @@ public class ModelManager extends ComponentManager implements Model {
             }
             addTipNotification();
         } catch (NoUserSelectedException nuse) {
+            LOGGER.severe("NoUserSelectedException thrown after loading user data");
             throw new IllegalStateException("NoUserSelectedException thrown after loading user data");
         }
+        LOGGER.fine("User data loaded: " + username);
         return true;
     }
 
@@ -571,6 +576,7 @@ public class ModelManager extends ComponentManager implements Model {
         try {
             return EncryptionUtil.encryptString(toEncrypt, versionedExpenseTracker.getEncryptionKey());
         } catch (IllegalValueException e) {
+            LOGGER.severe("User has invalid encryption key after loading user data");
             throw new IllegalStateException("User's encryption key is invalid.");
         }
     }
@@ -584,6 +590,7 @@ public class ModelManager extends ComponentManager implements Model {
     /** Raises an event to indicate the user has logged in and has been processed by the model*/
     protected void indicateUserLoggedIn() throws NoUserSelectedException {
         requireUserSelected();
+        LOGGER.fine("Raising UserLoggedInEvent");
         raise(new UserLoggedInEvent(this.versionedExpenseTracker.getUsername()));
     }
 
@@ -630,6 +637,7 @@ public class ModelManager extends ComponentManager implements Model {
             expenseTrackers.replace(this.versionedExpenseTracker.getUsername(),
                     EncryptionUtil.encryptTracker(this.versionedExpenseTracker));
         } catch (IllegalValueException e) {
+            LOGGER.severe("Illegal key created for current expense tracker.");
             throw new IllegalStateException("Illegal key created for current expense tracker.");
         }
     }

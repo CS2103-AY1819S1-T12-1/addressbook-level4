@@ -18,7 +18,7 @@ public class SignUpCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Creates a user with the given USERNAME.\n"
             + "Parameters: USERNAME\n"
-            + "USERNAME cannot contain any of these characters: \" > < : \\ / | ? *"
+            + "USERNAME cannot contain white spaces or any of these characters: \" > < : \\ / | ? *"
             + "Example: " + COMMAND_WORD + " examplename";
 
     public static final String MESSAGE_SIGN_UP_SUCCESS = "User \"%1$s\" has successfully been created.";
